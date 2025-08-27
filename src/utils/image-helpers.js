@@ -175,7 +175,7 @@ export const imageManifest = {
       "optimized": true
     }
   },
-  "generated": "2025-08-27T20:27:33.749Z",
+  "generated": "2025-08-27T22:08:54.835Z",
   "totalImages": 8,
   "totalSizes": 40
 };

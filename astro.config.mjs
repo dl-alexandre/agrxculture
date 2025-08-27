@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://agrxculture.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/agricultural-portfolio-website' : '/',
+  site: 'https://dl-alexandre.github.io',
   output: 'static',
   build: {
     assets: 'assets',
@@ -19,49 +18,23 @@ export default defineConfig({
       minify: 'esbuild',
       target: 'es2020',
       // Asset optimization
-      assetsInlineLimit: 4096, // Inline assets smaller than 4KB
+      assetsInlineLimit: 8192, // Increased to 8KB for better inlining
       rollupOptions: {
         output: {
           // Optimize asset naming for caching
           assetFileNames: (assetInfo) => {
             const info = assetInfo.name.split('.');
             const ext = info[info.length - 1];
-            if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
-              return `images/[name]-[hash][extname]`;
-            }
-            if (/css/i.test(ext)) {
-              return `styles/[name]-[hash][extname]`;
-            }
-            return `assets/[name]-[hash][extname]`;
+            const name = info.slice(0, -1).join('.');
+            return `assets/${name}-[hash].${ext}`;
           },
-          chunkFileNames: 'scripts/[name]-[hash].js',
-          entryFileNames: 'scripts/[name]-[hash].js',
-          // Optimize chunk splitting for better caching
-          manualChunks: (id) => {
-            if (id.includes('lazy-loading')) return 'lazy-loading';
-            if (id.includes('showcase')) return 'showcase';
-            if (id.includes('contact-form')) return 'contact';
-            if (id.includes('node_modules')) return 'vendor';
-          }
-        }
-      }
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
+        },
+      },
     },
-    // Performance optimizations
-    optimizeDeps: {
-      include: [] // Will be populated as needed
-    }
+    css: {
+      postcss: './postcss.config.cjs',
+    },
   },
-  // Compression and caching headers (for static hosting)
-  compressHTML: true,
-  
-  // Integration for cache headers (GitHub Pages compatible)
-  integrations: [],
-  
-  // Server configuration for development
-  server: {
-    headers: {
-      // Cache headers for development testing
-      'Cache-Control': 'public, max-age=3600'
-    }
-  }
 });

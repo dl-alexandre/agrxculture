@@ -83,12 +83,14 @@ const services = maxServices ? (servicesData || []).slice(0, maxServices) : (ser
           <div class="service-tooltip" role="tooltip">
             <div class="tooltip-content">
               <strong>{service.benefits}</strong>
-              <p>Specialized in {service.applications[0].toLowerCase()} and related agricultural technology solutions.</p>
+              <p>Specialized in {service.applications && service.applications.length > 0 ? service.applications[0].toLowerCase() : 'agricultural technology'} and related agricultural technology solutions.</p>
             </div>
           </div>
           
           <!-- Schema.org structured data -->
-          <script type="application/ld+json" set:html={JSON.stringify(service.schema)} />
+          {service.schema && (
+            <script type="application/ld+json" set:html={JSON.stringify(service.schema)} />
+          )}
         </article>
       ))}
     </div>

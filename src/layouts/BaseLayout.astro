@@ -30,11 +30,10 @@ const {
   nofollow = false
 } = Astro.props;
 
-// Helper function to create proper URLs with base path
+// Helper function to create proper URLs
 function createUrl(path: string): string {
-  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
-  if (path === '/' || path === '') return import.meta.env.BASE_URL;
-  return `${baseUrl}/${path.replace(/^\//, '')}`;
+  if (path === '/' || path === '') return '/';
+  return `/${path.replace(/^\//, '')}`;
 }
 ---
 
@@ -58,9 +57,7 @@ function createUrl(path: string): string {
     />
     
     <!-- Preload critical resources -->
-    <link rel="preload" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/fonts/inter-var.woff2`} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/images/hero/agrxculture-logo.webp`} as="image" />
-    <link rel="preload" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/styles/layout.css`} as="style" />
+    <link rel="preload" href="/images/hero/agrxculture-logo.webp" as="image" />
     
     <!-- Critical CSS inlined for performance -->
     <style>
@@ -100,8 +97,8 @@ function createUrl(path: string): string {
         animation: skeleton-shimmer 1.5s ease-in-out infinite;
       }
       @keyframes skeleton-shimmer {
-        0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
       }
       @media (prefers-reduced-motion: reduce) {
         .lazy-skeleton { animation: none; background: #f0f0f0; }
@@ -109,13 +106,13 @@ function createUrl(path: string): string {
     </style>
     
     <!-- Preconnect for fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Performance monitoring meta -->
-    <meta name="performance-budget" content="1MB" />
-    <meta name="lighthouse-target" content="90" />
+    <meta name="performance-budget" content="1MB">
+    <meta name="lighthouse-target" content="90">
   </head>
   <body>
     <!-- Skip to content link for accessibility -->

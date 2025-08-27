@@ -1,7 +1,7 @@
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
-const fs = require('fs');
-const path = require('path');
+import lighthouse from 'lighthouse';
+import { launch } from 'chrome-launcher';
+import fs from 'fs';
+import path from 'path';
 
 // Performance thresholds based on requirements
 const PERFORMANCE_THRESHOLDS = {
@@ -17,14 +17,14 @@ const PERFORMANCE_THRESHOLDS = {
 
 // Test URLs (adjust based on your deployment)
 const TEST_URLS = [
-  'http://localhost:4321/',
-  'http://localhost:4321/services',
-  'http://localhost:4321/showcase',
-  'http://localhost:4321/contact',
+  'http://localhost:8000/',
+  'http://localhost:8000/services',
+  'http://localhost:8000/showcase',
+  'http://localhost:8000/contact',
 ];
 
 async function runLighthouseTest(url) {
-  const chrome = await chromeLauncher.launch({
+  const chrome = await launch({
     chromeFlags: ['--headless', '--no-sandbox', '--disable-dev-shm-usage']
   });
   
@@ -165,11 +165,11 @@ async function runAllTests() {
 }
 
 // Run tests if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   runAllTests().catch(error => {
     console.error('❌ Performance test suite failed:', error);
     process.exit(1);
   });
 }
 
-module.exports = { runLighthouseTest, analyzeResults, PERFORMANCE_THRESHOLDS };
+export { runLighthouseTest, analyzeResults, PERFORMANCE_THRESHOLDS };
