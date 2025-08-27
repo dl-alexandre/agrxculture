@@ -2,7 +2,7 @@
 id: future-project-placeholder-2
 title: Your Future Successful Project Here
 description: This section will showcase your completed agricultural technology projects and innovations.
-image: images/showcase/coming-soon.jpg
+image: images/showcase/farm-management-ios.jpg
 technologies:
   - Coming Soon
 category: Portfolio Showcase

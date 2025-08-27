@@ -41,7 +41,7 @@ const { testimonial, showPhoto = true } = Astro.props;
     <div class="testimonial-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
       {showPhoto && testimonial.photo && (
         <img 
-          src={testimonial.photo} 
+          src={testimonial.photo.startsWith('/') ? testimonial.photo : '/' + testimonial.photo} 
           alt={`${testimonial.clientName}, ${testimonial.clientRole}`}
           class="author-photo"
           itemprop="image"

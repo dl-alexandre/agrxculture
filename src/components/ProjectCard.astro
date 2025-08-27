@@ -29,15 +29,23 @@ const { project } = Astro.props;
   
   <div class="project-image project-image-responsive">
     <picture>
-      <!-- WebP format for modern browsers -->
+      <!-- WebP format for modern browsers with responsive sizes -->
       <source 
         type="image/webp"
-        srcset={`${project.image.replace(/\.(jpg|jpeg|png)$/i, '')}-400w.webp 400w, ${project.image.replace(/\.(jpg|jpeg|png)$/i, '')}-800w.webp 800w`}
-        sizes="(max-width: 479px) 100vw, (max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+        srcset={`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-400w.webp')} 400w,
+                ${`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-800w.webp')} 800w,
+                ${`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-1200w.webp')} 1200w,
+                ${`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-1600w.webp')} 1600w"
+        sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
       />
-      <!-- Original format fallback -->
+      <!-- Original format fallback with responsive sizes -->
       <img 
-        src={project.image} 
+        src={`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-800w$&')}
+        srcset={`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-400w$&')} 400w,
+                ${`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-800w$&')} 800w,
+                ${`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-1200w$&')} 1200w,
+                ${`${project.image.startsWith('/') ? project.image : '/' + project.image}`.replace(/\.(jpg|jpeg|png)$/i, '-1600w$&')} 1600w"
+        sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
         alt={`Screenshot of ${project.title}`}
         loading="lazy"
         width="400"

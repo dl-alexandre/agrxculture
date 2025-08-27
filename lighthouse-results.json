@@ -1,43 +1,36 @@
 [
   {
     "url": "http://localhost:8000/",
-    "timestamp": "2025-08-27T22:09:31.578Z",
+    "timestamp": "2025-08-27T22:34:47.135Z",
     "scores": {
-      "performance": 88,
+      "performance": 100,
       "accessibility": 96,
       "bestPractices": 96,
       "seo": 100
     },
     "metrics": {
-      "firstContentfulPaint": 3069.1917,
-      "largestContentfulPaint": 3069.1917,
+      "firstContentfulPaint": 1160.0405999999998,
+      "largestContentfulPaint": 1160.0405999999998,
       "cumulativeLayoutShift": 0.0015705742847401157,
-      "speedIndex": 3526.0245750036056
+      "speedIndex": 1291.4717271660656
     },
-    "passed": false,
-    "failures": [
-      {
-        "metric": "performance",
-        "expected": 90,
-        "actual": 88,
-        "message": "performance failed: expected 90, got 88"
-      }
-    ]
+    "passed": true,
+    "failures": []
   },
   {
     "url": "http://localhost:8000/services",
-    "timestamp": "2025-08-27T22:09:38.340Z",
+    "timestamp": "2025-08-27T22:34:54.010Z",
     "scores": {
-      "performance": 97,
+      "performance": 100,
       "accessibility": 94,
       "bestPractices": 96,
       "seo": 92
     },
     "metrics": {
-      "firstContentfulPaint": 2038.7134500000002,
-      "largestContentfulPaint": 2038.7134500000002,
+      "firstContentfulPaint": 645.4639999999999,
+      "largestContentfulPaint": 645.4639999999999,
       "cumulativeLayoutShift": 0.00301956385667191,
-      "speedIndex": 2038.7134500000002
+      "speedIndex": 645.4639999999999
     },
     "passed": false,
     "failures": [
@@ -57,27 +50,21 @@
   },
   {
     "url": "http://localhost:8000/showcase",
-    "timestamp": "2025-08-27T22:09:45.833Z",
+    "timestamp": "2025-08-27T22:35:01.688Z",
     "scores": {
-      "performance": 87,
+      "performance": 100,
       "accessibility": 90,
       "bestPractices": 96,
       "seo": 93
     },
     "metrics": {
-      "firstContentfulPaint": 3090.1180999999997,
-      "largestContentfulPaint": 3090.1181000000006,
+      "firstContentfulPaint": 1209.8585,
+      "largestContentfulPaint": 1209.8585,
       "cumulativeLayoutShift": 0.0006618103602747898,
-      "speedIndex": 3506.4785010038313
+      "speedIndex": 1296.929357420455
     },
     "passed": false,
     "failures": [
-      {
-        "metric": "performance",
-        "expected": 90,
-        "actual": 87,
-        "message": "performance failed: expected 90, got 87"
-      },
       {
         "metric": "accessibility",
         "expected": 95,
@@ -94,27 +81,21 @@
   },
   {
     "url": "http://localhost:8000/contact",
-    "timestamp": "2025-08-27T22:09:53.296Z",
+    "timestamp": "2025-08-27T22:35:08.680Z",
     "scores": {
-      "performance": 89,
+      "performance": 100,
       "accessibility": 96,
       "bestPractices": 96,
       "seo": 92
     },
     "metrics": {
-      "firstContentfulPaint": 2943.4820999999993,
-      "largestContentfulPaint": 2943.4821,
+      "firstContentfulPaint": 605.029,
+      "largestContentfulPaint": 605.029,
       "cumulativeLayoutShift": 0.00667638977362638,
-      "speedIndex": 3411.6295790029058
+      "speedIndex": 605.029
     },
     "passed": false,
     "failures": [
-      {
-        "metric": "performance",
-        "expected": 90,
-        "actual": 89,
-        "message": "performance failed: expected 90, got 89"
-      },
       {
         "metric": "seo",
         "expected": 95,

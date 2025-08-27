@@ -14,9 +14,10 @@
 
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 
 const imageDir = 'Public/images';
-const outputDir = 'src/data';
+const outputDir = 'Public/images';
 const sizes = [400, 800, 1200, 1600];
 const quality = {
   webp: 80,
@@ -33,7 +34,7 @@ const imageManifest = {
 };
 
 // Generate responsive images and WebP versions
-function generateResponsiveImages(inputPath, outputDir) {
+async function generateResponsiveImages(inputPath, outputDir) {
   const basename = path.basename(inputPath, path.extname(inputPath));
   const ext = path.extname(inputPath).toLowerCase();
   const relativePath = path.relative('Public', inputPath);
@@ -46,46 +47,69 @@ function generateResponsiveImages(inputPath, outputDir) {
     extension: ext,
     sizes: {},
     webp: {},
-    aspectRatio: null, // Would be calculated with sharp
+    aspectRatio: null,
     fileSize: null,
     optimized: true
   };
 
-  // Generate WebP versions for each size
-  sizes.forEach(size => {
-    const webpPath = path.join(outputDir, `${basename}-${size}w.webp`);
-    const fallbackPath = path.join(outputDir, `${basename}-${size}w${ext}`);
+  try {
+    // Get image metadata
+    const metadata = await sharp(inputPath).metadata();
+    imageData.aspectRatio = metadata.width / metadata.height;
+    imageData.fileSize = fs.statSync(inputPath).size;
     
-    // Store paths for manifest
-    imageData.webp[size] = path.relative('Public', webpPath);
-    imageData.sizes[size] = path.relative('Public', fallbackPath);
+    // Generate WebP versions for each size
+    for (const size of sizes) {
+      const webpPath = path.join(outputDir, `${basename}-${size}w.webp`);
+      const fallbackPath = path.join(outputDir, `${basename}-${size}w${ext}`);
+      
+      // Store paths for manifest
+      imageData.webp[size] = path.relative('Public', webpPath);
+      imageData.sizes[size] = path.relative('Public', fallbackPath);
+      
+      // Generate WebP version
+      await sharp(inputPath)
+        .resize(size, null, { withoutEnlargement: true })
+        .webp({ quality: quality.webp, effort: 6 })
+        .toFile(webpPath);
+      
+      // Generate fallback version
+      if (ext === '.jpg' || ext === '.jpeg') {
+        await sharp(inputPath)
+          .resize(size, null, { withoutEnlargement: true })
+          .jpeg({ quality: quality.jpeg, progressive: true })
+          .toFile(fallbackPath);
+      } else if (ext === '.png') {
+        await sharp(inputPath)
+          .resize(size, null, { withoutEnlargement: true })
+          .png({ quality: quality.png, progressive: true })
+          .toFile(fallbackPath);
+      }
+      
+      console.log(`✅ Generated WebP: ${webpPath}`);
+      console.log(`✅ Generated fallback: ${fallbackPath}`);
+    }
     
-    // In production, this would use sharp:
-    // await sharp(inputPath)
-    //   .resize(size, null, { withoutEnlargement: true })
-    //   .webp({ quality: quality.webp, effort: 6 })
-    //   .toFile(webpPath);
-    //
-    // await sharp(inputPath)
-    //   .resize(size, null, { withoutEnlargement: true })
-    //   .jpeg({ quality: quality.jpeg, progressive: true })
-    //   .toFile(fallbackPath);
+    // Generate base WebP version
+    const baseWebpPath = path.join(outputDir, `${basename}.webp`);
+    imageData.webp.original = path.relative('Public', baseWebpPath);
     
-    console.log(`Would generate WebP: ${webpPath}`);
-    console.log(`Would generate fallback: ${fallbackPath}`);
-  });
-  
-  // Generate base WebP version
-  const baseWebpPath = path.join(outputDir, `${basename}.webp`);
-  imageData.webp.original = path.relative('Public', baseWebpPath);
-  console.log(`Would generate base WebP: ${baseWebpPath}`);
-  
-  // Add to manifest
-  imageManifest.images[basename] = imageData;
-  imageManifest.totalImages++;
-  imageManifest.totalSizes += sizes.length + 1; // +1 for original WebP
-  
-  return imageData;
+    await sharp(inputPath)
+      .webp({ quality: quality.webp, effort: 6 })
+      .toFile(baseWebpPath);
+    
+    console.log(`✅ Generated base WebP: ${baseWebpPath}`);
+    
+    // Add to manifest
+    imageManifest.images[basename] = imageData;
+    imageManifest.totalImages++;
+    imageManifest.totalSizes += sizes.length + 1; // +1 for original WebP
+    
+    return imageData;
+  } catch (error) {
+    console.error(`❌ Error processing ${inputPath}:`, error.message);
+    return null;
+  }
 }
 
 // Generate picture element markup
@@ -148,112 +172,118 @@ function generateLazyMarkup(imageData, alt = '', className = '', critical = fals
     ${aspectRatio ? `data-aspect-ratio="${aspectRatio}"` : ''}
     ${critical ? 'data-critical="true"' : ''}
     alt="${alt}"
-    class="lazy-skeleton responsive-img"
-    aria-label="Loading image...">
+    class="responsive-img lazy">
 </picture>`.trim();
 
   return markup;
 }
 
 // Scan for images and process them
-function processImages(dir) {
+async function processImages(dir) {
   const files = fs.readdirSync(dir, { withFileTypes: true });
   
-  files.forEach(file => {
+  for (const file of files) {
     const fullPath = path.join(dir, file.name);
     
     if (file.isDirectory()) {
-      processImages(fullPath);
+      await processImages(fullPath);
     } else if (/\.(jpg|jpeg|png)$/i.test(file.name)) {
-      generateResponsiveImages(fullPath, dir);
+      await generateResponsiveImages(fullPath, dir);
     }
-  });
+  }
 }
 
-// Generate image helper functions for Astro components
-function generateImageHelpers() {
+// Generate image manifest
+function generateManifest() {
+  const manifestPath = path.join('src/data', 'image-manifest.json');
+  const helpersPath = path.join('src/utils', 'image-helpers.js');
+  
+  // Ensure directories exist
+  const manifestDir = path.dirname(manifestPath);
+  const helpersDir = path.dirname(helpersPath);
+  
+  if (!fs.existsSync(manifestDir)) {
+    fs.mkdirSync(manifestDir, { recursive: true });
+  }
+  if (!fs.existsSync(helpersDir)) {
+    fs.mkdirSync(helpersDir, { recursive: true });
+  }
+  
+  // Save manifest
+  fs.writeFileSync(manifestPath, JSON.stringify(imageManifest, null, 2));
+  console.log(`📄 Manifest saved to: ${manifestPath}`);
+  
+  // Generate helper functions
   const helpersContent = `
-/**
- * Image Helper Functions for Astro Components
- * Generated by optimize-images.js - Task 9
- */
-
+// Auto-generated image helpers
 export const imageManifest = ${JSON.stringify(imageManifest, null, 2)};
 
-export function getImageData(imageName) {
-  return imageManifest.images[imageName] || null;
+export function getImageData(basename) {
+  return imageManifest.images[basename];
 }
 
-export function generatePictureElement(imageName, alt = '', className = '', loading = 'lazy') {
-  const imageData = getImageData(imageName);
-  if (!imageData) return null;
+export function getResponsiveImage(basename, alt = '', className = '', loading = 'lazy') {
+  const imageData = getImageData(basename);
+  if (!imageData) return '';
   
-  ${generatePictureMarkup.toString()}
-  
-  return generatePictureMarkup(imageData, alt, className, loading);
+  return \`${generatePictureMarkup(imageManifest.images[Object.keys(imageManifest.images)[0]], '{{alt}}', '{{className}}', '{{loading}}')}\`
+    .replace('{{alt}}', alt)
+    .replace('{{className}}', className)
+    .replace('{{loading}}', loading);
 }
 
-export function generateLazyPicture(imageName, alt = '', className = '', critical = false) {
-  const imageData = getImageData(imageName);
-  if (!imageData) return null;
+export function getLazyImage(basename, alt = '', className = '', critical = false) {
+  const imageData = getImageData(basename);
+  if (!imageData) return '';
   
-  ${generateLazyMarkup.toString()}
-  
-  return generateLazyMarkup(imageData, alt, className, critical);
+  return \`${generateLazyMarkup(imageManifest.images[Object.keys(imageManifest.images)[0]], '{{alt}}', '{{className}}', '{{critical}}')}\`
+    .replace('{{alt}}', alt)
+    .replace('{{className}}', className)
+    .replace('{{critical}}', critical);
 }
-
-export function getOptimizedImageUrl(imageName, size = 800, format = 'webp') {
-  const imageData = getImageData(imageName);
-  if (!imageData) return null;
+`.trim();
   
-  if (format === 'webp' && imageData.webp[size]) {
-    return \`/\${imageData.webp[size]}\`;
-  }
-  
-  if (imageData.sizes[size]) {
-    return \`/\${imageData.sizes[size]}\`;
-  }
-  
-  // Fallback to closest size
-  const availableSizes = Object.keys(imageData.sizes).map(Number).sort((a, b) => a - b);
-  const closestSize = availableSizes.find(s => s >= size) || availableSizes[availableSizes.length - 1];
-  
-  return format === 'webp' && imageData.webp[closestSize] 
-    ? \`/\${imageData.webp[closestSize]}\`
-    : \`/\${imageData.sizes[closestSize]}\`;
-}
-`;
-
-  return helpersContent;
+  fs.writeFileSync(helpersPath, helpersContent);
+  console.log(`🔧 Helpers saved to: ${helpersPath}`);
 }
 
 // Main execution
-console.log('Enhanced Image Optimization Script - Task 9');
-console.log('==========================================');
-console.log('Processing images and generating optimization data...');
-console.log('');
+async function main() {
+  console.log('Enhanced Image Optimization Script - Task 9');
+  console.log('==========================================');
+  console.log('Processing images and generating optimization data...\\n');
+  
+  try {
+    // Process all images
+    await processImages(imageDir);
+    
+    // Generate image manifest
+    generateManifest();
+    
+    console.log('\\nImage optimization complete!');
+    console.log(`Processed ${imageManifest.totalImages} images`);
+    console.log(`Generated ${imageManifest.totalSizes} optimized versions`);
+    console.log(`Manifest saved to: src/data/image-manifest.json`);
+    console.log(`Helpers saved to: src/utils/image-helpers.js`);
+    
+    console.log('\\nNext steps:');
+    console.log('1. ✅ Sharp is installed and working');
+    console.log('2. ✅ WebP images are being generated');
+    console.log('3. ✅ Responsive sizes are created');
+    console.log('4. ✅ Use the generated helpers in your Astro components');
+    
+  } catch (error) {
+    console.error('❌ Image optimization failed:', error);
+    process.exit(1);
+  }
+}
 
-// Process all images
-processImages(imageDir);
+// Run if called directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch(error => {
+    console.error('❌ Script failed:', error);
+    process.exit(1);
+  });
+}
 
-// Generate image manifest
-const manifestPath = path.join(outputDir, 'image-manifest.json');
-fs.writeFileSync(manifestPath, JSON.stringify(imageManifest, null, 2));
-
-// Generate helper functions
-const helpersPath = path.join('src/utils', 'image-helpers.js');
-fs.mkdirSync(path.dirname(helpersPath), { recursive: true });
-fs.writeFileSync(helpersPath, generateImageHelpers());
-
-console.log('');
-console.log('Image optimization complete!');
-console.log(`Processed ${imageManifest.totalImages} images`);
-console.log(`Generated ${imageManifest.totalSizes} optimized versions`);
-console.log(`Manifest saved to: ${manifestPath}`);
-console.log(`Helpers saved to: ${helpersPath}`);
-console.log('');
-console.log('Next steps:');
-console.log('1. Install sharp for production: npm install sharp');
-console.log('2. Uncomment sharp processing code in this script');
-console.log('3. Run this script as part of the build process');
-console.log('4. Use the generated helpers in your Astro components');
+export { generateResponsiveImages, generatePictureMarkup, generateLazyMarkup };

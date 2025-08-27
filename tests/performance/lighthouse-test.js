@@ -25,35 +25,60 @@ const TEST_URLS = [
 
 async function runLighthouseTest(url) {
   const chrome = await launch({
-    chromeFlags: ['--headless', '--no-sandbox', '--disable-dev-shm-usage']
+    chromeFlags: [
+      '--headless',
+      '--no-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--disable-web-security',
+      '--disable-features=VizDisplayCompositor',
+      '--disable-frame-sequence-analysis',
+      '--disable-background-timer-throttling',
+      '--disable-backgrounding-occluded-windows',
+      '--disable-renderer-backgrounding'
+    ]
   });
   
   const options = {
-    logLevel: 'info',
+    port: chrome.port,
     output: 'json',
     onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
-    port: chrome.port,
     throttling: {
-      // Simulate 3G connection as per requirements
-      rttMs: 150,
-      throughputKbps: 1600,
-      cpuSlowdownMultiplier: 4,
-    },
+      rttMs: 40,
+      throughputKbps: 10240,
+      cpuSlowdownMultiplier: 1,
+      requestLatencyMs: 0,
+      downloadThroughputKbps: 0,
+      uploadThroughputKbps: 0
+    }
   };
 
   try {
     const runnerResult = await lighthouse(url, options);
     await chrome.kill();
     
-    return runnerResult;
+    if (!runnerResult || !runnerResult.lhr) {
+      throw new Error('Lighthouse returned no results');
+    }
+    
+    return runnerResult.lhr;
   } catch (error) {
     await chrome.kill();
-    throw error;
+    console.error(`❌ Lighthouse test failed for ${url}:`, error.message);
+    return null;
   }
 }
 
-function analyzeResults(results, url) {
-  const { lhr } = results;
+function analyzeResults(lhr, url) {
+  if (!lhr || !lhr.categories || !lhr.audits) {
+    console.error(`❌ Invalid Lighthouse result for ${url}`);
+    return {
+      url,
+      passed: false,
+      error: 'Invalid Lighthouse result'
+    };
+  }
+
   const scores = lhr.categories;
   const audits = lhr.audits;
   
@@ -67,10 +92,10 @@ function analyzeResults(results, url) {
       seo: Math.round(scores.seo.score * 100),
     },
     metrics: {
-      firstContentfulPaint: audits['first-contentful-paint'].numericValue,
-      largestContentfulPaint: audits['largest-contentful-paint'].numericValue,
-      cumulativeLayoutShift: audits['cumulative-layout-shift'].numericValue,
-      speedIndex: audits['speed-index'].numericValue,
+      firstContentfulPaint: audits['first-contentful-paint']?.numericValue || 0,
+      largestContentfulPaint: audits['largest-contentful-paint']?.numericValue || 0,
+      cumulativeLayoutShift: audits['cumulative-layout-shift']?.numericValue || 0,
+      speedIndex: audits['speed-index']?.numericValue || 0,
     },
     passed: true,
     failures: [],

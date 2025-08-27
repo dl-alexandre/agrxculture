@@ -1,15 +1,15 @@
 ---
-id: future-project-placeholder
+id: future-project-placeholder-3
 title: Your Future Successful Project Here
 description: This section will showcase your completed agricultural technology projects and innovations.
-image: images/showcase/coming-soon.jpg
+image: images/showcase/farm-sensor-network.jpg
 technologies:
   - Coming Soon
 category: Portfolio Showcase
 tags:
   - Portfolio
-dateCompleted: "2024-12-01"
-featured: true
+dateCompleted: "2024-10-30"
+featured: false
 metrics:
   improvement: Your success metrics will be displayed here
   timeline: Project timeline will be shown here
