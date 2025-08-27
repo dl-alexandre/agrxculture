@@ -15,9 +15,21 @@ test.describe('Cross-Browser Compatibility', () => {
     // Core content should load - use specific hero title selector
     await expect(page.locator('#hero-title')).toBeVisible({ timeout: 10000 });
     
-    // Navigation should work
-    await page.click('nav a[href="/services"]');
-    await expect(page).toHaveURL('/services');
+    // Navigation should work - wait for navigation to be visible
+    // On low-end devices, navigation might take longer to render
+    const servicesLink = page.locator('nav a[href="/services"]');
+    
+    // On mobile, we need to open the hamburger menu first
+    const mobileMenuToggle = page.locator('.mobile-menu-toggle');
+    if (await mobileMenuToggle.isVisible()) {
+      await mobileMenuToggle.click();
+      // Wait for menu to open
+      await page.waitForTimeout(500);
+    }
+    
+    await expect(servicesLink).toBeVisible({ timeout: 15000 });
+    await servicesLink.click();
+    await expect(page).toHaveURL(/.*\/services/);
     
     // Form should be functional
     await page.goto('/contact');
@@ -64,8 +76,15 @@ test.describe('Cross-Browser Compatibility', () => {
       await expect(page.locator('nav')).toBeVisible();
       
       // Navigation should work (basic HTML links)
+      // On mobile, we need to open the hamburger menu first
+      const mobileMenuToggle = page.locator('.mobile-menu-toggle');
+      if (await mobileMenuToggle.isVisible()) {
+        await mobileMenuToggle.click();
+        await page.waitForTimeout(500);
+      }
+      
       await page.click('nav a[href="/services"]');
-      await expect(page).toHaveURL('/services');
+      await expect(page).toHaveURL(/.*\/services/);
       
       // Form should be submittable (basic HTML form)
       await page.goto('/contact');
@@ -122,6 +141,14 @@ test.describe('Cross-Browser Compatibility', () => {
         // Mobile: hamburger menu should be visible
         const mobileMenu = page.locator('.mobile-menu-toggle');
         await expect(mobileMenu).toBeVisible();
+        
+        // Test mobile navigation by opening menu
+        await mobileMenu.click();
+        await page.waitForTimeout(500);
+        
+        // Now navigation links should be visible
+        const navLinks = page.locator('.nav-menu--open a');
+        await expect(navLinks.first()).toBeVisible();
       } else {
         // Desktop: full navigation should be visible
         const navLinks = page.locator('nav a');
@@ -147,7 +174,15 @@ test.describe('Cross-Browser Compatibility', () => {
     
     // Core functionality should work - use specific hero title selector
     await expect(page.locator('#hero-title')).toBeVisible();
+    
+    // Handle mobile navigation if needed
+    const mobileMenuToggle = page.locator('.mobile-menu-toggle');
+    if (await mobileMenuToggle.isVisible()) {
+      await mobileMenuToggle.click();
+      await page.waitForTimeout(500);
+    }
+    
     await page.click('nav a[href="/contact"]');
-    await expect(page).toHaveURL('/contact');
+    await expect(page).toHaveURL(/.*\/contact/);
   });
 });

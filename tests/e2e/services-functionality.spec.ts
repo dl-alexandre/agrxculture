@@ -10,19 +10,19 @@ test.describe('Services Section Functionality', () => {
     // Check page title
     await expect(page).toHaveTitle(/Agricultural Technology Services/);
     
-    // Check main heading
-    await expect(page.locator('h1')).toContainText('Agricultural Technology Services');
+    // Check main heading - use .first() to avoid multiple h1 elements
+    await expect(page.locator('h1').first()).toContainText('Agricultural Technology Services');
     
     // Check that all 5 services are displayed
     const serviceCards = page.locator('.service-detail-card');
     await expect(serviceCards).toHaveCount(5);
     
-    // Check specific service titles - use actual titles from the implementation
-    await expect(page.locator('h3').filter({ hasText: 'Custom IoT Integrations for Small Farms' })).toBeVisible();
-    await expect(page.locator('h3').filter({ hasText: 'Mobile Farm Management Apps' })).toBeVisible();
-    await expect(page.locator('h3').filter({ hasText: 'Agricultural Data Analytics' })).toBeVisible();
-    await expect(page.locator('h3').filter({ hasText: 'Precision Agriculture APIs' })).toBeVisible();
-    await expect(page.locator('h3').filter({ hasText: 'Farm Automation Systems' })).toBeVisible();
+    // Check specific service titles - use more specific selectors to avoid duplicates
+    await expect(page.locator('.service-detail-card h3').filter({ hasText: 'Custom IoT Integrations for Small Farms' })).toBeVisible();
+    await expect(page.locator('.service-detail-card h3').filter({ hasText: 'Mobile Farm Management Apps' })).toBeVisible();
+    await expect(page.locator('.service-detail-card h3').filter({ hasText: 'Agricultural Data Analytics' })).toBeVisible();
+    await expect(page.locator('.service-detail-card h3').filter({ hasText: 'Precision Agriculture APIs' })).toBeVisible();
+    await expect(page.locator('.service-detail-card h3').filter({ hasText: 'Farm Automation Systems' })).toBeVisible();
   });
 
   test('service navigation links work correctly', async ({ page }) => {

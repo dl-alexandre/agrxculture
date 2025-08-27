@@ -32,4 +32,20 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock fetch for form submission tests
-global.fetch = vi.fn();
+global.fetch = vi.fn().mockImplementation((url, options) => {
+  // Mock successful form submission for Formspree
+  if (url.includes('formspree.io')) {
+    return Promise.resolve({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({ success: true })
+    });
+  }
+  
+  // Default mock response
+  return Promise.resolve({
+    ok: true,
+    status: 200,
+    json: () => Promise.resolve({})
+  });
+});

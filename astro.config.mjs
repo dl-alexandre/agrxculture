@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dl-alexandre.github.io',
-  base: '/agrxculture',
+  site: 'https://agrxculture.github.io',
+  base: process.env.NODE_ENV === 'production' ? '/agricultural-portfolio-website' : '/',
   output: 'static',
   build: {
     assets: 'assets',

@@ -43,16 +43,20 @@ class ContactForm {
   updateCharacterCounter() {
     const currentLength = this.messageTextarea.value.length;
     const maxLength = 2000;
-    this.messageCounter.textContent = `${currentLength} / ${maxLength} characters`;
     
     if (currentLength > maxLength) {
+      this.messageCounter.textContent = `${maxLength} / ${maxLength} characters`;
       this.messageCounter.classList.add('error');
       this.messageCounter.classList.remove('warning');
-    } else if (currentLength > maxLength * 0.9) {
-      this.messageCounter.classList.add('warning');
-      this.messageCounter.classList.remove('error');
     } else {
-      this.messageCounter.classList.remove('warning', 'error');
+      this.messageCounter.textContent = `${currentLength} / ${maxLength} characters`;
+      
+      if (currentLength > maxLength * 0.9) {
+        this.messageCounter.classList.add('warning');
+        this.messageCounter.classList.remove('error');
+      } else {
+        this.messageCounter.classList.remove('warning', 'error');
+      }
     }
   }
 
@@ -64,7 +68,10 @@ class ContactForm {
     let errorMessage = '';
 
     // Clear previous error
-    errorElement.textContent = '';
+    if (errorElement) {
+      errorElement.textContent = '';
+      errorElement.style.display = 'none';
+    }
     field.classList.remove('error');
 
     // Required field validation
@@ -97,7 +104,10 @@ class ContactForm {
     }
 
     if (!isValid) {
-      errorElement.textContent = errorMessage;
+      if (errorElement) {
+        errorElement.textContent = errorMessage;
+        errorElement.style.display = 'block';
+      }
       field.classList.add('error');
       field.setAttribute('aria-invalid', 'true');
     } else {
