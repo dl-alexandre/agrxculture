@@ -1,0 +1,64 @@
+# Cache headers for optimal performance
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.gif
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.eot
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: Thu, 27 Aug 2026 15:09:38 GMT
+
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+  Expires: Wed, 27 Aug 2025 16:09:38 GMT
+
+/*.json
+  Cache-Control: public, max-age=300, must-revalidate
+
+/*.xml
+  Cache-Control: public, max-age=300, must-revalidate
+

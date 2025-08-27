@@ -1,0 +1,152 @@
+[
+  {
+    "id": "api-development",
+    "title": "Precision Agriculture APIs",
+    "description": "Backend services and integrations that connect farm systems, enabling seamless data flow between equipment, sensors, and management platforms.",
+    "icon": "api",
+    "technologies": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Docker"
+    ],
+    "benefits": "Reduces integration time by 60%",
+    "relatedProjects": [
+      "yield-analytics",
+      "irrigation-automation"
+    ],
+    "ctaLink": "/contact?service=api-development",
+    "schema": {
+      "type": "Service",
+      "name": "Precision Agriculture APIs",
+      "description": "Backend services and API development for agricultural systems integration",
+      "provider": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "serviceType": "API Development",
+      "areaServed": "Agricultural Operations"
+    }
+  },
+  {
+    "id": "automation-systems",
+    "title": "Farm Automation Systems",
+    "description": "End-to-end automation solutions that reduce manual labor by 50% while maintaining precise control over critical farming operations.",
+    "icon": "automation",
+    "technologies": [
+      "Python",
+      "Swift",
+      "PostgreSQL",
+      "MQTT",
+      "Raspberry Pi"
+    ],
+    "benefits": "Reduces manual labor by 50%",
+    "relatedProjects": [
+      "irrigation-automation",
+      "farm-sensor-network"
+    ],
+    "ctaLink": "/contact?service=automation-systems",
+    "schema": {
+      "type": "Service",
+      "name": "Farm Automation Systems",
+      "description": "Complete automation solutions for agricultural operations",
+      "provider": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "serviceType": "Automation Systems",
+      "areaServed": "Agricultural Operations"
+    }
+  },
+  {
+    "id": "data-analytics",
+    "title": "Agricultural Data Analytics",
+    "description": "Transform farm data into actionable insights with custom analytics platforms that optimize yield predictions and resource allocation.",
+    "icon": "analytics",
+    "technologies": [
+      "Python",
+      "PostgreSQL",
+      "Pandas",
+      "Scikit-learn",
+      "Plotly"
+    ],
+    "benefits": "Improves yield predictions by 40%",
+    "relatedProjects": [
+      "yield-analytics",
+      "farm-sensor-network"
+    ],
+    "ctaLink": "/contact?service=data-analytics",
+    "schema": {
+      "type": "Service",
+      "name": "Agricultural Data Analytics",
+      "description": "Data analysis and visualization solutions for agricultural optimization",
+      "provider": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "serviceType": "Data Analytics",
+      "areaServed": "Agricultural Operations"
+    }
+  },
+  {
+    "id": "iot-integration",
+    "title": "Custom IoT Integrations for Small Farms",
+    "description": "Sensor networks and automation systems that reduce monitoring costs by 30% while improving crop yields through real-time data collection.",
+    "icon": "iot-sensors",
+    "technologies": [
+      "Python",
+      "Swift",
+      "PostgreSQL",
+      "MQTT",
+      "LoRaWAN"
+    ],
+    "benefits": "Reduces crop monitoring costs by 30%",
+    "relatedProjects": [
+      "farm-sensor-network",
+      "irrigation-automation"
+    ],
+    "ctaLink": "/contact?service=iot-integration",
+    "schema": {
+      "type": "Service",
+      "name": "Custom IoT Integrations for Small Farms",
+      "description": "Sensor networks and automation systems for agricultural monitoring and control",
+      "provider": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "serviceType": "Agricultural IoT Development",
+      "areaServed": "Agricultural Operations"
+    }
+  },
+  {
+    "id": "mobile-apps",
+    "title": "Mobile Farm Management Apps",
+    "description": "Native iOS applications that streamline farm operations, enabling farmers to manage their operations efficiently from anywhere in the field.",
+    "icon": "mobile-app",
+    "technologies": [
+      "Swift",
+      "iOS SDK",
+      "Core Data",
+      "CloudKit",
+      "MapKit"
+    ],
+    "benefits": "Increases operational efficiency by 25%",
+    "relatedProjects": [
+      "farm-management-ios",
+      "livestock-tracker"
+    ],
+    "ctaLink": "/contact?service=mobile-apps",
+    "schema": {
+      "type": "Service",
+      "name": "Mobile Farm Management Apps",
+      "description": "Native iOS applications for agricultural operations management",
+      "provider": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "serviceType": "Mobile App Development",
+      "areaServed": "Agricultural Operations"
+    }
+  }
+]

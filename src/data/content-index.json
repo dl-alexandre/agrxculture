@@ -1,0 +1,38 @@
+{
+  "projects": {
+    "total": 3,
+    "featured": 1,
+    "categories": [
+      "Portfolio Showcase"
+    ],
+    "tags": [
+      "Portfolio"
+    ],
+    "technologies": [
+      "Coming Soon"
+    ],
+    "lastUpdated": "2025-08-27T19:59:03.679Z"
+  },
+  "services": {
+    "total": 5,
+    "technologies": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Swift",
+      "MQTT",
+      "Raspberry Pi",
+      "Pandas",
+      "Scikit-learn",
+      "Plotly",
+      "LoRaWAN",
+      "iOS SDK",
+      "Core Data",
+      "CloudKit",
+      "MapKit"
+    ],
+    "lastUpdated": "2025-08-27T19:59:03.680Z"
+  }
+}

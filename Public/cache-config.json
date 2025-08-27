@@ -1,0 +1,28 @@
+{
+  "staticAssets": [
+    "*.js",
+    "*.css",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.svg",
+    "*.webp",
+    "*.woff",
+    "*.woff2",
+    "*.ttf",
+    "*.eot",
+    "*.ico"
+  ],
+  "htmlFiles": [
+    "*.html"
+  ],
+  "dynamicContent": [
+    "*.json",
+    "*.xml"
+  ],
+  "cacheNames": {
+    "static": "agricultural-portfolio-static-v1",
+    "dynamic": "agricultural-portfolio-dynamic-v1"
+  }
+}

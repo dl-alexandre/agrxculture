@@ -1,0 +1,410 @@
+---
+export interface Props {
+  project: {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    technologies: string[];
+    category: string;
+    tags: string[];
+    featured?: boolean;
+    metrics: {
+      improvement: string;
+      timeline: string;
+      scale: string;
+    };
+    links: {
+      demo?: string;
+      github?: string;
+    };
+  };
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project-card" data-tags={project.tags.join(',')}>
+  {project.featured && <div class="featured-badge">Featured Project</div>}
+  
+  <div class="project-image project-image-responsive">
+    <picture>
+      <!-- WebP format for modern browsers -->
+      <source 
+        type="image/webp"
+        srcset={`${project.image.replace(/\.(jpg|jpeg|png)$/i, '')}-400w.webp 400w, ${project.image.replace(/\.(jpg|jpeg|png)$/i, '')}-800w.webp 800w`}
+        sizes="(max-width: 479px) 100vw, (max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+      />
+      <!-- Original format fallback -->
+      <img 
+        src={project.image} 
+        alt={`Screenshot of ${project.title}`}
+        loading="lazy"
+        width="400"
+        height="250"
+        decoding="async"
+      />
+    </picture>
+  </div>
+  
+  <div class="project-content">
+    <div class="project-header">
+      <h3 class="project-title">{project.title}</h3>
+      <span class="project-category">{project.category}</span>
+    </div>
+    
+    <p class="project-description">{project.description}</p>
+    
+    <div class="project-metrics">
+      <div class="metric">
+        <span class="metric-label">Impact:</span>
+        <span class="metric-value">{project.metrics.improvement}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Timeline:</span>
+        <span class="metric-value">{project.metrics.timeline}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Scale:</span>
+        <span class="metric-value">{project.metrics.scale}</span>
+      </div>
+    </div>
+    
+    <div class="project-technologies">
+      {project.technologies.map(tech => (
+        <span class="tech-badge">{tech}</span>
+      ))}
+    </div>
+    
+    <div class="project-tags">
+      {project.tags.map(tag => (
+        <span class="tag-badge">{tag}</span>
+      ))}
+    </div>
+    
+    <div class="project-actions">
+      <button 
+        class="btn btn-primary case-study-btn" 
+        data-project-id={project.id}
+        aria-label={`View case study for ${project.title}`}
+      >
+        View Case Study
+      </button>
+      
+      <div class="project-links">
+        {project.links.demo && (
+          <a 
+            href={project.links.demo} 
+            class="project-link" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label={`View live demo of ${project.title}`}
+          >
+            <span class="link-icon">🔗</span>
+            Demo
+          </a>
+        )}
+        {project.links.github && (
+          <a 
+            href={project.links.github} 
+            class="project-link" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label={`View source code for ${project.title} on GitHub`}
+          >
+            <span class="link-icon">📁</span>
+            Code
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    background: var(--color-surface);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .featured-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background: var(--color-accent);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    z-index: 2;
+  }
+  
+  .project-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .project-image picture {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+  
+  .project-content {
+    padding: var(--space-lg);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+    gap: var(--space-sm);
+  }
+  
+  .project-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+  
+  .project-category {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  
+  .project-description {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+  }
+  
+  .project-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--color-background-alt);
+    border-radius: var(--border-radius-md);
+  }
+  
+  .metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .metric-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+  
+  .metric-value {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+  
+  .project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+  
+  .tech-badge {
+    background: var(--color-secondary-light);
+    color: var(--color-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+  }
+  
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .tag-badge {
+    background: var(--color-primary);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+  }
+  
+  .project-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .case-study-btn {
+    width: 100%;
+  }
+  
+  .project-links {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+  }
+  
+  .project-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s ease-out;
+  }
+  
+  .project-link:hover {
+    background: var(--color-primary-light);
+  }
+  
+  .link-icon {
+    font-size: var(--font-size-sm);
+  }
+  
+  /* Task 8 Responsive Design Enhancements */
+  
+  /* Low-end mobile (max-width: 479px) */
+  @media (max-width: 479px) {
+    .project-card {
+      margin-bottom: var(--space-md);
+    }
+    
+    .project-image {
+      height: 200px;
+    }
+    
+    .project-content {
+      padding: var(--space-md);
+    }
+    
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+    
+    .project-title {
+      font-size: var(--font-size-lg);
+    }
+    
+    .project-metrics {
+      grid-template-columns: 1fr;
+      padding: var(--space-sm);
+    }
+    
+    .project-technologies,
+    .project-tags {
+      gap: var(--space-xs);
+    }
+    
+    .tech-badge,
+    .tag-badge {
+      font-size: var(--font-size-xs);
+      padding: 2px var(--space-xs);
+    }
+    
+    .project-links {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    
+    .case-study-btn {
+      min-height: var(--touch-target-comfortable);
+      font-size: var(--font-size-sm);
+    }
+  }
+  
+  /* Standard mobile (480px to 767px) */
+  @media (min-width: 480px) and (max-width: 767px) {
+    .project-image {
+      height: 220px;
+    }
+    
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .project-metrics {
+      grid-template-columns: 1fr;
+    }
+    
+    .project-links {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
+    .case-study-btn {
+      min-height: var(--touch-target-comfortable);
+    }
+  }
+  
+  /* Tablet (768px to 1023px) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .project-image {
+      height: 240px;
+    }
+    
+    .project-metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Desktop (1024px and above) */
+  @media (min-width: 1024px) {
+    .project-image {
+      height: 250px;
+    }
+  }
+</style>

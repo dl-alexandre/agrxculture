@@ -1,0 +1,244 @@
+---
+/**
+ * Responsive Image Component with Lazy Loading
+ * Task 9: Performance optimizations and accessibility features
+ * 
+ * Features:
+ * - WebP support with fallbacks
+ * - Lazy loading with IntersectionObserver
+ * - Skeleton screens for better UX
+ * - Proper aspect ratios to prevent CLS
+ * - Accessibility support
+ */
+
+export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  aspectRatio?: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  critical?: boolean;
+  className?: string;
+  fallbackSrc?: string;
+  quality?: number;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  aspectRatio,
+  sizes = "(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px",
+  loading = 'lazy',
+  critical = false,
+  className = '',
+  fallbackSrc,
+  quality = 80
+} = Astro.props;
+
+// Generate responsive image URLs
+const baseName = src.split('/').pop()?.split('.')[0] || '';
+const extension = src.split('.').pop() || 'jpg';
+const baseUrl = import.meta.env.BASE_URL;
+
+// Generate srcset for different sizes
+const imageSizes = [400, 800, 1200, 1600];
+const webpSrcset = imageSizes
+  .map(size => `${baseUrl}images/${baseName}-${size}w.webp ${size}w`)
+  .join(', ');
+
+const fallbackSrcset = imageSizes
+  .map(size => `${baseUrl}images/${baseName}-${size}w.${extension} ${size}w`)
+  .join(', ');
+
+// Calculate aspect ratio if width and height provided
+const calculatedAspectRatio = aspectRatio || (width && height ? `${width}/${height}` : null);
+
+// Determine if this should use lazy loading
+const useLazyLoading = loading === 'lazy' && !critical;
+
+// Generate unique ID for this image
+const imageId = `img-${baseName}-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+{useLazyLoading ? (
+  <!-- Lazy Loading Version -->
+  <picture class={`responsive-image lazy-container ${className}`}>
+    <source 
+      data-lazy-srcset={webpSrcset}
+      data-lazy-sizes={sizes}
+      type="image/webp"
+    />
+    <img 
+      id={imageId}
+      data-lazy-src={`${baseUrl}images/${baseName}-800w.${extension}`}
+      data-lazy-srcset={fallbackSrcset}
+      data-lazy-sizes={sizes}
+      data-aspect-ratio={calculatedAspectRatio}
+      data-critical={critical.toString()}
+      data-fallback-src={fallbackSrc}
+      alt={alt}
+      class="lazy-skeleton responsive-img"
+      style={calculatedAspectRatio ? `aspect-ratio: ${calculatedAspectRatio}` : undefined}
+      width={width}
+      height={height}
+      aria-label="Loading image..."
+      role="img"
+    />
+  </picture>
+) : (
+  <!-- Eager Loading Version (Critical Images) -->
+  <picture class={`responsive-image ${className}`}>
+    <source 
+      srcset={webpSrcset}
+      sizes={sizes}
+      type="image/webp"
+    />
+    <img 
+      id={imageId}
+      src={`${baseUrl}images/${baseName}-800w.${extension}`}
+      srcset={fallbackSrcset}
+      sizes={sizes}
+      alt={alt}
+      class="responsive-img"
+      style={calculatedAspectRatio ? `aspect-ratio: ${calculatedAspectRatio}` : undefined}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+    />
+  </picture>
+)}
+
+<style>
+  .responsive-image {
+    display: block;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .responsive-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Lazy loading skeleton animation */
+  .lazy-skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-surface-variant, #f5f5f5) 25%,
+      transparent 50%,
+      var(--color-surface-variant, #f5f5f5) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+  }
+
+  .lazy-skeleton.skeleton-visible {
+    animation-play-state: running;
+  }
+
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Loaded state */
+  .lazy-loaded {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Error state */
+  .lazy-error {
+    background-color: var(--color-surface-variant, #f5f5f5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary, #666);
+    font-size: 0.875rem;
+  }
+
+  .lazy-error::after {
+    content: '⚠️ Image failed to load';
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .lazy-skeleton {
+      animation: none;
+      background: var(--color-surface-variant, #f5f5f5);
+    }
+
+    .lazy-loaded {
+      animation: none;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .lazy-skeleton {
+      background: #000;
+      color: #fff;
+    }
+  }
+
+  /* Reduced data preference */
+  @media (prefers-reduced-data: reduce) {
+    .lazy-skeleton {
+      animation: none;
+      background: var(--color-surface-variant, #f5f5f5);
+    }
+    
+    .lazy-skeleton::after {
+      content: '📷 Image (tap to load)';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--color-text-secondary, #666);
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .lazy-skeleton {
+      display: none;
+    }
+    
+    .responsive-image {
+      break-inside: avoid;
+    }
+  }
+</style>
+
+<script>
+  // Initialize lazy loading for this component
+  document.addEventListener('DOMContentLoaded', () => {
+    // Import and initialize lazy loading if not already done
+    if (!window.lazyLoader) {
+      import('../scripts/lazy-loading.js').then(module => {
+        window.lazyLoader = new module.default();
+      });
+    }
+  });
+</script>

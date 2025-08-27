@@ -1,0 +1,89 @@
+---
+// Agricultural Portfolio Website - Home Page
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+
+// SEO configuration for home page
+const seoConfig = {
+  pageType: 'home' as const,
+  title: 'Agrxculture - Agricultural Technology Company | Precision Agriculture IoT Solutions',
+  description: 'Precision agriculture IoT solutions and farm management technology expertise. Custom mobile apps, data analytics, and automation systems for modern farming operations.',
+  image: '/images/hero/agrxculture-logo.webp',
+  keywords: [
+    'agricultural software developer',
+    'precision agriculture',
+    'farm IoT developer', 
+    'agricultural technology consultant',
+    'farm management systems',
+    'agricultural mobile development'
+  ]
+};
+
+// Structured data for home page
+const homeStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Agrxculture Agricultural Technology Services",
+    "description": "Professional agricultural technology development services specializing in precision agriculture, IoT integration, and farm management solutions",
+    "provider": {
+      "@type": "Organization",
+      "name": "Agrxculture"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United States"
+    },
+    "serviceType": "Agricultural Technology Development",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Agricultural Technology Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "IoT Integration for Farms",
+            "category": "Agricultural Technology"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service", 
+            "name": "Mobile Farm Management Apps",
+            "category": "Mobile Development"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Agricultural Data Analytics",
+            "category": "Data Analytics"
+          }
+        }
+      ]
+    }
+  }
+];
+---
+
+<BaseLayout 
+  pageType={seoConfig.pageType}
+  title={seoConfig.title}
+  description={seoConfig.description}
+  image={seoConfig.image}
+  structuredData={homeStructuredData}
+>
+  <Hero />
+  <TestimonialsSection 
+    title="What Our Clients Say"
+    limit={4}
+  />
+</BaseLayout>
+
+

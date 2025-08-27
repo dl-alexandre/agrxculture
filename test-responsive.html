@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design Test - Task 8</title>
+    <style>
+        /* Import the design tokens and layout styles */
+        @import url('./src/styles/tokens.css');
+        @import url('./src/styles/layout.css');
+        @import url('./src/styles/images.css');
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .test-title {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #2e7d32;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        
+        .grid-test {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+        }
+        
+        @media (min-width: 480px) {
+            .grid-test {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .grid-test {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .grid-test {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .grid-item {
+            background: #e8f5e8;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            border: 2px solid #2e7d32;
+        }
+        
+        .touch-target-test {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .touch-button {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            min-height: 44px;
+            min-width: 44px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .touch-button:hover {
+            background: #1b5e20;
+        }
+        
+        .image-test {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .responsive-text {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        /* Breakpoint-specific styles */
+        @media (max-width: 479px) {
+            .breakpoint-indicator::after {
+                content: " (XS - Low-end Mobile)";
+            }
+            .responsive-text {
+                font-size: 0.875rem;
+            }
+        }
+        
+        @media (min-width: 480px) and (max-width: 767px) {
+            .breakpoint-indicator::after {
+                content: " (SM - Mobile)";
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .breakpoint-indicator::after {
+                content: " (MD - Tablet)";
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .breakpoint-indicator::after {
+                content: " (LG+ - Desktop)";
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="breakpoint-indicator">Current Breakpoint</div>
+    
+    <div class="test-container">
+        <h1>Task 8: Responsive Design Test</h1>
+        <p>This page tests the responsive design implementation. Resize your browser window to see the changes.</p>
+        
+        <div class="test-section">
+            <h2 class="test-title">1. Responsive Grid System</h2>
+            <p>Grid should show 1 column on mobile (≤479px), 2 on small mobile (480-767px), 3 on tablet (768-1023px), and 4 on desktop (≥1024px).</p>
+            <div class="grid-test">
+                <div class="grid-item">Item 1</div>
+                <div class="grid-item">Item 2</div>
+                <div class="grid-item">Item 3</div>
+                <div class="grid-item">Item 4</div>
+                <div class="grid-item">Item 5</div>
+                <div class="grid-item">Item 6</div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">2. Touch-Friendly Targets</h2>
+            <p>All buttons should be at least 44px in height/width for comfortable touch interaction.</p>
+            <div class="touch-target-test">
+                <button class="touch-button">Button 1</button>
+                <button class="touch-button">Button 2</button>
+                <button class="touch-button">Button 3</button>
+                <button class="touch-button">Long Button Text</button>
+                <button class="touch-button">✓</button>
+                <button class="touch-button">×</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">3. Responsive Images</h2>
+            <p>Images should scale appropriately and maintain aspect ratios across all devices.</p>
+            <img src="Public/images/showcase/farm-management-ios.jpg" alt="Test image" class="image-test">
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">4. Typography Scaling</h2>
+            <div class="responsive-text">
+                <p>This text should scale appropriately for different screen sizes. On low-end mobile devices (≤479px), the font size should be smaller to accommodate limited screen space while maintaining readability.</p>
+                <p>The line height and spacing should also adjust to provide optimal reading experience across all device types commonly used in rural agricultural areas.</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">5. Container Responsive Behavior</h2>
+            <p>The container should use appropriate padding and margins for each breakpoint:</p>
+            <ul>
+                <li><strong>Low-end mobile (≤479px):</strong> Minimal padding to maximize content area</li>
+                <li><strong>Standard mobile (480-767px):</strong> Comfortable padding for touch interaction</li>
+                <li><strong>Tablet (768-1023px):</strong> Increased padding for better visual hierarchy</li>
+                <li><strong>Desktop (≥1024px):</strong> Maximum width with centered content</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Test script to verify responsive behavior
+        function updateBreakpointInfo() {
+            const width = window.innerWidth;
+            const indicator = document.querySelector('.breakpoint-indicator');
+            
+            let breakpoint = '';
+            if (width <= 479) {
+                breakpoint = 'XS (≤479px)';
+            } else if (width <= 767) {
+                breakpoint = 'SM (480-767px)';
+            } else if (width <= 1023) {
+                breakpoint = 'MD (768-1023px)';
+            } else {
+                breakpoint = 'LG (≥1024px)';
+            }
+            
+            indicator.textContent = `${width}px - ${breakpoint}`;
+        }
+        
+        // Update on load and resize
+        updateBreakpointInfo();
+        window.addEventListener('resize', updateBreakpointInfo);
+        
+        // Test touch targets
+        document.querySelectorAll('.touch-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.background = '#4caf50';
+                setTimeout(() => {
+                    this.style.background = '#2e7d32';
+                }, 200);
+            });
+        });
+        
+        console.log('Task 8 Responsive Design Test Loaded');
+        console.log('Breakpoints: XS(≤479px), SM(480-767px), MD(768-1023px), LG(≥1024px)');
+    </script>
+</body>
+</html>

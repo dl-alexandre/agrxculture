@@ -1,0 +1,46 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://agrxculture.github.io/agricultural-portfolio-website/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all agricultural technology related content
+Allow: /services
+Allow: /showcase
+Allow: /projects
+Allow: /about
+Allow: /contact
+
+# Disallow admin and development files
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.astro/
+Disallow: /dist/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /astro.config.mjs
+
+# Disallow test and development files
+Disallow: /test-*
+Disallow: /*.test.*
+Disallow: /*.spec.*
+
+# Allow important assets
+Allow: /images/
+Allow: /icons/
+Allow: /scripts/
+Allow: /styles/
+Allow: /documents/
+
+# SEO optimizations for agricultural technology keywords
+# This site specializes in:
+# - Precision agriculture IoT solutions
+# - Farm management technology
+# - Agricultural data analytics
+# - Mobile farm applications
+# - Agricultural automation systems

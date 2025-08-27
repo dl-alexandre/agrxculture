@@ -1,0 +1,764 @@
+---
+// About Component - Company expertise showcase for agricultural technology
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<section class="about-section" id="about">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title">About Agrxculture</h2>
+      <p class="section-subtitle">
+        Bridging technology and agriculture to create data-driven farming solutions
+      </p>
+    </div>
+
+    <div class="about-content">
+      <!-- Company Introduction -->
+      <div class="about-intro">
+        <div class="intro-text">
+          <h3>Passionate About Agricultural Innovation</h3>
+          <p>
+            Agrxculture is a specialized agricultural technology company with a deep passion for transforming agriculture through technology. 
+            Our journey began with a fascination for how data and automation can solve real-world farming challenges, 
+            from optimizing crop yields to reducing resource waste.
+          </p>
+          <p>
+            With expertise spanning IoT sensor networks, mobile applications, and data analytics, we specialize 
+            in creating custom solutions that help farmers make informed decisions and improve operational efficiency. 
+            Every project we undertake focuses on delivering measurable results that directly impact farm productivity 
+            and sustainability.
+          </p>
+        </div>
+        
+        <!-- Company Logo - Enhanced for Task 8 -->
+        <div class="intro-image profile-image-responsive">
+          <picture>
+            <!-- WebP format -->
+            <source 
+              type="image/webp"
+              srcset="/images/hero/agrxculture-logo.webp"
+            />
+            <!-- SVG fallback -->
+            <img 
+              src={`${baseUrl}images/hero/agrxculture-logo.svg`} 
+              alt="Agrxculture - Agricultural Technology Company"
+              class="profile-image"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </div>
+      </div>
+
+      <!-- Agricultural Technology Expertise -->
+      <div class="expertise-section">
+        <h3>Agricultural Technology Expertise</h3>
+        <div class="expertise-grid">
+          <div class="expertise-card">
+            <div class="expertise-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h4>IoT Sensor Networks</h4>
+            <p>
+              Design and implement comprehensive sensor systems for soil moisture monitoring, 
+              weather tracking, and crop health assessment. Expertise in low-power wireless 
+              protocols and edge computing for reliable field data collection.
+            </p>
+            <ul class="expertise-applications">
+              <li>Soil moisture and pH monitoring systems</li>
+              <li>Weather station integration and data aggregation</li>
+              <li>Livestock tracking and health monitoring</li>
+            </ul>
+          </div>
+
+          <div class="expertise-card">
+            <div class="expertise-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <h4>Precision Agriculture Analytics</h4>
+            <p>
+              Develop data-driven insights from farm operations using machine learning and 
+              statistical analysis. Transform raw sensor data into actionable recommendations 
+              for yield optimization and resource management.
+            </p>
+            <ul class="expertise-applications">
+              <li>Yield prediction and crop modeling algorithms</li>
+              <li>Resource optimization and cost reduction analysis</li>
+              <li>Pest and disease early warning systems</li>
+            </ul>
+          </div>
+
+          <div class="expertise-card">
+            <div class="expertise-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/>
+                <line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <line x1="2" y1="7" x2="7" y2="7"/>
+                <line x1="2" y1="17" x2="7" y2="17"/>
+                <line x1="17" y1="17" x2="22" y2="17"/>
+                <line x1="17" y1="7" x2="22" y2="7"/>
+              </svg>
+            </div>
+            <h4>Farm Management Systems</h4>
+            <p>
+              Build comprehensive digital platforms that integrate all aspects of farm operations, 
+              from field planning to harvest tracking. Focus on user-friendly interfaces that 
+              work reliably in challenging field conditions.
+            </p>
+            <ul class="expertise-applications">
+              <li>Field mapping and crop rotation planning</li>
+              <li>Equipment maintenance and scheduling systems</li>
+              <li>Inventory management and supply chain integration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Skills -->
+      <div class="skills-section">
+        <h3>Technical Skills & Agricultural Applications</h3>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h4>Mobile Development</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Swift</span>
+              <span class="skill-tag">iOS</span>
+              <span class="skill-tag">React Native</span>
+            </div>
+            <p class="skill-application">
+              Field-ready mobile apps for real-time farm monitoring, equipment control, 
+              and data collection that work offline in remote agricultural areas.
+            </p>
+          </div>
+
+          <div class="skill-category">
+            <h4>Backend & APIs</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">REST APIs</span>
+            </div>
+            <p class="skill-application">
+              Scalable backend systems for processing agricultural data, integrating with 
+              third-party services, and providing reliable APIs for farm management platforms.
+            </p>
+          </div>
+
+          <div class="skill-category">
+            <h4>Data & Analytics</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Machine Learning</span>
+              <span class="skill-tag">Data Visualization</span>
+            </div>
+            <p class="skill-application">
+              Advanced analytics for crop yield prediction, resource optimization, 
+              and agricultural trend analysis using statistical modeling and ML algorithms.
+            </p>
+          </div>
+
+          <div class="skill-category">
+            <h4>IoT & Hardware</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Arduino</span>
+              <span class="skill-tag">Raspberry Pi</span>
+              <span class="skill-tag">LoRaWAN</span>
+              <span class="skill-tag">MQTT</span>
+            </div>
+            <p class="skill-application">
+              End-to-end IoT solutions for agricultural monitoring, from sensor deployment 
+              to cloud integration, designed for harsh outdoor environments.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company Values & Approach -->
+      <div class="values-section">
+        <h3>Our Approach & Values</h3>
+        <div class="values-grid">
+          <div class="value-item">
+            <div class="value-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div class="value-content">
+              <h4>Data-Driven Solutions</h4>
+              <p class="value-description">
+                We believe in the power of data to transform agricultural operations. Every solution 
+                we build focuses on collecting, analyzing, and presenting actionable insights that 
+                help farmers make informed decisions.
+              </p>
+            </div>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z"/>
+              </svg>
+            </div>
+            <div class="value-content">
+              <h4>Sustainable Innovation</h4>
+              <p class="value-description">
+                Our technology solutions are designed with sustainability at their core, helping 
+                farmers optimize resource usage, reduce waste, and implement environmentally 
+                responsible farming practices.
+              </p>
+            </div>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="value-content">
+              <h4>Farmer-Centric Design</h4>
+              <p class="value-description">
+                We design our solutions with real farmers in mind, ensuring that our technology 
+                is practical, reliable, and easy to use in challenging field conditions and 
+                diverse agricultural environments.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company Information -->
+      <div class="resume-section">
+        <div class="resume-card">
+          <div class="resume-content">
+            <h3>Learn More About Agrxculture</h3>
+            <p>
+              Get a comprehensive overview of our agricultural technology expertise, 
+              project outcomes, and technical capabilities in our company information packet.
+            </p>
+          </div>
+          <div class="resume-action">
+            <a 
+              href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/documents/agrxculture-company-overview.pdf`}
+              class="resume-download-btn"
+              download="Agrxculture-Company-Overview.pdf"
+              aria-label="Download Agrxculture company overview as PDF"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download Company Info
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schema.org Organization markup for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Agrxculture",
+      "description": "Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology",
+      "url": "https://agrxculture.com",
+      "sameAs": [
+        "https://linkedin.com/company/agrxculture",
+        "https://github.com/agrxculture"
+      ],
+      "knowsAbout": [
+        "Precision Agriculture",
+        "IoT Development",
+        "Farm Management Systems",
+        "Agricultural Data Analytics",
+        "Mobile App Development",
+        "Swift Programming",
+        "Python Development"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Agricultural Technology Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "IoT Integration for Farms",
+              "category": "Agricultural Technology"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile Farm Management Apps",
+              "category": "Mobile Development"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Agricultural Data Analytics",
+              "category": "Data Analytics"
+            }
+          }
+        ]
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+      }
+    }
+  </script>
+</section>
+
+<style>
+  .about-section {
+    padding: 4rem 0;
+    background: #fafafa;
+  }
+
+  .container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: #757575;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  /* Personal Introduction */
+  .about-intro {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .intro-text h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-text p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #757575;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .intro-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Expertise Section */
+  .expertise-section h3,
+  .skills-section h3,
+  .values-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .expertise-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .expertise-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .expertise-icon {
+    color: #2e7d32;
+    margin-bottom: 1.5rem;
+  }
+
+  .expertise-card h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 1rem;
+  }
+
+  .expertise-card p {
+    color: #757575;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .expertise-applications {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .expertise-applications li {
+    color: #757575;
+    padding: 0.25rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .expertise-applications li::before {
+    content: "→";
+    color: #2e7d32;
+    font-weight: 600;
+    position: absolute;
+    left: 0;
+  }
+
+  /* Skills Section */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-category {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e0e0e0;
+  }
+
+  .skill-category h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .skill-tag {
+    background: #4caf50;
+    color: #2e7d32;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .skill-application {
+    color: #757575;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  /* Values Section */
+  .values-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .value-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e0e0e0;
+  }
+
+  .value-icon {
+    color: #2e7d32;
+    padding-top: 0.25rem;
+  }
+
+  .value-content h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 0.75rem;
+  }
+
+  .value-description {
+    color: #757575;
+    line-height: 1.6;
+  }
+
+  /* Resume Section */
+  .resume-section {
+    margin-top: 3rem;
+  }
+
+  .resume-card {
+    background: linear-gradient(135deg, #4caf50 0%, #ffffff 100%);
+    border: 1px solid #4caf50;
+    border-radius: 0.75rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .resume-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #212121;
+    margin-bottom: 1rem;
+  }
+
+  .resume-content p {
+    color: #757575;
+    line-height: 1.6;
+  }
+
+  .resume-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #2e7d32;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .resume-download-btn:hover {
+    background: #1b5e20;
+    transform: translateY(-2px);
+  }
+
+  .resume-download-btn:focus {
+    outline: 2px solid #2e7d32;
+    outline-offset: 2px;
+  }
+
+  /* Task 8 Responsive Design Enhancements */
+  
+  /* Low-end mobile (max-width: 479px) */
+  @media (max-width: 479px) {
+    .about-section {
+      padding: var(--space-2xl) 0;
+    }
+
+    .container {
+      padding: 0 var(--space-sm);
+    }
+
+    .section-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .section-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .about-intro {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: var(--space-xl);
+    }
+
+    .intro-text h3 {
+      font-size: var(--font-size-lg);
+    }
+
+    .intro-text p {
+      font-size: var(--font-size-sm);
+    }
+
+    .expertise-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .expertise-card,
+    .skill-category,
+    .value-item {
+      padding: var(--space-lg);
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .resume-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: var(--space-lg);
+    }
+
+    .resume-download-btn {
+      width: 100%;
+      min-height: var(--touch-target-comfortable);
+    }
+  }
+  
+  /* Standard mobile (480px to 767px) */
+  @media (min-width: 480px) and (max-width: 767px) {
+    .about-intro {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .expertise-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resume-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .intro-text h3 {
+      font-size: var(--font-size-xl);
+    }
+
+    .intro-text p {
+      font-size: var(--font-size-base);
+    }
+
+    .resume-download-btn {
+      min-height: var(--touch-target-comfortable);
+    }
+  }
+
+  /* Tablet (768px to 1023px) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .about-intro {
+      grid-template-columns: 1fr 300px;
+      gap: var(--space-2xl);
+    }
+
+    .expertise-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resume-card {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  /* Desktop (1024px and above) */
+  @media (min-width: 1024px) {
+    .about-intro {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .expertise-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Print Styles */
+  @media print {
+    .about-section {
+      padding: 0;
+      background: white;
+    }
+
+    .expertise-card,
+    .skill-category,
+    .value-item,
+    .resume-card {
+      border: 1px solid #ccc;
+      box-shadow: none;
+      break-inside: avoid;
+    }
+
+    .resume-download-btn {
+      display: none;
+    }
+  }
+</style>

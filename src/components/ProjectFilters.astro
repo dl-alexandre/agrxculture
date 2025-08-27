@@ -1,0 +1,304 @@
+---
+// Extract unique tags from projects for filter options
+const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
+---
+
+<div class="project-filters">
+  <div class="filter-header">
+    <h3>Filter Projects</h3>
+    <span id="project-count" class="project-count"></span>
+  </div>
+  
+  <div class="filter-controls">
+    <div class="filter-group">
+      <label class="filter-label">By Technology:</label>
+      <div class="filter-buttons" role="group" aria-label="Filter projects by technology">
+        {allTags.map(tag => (
+          <button 
+            class={`filter-btn ${tag === 'All' ? 'active' : ''}`}
+            data-filter={tag.toLowerCase()}
+            type="button"
+            aria-pressed={tag === 'All' ? 'true' : 'false'}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <label class="filter-label">Show Featured Only:</label>
+      <div class="toggle-container">
+        <input 
+          type="checkbox" 
+          id="featured-toggle" 
+          class="toggle-input"
+          aria-describedby="featured-help"
+        />
+        <label for="featured-toggle" class="toggle-label">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="featured-help" class="toggle-help">Show only featured projects</span>
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <label for="sort-select" class="filter-label">Sort By:</label>
+      <select id="sort-select" class="sort-select">
+        <option value="date-desc">Newest First</option>
+        <option value="date-asc">Oldest First</option>
+        <option value="title-asc">Title A-Z</option>
+        <option value="title-desc">Title Z-A</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="active-filters">
+    <span class="active-filters-label">Active filters:</span>
+    <div id="active-filter-tags" class="active-filter-tags">
+      <span class="active-filter-tag">All Projects</span>
+    </div>
+    <button id="clear-filters" class="clear-filters-btn" style="display: none;">
+      Clear All Filters
+    </button>
+  </div>
+</div>
+
+<style>
+  .project-filters {
+    background: var(--color-surface);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+  }
+  
+  .filter-header h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  
+  .project-count {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+  
+  .filter-controls {
+    display: grid;
+    gap: var(--space-lg);
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .filter-label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+  
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  
+  .filter-btn {
+    background: var(--color-background);
+    border: 2px solid var(--color-border);
+    color: var(--color-text-secondary);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    min-width: 80px;
+  }
+  
+  .filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  
+  .filter-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+  }
+  
+  .filter-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  
+  .toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    cursor: pointer;
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-border);
+    border-radius: 24px;
+    transition: background-color 0.2s ease-out;
+  }
+  
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease-out;
+  }
+  
+  .toggle-input:checked + .toggle-label .toggle-slider {
+    background: var(--color-primary);
+  }
+  
+  .toggle-input:checked + .toggle-label .toggle-slider:before {
+    transform: translateX(26px);
+  }
+  
+  .toggle-input:focus + .toggle-label .toggle-slider {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  .toggle-help {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+  }
+  
+  .sort-select {
+    background: var(--color-background);
+    border: 2px solid var(--color-border);
+    color: var(--color-text-primary);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: border-color 0.2s ease-out;
+    max-width: 200px;
+  }
+  
+  .sort-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+  
+  .active-filters {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  
+  .active-filters-label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+  
+  .active-filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+  
+  .active-filter-tag {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+  }
+  
+  .clear-filters-btn {
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+  }
+  
+  .clear-filters-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .project-filters {
+      padding: var(--space-md);
+    }
+    
+    .filter-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+    
+    .filter-buttons {
+      justify-content: flex-start;
+    }
+    
+    .filter-btn {
+      min-width: auto;
+      flex: 1;
+      text-align: center;
+    }
+    
+    .active-filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

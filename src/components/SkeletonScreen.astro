@@ -1,0 +1,311 @@
+---
+/**
+ * Skeleton Screen Component for Loading States
+ * Task 9: Performance optimizations and accessibility features
+ * 
+ * Features:
+ * - Prevents Cumulative Layout Shift (CLS)
+ * - Improves perceived performance
+ * - Accessible loading states
+ * - Customizable skeleton shapes
+ */
+
+export interface Props {
+  type?: 'text' | 'image' | 'card' | 'avatar' | 'button' | 'custom';
+  width?: string;
+  height?: string;
+  aspectRatio?: string;
+  lines?: number;
+  className?: string;
+  animate?: boolean;
+  ariaLabel?: string;
+}
+
+const {
+  type = 'text',
+  width = '100%',
+  height,
+  aspectRatio,
+  lines = 3,
+  className = '',
+  animate = true,
+  ariaLabel = 'Loading content...'
+} = Astro.props;
+
+// Generate skeleton elements based on type
+const generateSkeletonElements = () => {
+  switch (type) {
+    case 'text':
+      return Array.from({ length: lines }, (_, i) => ({
+        width: i === lines - 1 ? '60%' : '100%',
+        height: '1rem',
+        marginBottom: '0.5rem'
+      }));
+    
+    case 'image':
+      return [{
+        width: width,
+        height: height || '200px',
+        aspectRatio: aspectRatio
+      }];
+    
+    case 'card':
+      return [
+        { width: '100%', height: '200px', marginBottom: '1rem' }, // Image
+        { width: '80%', height: '1.5rem', marginBottom: '0.5rem' }, // Title
+        { width: '100%', height: '1rem', marginBottom: '0.25rem' }, // Line 1
+        { width: '90%', height: '1rem', marginBottom: '0.25rem' }, // Line 2
+        { width: '60%', height: '1rem' } // Line 3
+      ];
+    
+    case 'avatar':
+      return [{
+        width: '64px',
+        height: '64px',
+        borderRadius: '50%'
+      }];
+    
+    case 'button':
+      return [{
+        width: width || '120px',
+        height: height || '40px',
+        borderRadius: '6px'
+      }];
+    
+    default:
+      return [{
+        width: width,
+        height: height || '1rem'
+      }];
+  }
+};
+
+const skeletonElements = generateSkeletonElements();
+---
+
+<div 
+  class={`skeleton-container ${className} ${animate ? 'animate' : ''}`}
+  role="status"
+  aria-label={ariaLabel}
+  aria-live="polite"
+>
+  {skeletonElements.map((element, index) => (
+    <div 
+      class="skeleton-element"
+      style={{
+        width: element.width,
+        height: element.height,
+        aspectRatio: element.aspectRatio,
+        marginBottom: element.marginBottom,
+        borderRadius: element.borderRadius
+      }}
+      key={index}
+    />
+  ))}
+  <span class="sr-only">{ariaLabel}</span>
+</div>
+
+<style>
+  .skeleton-container {
+    display: block;
+    width: 100%;
+  }
+
+  .skeleton-element {
+    background: linear-gradient(
+      90deg,
+      var(--skeleton-base, #f0f0f0) 25%,
+      var(--skeleton-highlight, #e0e0e0) 50%,
+      var(--skeleton-base, #f0f0f0) 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .skeleton-container.animate .skeleton-element {
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .skeleton-element {
+      --skeleton-base: #2a2a2a;
+      --skeleton-highlight: #3a3a3a;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .skeleton-element {
+      --skeleton-base: #000;
+      --skeleton-highlight: #333;
+      border: 1px solid #666;
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-container.animate .skeleton-element {
+      animation: none;
+      background: var(--skeleton-base, #f0f0f0);
+    }
+  }
+
+  /* Reduced data preferences */
+  @media (prefers-reduced-data: reduce) {
+    .skeleton-container.animate .skeleton-element {
+      animation: none;
+      background: var(--skeleton-base, #f0f0f0);
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .skeleton-container {
+      display: none;
+    }
+  }
+
+  /* Custom skeleton variants */
+  .skeleton-container.hero {
+    min-height: 400px;
+  }
+
+  .skeleton-container.project-card {
+    padding: 1rem;
+    border: 1px solid var(--skeleton-base, #f0f0f0);
+    border-radius: 8px;
+  }
+
+  .skeleton-container.service-card {
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .skeleton-container.contact-form {
+    max-width: 500px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .skeleton-container.hero {
+      min-height: 300px;
+    }
+    
+    .skeleton-container.project-card {
+      padding: 0.75rem;
+    }
+    
+    .skeleton-container.service-card {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Skeleton screen management
+  class SkeletonManager {
+    constructor() {
+      this.skeletons = new Map();
+      this.init();
+    }
+
+    init() {
+      // Track skeleton screens for performance monitoring
+      this.observeSkeletons();
+      
+      // Auto-hide skeletons after timeout (fallback)
+      this.setupTimeouts();
+    }
+
+    observeSkeletons() {
+      const skeletons = document.querySelectorAll('.skeleton-container');
+      
+      skeletons.forEach((skeleton, index) => {
+        const id = skeleton.id || `skeleton-${index}`;
+        this.skeletons.set(id, {
+          element: skeleton,
+          startTime: performance.now(),
+          visible: true
+        });
+      });
+    }
+
+    setupTimeouts() {
+      // Hide skeletons after 10 seconds (fallback for failed loads)
+      setTimeout(() => {
+        this.skeletons.forEach((skeleton, id) => {
+          if (skeleton.visible) {
+            this.hideSkeleton(id);
+          }
+        });
+      }, 10000);
+    }
+
+    hideSkeleton(id) {
+      const skeleton = this.skeletons.get(id);
+      if (skeleton && skeleton.visible) {
+        skeleton.element.style.display = 'none';
+        skeleton.visible = false;
+        
+        // Dispatch event for analytics
+        skeleton.element.dispatchEvent(new CustomEvent('skeletonHidden', {
+          detail: {
+            id,
+            duration: performance.now() - skeleton.startTime
+          }
+        }));
+      }
+    }
+
+    showSkeleton(id) {
+      const skeleton = this.skeletons.get(id);
+      if (skeleton && !skeleton.visible) {
+        skeleton.element.style.display = 'block';
+        skeleton.visible = true;
+        skeleton.startTime = performance.now();
+      }
+    }
+
+    // Public method to manually control skeletons
+    toggle(id, show) {
+      if (show) {
+        this.showSkeleton(id);
+      } else {
+        this.hideSkeleton(id);
+      }
+    }
+  }
+
+  // Initialize skeleton manager
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      window.skeletonManager = new SkeletonManager();
+    });
+  } else {
+    window.skeletonManager = new SkeletonManager();
+  }
+</script>

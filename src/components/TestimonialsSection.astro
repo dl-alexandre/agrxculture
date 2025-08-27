@@ -1,0 +1,39 @@
+---
+import TestimonialCarousel from './TestimonialCarousel.astro';
+import { loadTestimonials, loadTestimonialsForProject } from '../utils/content-loader.ts';
+
+export interface Props {
+  title?: string;
+  limit?: number;
+  projectId?: string;
+}
+
+const { title, limit, projectId } = Astro.props;
+
+// Load testimonials based on project filter
+let testimonials;
+try {
+  testimonials = projectId ? loadTestimonialsForProject(projectId) : loadTestimonials();
+} catch (error) {
+  console.error('Error loading testimonials:', error);
+  testimonials = [];
+}
+
+// Limit number of testimonials if specified
+if (limit && limit > 0) {
+  testimonials = testimonials.slice(0, limit);
+}
+
+// Don't render if no testimonials
+if (!testimonials || testimonials.length === 0) {
+  return null;
+}
+---
+
+<TestimonialCarousel 
+  testimonials={testimonials} 
+  title={title}
+  showNavigation={testimonials.length > 1}
+/>
+
+<script src="../scripts/testimonial-carousel.js"></script>

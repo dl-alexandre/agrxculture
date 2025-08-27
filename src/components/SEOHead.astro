@@ -1,0 +1,179 @@
+---
+/**
+ * SEO Head Component
+ * 
+ * Comprehensive SEO component that generates all necessary meta tags,
+ * structured data, and social media tags for the agricultural portfolio website.
+ */
+
+import { generatePageSEO, type SEOConfig } from '../utils/seo.ts';
+
+export interface Props extends Partial<SEOConfig> {
+  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
+  structuredData?: object[];
+  breadcrumbs?: Array<{name: string, url: string}>;
+}
+
+const {
+  pageType = 'home',
+  structuredData: customStructuredData = [],
+  breadcrumbs = [],
+  ...customSEOConfig
+} = Astro.props;
+
+// Get site URL from Astro config
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://agrxculture.github.io/agricultural-portfolio-website';
+
+// Generate SEO data
+const { metaTags, structuredData } = generatePageSEO(pageType, customSEOConfig, siteUrl);
+
+// Combine all structured data
+const allStructuredData = [...structuredData, ...customStructuredData];
+
+// Add breadcrumbs if provided
+if (breadcrumbs.length > 0) {
+  const { generateBreadcrumbSchema } = await import('../utils/seo.ts');
+  allStructuredData.push(generateBreadcrumbSchema(breadcrumbs, siteUrl));
+}
+
+// Get final config for canonical URL
+const finalConfig = {
+  ...generatePageSEO(pageType, customSEOConfig, siteUrl),
+  ...customSEOConfig
+};
+
+const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUrl);
+---
+
+<!-- SEO Meta Tags -->
+<Fragment set:html={metaTags} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Additional Agricultural Technology Specific Meta Tags -->
+<meta name="industry" content="Agriculture" />
+<meta name="category" content="Agricultural Technology" />
+<meta name="target-audience" content="Farmers, Agricultural Operations, Farm Managers" />
+<meta name="geo.region" content="US" />
+<meta name="geo.placename" content="United States" />
+<meta name="ICBM" content="39.8283, -98.5795" /> <!-- Geographic center of US -->
+
+<!-- Dublin Core Metadata -->
+<meta name="DC.title" content={finalConfig.title} />
+<meta name="DC.description" content={finalConfig.description} />
+<meta name="DC.creator" content="Agrxculture" />
+<meta name="DC.subject" content="Agricultural Technology, Precision Agriculture, Farm Management" />
+<meta name="DC.type" content="Text" />
+<meta name="DC.format" content="text/html" />
+<meta name="DC.language" content="en-US" />
+<meta name="DC.coverage" content="United States" />
+
+<!-- Agricultural Industry Specific Meta Tags -->
+<meta name="agricultural-focus" content="Precision Agriculture, IoT Integration, Farm Management" />
+<meta name="technology-stack" content="Swift, Python, JavaScript, IoT, Mobile Development" />
+<meta name="service-area" content="United States" />
+<meta name="specialization" content="Small to Medium Agricultural Operations" />
+
+<!-- Performance and Accessibility Meta Tags -->
+<meta name="theme-color" content="#2E7D32" />
+<meta name="color-scheme" content="light dark" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Agrxculture" />
+<meta name="application-name" content="Agrxculture - Agricultural Technology" />
+<meta name="msapplication-TileColor" content="#2E7D32" />
+<meta name="msapplication-config" content="/browserconfig.xml" />
+
+<!-- Preconnect to External Resources -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- DNS Prefetch for Performance -->
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+<!-- Structured Data (JSON-LD) - Schema.org Markup -->
+{allStructuredData.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}
+
+<!-- Additional SEO Enhancements -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<meta name="format-detection" content="address=no" />
+<meta name="format-detection" content="email=no" />
+
+<!-- Agricultural Technology Keywords for Enhanced Discovery -->
+<meta name="keywords" content="agricultural software developer, precision agriculture, farm IoT developer, agricultural technology consultant, farm management systems, agricultural data analytics, mobile farm apps, farm automation, agricultural sensor networks, precision farming solutions, smart agriculture, digital farming, agtech developer, farm technology integration, agricultural mobile development, IoT agriculture solutions, farm data management, agricultural API development, crop monitoring systems, livestock tracking technology, irrigation automation, yield optimization, farm efficiency solutions, agricultural innovation, sustainable farming technology" />
+
+<!-- Hreflang for International SEO (if applicable) -->
+<link rel="alternate" hreflang="en-us" href={canonicalURL} />
+<link rel="alternate" hreflang="en" href={canonicalURL} />
+
+<!-- Favicon and App Icons -->
+<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} />
+<link rel="apple-touch-icon" sizes="180x180" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/apple-touch-icon.png`} />
+<link rel="icon" type="image/png" sizes="32x32" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/favicon-32x32.png`} />
+<link rel="icon" type="image/png" sizes="16x16" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/favicon-16x16.png`} />
+<link rel="manifest" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/manifest.json`} />
+<link rel="mask-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} color="#2E7D32" />
+
+<!-- Microsoft Tiles -->
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+<meta name="msapplication-square70x70logo" content="/icons/icon-72x72.png" />
+<meta name="msapplication-square150x150logo" content="/icons/icon-152x152.png" />
+<meta name="msapplication-wide310x150logo" content="/icons/icon-384x384.png" />
+<meta name="msapplication-square310x310logo" content="/icons/icon-512x512.png" />
+
+<!-- Security Headers -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<meta http-equiv="X-Frame-Options" content="DENY" />
+<meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+<!-- Agricultural Technology Rich Snippets Support -->
+<meta property="business:contact_data:street_address" content="United States" />
+<meta property="business:contact_data:locality" content="United States" />
+<meta property="business:contact_data:region" content="US" />
+<meta property="business:contact_data:country_name" content="United States" />
+<meta property="business:contact_data:website" content={siteUrl} />
+
+<!-- Performance Monitoring Meta Tags -->
+<meta name="performance-budget" content="1MB" />
+<meta name="lighthouse-target" content="90" />
+<meta name="core-web-vitals" content="optimized" />
+
+<!-- Agricultural Industry Classification -->
+<meta name="industry-code" content="NAICS-541511" /> <!-- Custom Computer Programming Services -->
+<meta name="industry-focus" content="Agricultural Technology Solutions" />
+<meta name="service-classification" content="B2B Agricultural Technology Services" />
+
+<!-- Content Security Policy (Basic) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';" />
+
+<!-- Accessibility Enhancements -->
+<meta name="accessibility-features" content="keyboard-navigation, screen-reader-support, high-contrast-support" />
+<meta name="wcag-compliance" content="AA" />
+
+<!-- Agricultural Technology Expertise Indicators -->
+<meta name="expertise-areas" content="IoT Integration, Mobile Development, Data Analytics, Farm Automation, Precision Agriculture" />
+<meta name="technology-specialization" content="Swift, Python, JavaScript, SQL, REST APIs, IoT Protocols" />
+<meta name="agricultural-sectors" content="Crop Production, Livestock Management, Precision Agriculture, Farm Operations" />
+
+<!-- Social Media Optimization -->
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:updated_time" content={new Date().toISOString()} />
+<meta name="twitter:dnt" content="on" />
+
+<!-- Search Engine Optimization Enhancements -->
+<meta name="google-site-verification" content="" /> <!-- Add Google Search Console verification -->
+<meta name="bing-site-verification" content="" /> <!-- Add Bing Webmaster verification -->
+<meta name="yandex-verification" content="" /> <!-- Add Yandex verification if needed -->
+
+<!-- Agricultural Technology Portfolio Indicators -->
+<meta name="portfolio-focus" content="Agricultural Technology Case Studies" />
+<meta name="client-base" content="Small to Medium Agricultural Operations" />
+<meta name="solution-types" content="Custom Software, Mobile Apps, IoT Integration, Data Analytics" />

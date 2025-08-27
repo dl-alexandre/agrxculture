@@ -1,0 +1,665 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Services from '../components/Services.astro';
+import { loadServices, loadProjects } from '../utils/content-loader.ts';
+
+// Helper function to create proper URLs with base path
+function createUrl(path: string): string {
+  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+  if (path === '/' || path === '') return import.meta.env.BASE_URL;
+  return `${baseUrl}${path.startsWith('/') ? path : '/' + path}`;
+}
+
+const title = 'Agricultural Technology Services - Agrxculture';
+const description = 'Specialized agricultural technology services including IoT integration, mobile farm management apps, data analytics, precision agriculture APIs, and automation systems for modern farming operations.';
+
+// Load services and projects for cross-linking
+const services = loadServices() || [];
+const projects = loadProjects() || [];
+
+// Create a map of project IDs to project data for easy lookup
+const projectMap = new Map(projects.map(project => [project.id, project]));
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="services-page">
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Agricultural Technology Services</h1>
+        <p class="page-subtitle">
+          Specialized solutions for modern farming operations, from IoT integration to mobile applications. 
+          Each service is designed by Agrxculture to increase efficiency, reduce costs, and improve agricultural outcomes.
+        </p>
+        
+        <!-- Quick Navigation -->
+        <nav class="services-nav" aria-label="Services navigation">
+          <ul class="services-nav-list">
+            {services && services.map((service) => (
+              <li>
+                <a href={`#service-${service.id}`} class="nav-link">
+                  {service.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Services Showcase -->
+    <Services showHeader={false} />
+
+    <!-- Service Details Section -->
+    <section class="service-details-section" id="service-details">
+      <div class="container">
+        <h2 class="section-title">Detailed Service Information</h2>
+        
+        <div class="service-details-grid">
+          {services && services.map((service) => (
+            <article class="service-detail-card" id={`service-${service.id}`}>
+              <header class="service-detail-header">
+                <div class="service-icon-large">
+                  <svg class={`icon icon-${service.icon}`} aria-hidden="true">
+                    <use href={`#icon-${service.icon}`}></use>
+                  </svg>
+                </div>
+                <div class="service-header-content">
+                  <h3 class="service-detail-title">{service.title}</h3>
+                  <p class="service-detail-description">{service.description}</p>
+                  <div class="service-benefit-highlight">
+                    <span class="benefit-badge-large">{service.benefits}</span>
+                  </div>
+                </div>
+              </header>
+
+              <div class="service-detail-content">
+                <!-- Render markdown content -->
+                <div class="service-content-text" set:html={service.content} />
+
+                <!-- Technologies Used -->
+                <div class="service-technologies-section">
+                  <h4>Technologies & Tools</h4>
+                  <div class="tech-badges-large">
+                    {service.technologies && service.technologies.map((tech) => (
+                      <span class="tech-badge-large">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Related Projects -->
+                {service.relatedProjects && service.relatedProjects.length > 0 && (
+                  <div class="related-projects-section">
+                    <h4>Related Case Studies</h4>
+                    <div class="related-projects-grid">
+                      {service.relatedProjects && service.relatedProjects.map((projectId) => {
+                        const project = projectMap.get(projectId);
+                        if (!project) return null;
+                        
+                        return (
+                          <a href={`/projects/${project.id}`} class="related-project-card">
+                            <div class="project-card-content">
+                              <h5 class="project-title">{project.title}</h5>
+                              <p class="project-description">{project.description}</p>
+                              <div class="project-metrics">
+                                <span class="metric">{project.metrics.improvement}</span>
+                                <span class="metric">{project.metrics.timeline}</span>
+                              </div>
+                            </div>
+                            <div class="project-card-arrow">
+                              <svg class="arrow-icon" aria-hidden="true">
+                                <use href="#icon-arrow-right"></use>
+                              </svg>
+                            </div>
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                <!-- Call to Action -->
+                <div class="service-cta-section">
+                  <a href={createUrl(service.ctaLink)} class="service-cta-large">
+                    Start Your {service.title} Project with Agrxculture
+                    <svg class="cta-icon" aria-hidden="true">
+                      <use href="#icon-arrow-right"></use>
+                    </svg>
+                  </a>
+                  <p class="cta-subtitle">Get a free consultation and project estimate from Agrxculture</p>
+                </div>
+              </div>
+
+              <!-- Schema.org structured data -->
+              <script type="application/ld+json" set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Service",
+                "name": service.title,
+                "description": service.description,
+                "provider": {
+                  "@type": "Organization",
+                  "name": "Agrxculture",
+                  "url": "https://agrxculture.com"
+                },
+                "serviceType": service.schema.serviceType,
+                "areaServed": service.schema.areaServed,
+                "offers": {
+                  "@type": "Offer",
+                  "description": service.benefits,
+                  "url": `https://agrxculture.com${service.ctaLink}`
+                }
+              })} />
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta-section">
+      <div class="container">
+        <div class="contact-cta-content">
+          <h2>Ready to Transform Your Agricultural Operations?</h2>
+          <p>
+            Let Agrxculture discuss how these services can be tailored to your specific farming needs. 
+            Get a free consultation and discover the potential impact on your operation.
+          </p>
+          <div class="contact-cta-actions">
+            <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact`} class="primary-cta">
+              Get Free Consultation
+              <svg class="cta-icon" aria-hidden="true">
+                <use href="#icon-arrow-right"></use>
+              </svg>
+            </a>
+            <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase`} class="secondary-cta">
+              View Case Studies
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .services-page {
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  /* Page Header */
+  .page-header {
+    padding: var(--space-4xl) 0 var(--space-3xl);
+    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-variant) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-header h1 {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-2xl);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Services Navigation */
+  .services-nav {
+    margin-top: var(--space-2xl);
+  }
+
+  .services-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--color-surface);
+    color: var(--color-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-full);
+    border: 1px solid var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
+  }
+
+  .nav-link:hover {
+    background: var(--color-primary);
+    color: var(--color-text-on-primary);
+    transform: translateY(-2px);
+  }
+
+  /* Service Details Section */
+  .service-details-section {
+    padding: var(--space-4xl) 0;
+  }
+
+  .section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+  }
+
+  .service-details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4xl);
+  }
+
+  .service-detail-card {
+    background: var(--color-surface);
+    border-radius: var(--border-radius-xl);
+    padding: var(--space-3xl);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    scroll-margin-top: var(--space-2xl);
+  }
+
+  .service-detail-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .service-icon-large {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    border-radius: var(--border-radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .service-icon-large .icon {
+    width: 40px;
+    height: 40px;
+    fill: var(--color-text-on-primary);
+  }
+
+  .service-header-content {
+    min-width: 0;
+  }
+
+  .service-detail-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    line-height: var(--line-height-tight);
+  }
+
+  .service-detail-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-lg);
+  }
+
+  .service-benefit-highlight {
+    margin-top: var(--space-lg);
+  }
+
+  .benefit-badge-large {
+    display: inline-block;
+    background: var(--color-success);
+    color: var(--color-text-on-primary);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Service Content */
+  .service-detail-content {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .service-content-text {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .service-content-text h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: var(--space-xl) 0 var(--space-md);
+  }
+
+  .service-content-text ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0;
+  }
+
+  .service-content-text li {
+    padding: var(--space-sm) 0;
+    position: relative;
+    padding-left: var(--space-lg);
+  }
+
+  .service-content-text li::before {
+    content: '✓';
+    color: var(--color-success);
+    position: absolute;
+    left: 0;
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Technologies Section */
+  .service-technologies-section h4 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .tech-badges-large {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .tech-badge-large {
+    background: var(--color-surface-variant);
+    color: var(--color-text-primary);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border: 1px solid var(--color-border);
+  }
+
+  /* Related Projects */
+  .related-projects-section h4 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .related-projects-grid {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .related-project-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-md);
+    align-items: center;
+    background: var(--color-surface-variant);
+    padding: var(--space-lg);
+    border-radius: var(--border-radius-lg);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-fast);
+  }
+
+  .related-project-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+  }
+
+  .project-card-content {
+    min-width: 0;
+  }
+
+  .project-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-sm);
+    line-height: var(--line-height-normal);
+  }
+
+  .project-metrics {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .metric {
+    font-size: var(--font-size-xs);
+    color: var(--color-success);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .project-card-arrow {
+    flex-shrink: 0;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .related-project-card:hover .arrow-icon {
+    transform: translateX(4px);
+  }
+
+  /* Service CTA */
+  .service-cta-section {
+    text-align: center;
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .service-cta-large {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-primary);
+    color: var(--color-text-on-primary);
+    padding: var(--space-lg) var(--space-2xl);
+    border-radius: var(--border-radius-lg);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-lg);
+    transition: all var(--transition-fast);
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-cta-large:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* Contact CTA Section */
+  .contact-cta-section {
+    padding: var(--space-4xl) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-text-on-primary);
+    text-align: center;
+  }
+
+  .contact-cta-content h2 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-lg);
+  }
+
+  .contact-cta-content p {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    max-width: 600px;
+    margin: 0 auto var(--space-2xl);
+    opacity: 0.9;
+  }
+
+  .contact-cta-actions {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .primary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-text-on-primary);
+    color: var(--color-primary);
+    padding: var(--space-lg) var(--space-2xl);
+    border-radius: var(--border-radius-lg);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .primary-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    color: var(--color-text-on-primary);
+    padding: var(--space-lg) var(--space-2xl);
+    border: 2px solid var(--color-text-on-primary);
+    border-radius: var(--border-radius-lg);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .secondary-cta:hover {
+    background: var(--color-text-on-primary);
+    color: var(--color-primary);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 767px) {
+    .page-header {
+      padding: var(--space-2xl) 0;
+    }
+
+    .page-header h1 {
+      font-size: var(--font-size-3xl);
+    }
+
+    .page-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .services-nav-list {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .nav-link {
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .service-detail-card {
+      padding: var(--space-lg);
+    }
+
+    .service-detail-header {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      text-align: center;
+    }
+
+    .service-icon-large {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto;
+    }
+
+    .service-icon-large .icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .service-detail-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .service-detail-description {
+      font-size: var(--font-size-base);
+    }
+
+    .contact-cta-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .primary-cta,
+    .secondary-cta {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .related-projects-grid {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link:hover,
+    .related-project-card:hover,
+    .service-cta-large:hover,
+    .primary-cta:hover {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,227 @@
+---
+import TestimonialCard from './TestimonialCard.astro';
+
+export interface Props {
+  testimonials: Array<{
+    id: string;
+    clientName: string;
+    clientRole: string;
+    company: string;
+    clientIndustry: string;
+    testimonial: string;
+    photo?: string;
+    projectId?: string;
+    rating: number;
+    dateGiven: string;
+  }>;
+  title?: string;
+  showNavigation?: boolean;
+}
+
+const { testimonials, title = "What Our Clients Say", showNavigation = true } = Astro.props;
+---
+
+<section class="testimonial-carousel-section" aria-label="Client testimonials">
+  <div class="container">
+    <h2 class="section-title">{title}</h2>
+    
+    <div class="carousel-container">
+      <div class="carousel-wrapper" id="testimonial-carousel">
+        <div class="carousel-track" id="carousel-track">
+          {testimonials && testimonials.map((testimonial) => (
+            <div class="carousel-slide">
+              <TestimonialCard testimonial={testimonial} />
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      {showNavigation && testimonials && testimonials.length > 1 && (
+        <div class="carousel-controls">
+          <button 
+            class="carousel-btn prev-btn" 
+            id="prev-btn"
+            aria-label="Previous testimonial"
+            type="button"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"></polyline>
+            </svg>
+          </button>
+          
+          <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Testimonial navigation">
+            {testimonials && testimonials.map((_, index) => (
+              <button 
+                class={`dot ${index === 0 ? 'active' : ''}`}
+                data-slide={index}
+                role="tab"
+                aria-label={`Go to testimonial ${index + 1}`}
+                type="button"
+              ></button>
+            ))}
+          </div>
+          
+          <button 
+            class="carousel-btn next-btn" 
+            id="next-btn"
+            aria-label="Next testimonial"
+            type="button"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
+  </div>
+</section><style>
+
+  .testimonial-carousel-section {
+    padding: 4rem 0;
+    background: #f9fafb;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 3rem;
+  }
+
+  .carousel-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .carousel-wrapper {
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .carousel-btn {
+    background: white;
+    border: 2px solid #2e7d32;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    color: #2e7d32;
+  }
+
+  .carousel-btn:hover {
+    background: #2e7d32;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .carousel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: #d1d5db;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+  }
+
+  .dot.active,
+  .dot:hover {
+    background: #2e7d32;
+    transform: scale(1.2);
+  }
+
+  /* Desktop: Show multiple slides */
+  @media (min-width: 1024px) {
+    .carousel-slide {
+      min-width: 50%;
+    }
+  }
+
+  /* Tablet adjustments */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .carousel-controls {
+      gap: 1rem;
+    }
+    
+    .carousel-btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    .testimonial-carousel-section {
+      padding: 2rem 0;
+    }
+    
+    .section-title {
+      font-size: 1.75rem;
+    }
+    
+    .carousel-slide {
+      padding: 0 0.5rem;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+      transition: none;
+    }
+    
+    .carousel-btn,
+    .dot {
+      transition: none;
+    }
+  }
+</style>

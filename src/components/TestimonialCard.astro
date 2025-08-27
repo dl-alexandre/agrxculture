@@ -1,0 +1,182 @@
+---
+export interface Props {
+  testimonial: {
+    id: string;
+    clientName: string;
+    clientRole: string;
+    company: string;
+    clientIndustry: string;
+    testimonial: string;
+    photo?: string;
+    projectId?: string;
+    rating: number;
+    dateGiven: string;
+  };
+  showPhoto?: boolean;
+}
+
+const { testimonial, showPhoto = true } = Astro.props;
+---
+
+<article 
+  class="testimonial-card"
+  itemscope 
+  itemtype="https://schema.org/Review"
+>
+  <div class="testimonial-content">
+    <div class="testimonial-rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+      <meta itemprop="ratingValue" content={testimonial.rating.toString()} />
+      <meta itemprop="bestRating" content="5" />
+      <div class="stars" aria-label={`${testimonial.rating} out of 5 stars`}>
+        {Array.from({ length: 5 }, (_, i) => (
+          <span class={`star ${i < testimonial.rating ? 'filled' : 'empty'}`}>★</span>
+        ))}
+      </div>
+    </div>
+    
+    <blockquote class="testimonial-text" itemprop="reviewBody">
+      "{testimonial.testimonial}"
+    </blockquote>
+    
+    <div class="testimonial-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+      {showPhoto && testimonial.photo && (
+        <img 
+          src={testimonial.photo} 
+          alt={`${testimonial.clientName}, ${testimonial.clientRole}`}
+          class="author-photo"
+          itemprop="image"
+          loading="lazy"
+        />
+      )}
+      <div class="author-info">
+        <cite class="author-name" itemprop="name">{testimonial.clientName}</cite>
+        <div class="author-details">
+          <span class="author-role" itemprop="jobTitle">{testimonial.clientRole}</span>
+          <span class="company" itemprop="worksFor" itemscope itemtype="https://schema.org/Organization">
+            <span itemprop="name">{testimonial.company}</span>
+          </span>
+        </div>
+        <div class="industry-tag">{testimonial.clientIndustry}</div>
+      </div>
+    </div>
+  </div>
+  
+  <meta itemprop="datePublished" content={testimonial.dateGiven} />
+</article>
+
+<style>
+  .testimonial-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .testimonial-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .testimonial-rating {
+    margin-bottom: 1rem;
+  }
+
+  .stars {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .star {
+    color: #fbbf24;
+    font-size: 1.25rem;
+  }
+
+  .star.empty {
+    color: #d1d5db;
+  }
+
+  .testimonial-text {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #374151;
+    font-style: italic;
+    margin: 0 0 1.5rem 0;
+    flex-grow: 1;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .author-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2e7d32;
+  }
+
+  .author-info {
+    flex: 1;
+  }
+
+  .author-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: #111827;
+    display: block;
+    font-style: normal;
+  }
+
+  .author-details {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+  }
+
+  .author-role::after {
+    content: " at ";
+  }
+
+  .industry-tag {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .testimonial-card {
+      padding: 1.5rem;
+    }
+    
+    .testimonial-author {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .author-photo {
+      width: 50px;
+      height: 50px;
+    }
+  }
+</style>

@@ -1,0 +1,682 @@
+---
+import { loadServices } from '../utils/content-loader.ts';
+const servicesData = loadServices();
+
+// Helper function to create proper URLs with base path
+function createUrl(path: string): string {
+  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+  if (path === '/' || path === '') return import.meta.env.BASE_URL;
+  return `${baseUrl}${path.startsWith('/') ? path : '/' + path}`;
+}
+
+interface Props {
+  showHeader?: boolean;
+  maxServices?: number;
+}
+
+const { showHeader = true, maxServices } = Astro.props;
+const services = maxServices ? (servicesData || []).slice(0, maxServices) : (servicesData || []);
+---
+
+<section class="services-section" id="services">
+  {showHeader && (
+    <div class="container">
+      <header class="services-header">
+        <h2>Agrxculture Technology Services</h2>
+        <p>Specialized solutions for modern farming operations, from IoT integration to mobile applications</p>
+      </header>
+    </div>
+  )}
+  
+  <div class="container">
+    <div class="services-grid">
+      {services && services.map((service) => (
+        <article class="service-card" data-service-id={service.id}>
+          <div class="service-icon">
+            <svg class={`icon icon-${service.icon}`} aria-hidden="true">
+              <use href={`#icon-${service.icon}`}></use>
+            </svg>
+          </div>
+          
+          <div class="service-content">
+            <h3 class="service-title">{service.title}</h3>
+            <p class="service-description">{service.description}</p>
+            
+            <div class="service-benefits">
+              <span class="benefit-badge">{service.benefits}</span>
+            </div>
+            
+            <div class="service-technologies">
+              {service.technologies && service.technologies.map((tech) => (
+                <span class="tech-badge">{tech}</span>
+              ))}
+            </div>
+            
+            <div class="service-applications" data-expanded="false">
+              <button class="applications-toggle" aria-expanded="false" aria-controls={`applications-${service.id}`}>
+                <span>Key Applications</span>
+                <svg class="toggle-icon" aria-hidden="true">
+                  <use href="#icon-chevron-down"></use>
+                </svg>
+              </button>
+              
+              <div class="applications-content" id={`applications-${service.id}`}>
+                <ul>
+                  {service.applications && service.applications.map((application) => (
+                    <li>{application}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            
+            <div class="service-actions">
+              <a href={createUrl(service.ctaLink)} class="service-cta">
+                Get Started with Agrxculture
+                <svg class="cta-icon" aria-hidden="true">
+                  <use href="#icon-arrow-right"></use>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Tooltip content for desktop hover -->
+          <div class="service-tooltip" role="tooltip">
+            <div class="tooltip-content">
+              <strong>{service.benefits}</strong>
+              <p>Specialized in {service.applications[0].toLowerCase()} and related agricultural technology solutions.</p>
+            </div>
+          </div>
+          
+          <!-- Schema.org structured data -->
+          <script type="application/ld+json" set:html={JSON.stringify(service.schema)} />
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- SVG Icons -->
+<svg class="icon-sprite" aria-hidden="true" style="display: none;">
+  <defs>
+    <!-- IoT Sensors Icon -->
+    <symbol id="icon-iot-sensors" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      <circle cx="8" cy="8" r="2"/>
+      <circle cx="16" cy="8" r="2"/>
+      <circle cx="12" cy="16" r="2"/>
+    </symbol>
+    
+    <!-- Mobile App Icon -->
+    <symbol id="icon-mobile-app" viewBox="0 0 24 24">
+      <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zM7 4V3h10v1H7zm0 14V6h10v12H7zm0 3v-1h10v1H7z"/>
+      <circle cx="12" cy="19" r="1"/>
+    </symbol>
+    
+    <!-- Analytics Icon -->
+    <symbol id="icon-analytics" viewBox="0 0 24 24">
+      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </symbol>
+    
+    <!-- API Icon -->
+    <symbol id="icon-api" viewBox="0 0 24 24">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      <path d="M8 12h8M12 8v8"/>
+    </symbol>
+    
+    <!-- Automation Icon -->
+    <symbol id="icon-automation" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+    </symbol>
+    
+    <!-- Chevron Down Icon -->
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+      <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+    </symbol>
+    
+    <!-- Arrow Right Icon -->
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<style>
+  .services-section {
+    padding: var(--space-4xl) 0;
+    background: var(--color-background);
+  }
+  
+  .container {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+  
+  .services-header {
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+  }
+  
+  .services-header h2 {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .services-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: var(--line-height-relaxed);
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  
+  .service-card {
+    position: relative;
+    background: var(--color-surface);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-2xl);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-primary);
+  }
+  
+  .service-card:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  .service-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-xl);
+  }
+  
+  .service-icon .icon {
+    width: 32px;
+    height: 32px;
+    fill: var(--color-text-on-primary);
+  }
+  
+  .service-content {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .service-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    line-height: var(--line-height-tight);
+  }
+  
+  .service-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .service-benefits {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .benefit-badge {
+    display: inline-block;
+    background: var(--color-success);
+    color: var(--color-text-on-primary);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .service-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .tech-badge {
+    background: var(--color-surface-variant);
+    color: var(--color-text-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    border: 1px solid var(--color-border);
+  }
+  
+  .service-applications {
+    margin-bottom: var(--space-xl);
+  }
+  
+  .applications-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: var(--space-sm) 0;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+  
+  .applications-toggle:hover {
+    color: var(--color-primary-dark);
+  }
+  
+  .applications-toggle:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .toggle-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform var(--transition-normal);
+  }
+  
+  .service-applications[data-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+  }
+  
+  .applications-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal);
+  }
+  
+  .service-applications[data-expanded="true"] .applications-content {
+    max-height: 200px;
+  }
+  
+  .applications-content ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0 0 0;
+  }
+  
+  .applications-content li {
+    padding: var(--space-xs) 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    position: relative;
+    padding-left: var(--space-lg);
+  }
+  
+  .applications-content li::before {
+    content: '•';
+    color: var(--color-primary);
+    position: absolute;
+    left: 0;
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .service-actions {
+    margin-top: var(--space-xl);
+  }
+  
+  .service-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-primary);
+    color: var(--color-text-on-primary);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-fast);
+    min-height: var(--touch-target-min);
+  }
+  
+  .service-cta:hover {
+    background: var(--color-primary-dark);
+    transform: translateX(2px);
+  }
+  
+  .service-cta:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  .cta-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    transition: transform var(--transition-fast);
+  }
+  
+  .service-cta:hover .cta-icon {
+    transform: translateX(2px);
+  }
+  
+  /* Tooltip Styles */
+  .service-tooltip {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background: var(--color-text-primary);
+    color: var(--color-text-on-primary);
+    padding: var(--space-md);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-sm);
+    max-width: 250px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: var(--z-tooltip);
+    pointer-events: none;
+  }
+  
+  .service-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: var(--space-lg);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--color-text-primary);
+  }
+  
+  .tooltip-content strong {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--color-success);
+  }
+  
+  .tooltip-content p {
+    margin: 0;
+    line-height: var(--line-height-normal);
+  }
+  
+  /* Show tooltip on desktop hover */
+  @media (min-width: 768px) {
+    .service-card:hover .service-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Hide tooltips on mobile */
+  @media (max-width: 767px) {
+    .service-tooltip {
+      display: none;
+    }
+  }
+  
+  /* Task 8 Responsive Design Enhancements */
+  
+  /* Low-end mobile (max-width: 479px) */
+  @media (max-width: 479px) {
+    .services-section {
+      padding: var(--space-2xl) 0;
+    }
+    
+    .container {
+      padding: 0 var(--space-sm);
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    
+    .service-card {
+      padding: var(--space-lg);
+    }
+    
+    .service-card:hover {
+      transform: none;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .services-header h2 {
+      font-size: var(--font-size-2xl);
+    }
+    
+    .services-header p {
+      font-size: var(--font-size-base);
+    }
+    
+    .service-icon {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .service-icon .icon {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .service-title {
+      font-size: var(--font-size-lg);
+    }
+    
+    .service-technologies {
+      gap: var(--space-xs);
+    }
+    
+    .tech-badge {
+      font-size: var(--font-size-xs);
+      padding: 2px var(--space-xs);
+    }
+    
+    .service-cta {
+      min-height: var(--touch-target-comfortable);
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .applications-toggle {
+      min-height: var(--touch-target-min);
+      padding: var(--space-md) 0;
+    }
+  }
+  
+  /* Standard mobile (480px to 767px) */
+  @media (min-width: 480px) and (max-width: 767px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+    
+    .service-card {
+      padding: var(--space-xl);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .services-header h2 {
+      font-size: var(--font-size-3xl);
+    }
+    
+    .service-technologies {
+      gap: var(--space-sm);
+    }
+    
+    .tech-badge {
+      font-size: var(--font-size-xs);
+      padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .service-cta {
+      min-height: var(--touch-target-comfortable);
+    }
+    
+    .applications-toggle {
+      min-height: var(--touch-target-min);
+    }
+  }
+  
+  /* Tablet (768px to 1023px) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
+    }
+    
+    .service-card {
+      padding: var(--space-xl);
+    }
+    
+    .service-title {
+      font-size: var(--font-size-lg);
+    }
+  }
+  
+  /* Desktop (1024px and above) */
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+  }
+  
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .service-card {
+      transition: none;
+    }
+    
+    .service-card:hover {
+      transform: none;
+    }
+    
+    .toggle-icon,
+    .applications-content,
+    .service-tooltip {
+      transition: none;
+    }
+  }
+  
+  /* High Contrast Mode */
+  @media (prefers-contrast: high) {
+    .service-card {
+      border: 2px solid var(--color-text-primary);
+    }
+    
+    .service-card:hover {
+      border-color: var(--color-primary);
+    }
+  }
+  
+  /* Icon sprite hidden */
+  .icon-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Interactive functionality for service cards
+  document.addEventListener('DOMContentLoaded', function() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    serviceCards.forEach(card => {
+      const toggle = card.querySelector('.applications-toggle');
+      const applicationsContainer = card.querySelector('.service-applications');
+      
+      if (toggle && applicationsContainer) {
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const isExpanded = applicationsContainer.getAttribute('data-expanded') === 'true';
+          const newState = !isExpanded;
+          
+          // Update attributes
+          applicationsContainer.setAttribute('data-expanded', newState.toString());
+          toggle.setAttribute('aria-expanded', newState.toString());
+          
+          // Announce state change for screen readers
+          const announcement = newState ? 'Applications expanded' : 'Applications collapsed';
+          const srAnnouncement = document.createElement('div');
+          srAnnouncement.setAttribute('aria-live', 'polite');
+          srAnnouncement.setAttribute('aria-atomic', 'true');
+          srAnnouncement.className = 'sr-only';
+          srAnnouncement.textContent = announcement;
+          document.body.appendChild(srAnnouncement);
+          
+          setTimeout(() => {
+            document.body.removeChild(srAnnouncement);
+          }, 1000);
+        });
+      }
+      
+      // Handle card click for mobile (but not when clicking interactive elements)
+      card.addEventListener('click', function(e) {
+        if (window.innerWidth <= 767) {
+          // Don't trigger if clicking on interactive elements
+          if (e.target.closest('.applications-toggle') || e.target.closest('.service-cta')) {
+            return;
+          }
+          
+          // Toggle applications on mobile tap
+          const applicationsContainer = card.querySelector('.service-applications');
+          const toggle = card.querySelector('.applications-toggle');
+          
+          if (applicationsContainer && toggle) {
+            const isExpanded = applicationsContainer.getAttribute('data-expanded') === 'true';
+            const newState = !isExpanded;
+            
+            applicationsContainer.setAttribute('data-expanded', newState.toString());
+            toggle.setAttribute('aria-expanded', newState.toString());
+          }
+        }
+      });
+    });
+    
+    // Handle keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        // Close all expanded applications
+        const expandedApplications = document.querySelectorAll('.service-applications[data-expanded="true"]');
+        expandedApplications.forEach(app => {
+          const toggle = app.querySelector('.applications-toggle');
+          app.setAttribute('data-expanded', 'false');
+          if (toggle) {
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
+  });
+</script>

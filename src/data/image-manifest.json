@@ -1,0 +1,175 @@
+{
+  "images": {
+    "agricultural-background-desktop": {
+      "original": "images/hero/agricultural-background-desktop.jpg",
+      "basename": "agricultural-background-desktop",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/hero/agricultural-background-desktop-400w.jpg",
+        "800": "images/hero/agricultural-background-desktop-800w.jpg",
+        "1200": "images/hero/agricultural-background-desktop-1200w.jpg",
+        "1600": "images/hero/agricultural-background-desktop-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/hero/agricultural-background-desktop-400w.webp",
+        "800": "images/hero/agricultural-background-desktop-800w.webp",
+        "1200": "images/hero/agricultural-background-desktop-1200w.webp",
+        "1600": "images/hero/agricultural-background-desktop-1600w.webp",
+        "original": "images/hero/agricultural-background-desktop.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    },
+    "farm-management-ios": {
+      "original": "images/showcase/farm-management-ios.jpg",
+      "basename": "farm-management-ios",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/showcase/farm-management-ios-400w.jpg",
+        "800": "images/showcase/farm-management-ios-800w.jpg",
+        "1200": "images/showcase/farm-management-ios-1200w.jpg",
+        "1600": "images/showcase/farm-management-ios-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/showcase/farm-management-ios-400w.webp",
+        "800": "images/showcase/farm-management-ios-800w.webp",
+        "1200": "images/showcase/farm-management-ios-1200w.webp",
+        "1600": "images/showcase/farm-management-ios-1600w.webp",
+        "original": "images/showcase/farm-management-ios.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    },
+    "farm-sensor-network": {
+      "original": "images/showcase/farm-sensor-network.jpg",
+      "basename": "farm-sensor-network",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/showcase/farm-sensor-network-400w.jpg",
+        "800": "images/showcase/farm-sensor-network-800w.jpg",
+        "1200": "images/showcase/farm-sensor-network-1200w.jpg",
+        "1600": "images/showcase/farm-sensor-network-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/showcase/farm-sensor-network-400w.webp",
+        "800": "images/showcase/farm-sensor-network-800w.webp",
+        "1200": "images/showcase/farm-sensor-network-1200w.webp",
+        "1600": "images/showcase/farm-sensor-network-1600w.webp",
+        "original": "images/showcase/farm-sensor-network.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    },
+    "irrigation-automation": {
+      "original": "images/showcase/irrigation-automation.jpg",
+      "basename": "irrigation-automation",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/showcase/irrigation-automation-400w.jpg",
+        "800": "images/showcase/irrigation-automation-800w.jpg",
+        "1200": "images/showcase/irrigation-automation-1200w.jpg",
+        "1600": "images/showcase/irrigation-automation-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/showcase/irrigation-automation-400w.webp",
+        "800": "images/showcase/irrigation-automation-800w.webp",
+        "1200": "images/showcase/irrigation-automation-1200w.webp",
+        "1600": "images/showcase/irrigation-automation-1600w.webp",
+        "original": "images/showcase/irrigation-automation.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    },
+    "livestock-tracker": {
+      "original": "images/showcase/livestock-tracker.jpg",
+      "basename": "livestock-tracker",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/showcase/livestock-tracker-400w.jpg",
+        "800": "images/showcase/livestock-tracker-800w.jpg",
+        "1200": "images/showcase/livestock-tracker-1200w.jpg",
+        "1600": "images/showcase/livestock-tracker-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/showcase/livestock-tracker-400w.webp",
+        "800": "images/showcase/livestock-tracker-800w.webp",
+        "1200": "images/showcase/livestock-tracker-1200w.webp",
+        "1600": "images/showcase/livestock-tracker-1600w.webp",
+        "original": "images/showcase/livestock-tracker.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    },
+    "placeholder-project": {
+      "original": "images/showcase/placeholder-project.jpg",
+      "basename": "placeholder-project",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/showcase/placeholder-project-400w.jpg",
+        "800": "images/showcase/placeholder-project-800w.jpg",
+        "1200": "images/showcase/placeholder-project-1200w.jpg",
+        "1600": "images/showcase/placeholder-project-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/showcase/placeholder-project-400w.webp",
+        "800": "images/showcase/placeholder-project-800w.webp",
+        "1200": "images/showcase/placeholder-project-1200w.webp",
+        "1600": "images/showcase/placeholder-project-1600w.webp",
+        "original": "images/showcase/placeholder-project.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    },
+    "yield-analytics": {
+      "original": "images/showcase/yield-analytics.jpg",
+      "basename": "yield-analytics",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/showcase/yield-analytics-400w.jpg",
+        "800": "images/showcase/yield-analytics-800w.jpg",
+        "1200": "images/showcase/yield-analytics-1200w.jpg",
+        "1600": "images/showcase/yield-analytics-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/showcase/yield-analytics-400w.webp",
+        "800": "images/showcase/yield-analytics-800w.webp",
+        "1200": "images/showcase/yield-analytics-1200w.webp",
+        "1600": "images/showcase/yield-analytics-1600w.webp",
+        "original": "images/showcase/yield-analytics.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    },
+    "placeholder-client": {
+      "original": "images/testimonials/placeholder-client.jpg",
+      "basename": "placeholder-client",
+      "extension": ".jpg",
+      "sizes": {
+        "400": "images/testimonials/placeholder-client-400w.jpg",
+        "800": "images/testimonials/placeholder-client-800w.jpg",
+        "1200": "images/testimonials/placeholder-client-1200w.jpg",
+        "1600": "images/testimonials/placeholder-client-1600w.jpg"
+      },
+      "webp": {
+        "400": "images/testimonials/placeholder-client-400w.webp",
+        "800": "images/testimonials/placeholder-client-800w.webp",
+        "1200": "images/testimonials/placeholder-client-1200w.webp",
+        "1600": "images/testimonials/placeholder-client-1600w.webp",
+        "original": "images/testimonials/placeholder-client.webp"
+      },
+      "aspectRatio": null,
+      "fileSize": null,
+      "optimized": true
+    }
+  },
+  "generated": "2025-08-27T19:59:06.957Z",
+  "totalImages": 8,
+  "totalSizes": 40
+}

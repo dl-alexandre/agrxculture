@@ -1,0 +1,175 @@
+const lighthouse = require('lighthouse');
+const chromeLauncher = require('chrome-launcher');
+const fs = require('fs');
+const path = require('path');
+
+// Performance thresholds based on requirements
+const PERFORMANCE_THRESHOLDS = {
+  performance: 90,
+  accessibility: 95,
+  'best-practices': 90,
+  seo: 95,
+  'first-contentful-paint': 1800, // 1.8 seconds
+  'largest-contentful-paint': 2500, // 2.5 seconds
+  'cumulative-layout-shift': 0.1,
+  'speed-index': 3000,
+};
+
+// Test URLs (adjust based on your deployment)
+const TEST_URLS = [
+  'http://localhost:4321/',
+  'http://localhost:4321/services',
+  'http://localhost:4321/showcase',
+  'http://localhost:4321/contact',
+];
+
+async function runLighthouseTest(url) {
+  const chrome = await chromeLauncher.launch({
+    chromeFlags: ['--headless', '--no-sandbox', '--disable-dev-shm-usage']
+  });
+  
+  const options = {
+    logLevel: 'info',
+    output: 'json',
+    onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
+    port: chrome.port,
+    throttling: {
+      // Simulate 3G connection as per requirements
+      rttMs: 150,
+      throughputKbps: 1600,
+      cpuSlowdownMultiplier: 4,
+    },
+  };
+
+  try {
+    const runnerResult = await lighthouse(url, options);
+    await chrome.kill();
+    
+    return runnerResult;
+  } catch (error) {
+    await chrome.kill();
+    throw error;
+  }
+}
+
+function analyzeResults(results, url) {
+  const { lhr } = results;
+  const scores = lhr.categories;
+  const audits = lhr.audits;
+  
+  const report = {
+    url,
+    timestamp: new Date().toISOString(),
+    scores: {
+      performance: Math.round(scores.performance.score * 100),
+      accessibility: Math.round(scores.accessibility.score * 100),
+      bestPractices: Math.round(scores['best-practices'].score * 100),
+      seo: Math.round(scores.seo.score * 100),
+    },
+    metrics: {
+      firstContentfulPaint: audits['first-contentful-paint'].numericValue,
+      largestContentfulPaint: audits['largest-contentful-paint'].numericValue,
+      cumulativeLayoutShift: audits['cumulative-layout-shift'].numericValue,
+      speedIndex: audits['speed-index'].numericValue,
+    },
+    passed: true,
+    failures: [],
+  };
+
+  // Check thresholds
+  Object.entries(PERFORMANCE_THRESHOLDS).forEach(([metric, threshold]) => {
+    let actualValue;
+    
+    if (metric in report.scores) {
+      actualValue = report.scores[metric];
+    } else if (metric in report.metrics) {
+      actualValue = report.metrics[metric];
+    } else {
+      return;
+    }
+
+    const passed = metric.includes('shift') || metric.includes('paint') || metric.includes('index')
+      ? actualValue <= threshold  // Lower is better for timing metrics
+      : actualValue >= threshold; // Higher is better for scores
+
+    if (!passed) {
+      report.passed = false;
+      report.failures.push({
+        metric,
+        expected: threshold,
+        actual: actualValue,
+        message: `${metric} failed: expected ${threshold}, got ${actualValue}`,
+      });
+    }
+  });
+
+  return report;
+}
+
+async function runAllTests() {
+  console.log('🚀 Starting Lighthouse performance tests...');
+  console.log('📊 Testing against agricultural portfolio requirements\n');
+  
+  const allResults = [];
+  
+  for (const url of TEST_URLS) {
+    console.log(`Testing: ${url}`);
+    
+    try {
+      const results = await runLighthouseTest(url);
+      const analysis = analyzeResults(results, url);
+      allResults.push(analysis);
+      
+      console.log(`✅ Performance: ${analysis.scores.performance}%`);
+      console.log(`♿ Accessibility: ${analysis.scores.accessibility}%`);
+      console.log(`🏆 Best Practices: ${analysis.scores.bestPractices}%`);
+      console.log(`🔍 SEO: ${analysis.scores.seo}%`);
+      console.log(`⚡ FCP: ${Math.round(analysis.metrics.firstContentfulPaint)}ms`);
+      console.log(`🎯 LCP: ${Math.round(analysis.metrics.largestContentfulPaint)}ms`);
+      
+      if (!analysis.passed) {
+        console.log('❌ Failures:');
+        analysis.failures.forEach(failure => {
+          console.log(`   - ${failure.message}`);
+        });
+      }
+      
+      console.log('');
+    } catch (error) {
+      console.error(`❌ Failed to test ${url}:`, error.message);
+      allResults.push({
+        url,
+        error: error.message,
+        passed: false,
+      });
+    }
+  }
+
+  // Save detailed results
+  const reportPath = path.join(process.cwd(), 'lighthouse-results.json');
+  fs.writeFileSync(reportPath, JSON.stringify(allResults, null, 2));
+  
+  // Summary
+  const passedTests = allResults.filter(r => r.passed).length;
+  const totalTests = allResults.length;
+  
+  console.log(`📋 Summary: ${passedTests}/${totalTests} tests passed`);
+  console.log(`📄 Detailed results saved to: ${reportPath}`);
+  
+  if (passedTests < totalTests) {
+    console.log('❌ Some performance tests failed. Check the results above.');
+    process.exit(1);
+  } else {
+    console.log('✅ All performance tests passed!');
+  }
+}
+
+// Run tests if called directly
+if (require.main === module) {
+  runAllTests().catch(error => {
+    console.error('❌ Performance test suite failed:', error);
+    process.exit(1);
+  });
+}
+
+module.exports = { runLighthouseTest, analyzeResults, PERFORMANCE_THRESHOLDS };

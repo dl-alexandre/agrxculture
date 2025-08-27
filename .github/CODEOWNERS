@@ -1,0 +1,11 @@
+# Global code owners for deployment and configuration files
+/.github/ @agrxculture
+/scripts/ @agrxculture
+astro.config.mjs @agrxculture
+package.json @agrxculture
+lighthouserc.js @agrxculture
+
+# Critical deployment files
+/.github/workflows/ @agrxculture
+/public/_headers @agrxculture
+/public/CNAME @agrxculture
