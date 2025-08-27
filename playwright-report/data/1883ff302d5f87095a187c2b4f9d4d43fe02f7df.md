@@ -1,0 +1,179 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - navigation "Main navigation" [ref=e4]:
+      - generic [ref=e5]:
+        - link "Agrxculture - Home" [ref=e7]:
+          - /url: /
+          - generic [ref=e8]: Agrxculture
+          - generic [ref=e9]: Agricultural Technology
+        - generic [ref=e10]:
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - link "Home" [ref=e13]:
+                - /url: /
+            - listitem [ref=e14]:
+              - link "About Us" [ref=e15]:
+                - /url: /about
+            - listitem [ref=e16]:
+              - link "Services" [ref=e17]:
+                - /url: /services
+            - listitem [ref=e18]:
+              - link "Projects" [ref=e19]:
+                - /url: /showcase
+            - listitem [ref=e20]:
+              - link "Contact" [ref=e21]:
+                - /url: /contact
+          - button "Search projects" [ref=e23] [cursor=pointer]:
+            - img [ref=e24] [cursor=pointer]
+  - main [ref=e27]:
+    - generic [ref=e28]:
+      - generic [ref=e30]:
+        - heading "Let Agrxculture Build Your Agricultural Solution" [level=1] [ref=e31]
+        - paragraph [ref=e32]: Ready to transform your farming operation with custom technology? Let Agrxculture discuss how IoT, mobile apps, and data analytics can boost your productivity.
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - heading "Start Your Project with Agrxculture" [level=2] [ref=e37]
+          - paragraph [ref=e38]: Tell Agrxculture about your agricultural technology needs. We typically respond within 24-48 hours.
+          - generic [ref=e39]:
+            - generic [ref=e40]:
+              - generic [ref=e41]:
+                - text: Full Name
+                - generic "required" [ref=e42]: "*"
+              - textbox "Full Name required" [ref=e43]: John Farmer
+              - alert
+            - generic [ref=e44]:
+              - generic [ref=e45]:
+                - text: Email Address
+                - generic "required" [ref=e46]: "*"
+              - textbox "Email Address required" [ref=e47]: john@greenvalleyfarms.com
+              - alert
+            - generic [ref=e48]:
+              - generic [ref=e49]: Company/Farm Name
+              - textbox "Company/Farm Name" [ref=e50]: Green Valley Farms
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - text: Project Type
+                - generic "required" [ref=e53]: "*"
+              - combobox "Project Type required" [ref=e54]:
+                - option "Select a project type"
+                - option "IoT Integration & Sensors" [selected]
+                - option "Mobile Farm Management App"
+                - option "Agricultural Data Analytics"
+                - option "API Development & Integration"
+                - option "Farm Automation Systems"
+                - option "Custom Solution"
+                - option "Technology Consultation"
+              - alert
+            - generic [ref=e55]:
+              - generic [ref=e56]:
+                - text: Project Details
+                - generic "required" [ref=e57]: "*"
+              - textbox "Project Details required" [ref=e58]: I need help implementing IoT sensors for soil moisture monitoring across my 500-acre farm.
+              - generic [ref=e59]:
+                - generic [ref=e60]: 90 / 2000 characters
+                - alert
+            - button "Send Message" [ref=e61] [cursor=pointer]:
+              - generic [ref=e62] [cursor=pointer]: Send Message
+        - generic [ref=e64]:
+          - heading "Get In Touch" [level=2] [ref=e65]
+          - generic [ref=e66]:
+            - generic [ref=e67]:
+              - heading "Email" [level=3] [ref=e68]
+              - paragraph [ref=e69]:
+                - link "contact@agrxculture.com" [ref=e70]:
+                  - /url: mailto:contact@agrxculture.com
+              - paragraph [ref=e71]: Best for detailed project discussions
+            - generic [ref=e72]:
+              - heading "LinkedIn" [level=3] [ref=e73]
+              - paragraph [ref=e74]:
+                - link "linkedin.com/company/agrxculture" [ref=e75]:
+                  - /url: https://linkedin.com/company/agrxculture
+              - paragraph [ref=e76]: Professional networking and updates
+            - generic [ref=e77]:
+              - heading "Response Time" [level=3] [ref=e78]
+              - paragraph [ref=e79]: 24-48 hours
+              - paragraph [ref=e80]: Agrxculture prioritizes agricultural technology inquiries
+          - generic [ref=e81]:
+            - heading "Specializing In" [level=3] [ref=e82]
+            - list [ref=e83]:
+              - listitem [ref=e84]: ✓ Mobile apps for agri business management
+              - listitem [ref=e85]: ✓ Agricultural technology solutions
+              - listitem [ref=e86]: ✓ Precision agriculture APIs
+              - listitem [ref=e87]: ✓ Farm automation systems
+  - contentinfo [ref=e88]:
+    - generic [ref=e89]:
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - heading "Agrxculture" [level=3] [ref=e92]
+          - paragraph [ref=e93]: Building data-driven farms for a more productive tomorrow
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - heading "Navigation" [level=4] [ref=e96]
+            - list [ref=e97]:
+              - listitem [ref=e98]:
+                - link "Home" [ref=e99]:
+                  - /url: /
+              - listitem [ref=e100]:
+                - link "About Us" [ref=e101]:
+                  - /url: /about
+              - listitem [ref=e102]:
+                - link "Services" [ref=e103]:
+                  - /url: /services
+              - listitem [ref=e104]:
+                - link "Projects" [ref=e105]:
+                  - /url: /showcase
+              - listitem [ref=e106]:
+                - link "Contact" [ref=e107]:
+                  - /url: /contact
+          - generic [ref=e108]:
+            - heading "Services" [level=4] [ref=e109]
+            - list [ref=e110]:
+              - listitem [ref=e111]:
+                - link "IoT Integration" [ref=e112]:
+                  - /url: /services/iot-integration
+              - listitem [ref=e113]:
+                - link "Mobile Apps" [ref=e114]:
+                  - /url: /services/mobile-apps
+              - listitem [ref=e115]:
+                - link "Data Analytics" [ref=e116]:
+                  - /url: /services/data-analytics
+              - listitem [ref=e117]:
+                - link "API Development" [ref=e118]:
+                  - /url: /services/api-development
+              - listitem [ref=e119]:
+                - link "Automation Systems" [ref=e120]:
+                  - /url: /services/automation-systems
+          - generic [ref=e121]:
+            - heading "Connect" [level=4] [ref=e122]
+            - list [ref=e123]:
+              - listitem [ref=e124]:
+                - link "Email" [ref=e125]:
+                  - /url: mailto:contact@agrxculture.com
+              - listitem [ref=e126]:
+                - link "LinkedIn" [ref=e127]:
+                  - /url: https://linkedin.com/company/agrxculture
+              - listitem [ref=e128]:
+                - link "GitHub" [ref=e129]:
+                  - /url: https://github.com/agrxculture
+      - generic [ref=e130]:
+        - paragraph [ref=e131]: © 2025 Agrxculture. All rights reserved.
+        - paragraph [ref=e132]: Specializing in precision agriculture and agricultural business management technology
+  - generic [ref=e135]:
+    - button "Menu" [ref=e136]:
+      - img [ref=e138]
+      - generic: Menu
+    - button "Inspect" [ref=e142]:
+      - img [ref=e144]
+      - generic: Inspect
+    - button "Audit" [ref=e146]:
+      - img [ref=e148]
+      - generic: Audit
+    - button "Settings" [ref=e151]:
+      - img [ref=e153]
+      - generic: Settings
+```

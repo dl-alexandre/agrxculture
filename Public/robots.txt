@@ -1,8 +1,10 @@
+# Robots.txt for Agrxculture Agricultural Technology Website
+# Allow all crawlers
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://agrxculture.github.io/agricultural-portfolio-website/sitemap.xml
+Sitemap: https://dl-alexandre.github.io/agrxculture/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

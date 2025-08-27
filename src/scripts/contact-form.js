@@ -45,10 +45,14 @@ class ContactForm {
     const maxLength = 2000;
     this.messageCounter.textContent = `${currentLength} / ${maxLength} characters`;
     
-    if (currentLength > maxLength * 0.9) {
-      this.messageCounter.classList.add('warning');
-    } else {
+    if (currentLength > maxLength) {
+      this.messageCounter.classList.add('error');
       this.messageCounter.classList.remove('warning');
+    } else if (currentLength > maxLength * 0.9) {
+      this.messageCounter.classList.add('warning');
+      this.messageCounter.classList.remove('error');
+    } else {
+      this.messageCounter.classList.remove('warning', 'error');
     }
   }
 

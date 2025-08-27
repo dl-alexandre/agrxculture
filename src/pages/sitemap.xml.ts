@@ -49,7 +49,7 @@ const projectPages = [
 }));
 
 export const GET: APIRoute = ({ site }) => {
-  const siteUrl = site?.toString() || 'https://agrxculture.github.io/agricultural-portfolio-website/';
+  const siteUrl = site?.toString() || 'https://dl-alexandre.github.io/agrxculture/';
   
   // Combine all pages
   const allPages = [...staticPages, ...projectPages];

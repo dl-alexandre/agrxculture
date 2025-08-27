@@ -11,7 +11,7 @@ import { loadProjects } from '../utils/content-loader.ts';
 const projectsData = loadProjects();
 
 // SEO configuration
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://agrxculture.github.io/agricultural-portfolio-website';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://dl-alexandre.github.io/agrxculture';
 const { structuredData, breadcrumbs } = generateShowcasePageSEO(siteUrl);
 
 const seoConfig = {

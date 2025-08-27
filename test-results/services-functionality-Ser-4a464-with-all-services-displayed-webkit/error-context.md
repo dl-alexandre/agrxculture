@@ -1,0 +1,385 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - navigation "Main navigation" [ref=e4]:
+      - generic [ref=e5]:
+        - link "Agrxculture - Home" [ref=e7]:
+          - /url: /
+          - generic [ref=e8]: Agrxculture
+          - generic [ref=e9]: Agricultural Technology
+        - generic [ref=e10]:
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - link "Home" [ref=e13]:
+                - /url: /
+            - listitem [ref=e14]:
+              - link "About Us" [ref=e15]:
+                - /url: /about
+            - listitem [ref=e16]:
+              - link "Services" [ref=e17]:
+                - /url: /services
+            - listitem [ref=e18]:
+              - link "Projects" [ref=e19]:
+                - /url: /showcase
+            - listitem [ref=e20]:
+              - link "Contact" [ref=e21]:
+                - /url: /contact
+          - button "Search projects" [ref=e23] [cursor=pointer]:
+            - img [ref=e24] [cursor=pointer]
+  - main [ref=e27]:
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - heading "Agricultural Technology Services" [level=1] [ref=e31]
+        - paragraph [ref=e32]: Specialized solutions for modern farming operations, from IoT integration to mobile applications. Each service is designed by Agrxculture to increase efficiency, reduce costs, and improve agricultural outcomes.
+        - navigation "Services navigation" [ref=e33]:
+          - list [ref=e34]:
+            - listitem [ref=e35]:
+              - link "Precision Agriculture APIs" [ref=e36]:
+                - /url: "#service-api-development"
+            - listitem [ref=e37]:
+              - link "Farm Automation Systems" [ref=e38]:
+                - /url: "#service-automation-systems"
+            - listitem [ref=e39]:
+              - link "Agricultural Data Analytics" [ref=e40]:
+                - /url: "#service-data-analytics"
+            - listitem [ref=e41]:
+              - link "Custom IoT Integrations for Small Farms" [ref=e42]:
+                - /url: "#service-iot-integration"
+            - listitem [ref=e43]:
+              - link "Mobile Farm Management Apps" [ref=e44]:
+                - /url: "#service-mobile-apps"
+      - generic [ref=e47]:
+        - article [ref=e48] [cursor=pointer]:
+          - img [ref=e50] [cursor=pointer]
+          - generic [ref=e52] [cursor=pointer]:
+            - heading "Precision Agriculture APIs" [level=3] [ref=e53] [cursor=pointer]
+            - paragraph [ref=e54] [cursor=pointer]: Backend services and integrations that connect farm systems, enabling seamless data flow between equipment, sensors, and management platforms.
+            - generic [ref=e56] [cursor=pointer]: Reduces integration time by 60%
+            - generic [ref=e57] [cursor=pointer]:
+              - generic [ref=e58] [cursor=pointer]: Python
+              - generic [ref=e59] [cursor=pointer]: FastAPI
+              - generic [ref=e60] [cursor=pointer]: PostgreSQL
+              - generic [ref=e61] [cursor=pointer]: Redis
+              - generic [ref=e62] [cursor=pointer]: Docker
+            - generic [ref=e63] [cursor=pointer]:
+              - button "Key Applications" [ref=e64] [cursor=pointer]:
+                - generic [ref=e65] [cursor=pointer]: Key Applications
+                - img [ref=e66] [cursor=pointer]
+              - list [ref=e68] [cursor=pointer]:
+                - listitem [ref=e69] [cursor=pointer]: • Equipment data integration
+                - listitem [ref=e70] [cursor=pointer]: • Third-party service connections
+                - listitem [ref=e71] [cursor=pointer]: • Real-time data synchronization
+                - listitem [ref=e72] [cursor=pointer]: • Multi-platform compatibility
+            - link "Get Started with Agrxculture" [ref=e74]:
+              - /url: /contact?service=api-development
+              - text: Get Started with Agrxculture
+              - img [ref=e75]
+        - article [ref=e77] [cursor=pointer]:
+          - img [ref=e79] [cursor=pointer]
+          - generic [ref=e81] [cursor=pointer]:
+            - heading "Farm Automation Systems" [level=3] [ref=e82] [cursor=pointer]
+            - paragraph [ref=e83] [cursor=pointer]: End-to-end automation solutions that reduce manual labor by 50% while maintaining precise control over critical farming operations.
+            - generic [ref=e85] [cursor=pointer]: Reduces manual labor by 50%
+            - generic [ref=e86] [cursor=pointer]:
+              - generic [ref=e87] [cursor=pointer]: Python
+              - generic [ref=e88] [cursor=pointer]: Swift
+              - generic [ref=e89] [cursor=pointer]: PostgreSQL
+              - generic [ref=e90] [cursor=pointer]: MQTT
+              - generic [ref=e91] [cursor=pointer]: Raspberry Pi
+            - generic [ref=e92] [cursor=pointer]:
+              - button "Key Applications" [ref=e93] [cursor=pointer]:
+                - generic [ref=e94] [cursor=pointer]: Key Applications
+                - img [ref=e95] [cursor=pointer]
+              - list [ref=e97] [cursor=pointer]:
+                - listitem [ref=e98] [cursor=pointer]: • Automated feeding systems
+                - listitem [ref=e99] [cursor=pointer]: • Climate control automation
+                - listitem [ref=e100] [cursor=pointer]: • Harvesting optimization
+                - listitem [ref=e101] [cursor=pointer]: • Supply chain integration
+            - link "Get Started with Agrxculture" [ref=e103]:
+              - /url: /contact?service=automation-systems
+              - text: Get Started with Agrxculture
+              - img [ref=e104]
+        - article [ref=e106] [cursor=pointer]:
+          - img [ref=e108] [cursor=pointer]
+          - generic [ref=e110] [cursor=pointer]:
+            - heading "Agricultural Data Analytics" [level=3] [ref=e111] [cursor=pointer]
+            - paragraph [ref=e112] [cursor=pointer]: Transform farm data into actionable insights with custom analytics platforms that optimize yield predictions and resource allocation.
+            - generic [ref=e114] [cursor=pointer]: Improves yield predictions by 40%
+            - generic [ref=e115] [cursor=pointer]:
+              - generic [ref=e116] [cursor=pointer]: Python
+              - generic [ref=e117] [cursor=pointer]: PostgreSQL
+              - generic [ref=e118] [cursor=pointer]: Pandas
+              - generic [ref=e119] [cursor=pointer]: Scikit-learn
+              - generic [ref=e120] [cursor=pointer]: Plotly
+            - generic [ref=e121] [cursor=pointer]:
+              - button "Key Applications" [ref=e122] [cursor=pointer]:
+                - generic [ref=e123] [cursor=pointer]: Key Applications
+                - img [ref=e124] [cursor=pointer]
+              - list [ref=e126] [cursor=pointer]:
+                - listitem [ref=e127] [cursor=pointer]: • Yield prediction models
+                - listitem [ref=e128] [cursor=pointer]: • Resource optimization analysis
+                - listitem [ref=e129] [cursor=pointer]: • Crop performance dashboards
+                - listitem [ref=e130] [cursor=pointer]: • Financial planning tools
+            - link "Get Started with Agrxculture" [ref=e132]:
+              - /url: /contact?service=data-analytics
+              - text: Get Started with Agrxculture
+              - img [ref=e133]
+        - article [ref=e135] [cursor=pointer]:
+          - img [ref=e137] [cursor=pointer]
+          - generic [ref=e139] [cursor=pointer]:
+            - heading "Custom IoT Integrations for Small Farms" [level=3] [ref=e140] [cursor=pointer]
+            - paragraph [ref=e141] [cursor=pointer]: Sensor networks and automation systems that reduce monitoring costs by 30% while improving crop yields through real-time data collection.
+            - generic [ref=e143] [cursor=pointer]: Reduces crop monitoring costs by 30%
+            - generic [ref=e144] [cursor=pointer]:
+              - generic [ref=e145] [cursor=pointer]: Python
+              - generic [ref=e146] [cursor=pointer]: Swift
+              - generic [ref=e147] [cursor=pointer]: PostgreSQL
+              - generic [ref=e148] [cursor=pointer]: MQTT
+              - generic [ref=e149] [cursor=pointer]: LoRaWAN
+            - generic [ref=e150] [cursor=pointer]:
+              - button "Key Applications" [ref=e151] [cursor=pointer]:
+                - generic [ref=e152] [cursor=pointer]: Key Applications
+                - img [ref=e153] [cursor=pointer]
+              - list [ref=e155] [cursor=pointer]:
+                - listitem [ref=e156] [cursor=pointer]: • Soil moisture monitoring systems
+                - listitem [ref=e157] [cursor=pointer]: • Weather station integration
+                - listitem [ref=e158] [cursor=pointer]: • Automated irrigation controls
+                - listitem [ref=e159] [cursor=pointer]: • Livestock tracking solutions
+            - link "Get Started with Agrxculture" [ref=e161]:
+              - /url: /contact?service=iot-integration
+              - text: Get Started with Agrxculture
+              - img [ref=e162]
+        - article [ref=e164] [cursor=pointer]:
+          - img [ref=e166] [cursor=pointer]
+          - generic [ref=e168] [cursor=pointer]:
+            - heading "Mobile Farm Management Apps" [level=3] [ref=e169] [cursor=pointer]
+            - paragraph [ref=e170] [cursor=pointer]: Native iOS applications that streamline farm operations, enabling farmers to manage their operations efficiently from anywhere in the field.
+            - generic [ref=e172] [cursor=pointer]: Increases operational efficiency by 25%
+            - generic [ref=e173] [cursor=pointer]:
+              - generic [ref=e174] [cursor=pointer]: Swift
+              - generic [ref=e175] [cursor=pointer]: iOS SDK
+              - generic [ref=e176] [cursor=pointer]: Core Data
+              - generic [ref=e177] [cursor=pointer]: CloudKit
+              - generic [ref=e178] [cursor=pointer]: MapKit
+            - generic [ref=e179] [cursor=pointer]:
+              - button "Key Applications" [ref=e180] [cursor=pointer]:
+                - generic [ref=e181] [cursor=pointer]: Key Applications
+                - img [ref=e182] [cursor=pointer]
+              - list [ref=e184] [cursor=pointer]:
+                - listitem [ref=e185] [cursor=pointer]: • Field data collection apps
+                - listitem [ref=e186] [cursor=pointer]: • Livestock management systems
+                - listitem [ref=e187] [cursor=pointer]: • Crop planning and tracking
+                - listitem [ref=e188] [cursor=pointer]: • Equipment maintenance scheduling
+            - link "Get Started with Agrxculture" [ref=e190]:
+              - /url: /contact?service=mobile-apps
+              - text: Get Started with Agrxculture
+              - img [ref=e191]
+      - generic [ref=e194]:
+        - heading "Detailed Service Information" [level=2] [ref=e195]
+        - generic [ref=e196]:
+          - article [ref=e197]:
+            - generic [ref=e198]:
+              - img [ref=e200]
+              - generic [ref=e202]:
+                - heading "Precision Agriculture APIs" [level=3] [ref=e203]
+                - paragraph [ref=e204]: Backend services and integrations that connect farm systems, enabling seamless data flow between equipment, sensors, and management platforms.
+                - generic [ref=e206]: Reduces integration time by 60%
+            - generic [ref=e207]:
+              - generic [ref=e208]: "## Applications - **Equipment data integration** - Connect tractors, harvesters, and other machinery - **Third-party service connections** - Weather services, market data, and supplier systems - **Real-time data synchronization** - Keep all systems updated with current information - **Multi-platform compatibility** - APIs that work across different devices and software## How It Works We develop robust REST APIs and backend services that serve as the backbone for agricultural technology systems. These APIs handle data collection, processing, and distribution while ensuring security, scalability, and reliability for mission-critical farm operations. ## Benefits - Reduce system integration time by up to 60% - Enable seamless data flow between systems - Scalable architecture that grows with your needs - Secure and reliable data handling"
+              - generic [ref=e209]:
+                - heading "Technologies & Tools" [level=4] [ref=e210]
+                - generic [ref=e211]:
+                  - generic [ref=e212]: Python
+                  - generic [ref=e213]: FastAPI
+                  - generic [ref=e214]: PostgreSQL
+                  - generic [ref=e215]: Redis
+                  - generic [ref=e216]: Docker
+              - heading "Related Case Studies" [level=4] [ref=e218]
+              - generic [ref=e219]:
+                - link "Start Your Precision Agriculture APIs Project with Agrxculture" [ref=e220]:
+                  - /url: /contact?service=api-development
+                  - text: Start Your Precision Agriculture APIs Project with Agrxculture
+                  - img [ref=e221]
+                - paragraph [ref=e223]: Get a free consultation and project estimate from Agrxculture
+          - article [ref=e224]:
+            - generic [ref=e225]:
+              - img [ref=e227]
+              - generic [ref=e229]:
+                - heading "Farm Automation Systems" [level=3] [ref=e230]
+                - paragraph [ref=e231]: End-to-end automation solutions that reduce manual labor by 50% while maintaining precise control over critical farming operations.
+                - generic [ref=e233]: Reduces manual labor by 50%
+            - generic [ref=e234]:
+              - generic [ref=e235]: "## Applications - **Automated feeding systems** - Precise feed delivery based on animal needs and schedules - **Climate control automation** - Greenhouse and barn environment management - **Harvesting optimization** - Automated systems for timing and quality control - **Supply chain integration** - Automated ordering and inventory management## How It Works We design and implement complete automation systems that combine sensors, controllers, and software to automate repetitive farm tasks. These systems use machine learning and rule-based logic to make intelligent decisions while providing farmers with oversight and control capabilities. ## Benefits - Reduce manual labor by up to 50% - Improve consistency and precision in operations - 24/7 automated monitoring and control - Reduce operational costs and increase efficiency"
+              - generic [ref=e236]:
+                - heading "Technologies & Tools" [level=4] [ref=e237]
+                - generic [ref=e238]:
+                  - generic [ref=e239]: Python
+                  - generic [ref=e240]: Swift
+                  - generic [ref=e241]: PostgreSQL
+                  - generic [ref=e242]: MQTT
+                  - generic [ref=e243]: Raspberry Pi
+              - heading "Related Case Studies" [level=4] [ref=e245]
+              - generic [ref=e246]:
+                - link "Start Your Farm Automation Systems Project with Agrxculture" [ref=e247]:
+                  - /url: /contact?service=automation-systems
+                  - text: Start Your Farm Automation Systems Project with Agrxculture
+                  - img [ref=e248]
+                - paragraph [ref=e250]: Get a free consultation and project estimate from Agrxculture
+          - article [ref=e251]:
+            - generic [ref=e252]:
+              - img [ref=e254]
+              - generic [ref=e256]:
+                - heading "Agricultural Data Analytics" [level=3] [ref=e257]
+                - paragraph [ref=e258]: Transform farm data into actionable insights with custom analytics platforms that optimize yield predictions and resource allocation.
+                - generic [ref=e260]: Improves yield predictions by 40%
+            - generic [ref=e261]:
+              - generic [ref=e262]: "## Applications - **Yield prediction models** - Machine learning models for accurate harvest forecasting - **Resource optimization analysis** - Data-driven recommendations for input usage - **Crop performance dashboards** - Visual analytics for monitoring field performance - **Financial planning tools** - Profitability analysis and budget optimization## How It Works We build custom analytics platforms that process agricultural data from multiple sources - sensors, weather stations, equipment, and historical records. Using machine learning and statistical analysis, these platforms identify patterns and provide actionable recommendations for improving farm operations. ## Benefits - Improve yield predictions by up to 40% - Optimize resource allocation and reduce waste - Identify trends and patterns in farm data - Make data-driven decisions with confidence"
+              - generic [ref=e263]:
+                - heading "Technologies & Tools" [level=4] [ref=e264]
+                - generic [ref=e265]:
+                  - generic [ref=e266]: Python
+                  - generic [ref=e267]: PostgreSQL
+                  - generic [ref=e268]: Pandas
+                  - generic [ref=e269]: Scikit-learn
+                  - generic [ref=e270]: Plotly
+              - heading "Related Case Studies" [level=4] [ref=e272]
+              - generic [ref=e273]:
+                - link "Start Your Agricultural Data Analytics Project with Agrxculture" [ref=e274]:
+                  - /url: /contact?service=data-analytics
+                  - text: Start Your Agricultural Data Analytics Project with Agrxculture
+                  - img [ref=e275]
+                - paragraph [ref=e277]: Get a free consultation and project estimate from Agrxculture
+          - article [ref=e278]:
+            - generic [ref=e279]:
+              - img [ref=e281]
+              - generic [ref=e283]:
+                - heading "Custom IoT Integrations for Small Farms" [level=3] [ref=e284]
+                - paragraph [ref=e285]: Sensor networks and automation systems that reduce monitoring costs by 30% while improving crop yields through real-time data collection.
+                - generic [ref=e287]: Reduces crop monitoring costs by 30%
+            - generic [ref=e288]:
+              - generic [ref=e289]: "## Applications - **Soil moisture monitoring systems** - Real-time soil condition tracking across large farm areas - **Weather station integration** - Automated weather data collection and analysis - **Automated irrigation controls** - Smart irrigation systems that respond to environmental conditions - **Livestock tracking solutions** - Wearable sensors for animal health and behavior monitoring ## How It Works We develop custom IoT solutions that connect sensors, controllers, and data platforms to create comprehensive monitoring and automation systems. Using technologies like LoRaWAN for long-range communication and MQTT for real-time messaging, these systems provide farmers with actionable insights while reducing manual monitoring tasks. ## Benefits - Reduce crop monitoring costs by up to 30% - Improve crop yields through data-driven decisions - 24/7 automated monitoring and alerts - Scalable solutions that grow with your operation"
+              - generic [ref=e290]:
+                - heading "Technologies & Tools" [level=4] [ref=e291]
+                - generic [ref=e292]:
+                  - generic [ref=e293]: Python
+                  - generic [ref=e294]: Swift
+                  - generic [ref=e295]: PostgreSQL
+                  - generic [ref=e296]: MQTT
+                  - generic [ref=e297]: LoRaWAN
+              - heading "Related Case Studies" [level=4] [ref=e299]
+              - generic [ref=e300]:
+                - link "Start Your Custom IoT Integrations for Small Farms Project with Agrxculture" [ref=e301]:
+                  - /url: /contact?service=iot-integration
+                  - text: Start Your Custom IoT Integrations for Small Farms Project with Agrxculture
+                  - img [ref=e302]
+                - paragraph [ref=e304]: Get a free consultation and project estimate from Agrxculture
+          - article [ref=e305]:
+            - generic [ref=e306]:
+              - img [ref=e308]
+              - generic [ref=e310]:
+                - heading "Mobile Farm Management Apps" [level=3] [ref=e311]
+                - paragraph [ref=e312]: Native iOS applications that streamline farm operations, enabling farmers to manage their operations efficiently from anywhere in the field.
+                - generic [ref=e314]: Increases operational efficiency by 25%
+            - generic [ref=e315]:
+              - generic [ref=e316]: "## Applications - **Field data collection apps** - Streamlined data entry and geo-tagged record keeping - **Livestock management systems** - Animal health tracking and breeding records - **Crop planning and tracking** - Planting schedules and growth monitoring - **Equipment maintenance scheduling** - Preventive maintenance and repair tracking## How It Works We develop native iOS applications using Swift that work seamlessly in field conditions. These apps feature offline functionality for areas with poor connectivity, cloud synchronization for team collaboration, and intuitive interfaces designed for use with gloves and in various weather conditions. ## Benefits - Increase operational efficiency by up to 25% - Eliminate paper-based record keeping - Real-time data synchronization across devices - Offline functionality for remote field work"
+              - generic [ref=e317]:
+                - heading "Technologies & Tools" [level=4] [ref=e318]
+                - generic [ref=e319]:
+                  - generic [ref=e320]: Swift
+                  - generic [ref=e321]: iOS SDK
+                  - generic [ref=e322]: Core Data
+                  - generic [ref=e323]: CloudKit
+                  - generic [ref=e324]: MapKit
+              - heading "Related Case Studies" [level=4] [ref=e326]
+              - generic [ref=e327]:
+                - link "Start Your Mobile Farm Management Apps Project with Agrxculture" [ref=e328]:
+                  - /url: /contact?service=mobile-apps
+                  - text: Start Your Mobile Farm Management Apps Project with Agrxculture
+                  - img [ref=e329]
+                - paragraph [ref=e331]: Get a free consultation and project estimate from Agrxculture
+      - generic [ref=e334]:
+        - heading "Ready to Transform Your Agricultural Operations?" [level=2] [ref=e335]
+        - paragraph [ref=e336]: Let Agrxculture discuss how these services can be tailored to your specific farming needs. Get a free consultation and discover the potential impact on your operation.
+        - generic [ref=e337]:
+          - link "Get Free Consultation" [ref=e338]:
+            - /url: /contact
+            - text: Get Free Consultation
+            - img [ref=e339]
+          - link "View Case Studies" [ref=e341]:
+            - /url: /showcase
+  - contentinfo [ref=e342]:
+    - generic [ref=e343]:
+      - generic [ref=e344]:
+        - generic [ref=e345]:
+          - heading "Agrxculture" [level=3] [ref=e346]
+          - paragraph [ref=e347]: Building data-driven farms for a more productive tomorrow
+        - generic [ref=e348]:
+          - generic [ref=e349]:
+            - heading "Navigation" [level=4] [ref=e350]
+            - list [ref=e351]:
+              - listitem [ref=e352]:
+                - link "Home" [ref=e353]:
+                  - /url: /
+              - listitem [ref=e354]:
+                - link "About Us" [ref=e355]:
+                  - /url: /about
+              - listitem [ref=e356]:
+                - link "Services" [ref=e357]:
+                  - /url: /services
+              - listitem [ref=e358]:
+                - link "Projects" [ref=e359]:
+                  - /url: /showcase
+              - listitem [ref=e360]:
+                - link "Contact" [ref=e361]:
+                  - /url: /contact
+          - generic [ref=e362]:
+            - heading "Services" [level=4] [ref=e363]
+            - list [ref=e364]:
+              - listitem [ref=e365]:
+                - link "IoT Integration" [ref=e366]:
+                  - /url: /services/iot-integration
+              - listitem [ref=e367]:
+                - link "Mobile Apps" [ref=e368]:
+                  - /url: /services/mobile-apps
+              - listitem [ref=e369]:
+                - link "Data Analytics" [ref=e370]:
+                  - /url: /services/data-analytics
+              - listitem [ref=e371]:
+                - link "API Development" [ref=e372]:
+                  - /url: /services/api-development
+              - listitem [ref=e373]:
+                - link "Automation Systems" [ref=e374]:
+                  - /url: /services/automation-systems
+          - generic [ref=e375]:
+            - heading "Connect" [level=4] [ref=e376]
+            - list [ref=e377]:
+              - listitem [ref=e378]:
+                - link "Email" [ref=e379]:
+                  - /url: mailto:contact@agrxculture.com
+              - listitem [ref=e380]:
+                - link "LinkedIn" [ref=e381]:
+                  - /url: https://linkedin.com/company/agrxculture
+              - listitem [ref=e382]:
+                - link "GitHub" [ref=e383]:
+                  - /url: https://github.com/agrxculture
+      - generic [ref=e384]:
+        - paragraph [ref=e385]: © 2025 Agrxculture. All rights reserved.
+        - paragraph [ref=e386]: Specializing in precision agriculture and agricultural business management technology
+  - generic [ref=e389]:
+    - button "Menu" [ref=e390]:
+      - img [ref=e392]
+      - generic: Menu
+    - button "Inspect" [ref=e396]:
+      - img [ref=e398]
+      - generic: Inspect
+    - button "Audit" [ref=e400]:
+      - img [ref=e402]
+      - generic: Audit
+    - button "Settings" [ref=e405]:
+      - img [ref=e407]
+      - generic: Settings
+```

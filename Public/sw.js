@@ -15,9 +15,9 @@ const STATIC_CACHE = 'static-assets-v1.0.1';
 const DYNAMIC_CACHE = 'dynamic-content-v1.0.1';
 
 // Get base URL for proper path handling
-const BASE_URL = self.location.pathname.includes('/agricultural-portfolio-website/') 
-  ? '/agricultural-portfolio-website' 
-  : '';
+const BASE_URL = self.location.pathname.includes('/agrxculture/')
+  ? '/agrxculture'
+  : '/';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
