@@ -25,7 +25,7 @@ const {
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://dl-alexandre.github.io/agrxculture';
 
 // Generate SEO data
-const { metaTags, structuredData } = generatePageSEO(pageType, customSEOConfig, siteUrl);
+const { metaTags, structuredData, canonical: generatedCanonical } = generatePageSEO(pageType, customSEOConfig, siteUrl);
 
 // Combine all structured data
 const allStructuredData = [...structuredData, ...customStructuredData];
@@ -36,13 +36,14 @@ if (breadcrumbs.length > 0) {
   allStructuredData.push(generateBreadcrumbSchema(breadcrumbs, siteUrl));
 }
 
-// Get final config for canonical URL
-const finalConfig = {
-  ...generatePageSEO(pageType, customSEOConfig, siteUrl),
-  ...customSEOConfig
-};
+// Fix canonical URL logic - prioritize custom canonical, then generated, then current page URL
+const canonicalURL = customSEOConfig.canonical || generatedCanonical || `${siteUrl}${Astro.url.pathname}`;
 
-const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUrl);
+const shouldNoindex = Boolean((customSEOConfig as any).noindex);
+const shouldNofollow = Boolean((customSEOConfig as any).nofollow);
+const robotsContent = shouldNoindex || shouldNofollow 
+  ? `${shouldNoindex ? 'noindex' : 'index'}, ${shouldNofollow ? 'nofollow' : 'follow'}`
+  : '';
 ---
 
 <!-- SEO Meta Tags -->
@@ -50,6 +51,8 @@ const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUr
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+{robotsContent && (<meta name="robots" content={robotsContent} />)}
 
 <!-- Additional Agricultural Technology Specific Meta Tags -->
 <meta name="industry" content="Agriculture" />
@@ -60,8 +63,8 @@ const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUr
 <meta name="ICBM" content="39.8283, -98.5795" /> <!-- Geographic center of US -->
 
 <!-- Dublin Core Metadata -->
-<meta name="DC.title" content={finalConfig.title} />
-<meta name="DC.description" content={finalConfig.description} />
+<meta name="DC.title" content={customSEOConfig.title || 'Agrxculture - Agricultural Technology'} />
+<meta name="DC.description" content={customSEOConfig.description || 'Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology'} />
 <meta name="DC.creator" content="Agrxculture" />
 <meta name="DC.subject" content="Agricultural Technology, Precision Agriculture, Farm Management" />
 <meta name="DC.type" content="Text" />
@@ -86,6 +89,8 @@ const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUr
 <meta name="application-name" content="Agrxculture - Agricultural Technology" />
 <meta name="msapplication-TileColor" content="#2E7D32" />
 <meta name="msapplication-config" content="/browserconfig.xml" />
+<meta name="viewport-fit" content="cover" />
+<meta name="apple-touch-fullscreen" content="yes" />
 
 <!-- Preconnect to External Resources -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -101,6 +106,38 @@ const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUr
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 ))}
 
+<!-- Additional Local Business Schema -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Agrxculture",
+  "description": "Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology",
+  "url": siteUrl,
+  "telephone": "+1-XXX-XXX-XXXX",
+  "email": "contact@agrxculture.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "US",
+    "addressRegion": "United States"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 39.8283,
+    "longitude": -98.5795
+  },
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "paymentAccepted": "Credit Card, Bank Transfer, Invoice",
+  "currenciesAccepted": "USD",
+  "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Agricultural Technology Services"
+  }
+})} />
+
 <!-- Additional SEO Enhancements -->
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="format-detection" content="address=no" />
@@ -109,9 +146,7 @@ const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUr
 <!-- Agricultural Technology Keywords for Enhanced Discovery -->
 <meta name="keywords" content="agricultural software developer, precision agriculture, farm IoT developer, agricultural technology consultant, farm management systems, agricultural data analytics, mobile farm apps, farm automation, agricultural sensor networks, precision farming solutions, smart agriculture, digital farming, agtech developer, farm technology integration, agricultural mobile development, IoT agriculture solutions, farm data management, agricultural API development, crop monitoring systems, livestock tracking technology, irrigation automation, yield optimization, farm efficiency solutions, agricultural innovation, sustainable farming technology" />
 
-<!-- Hreflang for International SEO (if applicable) -->
-<link rel="alternate" hreflang="en-us" href={canonicalURL} />
-<link rel="alternate" hreflang="en" href={canonicalURL} />
+<!-- Hreflang omitted (single-language site) -->
 
 <!-- Favicon and App Icons -->
 <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} />
@@ -140,11 +175,20 @@ const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUr
 <meta property="business:contact_data:region" content="US" />
 <meta property="business:contact_data:country_name" content="United States" />
 <meta property="business:contact_data:website" content={siteUrl} />
+<meta property="business:contact_data:phone_number" content="+1-XXX-XXX-XXXX" />
+<meta property="business:contact_data:email" content="contact@agrxculture.com" />
+<meta property="business:contact_data:hours" content="Monday-Friday 9AM-6PM EST" />
+<meta property="business:contact_data:payment_accepted" content="Credit Card, Bank Transfer, Invoice" />
+<meta property="business:contact_data:currencies_accepted" content="USD" />
 
 <!-- Performance Monitoring Meta Tags -->
 <meta name="performance-budget" content="1MB" />
-<meta name="lighthouse-target" content="90" />
+<meta name="lighthouse-target" content="95" />
 <meta name="core-web-vitals" content="optimized" />
+<meta name="page-speed" content="optimized" />
+<meta name="mobile-friendly" content="yes" />
+<meta name="responsive-design" content="yes" />
+<meta name="accessibility" content="WCAG 2.1 AA compliant" />
 
 <!-- Agricultural Industry Classification -->
 <meta name="industry-code" content="NAICS-541511" /> <!-- Custom Computer Programming Services -->
@@ -167,11 +211,21 @@ const canonicalURL = finalConfig.canonical || new URL(Astro.url.pathname, siteUr
 <meta property="og:locale:alternate" content="en_US" />
 <meta property="og:updated_time" content={new Date().toISOString()} />
 <meta name="twitter:dnt" content="on" />
+<meta property="og:site_name" content="Agrxculture - Agricultural Technology" />
+<meta property="og:type" content="website" />
+<meta property="og:image:secure_url" content={`${siteUrl}/images/hero/agrxculture-logo.webp`} />
+<meta property="og:image:type" content="image/webp" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:site" content="@agrxculture" />
+<meta name="twitter:creator" content="@agrxculture" />
+<meta name="twitter:card" content="summary_large_image" />
 
 <!-- Search Engine Optimization Enhancements -->
-<meta name="google-site-verification" content="" /> <!-- Add Google Search Console verification -->
-<meta name="bing-site-verification" content="" /> <!-- Add Bing Webmaster verification -->
-<meta name="yandex-verification" content="" /> <!-- Add Yandex verification if needed -->
+<meta name="google-site-verification" content="your-google-verification-code" /> <!-- Add Google Search Console verification -->
+<meta name="bing-site-verification" content="your-bing-verification-code" /> <!-- Add Bing Webmaster verification -->
+<meta name="yandex-verification" content="your-yandex-verification-code" /> <!-- Add Yandex verification if needed -->
+<meta name="msvalidate.01" content="your-bing-verification-code" /> <!-- Alternative Bing verification -->
 
 <!-- Agricultural Technology Portfolio Indicators -->
 <meta name="portfolio-focus" content="Agricultural Technology Case Studies" />

@@ -1,14 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const title = 'Contact - Agrxculture';
 const description = 'Get in touch for agricultural technology consulting and custom development services. Specializing in IoT farm solutions, mobile apps, and precision agriculture systems.';
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout 
+  title={title} 
+  description={description}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact' }
+  ]}
+>
   <div class="page-container">
     <section class="contact-header">
       <div class="container">
+        <Breadcrumbs items={[
+          { label: 'Home', url: '/' },
+          { label: 'Contact', url: '/contact', current: true }
+        ]} />
+        
         <h1>Let Agrxculture Build Your Agricultural Solution</h1>
         <p class="header-subtitle">
           Ready to transform your farming operation with custom technology? 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { loadService, loadServices, loadProjects } from '../../utils/content-loader.ts';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 // Helper function to create proper URLs with base path
 function createUrl(path: string): string {
@@ -34,18 +35,22 @@ const title = `${service.title} - Agricultural Technology Services`;
 const description = service.description;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout 
+  title={title} 
+  description={description}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+    { name: service.title, url: `/services/${service.id}` }
+  ]}
+>
   <main class="service-detail-page">
     <!-- Breadcrumb Navigation -->
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <div class="container">
-        <ol class="breadcrumb-list">
-          <li><a href={import.meta.env.BASE_URL}>Home</a></li>
-          <li><a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services`}>Services</a></li>
-          <li aria-current="page">{service.title}</li>
-        </ol>
-      </div>
-    </nav>
+    <Breadcrumbs items={[
+      { label: 'Home', url: '/' },
+      { label: 'Services', url: '/services' },
+      { label: service.title, url: `/services/${service.id}`, current: true }
+    ]} />
 
     <!-- Service Hero Section -->
     <section class="service-hero">

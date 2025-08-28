@@ -1,10 +1,18 @@
 ---
+import Breadcrumbs from './Breadcrumbs.astro';
+
 // About Component - Company expertise showcase for agricultural technology
 const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <section class="about-section" id="about">
   <div class="container">
+    <!-- Breadcrumbs -->
+    <Breadcrumbs items={[
+      { label: 'Home', url: '/' },
+      { label: 'About', url: '/about', current: true }
+    ]} />
+    
     <!-- Section Header -->
     <div class="section-header">
       <h2 class="section-title">About Agrxculture</h2>

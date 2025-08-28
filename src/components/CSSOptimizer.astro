@@ -1,0 +1,232 @@
+---
+// CSS Optimizer Component for Page Speed Optimization
+// Handles non-critical CSS loading to prevent render-blocking
+
+interface Props {
+  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
+  nonCriticalCSS?: string[];
+}
+
+const { 
+  pageType = 'home',
+  nonCriticalCSS = []
+} = Astro.props;
+
+// Default non-critical CSS files for each page type
+const defaultNonCriticalCSS = {
+  home: [
+    '/styles/images.css',
+    '/styles/performance.css'
+  ],
+  about: [
+    '/styles/images.css',
+    '/styles/performance.css'
+  ],
+  services: [
+    '/styles/images.css',
+    '/styles/performance.css',
+    '/styles/showcase.css'
+  ],
+  showcase: [
+    '/styles/images.css',
+    '/styles/performance.css',
+    '/styles/showcase.css'
+  ],
+  contact: [
+    '/styles/images.css',
+    '/styles/performance.css',
+    '/styles/contact.css'
+  ]
+};
+
+const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS];
+---
+
+<!-- Non-critical CSS loader with media="print" for better performance -->
+{cssFiles.map(cssFile => (
+  <link 
+    rel="stylesheet" 
+    href={cssFile} 
+    media="print" 
+    onload="this.media='all'" 
+  />
+))}
+
+<!-- Fallback for browsers without JavaScript -->
+<noscript>
+  {cssFiles.map(cssFile => (
+    <link rel="stylesheet" href={cssFile} />
+  ))}
+</noscript>
+
+<script>
+  // CSS loading optimization
+  class CSSOptimizer {
+    constructor() {
+      this.loadedCSS = new Set();
+      this.pendingCSS = new Set();
+      this.init();
+    }
+
+    init() {
+      // Check connection type and adjust loading strategy
+      this.adjustLoadingStrategy();
+      
+      // Set up CSS loading event listeners
+      this.setupCSSListeners();
+      
+      // Load CSS based on viewport
+      this.loadViewportCSS();
+    }
+
+    adjustLoadingStrategy() {
+      if ('connection' in navigator) {
+        const connection = navigator.connection;
+        
+        // Slow connection - load CSS immediately
+        if (connection.effectiveType === 'slow-2g' || 
+            connection.effectiveType === '2g') {
+          this.loadAllCSS();
+          return;
+        }
+        
+        // Save data mode - load CSS immediately
+        if (connection.saveData) {
+          this.loadAllCSS();
+          return;
+        }
+      }
+    }
+
+    setupCSSListeners() {
+      // Listen for CSS load events
+      document.addEventListener('DOMContentLoaded', () => {
+        this.loadNonCriticalCSS();
+      });
+      
+      // Load CSS when page becomes visible
+      if ('visibilityState' in document) {
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) {
+            this.loadNonCriticalCSS();
+          }
+        });
+      }
+    }
+
+    loadViewportCSS() {
+      // Use Intersection Observer to load CSS when elements come into view
+      if ('IntersectionObserver' in window) {
+        const cssObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const cssFile = entry.target.dataset.cssFile;
+              if (cssFile && !this.loadedCSS.has(cssFile)) {
+                this.loadCSSFile(cssFile);
+              }
+              cssObserver.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '100px' });
+
+        // Observe elements that need specific CSS
+        const cssElements = document.querySelectorAll('[data-css-file]');
+        cssElements.forEach(element => cssObserver.observe(element));
+      }
+    }
+
+    loadNonCriticalCSS() {
+      // Load CSS files that are not yet loaded
+      const cssLinks = document.querySelectorAll('link[rel="preload"][as="style"]');
+      cssLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && !this.loadedCSS.has(href)) {
+          this.loadCSSFile(href);
+        }
+      });
+    }
+
+    loadCSSFile(href) {
+      if (this.loadedCSS.has(href) || this.pendingCSS.has(href)) {
+        return;
+      }
+
+      this.pendingCSS.add(href);
+
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      
+      link.onload = () => {
+        this.loadedCSS.add(href);
+        this.pendingCSS.delete(href);
+        this.dispatchCSSLoadedEvent(href);
+      };
+      
+      link.onerror = () => {
+        this.pendingCSS.delete(href);
+        console.warn(`Failed to load CSS: ${href}`);
+      };
+
+      document.head.appendChild(link);
+    }
+
+    loadAllCSS() {
+      // Load all CSS files immediately
+      const cssLinks = document.querySelectorAll('link[rel="preload"][as="style"]');
+      cssLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) {
+          this.loadCSSFile(href);
+        }
+      });
+    }
+
+    dispatchCSSLoadedEvent(href) {
+      // Dispatch custom event for analytics/tracking
+      document.dispatchEvent(new CustomEvent('cssLoaded', {
+        detail: { href, loadTime: performance.now() }
+      }));
+    }
+
+    // Public method to manually load specific CSS
+    loadCSS(href) {
+      this.loadCSSFile(href);
+    }
+
+    // Public method to check if CSS is loaded
+    isCSSLoaded(href) {
+      return this.loadedCSS.has(href);
+    }
+  }
+
+  // Initialize CSS optimizer
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      window.cssOptimizer = new CSSOptimizer();
+    });
+  } else {
+    window.cssOptimizer = new CSSOptimizer();
+  }
+</script>
+
+<style>
+  /* CSS loading indicators */
+  .css-loading {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .css-loaded {
+    opacity: 1;
+  }
+  
+  /* Prevent FOUC (Flash of Unstyled Content) */
+  .no-fouc {
+    visibility: hidden;
+  }
+  
+  .fouc-ready {
+    visibility: visible;
+  }
+</style>

@@ -33,11 +33,30 @@ const imageManifest = {
   totalSizes: 0
 };
 
+// Skip already-generated size files (e.g., name-400w.jpg) and only regenerate when source is newer
+async function pathIsUpToDate(srcPath, outPath) {
+  try {
+    const srcStat = fs.statSync(srcPath);
+    const outStat = fs.statSync(outPath);
+    return outStat.mtimeMs >= srcStat.mtimeMs;
+  } catch {
+    return false;
+  }
+}
+
+function isGeneratedDerivative(fileName) {
+  return /-\d{3,4}w\.(?:jpg|jpeg|png|webp)$/i.test(fileName);
+}
+
 // Generate responsive images and WebP versions
 async function generateResponsiveImages(inputPath, outputDir) {
   const basename = path.basename(inputPath, path.extname(inputPath));
   const ext = path.extname(inputPath).toLowerCase();
   const relativePath = path.relative('Public', inputPath);
+  
+  if (isGeneratedDerivative(path.basename(inputPath))) {
+    return null;
+  }
   
   console.log(`Processing: ${inputPath}`);
   
@@ -67,38 +86,44 @@ async function generateResponsiveImages(inputPath, outputDir) {
       imageData.webp[size] = path.relative('Public', webpPath);
       imageData.sizes[size] = path.relative('Public', fallbackPath);
       
-      // Generate WebP version
-      await sharp(inputPath)
-        .resize(size, null, { withoutEnlargement: true })
-        .webp({ quality: quality.webp, effort: 6 })
-        .toFile(webpPath);
+      // Skip if outputs are up-to-date
+      const webpFresh = await pathIsUpToDate(inputPath, webpPath);
+      const fallbackFresh = await pathIsUpToDate(inputPath, fallbackPath);
+
+      if (!webpFresh) {
+        await sharp(inputPath)
+          .resize(size, null, { withoutEnlargement: true })
+          .webp({ quality: quality.webp, effort: 6 })
+          .toFile(webpPath);
+        console.log(`✅ Generated WebP: ${webpPath}`);
+      }
       
-      // Generate fallback version
-      if (ext === '.jpg' || ext === '.jpeg') {
+      if ((ext === '.jpg' || ext === '.jpeg') && !fallbackFresh) {
         await sharp(inputPath)
           .resize(size, null, { withoutEnlargement: true })
           .jpeg({ quality: quality.jpeg, progressive: true })
           .toFile(fallbackPath);
-      } else if (ext === '.png') {
+        console.log(`✅ Generated fallback: ${fallbackPath}`);
+      } else if (ext === '.png' && !fallbackFresh) {
         await sharp(inputPath)
           .resize(size, null, { withoutEnlargement: true })
           .png({ quality: quality.png, progressive: true })
           .toFile(fallbackPath);
+        console.log(`✅ Generated fallback: ${fallbackPath}`);
       }
-      
-      console.log(`✅ Generated WebP: ${webpPath}`);
-      console.log(`✅ Generated fallback: ${fallbackPath}`);
     }
     
     // Generate base WebP version
     const baseWebpPath = path.join(outputDir, `${basename}.webp`);
     imageData.webp.original = path.relative('Public', baseWebpPath);
-    
-    await sharp(inputPath)
-      .webp({ quality: quality.webp, effort: 6 })
-      .toFile(baseWebpPath);
-    
-    console.log(`✅ Generated base WebP: ${baseWebpPath}`);
+
+    const baseFresh = await pathIsUpToDate(inputPath, baseWebpPath);
+    if (!baseFresh) {
+      await sharp(inputPath)
+        .webp({ quality: quality.webp, effort: 6 })
+        .toFile(baseWebpPath);
+      console.log(`✅ Generated base WebP: ${baseWebpPath}`);
+    }
     
     // Add to manifest
     imageManifest.images[basename] = imageData;
@@ -188,6 +213,7 @@ async function processImages(dir) {
     if (file.isDirectory()) {
       await processImages(fullPath);
     } else if (/\.(jpg|jpeg|png)$/i.test(file.name)) {
+      if (isGeneratedDerivative(file.name)) continue;
       await generateResponsiveImages(fullPath, dir);
     }
   }

@@ -406,6 +406,7 @@ export function generatePageSEO(
 ): {
   metaTags: string;
   structuredData: object[];
+  canonical?: string;
 } {
   const baseConfig = defaultSEOConfigs[pageType];
   const config = { ...baseConfig, ...customConfig };
@@ -416,5 +417,9 @@ export function generatePageSEO(
     generateWebsiteSchema(siteUrl)
   ];
   
-  return { metaTags, structuredData };
+  const result: { metaTags: string; structuredData: object[]; canonical?: string } = { metaTags, structuredData };
+  if (config.canonical) {
+    result.canonical = config.canonical;
+  }
+  return result;
 }

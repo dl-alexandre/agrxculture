@@ -3,22 +3,23 @@
 const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
 ---
 
-<div class="project-filters">
+<div class="project-filters" role="region" aria-labelledby="filter-heading">
   <div class="filter-header">
-    <h3>Filter Projects</h3>
-    <span id="project-count" class="project-count"></span>
+    <div class="filter-title" id="filter-heading">Filter Projects</div>
+    <span id="project-count" class="project-count" aria-live="polite"></span>
   </div>
   
   <div class="filter-controls">
     <div class="filter-group">
-      <label class="filter-label">By Technology:</label>
-      <div class="filter-buttons" role="group" aria-label="Filter projects by technology">
+      <label class="filter-label" for="technology-filters">By Technology:</label>
+      <div class="filter-buttons" role="group" aria-labelledby="technology-filters" id="technology-filters">
         {allTags.map(tag => (
           <button 
             class={`filter-btn ${tag === 'All' ? 'active' : ''}`}
             data-filter={tag.toLowerCase()}
             type="button"
             aria-pressed={tag === 'All' ? 'true' : 'false'}
+            aria-label={`Filter by ${tag} technology`}
           >
             {tag}
           </button>
@@ -27,16 +28,17 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     </div>
     
     <div class="filter-group">
-      <label class="filter-label">Show Featured Only:</label>
+      <label class="filter-label" for="featured-toggle">Show Featured Only:</label>
       <div class="toggle-container">
         <input 
           type="checkbox" 
           id="featured-toggle" 
           class="toggle-input"
           aria-describedby="featured-help"
+          aria-label="Show only featured projects"
         />
         <label for="featured-toggle" class="toggle-label">
-          <span class="toggle-slider"></span>
+          <span class="toggle-slider" aria-hidden="true"></span>
         </label>
         <span id="featured-help" class="toggle-help">Show only featured projects</span>
       </div>
@@ -44,7 +46,7 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     
     <div class="filter-group">
       <label for="sort-select" class="filter-label">Sort By:</label>
-      <select id="sort-select" class="sort-select">
+      <select id="sort-select" class="sort-select" aria-label="Sort projects by">
         <option value="date-desc">Newest First</option>
         <option value="date-asc">Oldest First</option>
         <option value="title-asc">Title A-Z</option>
@@ -53,12 +55,17 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     </div>
   </div>
   
-  <div class="active-filters">
+  <div class="active-filters" role="region" aria-label="Active filters">
     <span class="active-filters-label">Active filters:</span>
-    <div id="active-filter-tags" class="active-filter-tags">
+    <div id="active-filter-tags" class="active-filter-tags" aria-live="polite">
       <span class="active-filter-tag">All Projects</span>
     </div>
-    <button id="clear-filters" class="clear-filters-btn" style="display: none;">
+    <button 
+      id="clear-filters" 
+      class="clear-filters-btn" 
+      style="display: none;"
+      aria-label="Clear all active filters"
+    >
       Clear All Filters
     </button>
   </div>
@@ -80,7 +87,7 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     margin-bottom: var(--space-lg);
   }
   
-  .filter-header h3 {
+  .filter-title {
     font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--color-text-primary);
@@ -88,8 +95,8 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
   }
   
   .project-count {
-    background: var(--color-primary-light);
-    color: var(--color-primary);
+    background: var(--color-primary-dark);
+    color: white;
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--border-radius-sm);
     font-size: var(--font-size-sm);
@@ -122,7 +129,7 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
   .filter-btn {
     background: var(--color-background);
     border: 2px solid var(--color-border);
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--border-radius-sm);
     font-size: var(--font-size-sm);
@@ -130,10 +137,12 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     cursor: pointer;
     transition: all 0.2s ease-out;
     min-width: 80px;
+    position: relative;
   }
   
   .filter-btn:hover {
-    border-color: var(--color-primary);
+    border-color: var(--color-primary-light);
+    background: var(--color-primary-light);
     color: var(--color-primary);
   }
   
@@ -143,7 +152,18 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     color: white;
   }
   
+  /* Enhanced focus states for better accessibility */
   .filter-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+  
+  .filter-btn:focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  .filter-btn:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
@@ -250,8 +270,8 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
   }
   
   .active-filter-tag {
-    background: var(--color-primary-light);
-    color: var(--color-primary);
+    background: var(--color-primary-dark);
+    color: white;
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--border-radius-sm);
     font-size: var(--font-size-xs);

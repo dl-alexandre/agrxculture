@@ -13,6 +13,7 @@
   --color-accent: #ff8f00; /* Harvest Orange */
   --color-accent-light: #ffb74d;
   --color-accent-dark: #e65100;
+  --color-accent-darker: #bf360c; /* Even darker for better contrast */
 
   /* Status Colors */
   --color-success: #4caf50;

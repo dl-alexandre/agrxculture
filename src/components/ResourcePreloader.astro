@@ -1,0 +1,229 @@
+---
+// Resource Preloader Component for Page Speed Optimization
+// Implements resource hints, preloading, and prefetching strategies
+
+interface Props {
+  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
+  criticalImages?: string[];
+  criticalFonts?: string[];
+  preloadScripts?: string[];
+}
+
+const { 
+  pageType = 'home',
+  criticalImages = [],
+  criticalFonts = [],
+  preloadScripts = []
+} = Astro.props;
+
+// Default critical resources for each page type
+const defaultResources = {
+  home: {
+    images: [
+      '/images/hero/agrxculture-logo.webp',
+      '/images/hero/agricultural-background-mobile.webp'
+    ],
+    fonts: [
+      '/fonts/inter-var.woff2'
+    ],
+    scripts: [
+      '/scripts/performance-monitor.js',
+      '/scripts/lazy-loading.js'
+    ]
+  },
+  about: {
+    images: [
+      '/images/hero/agrxculture-logo.webp'
+    ],
+    fonts: [
+      '/fonts/inter-var.woff2'
+    ],
+    scripts: [
+      '/scripts/performance-monitor.js'
+    ]
+  },
+  services: {
+    images: [
+      '/images/hero/agrxculture-logo.webp'
+    ],
+    fonts: [
+      '/fonts/inter-var.woff2'
+    ],
+    scripts: [
+      '/scripts/performance-monitor.js',
+      '/scripts/showcase.js'
+    ]
+  },
+  showcase: {
+    images: [
+      '/images/hero/agrxculture-logo.webp',
+      '/images/showcase/livestock-tracker.webp',
+      '/images/showcase/yield-analytics.webp'
+    ],
+    fonts: [
+      '/fonts/inter-var.woff2'
+    ],
+    scripts: [
+      '/scripts/performance-monitor.js',
+      '/scripts/showcase.js'
+    ]
+  },
+  contact: {
+    images: [
+      '/images/hero/agrxculture-logo.webp'
+    ],
+    fonts: [
+      '/fonts/inter-var.woff2'
+    ],
+    scripts: [
+      '/scripts/performance-monitor.js',
+      '/scripts/contact-form.js'
+    ]
+  }
+};
+
+const resources = defaultResources[pageType] || defaultResources.home;
+---
+
+<!-- DNS Prefetch for external domains -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//www.google.com" />
+<link rel="dns-prefetch" href="//formspree.io" />
+
+<!-- Preconnect to external domains -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://www.google.com" crossorigin />
+<link rel="preconnect" href="https://formspree.io" crossorigin />
+
+<!-- Preload critical fonts -->
+{resources.fonts.map(font => (
+  <link 
+    rel="preload" 
+    href={font} 
+    as="font" 
+    type="font/woff2" 
+    crossorigin 
+  />
+))}
+
+<!-- Preload critical images -->
+{resources.images.map(image => (
+  <link 
+    rel="preload" 
+    href={image} 
+    as="image" 
+    type="image/webp" 
+  />
+))}
+
+<!-- Preload critical scripts -->
+{resources.scripts.map(script => (
+  <link 
+    rel="preload" 
+    href={script} 
+    as="script" 
+  />
+))}
+
+<!-- Preload custom critical resources -->
+{criticalImages.map(image => (
+  <link 
+    rel="preload" 
+    href={image} 
+    as="image" 
+  />
+))}
+
+{criticalFonts.map(font => (
+  <link 
+    rel="preload" 
+    href={font} 
+    as="font" 
+    crossorigin 
+  />
+))}
+
+{preloadScripts.map(script => (
+  <link 
+    rel="preload" 
+    href={script} 
+    as="script" 
+  />
+))}
+
+<!-- Prefetch non-critical resources -->
+<link rel="prefetch" href="/images/showcase/farm-sensor-network.jpg" />
+<link rel="prefetch" href="/images/showcase/yield-analytics.jpg" />
+<link rel="prefetch" href="/images/showcase/farm-management-ios.jpg" />
+
+<!-- Prefetch service pages -->
+<link rel="prefetch" href="/services/api-development" />
+<link rel="prefetch" href="/services/automation-systems" />
+<link rel="prefetch" href="/services/data-analytics" />
+<link rel="prefetch" href="/services/iot-integration" />
+<link rel="prefetch" href="/services/mobile-apps" />
+
+<!-- Prefetch project pages -->
+<link rel="prefetch" href="/projects/farm-sensor-network" />
+<link rel="prefetch" href="/projects/yield-analytics" />
+<link rel="prefetch" href="/projects/farm-management-ios" />
+
+<!-- Module preload for ES modules -->
+<link rel="modulepreload" href="/scripts/performance-monitor.js" />
+<link rel="modulepreload" href="/scripts/lazy-loading.js" />
+<link rel="modulepreload" href="/scripts/sw-register.js" />
+
+<!-- Preload CSS for non-critical styles -->
+<link rel="preload" href="/styles/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="/styles/layout.css" /></noscript>
+
+<!-- Preload CSS for images and performance -->
+<link rel="preload" href="/styles/images.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="/styles/images.css" /></noscript>
+
+<link rel="preload" href="/styles/performance.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="/styles/performance.css" /></noscript>
+
+<script>
+  // Resource loading optimization
+  if ('connection' in navigator) {
+    // Slow connection - reduce preloading
+    if (navigator.connection.effectiveType === 'slow-2g' || 
+        navigator.connection.effectiveType === '2g') {
+      const preloadLinks = document.querySelectorAll('link[rel="preload"]');
+      preloadLinks.forEach(link => {
+        if (link.getAttribute('as') !== 'font') {
+          link.rel = 'prefetch';
+        }
+      });
+    }
+    
+    // Save data mode - disable preloading
+    if (navigator.connection.saveData) {
+      const preloadLinks = document.querySelectorAll('link[rel="preload"]');
+      preloadLinks.forEach(link => {
+        link.rel = 'prefetch';
+      });
+    }
+  }
+  
+  // Intersection Observer for viewport-based preloading
+  if ('IntersectionObserver' in window) {
+    const preloadObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const link = entry.target;
+          if (link.rel === 'prefetch') {
+            link.rel = 'preload';
+          }
+          preloadObserver.unobserve(link);
+        }
+      });
+    }, { rootMargin: '50px' });
+    
+    // Observe prefetch links for viewport-based loading
+    const prefetchLinks = document.querySelectorAll('link[rel="prefetch"]');
+    prefetchLinks.forEach(link => preloadObserver.observe(link));
+  }
+</script>

@@ -17,10 +17,10 @@ const PERFORMANCE_THRESHOLDS = {
 
 // Test URLs (adjust based on your deployment)
 const TEST_URLS = [
-  'http://localhost:8000/',
-  'http://localhost:8000/services',
-  'http://localhost:8000/showcase',
-  'http://localhost:8000/contact',
+  'http://localhost:4321/',
+  'http://localhost:4321/services',
+  'http://localhost:4321/showcase',
+  'http://localhost:4321/contact',
 ];
 
 async function runLighthouseTest(url) {

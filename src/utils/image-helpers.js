@@ -1,90 +1,6 @@
 // Auto-generated image helpers
 export const imageManifest = {
   "images": {
-    "farm-management-ios-1200w": {
-      "original": "images/showcase/farm-management-ios-1200w.jpg",
-      "basename": "farm-management-ios-1200w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-management-ios-1200w-400w.jpg",
-        "800": "images/showcase/farm-management-ios-1200w-800w.jpg",
-        "1200": "images/showcase/farm-management-ios-1200w-1200w.jpg",
-        "1600": "images/showcase/farm-management-ios-1200w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-management-ios-1200w-400w.webp",
-        "800": "images/showcase/farm-management-ios-1200w-800w.webp",
-        "1200": "images/showcase/farm-management-ios-1200w-1200w.webp",
-        "1600": "images/showcase/farm-management-ios-1200w-1600w.webp",
-        "original": "images/showcase/farm-management-ios-1200w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3762,
-      "optimized": true
-    },
-    "farm-management-ios-1600w": {
-      "original": "images/showcase/farm-management-ios-1600w.jpg",
-      "basename": "farm-management-ios-1600w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-management-ios-1600w-400w.jpg",
-        "800": "images/showcase/farm-management-ios-1600w-800w.jpg",
-        "1200": "images/showcase/farm-management-ios-1600w-1200w.jpg",
-        "1600": "images/showcase/farm-management-ios-1600w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-management-ios-1600w-400w.webp",
-        "800": "images/showcase/farm-management-ios-1600w-800w.webp",
-        "1200": "images/showcase/farm-management-ios-1600w-1200w.webp",
-        "1600": "images/showcase/farm-management-ios-1600w-1600w.webp",
-        "original": "images/showcase/farm-management-ios-1600w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3762,
-      "optimized": true
-    },
-    "farm-management-ios-400w": {
-      "original": "images/showcase/farm-management-ios-400w.jpg",
-      "basename": "farm-management-ios-400w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-management-ios-400w-400w.jpg",
-        "800": "images/showcase/farm-management-ios-400w-800w.jpg",
-        "1200": "images/showcase/farm-management-ios-400w-1200w.jpg",
-        "1600": "images/showcase/farm-management-ios-400w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-management-ios-400w-400w.webp",
-        "800": "images/showcase/farm-management-ios-400w-800w.webp",
-        "1200": "images/showcase/farm-management-ios-400w-1200w.webp",
-        "1600": "images/showcase/farm-management-ios-400w-1600w.webp",
-        "original": "images/showcase/farm-management-ios-400w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3762,
-      "optimized": true
-    },
-    "farm-management-ios-800w": {
-      "original": "images/showcase/farm-management-ios-800w.jpg",
-      "basename": "farm-management-ios-800w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-management-ios-800w-400w.jpg",
-        "800": "images/showcase/farm-management-ios-800w-800w.jpg",
-        "1200": "images/showcase/farm-management-ios-800w-1200w.jpg",
-        "1600": "images/showcase/farm-management-ios-800w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-management-ios-800w-400w.webp",
-        "800": "images/showcase/farm-management-ios-800w-800w.webp",
-        "1200": "images/showcase/farm-management-ios-800w-1200w.webp",
-        "1600": "images/showcase/farm-management-ios-800w-1600w.webp",
-        "original": "images/showcase/farm-management-ios-800w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3762,
-      "optimized": true
-    },
     "farm-management-ios": {
       "original": "images/showcase/farm-management-ios.jpg",
       "basename": "farm-management-ios",
@@ -104,90 +20,6 @@ export const imageManifest = {
       },
       "aspectRatio": 1.6,
       "fileSize": 449,
-      "optimized": true
-    },
-    "farm-sensor-network-1200w": {
-      "original": "images/showcase/farm-sensor-network-1200w.jpg",
-      "basename": "farm-sensor-network-1200w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-sensor-network-1200w-400w.jpg",
-        "800": "images/showcase/farm-sensor-network-1200w-800w.jpg",
-        "1200": "images/showcase/farm-sensor-network-1200w-1200w.jpg",
-        "1600": "images/showcase/farm-sensor-network-1200w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-sensor-network-1200w-400w.webp",
-        "800": "images/showcase/farm-sensor-network-1200w-800w.webp",
-        "1200": "images/showcase/farm-sensor-network-1200w-1200w.webp",
-        "1600": "images/showcase/farm-sensor-network-1200w-1600w.webp",
-        "original": "images/showcase/farm-sensor-network-1200w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4206,
-      "optimized": true
-    },
-    "farm-sensor-network-1600w": {
-      "original": "images/showcase/farm-sensor-network-1600w.jpg",
-      "basename": "farm-sensor-network-1600w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-sensor-network-1600w-400w.jpg",
-        "800": "images/showcase/farm-sensor-network-1600w-800w.jpg",
-        "1200": "images/showcase/farm-sensor-network-1600w-1200w.jpg",
-        "1600": "images/showcase/farm-sensor-network-1600w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-sensor-network-1600w-400w.webp",
-        "800": "images/showcase/farm-sensor-network-1600w-800w.webp",
-        "1200": "images/showcase/farm-sensor-network-1600w-1200w.webp",
-        "1600": "images/showcase/farm-sensor-network-1600w-1600w.webp",
-        "original": "images/showcase/farm-sensor-network-1600w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4206,
-      "optimized": true
-    },
-    "farm-sensor-network-400w": {
-      "original": "images/showcase/farm-sensor-network-400w.jpg",
-      "basename": "farm-sensor-network-400w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-sensor-network-400w-400w.jpg",
-        "800": "images/showcase/farm-sensor-network-400w-800w.jpg",
-        "1200": "images/showcase/farm-sensor-network-400w-1200w.jpg",
-        "1600": "images/showcase/farm-sensor-network-400w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-sensor-network-400w-400w.webp",
-        "800": "images/showcase/farm-sensor-network-400w-800w.webp",
-        "1200": "images/showcase/farm-sensor-network-400w-1200w.webp",
-        "1600": "images/showcase/farm-sensor-network-400w-1600w.webp",
-        "original": "images/showcase/farm-sensor-network-400w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4206,
-      "optimized": true
-    },
-    "farm-sensor-network-800w": {
-      "original": "images/showcase/farm-sensor-network-800w.jpg",
-      "basename": "farm-sensor-network-800w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/farm-sensor-network-800w-400w.jpg",
-        "800": "images/showcase/farm-sensor-network-800w-800w.jpg",
-        "1200": "images/showcase/farm-sensor-network-800w-1200w.jpg",
-        "1600": "images/showcase/farm-sensor-network-800w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/farm-sensor-network-800w-400w.webp",
-        "800": "images/showcase/farm-sensor-network-800w-800w.webp",
-        "1200": "images/showcase/farm-sensor-network-800w-1200w.webp",
-        "1600": "images/showcase/farm-sensor-network-800w-1600w.webp",
-        "original": "images/showcase/farm-sensor-network-800w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4206,
       "optimized": true
     },
     "farm-sensor-network": {
@@ -211,90 +43,6 @@ export const imageManifest = {
       "fileSize": 460,
       "optimized": true
     },
-    "irrigation-automation-1200w": {
-      "original": "images/showcase/irrigation-automation-1200w.jpg",
-      "basename": "irrigation-automation-1200w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/irrigation-automation-1200w-400w.jpg",
-        "800": "images/showcase/irrigation-automation-1200w-800w.jpg",
-        "1200": "images/showcase/irrigation-automation-1200w-1200w.jpg",
-        "1600": "images/showcase/irrigation-automation-1200w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/irrigation-automation-1200w-400w.webp",
-        "800": "images/showcase/irrigation-automation-1200w-800w.webp",
-        "1200": "images/showcase/irrigation-automation-1200w-1200w.webp",
-        "1600": "images/showcase/irrigation-automation-1200w-1600w.webp",
-        "original": "images/showcase/irrigation-automation-1200w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3601,
-      "optimized": true
-    },
-    "irrigation-automation-1600w": {
-      "original": "images/showcase/irrigation-automation-1600w.jpg",
-      "basename": "irrigation-automation-1600w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/irrigation-automation-1600w-400w.jpg",
-        "800": "images/showcase/irrigation-automation-1600w-800w.jpg",
-        "1200": "images/showcase/irrigation-automation-1600w-1200w.jpg",
-        "1600": "images/showcase/irrigation-automation-1600w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/irrigation-automation-1600w-400w.webp",
-        "800": "images/showcase/irrigation-automation-1600w-800w.webp",
-        "1200": "images/showcase/irrigation-automation-1600w-1200w.webp",
-        "1600": "images/showcase/irrigation-automation-1600w-1600w.webp",
-        "original": "images/showcase/irrigation-automation-1600w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3601,
-      "optimized": true
-    },
-    "irrigation-automation-400w": {
-      "original": "images/showcase/irrigation-automation-400w.jpg",
-      "basename": "irrigation-automation-400w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/irrigation-automation-400w-400w.jpg",
-        "800": "images/showcase/irrigation-automation-400w-800w.jpg",
-        "1200": "images/showcase/irrigation-automation-400w-1200w.jpg",
-        "1600": "images/showcase/irrigation-automation-400w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/irrigation-automation-400w-400w.webp",
-        "800": "images/showcase/irrigation-automation-400w-800w.webp",
-        "1200": "images/showcase/irrigation-automation-400w-1200w.webp",
-        "1600": "images/showcase/irrigation-automation-400w-1600w.webp",
-        "original": "images/showcase/irrigation-automation-400w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3601,
-      "optimized": true
-    },
-    "irrigation-automation-800w": {
-      "original": "images/showcase/irrigation-automation-800w.jpg",
-      "basename": "irrigation-automation-800w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/irrigation-automation-800w-400w.jpg",
-        "800": "images/showcase/irrigation-automation-800w-800w.jpg",
-        "1200": "images/showcase/irrigation-automation-800w-1200w.jpg",
-        "1600": "images/showcase/irrigation-automation-800w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/irrigation-automation-800w-400w.webp",
-        "800": "images/showcase/irrigation-automation-800w-800w.webp",
-        "1200": "images/showcase/irrigation-automation-800w-1200w.webp",
-        "1600": "images/showcase/irrigation-automation-800w-1600w.webp",
-        "original": "images/showcase/irrigation-automation-800w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3601,
-      "optimized": true
-    },
     "irrigation-automation": {
       "original": "images/showcase/irrigation-automation.jpg",
       "basename": "irrigation-automation",
@@ -316,90 +64,6 @@ export const imageManifest = {
       "fileSize": 465,
       "optimized": true
     },
-    "livestock-tracker-1200w": {
-      "original": "images/showcase/livestock-tracker-1200w.jpg",
-      "basename": "livestock-tracker-1200w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/livestock-tracker-1200w-400w.jpg",
-        "800": "images/showcase/livestock-tracker-1200w-800w.jpg",
-        "1200": "images/showcase/livestock-tracker-1200w-1200w.jpg",
-        "1600": "images/showcase/livestock-tracker-1200w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/livestock-tracker-1200w-400w.webp",
-        "800": "images/showcase/livestock-tracker-1200w-800w.webp",
-        "1200": "images/showcase/livestock-tracker-1200w-1200w.webp",
-        "1600": "images/showcase/livestock-tracker-1200w-1600w.webp",
-        "original": "images/showcase/livestock-tracker-1200w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4006,
-      "optimized": true
-    },
-    "livestock-tracker-1600w": {
-      "original": "images/showcase/livestock-tracker-1600w.jpg",
-      "basename": "livestock-tracker-1600w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/livestock-tracker-1600w-400w.jpg",
-        "800": "images/showcase/livestock-tracker-1600w-800w.jpg",
-        "1200": "images/showcase/livestock-tracker-1600w-1200w.jpg",
-        "1600": "images/showcase/livestock-tracker-1600w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/livestock-tracker-1600w-400w.webp",
-        "800": "images/showcase/livestock-tracker-1600w-800w.webp",
-        "1200": "images/showcase/livestock-tracker-1600w-1200w.webp",
-        "1600": "images/showcase/livestock-tracker-1600w-1600w.webp",
-        "original": "images/showcase/livestock-tracker-1600w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4006,
-      "optimized": true
-    },
-    "livestock-tracker-400w": {
-      "original": "images/showcase/livestock-tracker-400w.jpg",
-      "basename": "livestock-tracker-400w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/livestock-tracker-400w-400w.jpg",
-        "800": "images/showcase/livestock-tracker-400w-800w.jpg",
-        "1200": "images/showcase/livestock-tracker-400w-1200w.jpg",
-        "1600": "images/showcase/livestock-tracker-400w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/livestock-tracker-400w-400w.webp",
-        "800": "images/showcase/livestock-tracker-400w-800w.webp",
-        "1200": "images/showcase/livestock-tracker-400w-1200w.webp",
-        "1600": "images/showcase/livestock-tracker-400w-1600w.webp",
-        "original": "images/showcase/livestock-tracker-400w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4006,
-      "optimized": true
-    },
-    "livestock-tracker-800w": {
-      "original": "images/showcase/livestock-tracker-800w.jpg",
-      "basename": "livestock-tracker-800w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/livestock-tracker-800w-400w.jpg",
-        "800": "images/showcase/livestock-tracker-800w-800w.jpg",
-        "1200": "images/showcase/livestock-tracker-800w-1200w.jpg",
-        "1600": "images/showcase/livestock-tracker-800w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/livestock-tracker-800w-400w.webp",
-        "800": "images/showcase/livestock-tracker-800w-800w.webp",
-        "1200": "images/showcase/livestock-tracker-800w-1200w.webp",
-        "1600": "images/showcase/livestock-tracker-800w-1600w.webp",
-        "original": "images/showcase/livestock-tracker-800w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 4006,
-      "optimized": true
-    },
     "livestock-tracker": {
       "original": "images/showcase/livestock-tracker.jpg",
       "basename": "livestock-tracker",
@@ -419,90 +83,6 @@ export const imageManifest = {
       },
       "aspectRatio": 1.6,
       "fileSize": 464,
-      "optimized": true
-    },
-    "yield-analytics-1200w": {
-      "original": "images/showcase/yield-analytics-1200w.jpg",
-      "basename": "yield-analytics-1200w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/yield-analytics-1200w-400w.jpg",
-        "800": "images/showcase/yield-analytics-1200w-800w.jpg",
-        "1200": "images/showcase/yield-analytics-1200w-1200w.jpg",
-        "1600": "images/showcase/yield-analytics-1200w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/yield-analytics-1200w-400w.webp",
-        "800": "images/showcase/yield-analytics-1200w-800w.webp",
-        "1200": "images/showcase/yield-analytics-1200w-1200w.webp",
-        "1600": "images/showcase/yield-analytics-1200w-1600w.webp",
-        "original": "images/showcase/yield-analytics-1200w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3629,
-      "optimized": true
-    },
-    "yield-analytics-1600w": {
-      "original": "images/showcase/yield-analytics-1600w.jpg",
-      "basename": "yield-analytics-1600w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/yield-analytics-1600w-400w.jpg",
-        "800": "images/showcase/yield-analytics-1600w-800w.jpg",
-        "1200": "images/showcase/yield-analytics-1600w-1200w.jpg",
-        "1600": "images/showcase/yield-analytics-1600w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/yield-analytics-1600w-400w.webp",
-        "800": "images/showcase/yield-analytics-1600w-800w.webp",
-        "1200": "images/showcase/yield-analytics-1600w-1200w.webp",
-        "1600": "images/showcase/yield-analytics-1600w-1600w.webp",
-        "original": "images/showcase/yield-analytics-1600w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3629,
-      "optimized": true
-    },
-    "yield-analytics-400w": {
-      "original": "images/showcase/yield-analytics-400w.jpg",
-      "basename": "yield-analytics-400w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/yield-analytics-400w-400w.jpg",
-        "800": "images/showcase/yield-analytics-400w-800w.jpg",
-        "1200": "images/showcase/yield-analytics-400w-1200w.jpg",
-        "1600": "images/showcase/yield-analytics-400w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/yield-analytics-400w-400w.webp",
-        "800": "images/showcase/yield-analytics-400w-800w.webp",
-        "1200": "images/showcase/yield-analytics-400w-1200w.webp",
-        "1600": "images/showcase/yield-analytics-400w-1600w.webp",
-        "original": "images/showcase/yield-analytics-400w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3629,
-      "optimized": true
-    },
-    "yield-analytics-800w": {
-      "original": "images/showcase/yield-analytics-800w.jpg",
-      "basename": "yield-analytics-800w",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/yield-analytics-800w-400w.jpg",
-        "800": "images/showcase/yield-analytics-800w-800w.jpg",
-        "1200": "images/showcase/yield-analytics-800w-1200w.jpg",
-        "1600": "images/showcase/yield-analytics-800w-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/yield-analytics-800w-400w.webp",
-        "800": "images/showcase/yield-analytics-800w-800w.webp",
-        "1200": "images/showcase/yield-analytics-800w-1200w.webp",
-        "1600": "images/showcase/yield-analytics-800w-1600w.webp",
-        "original": "images/showcase/yield-analytics-800w.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 3629,
       "optimized": true
     },
     "yield-analytics": {
@@ -527,9 +107,9 @@ export const imageManifest = {
       "optimized": true
     }
   },
-  "generated": "2025-08-27T22:34:23.999Z",
-  "totalImages": 25,
-  "totalSizes": 125
+  "generated": "2025-08-28T14:58:38.668Z",
+  "totalImages": 5,
+  "totalSizes": 25
 };
 
 export function getImageData(basename) {
@@ -542,12 +122,12 @@ export function getResponsiveImage(basename, alt = '', className = '', loading =
   
   return `<picture class="responsive-image {{className}}">
   <source 
-    srcset="/images/showcase/farm-management-ios-1200w-400w.webp 400w, /images/showcase/farm-management-ios-1200w-800w.webp 800w, /images/showcase/farm-management-ios-1200w-1200w.webp 1200w, /images/showcase/farm-management-ios-1200w-1600w.webp 1600w" 
+    srcset="/images/showcase/farm-management-ios-400w.webp 400w, /images/showcase/farm-management-ios-800w.webp 800w, /images/showcase/farm-management-ios-1200w.webp 1200w, /images/showcase/farm-management-ios-1600w.webp 1600w" 
     sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     type="image/webp">
   <img 
-    src="/images/showcase/farm-management-ios-1200w-800w.jpg" 
-    srcset="/images/showcase/farm-management-ios-1200w-400w.jpg 400w, /images/showcase/farm-management-ios-1200w-800w.jpg 800w, /images/showcase/farm-management-ios-1200w-1200w.jpg 1200w, /images/showcase/farm-management-ios-1200w-1600w.jpg 1600w"
+    src="/images/showcase/farm-management-ios-800w.jpg" 
+    srcset="/images/showcase/farm-management-ios-400w.jpg 400w, /images/showcase/farm-management-ios-800w.jpg 800w, /images/showcase/farm-management-ios-1200w.jpg 1200w, /images/showcase/farm-management-ios-1600w.jpg 1600w"
     sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     alt="{{alt}}"
     loading="{{loading}}"
@@ -565,12 +145,12 @@ export function getLazyImage(basename, alt = '', className = '', critical = fals
   
   return `<picture class="responsive-image {{className}}">
   <source 
-    data-lazy-srcset="/images/showcase/farm-management-ios-1200w-400w.webp 400w, /images/showcase/farm-management-ios-1200w-800w.webp 800w, /images/showcase/farm-management-ios-1200w-1200w.webp 1200w, /images/showcase/farm-management-ios-1200w-1600w.webp 1600w" 
+    data-lazy-srcset="/images/showcase/farm-management-ios-400w.webp 400w, /images/showcase/farm-management-ios-800w.webp 800w, /images/showcase/farm-management-ios-1200w.webp 1200w, /images/showcase/farm-management-ios-1600w.webp 1600w" 
     data-lazy-sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     type="image/webp">
   <img 
-    data-lazy-src="/images/showcase/farm-management-ios-1200w-800w.jpg" 
-    data-lazy-srcset="/images/showcase/farm-management-ios-1200w-400w.jpg 400w, /images/showcase/farm-management-ios-1200w-800w.jpg 800w, /images/showcase/farm-management-ios-1200w-1200w.jpg 1200w, /images/showcase/farm-management-ios-1200w-1600w.jpg 1600w"
+    data-lazy-src="/images/showcase/farm-management-ios-800w.jpg" 
+    data-lazy-srcset="/images/showcase/farm-management-ios-400w.jpg 400w, /images/showcase/farm-management-ios-800w.jpg 800w, /images/showcase/farm-management-ios-1200w.jpg 1200w, /images/showcase/farm-management-ios-1600w.jpg 1600w"
     data-lazy-sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     data-aspect-ratio="1.6"
     data-critical="true"

@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Services from '../components/Services.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedContent from '../components/RelatedContent.astro';
 import { loadServices, loadProjects } from '../utils/content-loader.ts';
+import { generateBreadcrumbSchema } from '../utils/breadcrumb-schema.ts';
 
 // Helper function to create proper URLs with base path
 function createUrl(path: string): string {
@@ -19,13 +22,38 @@ const projects = loadProjects() || [];
 
 // Create a map of project IDs to project data for easy lookup
 const projectMap = new Map(projects.map(project => [project.id, project]));
+
+// Generate breadcrumb structured data
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { label: 'Home', url: '/' },
+  { label: 'Services', url: '/services', current: true }
+], 'https://agrxculture.github.io');
+
+// Combine structured data
+const allStructuredData = [
+  breadcrumbSchema
+];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout 
+  title={title} 
+  description={description}
+  pageType="services"
+  structuredData={allStructuredData}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' }
+  ]}
+>
   <main class="services-page">
     <!-- Page Header -->
     <section class="page-header">
       <div class="container">
+        <Breadcrumbs items={[
+          { label: 'Home', url: '/' },
+          { label: 'Services', url: '/services', current: true }
+        ]} />
+        
         <h1>Agricultural Technology Services</h1>
         <p class="page-subtitle">
           Specialized solutions for modern farming operations, from IoT integration to mobile applications. 
@@ -37,7 +65,7 @@ const projectMap = new Map(projects.map(project => [project.id, project]));
           <ul class="services-nav-list">
             {services && services.map((service) => (
               <li>
-                <a href={`#service-${service.id}`} class="nav-link">
+                <a href={`#service-${service.id}`} class="nav-link" aria-label={`Jump to ${service.title} details`}>
                   {service.title}
                 </a>
               </li>
@@ -97,7 +125,7 @@ const projectMap = new Map(projects.map(project => [project.id, project]));
                         if (!project) return null;
                         
                         return (
-                          <a href={`/projects/${project.id}`} class="related-project-card">
+                          <a href={`/projects/${project.id}`} class="related-project-card" aria-label={`View case study: ${project.title}`}>
                             <div class="project-card-content">
                               <h5 class="project-title">{project.title}</h5>
                               <p class="project-description">{project.description}</p>
@@ -120,7 +148,7 @@ const projectMap = new Map(projects.map(project => [project.id, project]));
 
                 <!-- Call to Action -->
                 <div class="service-cta-section">
-                  <a href={createUrl(service.ctaLink)} class="service-cta-large">
+                  <a href={createUrl(service.ctaLink)} class="service-cta-large" aria-label={`Start your ${service.title} project with Agrxculture`}>
                     Start Your {service.title} Project with Agrxculture
                     <svg class="cta-icon" aria-hidden="true">
                       <use href="#icon-arrow-right"></use>
@@ -155,6 +183,31 @@ const projectMap = new Map(projects.map(project => [project.id, project]));
       </div>
     </section>
 
+    <!-- Related Content Section -->
+    <RelatedContent 
+      title="Explore More Agricultural Technology Solutions"
+      items={[
+        {
+          title: 'Project Showcase',
+          description: 'See real examples of our agricultural technology solutions in action',
+          url: '/showcase',
+          type: 'page'
+        },
+        {
+          title: 'About Agrxculture',
+          description: 'Learn about our expertise in agricultural technology and innovation',
+          url: '/about',
+          type: 'page'
+        },
+        {
+          title: 'Contact Us',
+          description: 'Get in touch to discuss your agricultural technology needs',
+          url: '/contact',
+          type: 'page'
+        }
+      ]}
+    />
+
     <!-- Contact CTA Section -->
     <section class="contact-cta-section">
       <div class="container">
@@ -165,13 +218,13 @@ const projectMap = new Map(projects.map(project => [project.id, project]));
             Get a free consultation and discover the potential impact on your operation.
           </p>
           <div class="contact-cta-actions">
-            <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact`} class="primary-cta">
+            <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact`} class="primary-cta" aria-label="Contact Agrxculture for a free consultation">
               Get Free Consultation
               <svg class="cta-icon" aria-hidden="true">
                 <use href="#icon-arrow-right"></use>
               </svg>
             </a>
-            <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase`} class="secondary-cta">
+            <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase`} class="secondary-cta" aria-label="View Agrxculture project case studies">
               View Case Studies
             </a>
           </div>

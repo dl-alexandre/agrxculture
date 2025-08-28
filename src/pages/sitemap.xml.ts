@@ -37,10 +37,8 @@ const staticPages = [
 // Dynamic project pages - these would be generated from your projects data
 const projectPages = [
   'farm-sensor-network',
-  'farmtrack-ios',
-  'irrigation-automation',
-  'livestock-tracker',
-  'yield-analytics'
+  'yield-analytics',
+  'farm-management-ios'
 ].map(id => ({
   url: `projects/${id}`,
   changefreq: 'monthly',

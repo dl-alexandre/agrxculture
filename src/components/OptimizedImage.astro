@@ -1,0 +1,163 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  loading?: 'lazy' | 'eager';
+  critical?: boolean;
+  sizes?: string;
+  aspectRatio?: string;
+  placeholder?: string;
+}
+
+const { 
+  src, 
+  alt, 
+  width, 
+  height, 
+  className = '', 
+  loading = 'lazy',
+  critical = false,
+  sizes = '100vw',
+  aspectRatio,
+  placeholder
+} = Astro.props;
+
+// Generate responsive image paths
+const generateResponsivePaths = (baseSrc: string) => {
+  const basePath = baseSrc.replace(/\.[^/.]+$/, '');
+  const ext = baseSrc.split('.').pop();
+  
+  return {
+    webp: {
+      400: `${basePath}-400w.webp`,
+      800: `${basePath}-800w.webp`,
+      1200: `${basePath}-1200w.webp`,
+      1600: `${basePath}-1600w.webp`
+    },
+    fallback: {
+      400: `${basePath}-400w.${ext}`,
+      800: `${basePath}-800w.${ext}`,
+      1200: `${basePath}-1200w.${ext}`,
+      1600: `${basePath}-1600w.${ext}`
+    }
+  };
+};
+
+const responsivePaths = generateResponsivePaths(src);
+const isOptimized = src.includes('-400w') || src.includes('-800w') || src.includes('-1200w') || src.includes('-1600w');
+
+// Generate low-quality image placeholder (LQIP) for critical images
+const generateLQIP = (baseSrc: string) => {
+  if (!critical) return '';
+  const basePath = baseSrc.replace(/\.[^/.]+$/, '');
+  return `${basePath}-lqip.webp`;
+};
+
+const lqipSrc = generateLQIP(src);
+---
+
+{isOptimized ? (
+  <picture class={`optimized-image ${className}`} style={aspectRatio ? `aspect-ratio: ${aspectRatio}` : ''}>
+    <!-- WebP sources for modern browsers -->
+    <source
+      type="image/webp"
+      srcset={`
+        ${responsivePaths.webp[400]} 400w,
+        ${responsivePaths.webp[800]} 800w,
+        ${responsivePaths.webp[1200]} 1200w,
+        ${responsivePaths.webp[1600]} 1600w
+      `}
+      sizes={sizes}
+    />
+    
+    <!-- Fallback for older browsers -->
+    <img
+      src={responsivePaths.fallback[800]}
+      srcset={`
+        ${responsivePaths.fallback[400]} 400w,
+        ${responsivePaths.fallback[800]} 800w,
+        ${responsivePaths.fallback[1200]} 1200w,
+        ${responsivePaths.fallback[1600]} 1600w
+      `}
+      sizes={sizes}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding={critical ? 'sync' : 'async'}
+      class={`${className} ${critical ? 'critical-image' : ''}`}
+      data-lazy-src={critical ? undefined : responsivePaths.fallback[800]}
+      data-lazy-srcset={critical ? undefined : `
+        ${responsivePaths.fallback[400]} 400w,
+        ${responsivePaths.fallback[800]} 800w,
+        ${responsivePaths.fallback[1200]} 1200w,
+        ${responsivePaths.fallback[1600]} 1600w
+      `}
+      data-lazy-sizes={critical ? undefined : sizes}
+      data-aspect-ratio={aspectRatio}
+      data-placeholder={placeholder || lqipSrc}
+    />
+  </picture>
+) : (
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding={critical ? 'sync' : 'async'}
+    class={`${className} ${critical ? 'critical-image' : ''}`}
+    data-lazy-src={critical ? undefined : src}
+    data-aspect-ratio={aspectRatio}
+    data-placeholder={placeholder}
+  />
+)}
+
+<style>
+  .optimized-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .optimized-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .critical-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Prevent layout shift */
+  img[data-aspect-ratio] {
+    aspect-ratio: attr(data-aspect-ratio);
+  }
+  
+  /* Lazy loading skeleton */
+  img[data-lazy-src]:not(.lazy-loaded) {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes skeleton-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  /* Smooth transition when image loads */
+  img.lazy-loaded {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  img[data-lazy-src]:not(.lazy-loaded) {
+    opacity: 0;
+  }
+</style>

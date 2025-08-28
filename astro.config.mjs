@@ -4,6 +4,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://dl-alexandre.github.io',
   output: 'static',
+  trailingSlash: 'never', // Prevent redirects
   build: {
     assets: 'assets',
     inlineStylesheets: 'auto', // Inline small CSS files

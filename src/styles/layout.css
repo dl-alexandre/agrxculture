@@ -354,6 +354,9 @@ body {
   transition: background-color var(--transition-fast);
   /* Enhanced touch target */
   position: relative;
+  /* Ensure no overlap with other elements */
+  margin: 0;
+  z-index: 10;
 }
 
 .mobile-menu-toggle::before {
@@ -540,6 +543,8 @@ body {
   
   .mobile-menu-toggle {
     display: flex;
+    width: var(--touch-target-comfortable);
+    height: var(--touch-target-comfortable);
   }
   
   .nav-menu {
@@ -586,6 +591,8 @@ body {
   .nav-search {
     border-top: 1px solid var(--color-border);
     padding-top: var(--space-md);
+    /* Ensure proper spacing between search toggle and mobile menu toggle */
+    margin-top: var(--space-sm);
   }
   
   .search-form-container {
@@ -600,10 +607,13 @@ body {
   
   .search-toggle {
     width: 100%;
-    height: var(--touch-target-min);
+    height: var(--touch-target-comfortable);
     justify-content: flex-start;
     padding: var(--space-md);
     gap: var(--space-md);
+    /* Ensure proper touch target spacing */
+    min-height: var(--touch-target-comfortable);
+    margin: var(--space-sm) 0;
   }
   
   .search-toggle::after {
@@ -650,8 +660,8 @@ body {
   }
   
   .mobile-menu-toggle {
-    width: var(--touch-target-min);
-    height: var(--touch-target-min);
+    width: var(--touch-target-comfortable);
+    height: var(--touch-target-comfortable);
   }
   
   .nav-link {

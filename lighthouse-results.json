@@ -1,106 +1,101 @@
 [
   {
-    "url": "http://localhost:8000/",
-    "timestamp": "2025-08-27T22:34:47.135Z",
+    "url": "http://localhost:4321/",
+    "timestamp": "2025-08-28T14:12:10.684Z",
     "scores": {
       "performance": 100,
       "accessibility": 96,
       "bestPractices": 96,
-      "seo": 100
+      "seo": 86
     },
     "metrics": {
-      "firstContentfulPaint": 1160.0405999999998,
-      "largestContentfulPaint": 1160.0405999999998,
-      "cumulativeLayoutShift": 0.0015705742847401157,
-      "speedIndex": 1291.4717271660656
-    },
-    "passed": true,
-    "failures": []
-  },
-  {
-    "url": "http://localhost:8000/services",
-    "timestamp": "2025-08-27T22:34:54.010Z",
-    "scores": {
-      "performance": 100,
-      "accessibility": 94,
-      "bestPractices": 96,
-      "seo": 92
-    },
-    "metrics": {
-      "firstContentfulPaint": 645.4639999999999,
-      "largestContentfulPaint": 645.4639999999999,
-      "cumulativeLayoutShift": 0.00301956385667191,
-      "speedIndex": 645.4639999999999
+      "firstContentfulPaint": 820.2874999999998,
+      "largestContentfulPaint": 848.0812499999998,
+      "cumulativeLayoutShift": 0.0016908788048348733,
+      "speedIndex": 870.2019406663501
     },
     "passed": false,
     "failures": [
       {
-        "metric": "accessibility",
-        "expected": 95,
-        "actual": 94,
-        "message": "accessibility failed: expected 95, got 94"
-      },
-      {
         "metric": "seo",
         "expected": 95,
-        "actual": 92,
-        "message": "seo failed: expected 95, got 92"
+        "actual": 86,
+        "message": "seo failed: expected 95, got 86"
       }
     ]
   },
   {
-    "url": "http://localhost:8000/showcase",
-    "timestamp": "2025-08-27T22:35:01.688Z",
+    "url": "http://localhost:4321/services",
+    "timestamp": "2025-08-28T14:12:17.794Z",
     "scores": {
       "performance": 100,
-      "accessibility": 90,
+      "accessibility": 98,
       "bestPractices": 96,
-      "seo": 93
+      "seo": 87
     },
     "metrics": {
-      "firstContentfulPaint": 1209.8585,
-      "largestContentfulPaint": 1209.8585,
-      "cumulativeLayoutShift": 0.0006618103602747898,
-      "speedIndex": 1296.929357420455
+      "firstContentfulPaint": 1262.6247999999996,
+      "largestContentfulPaint": 1391.5711999999994,
+      "cumulativeLayoutShift": 0.04058247542922272,
+      "speedIndex": 1262.6247999999996
     },
     "passed": false,
     "failures": [
       {
-        "metric": "accessibility",
-        "expected": 95,
-        "actual": 90,
-        "message": "accessibility failed: expected 95, got 90"
-      },
-      {
         "metric": "seo",
         "expected": 95,
-        "actual": 93,
-        "message": "seo failed: expected 95, got 93"
+        "actual": 87,
+        "message": "seo failed: expected 95, got 87"
       }
     ]
   },
   {
-    "url": "http://localhost:8000/contact",
-    "timestamp": "2025-08-27T22:35:08.680Z",
+    "url": "http://localhost:4321/showcase",
+    "timestamp": "2025-08-28T14:12:24.739Z",
     "scores": {
-      "performance": 100,
-      "accessibility": 96,
-      "bestPractices": 96,
-      "seo": 92
+      "performance": 99,
+      "accessibility": 95,
+      "bestPractices": 93,
+      "seo": 88
     },
     "metrics": {
-      "firstContentfulPaint": 605.029,
-      "largestContentfulPaint": 605.029,
-      "cumulativeLayoutShift": 0.00667638977362638,
-      "speedIndex": 605.029
+      "firstContentfulPaint": 1238.5662250000005,
+      "largestContentfulPaint": 1898.956725,
+      "cumulativeLayoutShift": 0.02017478765858246,
+      "speedIndex": 1238.5662250000005
     },
     "passed": false,
     "failures": [
       {
         "metric": "seo",
         "expected": 95,
-        "actual": 92,
-        "message": "seo failed: expected 95, got 92"
+        "actual": 88,
+        "message": "seo failed: expected 95, got 88"
+      }
+    ]
+  },
+  {
+    "url": "http://localhost:4321/contact",
+    "timestamp": "2025-08-28T14:12:33.039Z",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 96,
+      "seo": 87
+    },
+    "metrics": {
+      "firstContentfulPaint": 1109.7974000000004,
+      "largestContentfulPaint": 1224.3385250000006,
+      "cumulativeLayoutShift": 0.02029123771461136,
+      "speedIndex": 1109.7974000000004
+    },
+    "passed": false,
+    "failures": [
+      {
+        "metric": "seo",
+        "expected": 95,
+        "actual": 87,
+        "message": "seo failed: expected 95, got 87"
       }
     ]
   }

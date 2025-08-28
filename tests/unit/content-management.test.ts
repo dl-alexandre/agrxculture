@@ -41,7 +41,7 @@ describe('Content Management System', () => {
     });
 
     it('should load individual project by ID', () => {
-      const project = loadProject('farm-sensor-network');
+      const project = loadProject('yield-analytics');
       
       expect(project).toBeDefined();
       expect(project?.id).toBe('future-project-placeholder');
@@ -61,8 +61,8 @@ describe('Content Management System', () => {
       const nonFeaturedProjects = projects.filter(p => !p.featured);
       
       // If there are featured projects, they should come first
-      if (featuredProjects.length > 0) {
-        expect(projects[0].featured).toBe(true);
+      if (featuredProjects.length > 0 && projects.length > 0) {
+        expect(projects[0]!.featured).toBe(true);
       }
       
       // Check that featured projects come before non-featured

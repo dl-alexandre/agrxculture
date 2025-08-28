@@ -1,0 +1,98 @@
+---
+export interface BreadcrumbItem {
+  label: string;
+  url: string;
+  current?: boolean;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb navigation">
+  <ol class="breadcrumb-list">
+    {items.map((item, index) => (
+      <li class="breadcrumb-item">
+        {item.current ? (
+          <span class="breadcrumb-current" aria-current="page">
+            {item.label}
+          </span>
+        ) : (
+          <a href={item.url} class="breadcrumb-link">
+            {item.label}
+          </a>
+        )}
+        {index < items.length - 1 && (
+          <svg class="breadcrumb-separator" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    margin: 1rem 0;
+    padding: 0.5rem 0;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-link {
+    color: #2E7D32;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb-link:hover {
+    color: #1B5E20;
+    text-decoration: underline;
+  }
+
+  .breadcrumb-current {
+    color: #666;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .breadcrumb-separator {
+    width: 16px;
+    height: 16px;
+    color: #999;
+  }
+
+  @media (max-width: 768px) {
+    .breadcrumbs {
+      margin: 0.5rem 0;
+    }
+    
+    .breadcrumb-list {
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+    
+    .breadcrumb-link,
+    .breadcrumb-current {
+      font-size: 0.8rem;
+    }
+  }
+</style>
