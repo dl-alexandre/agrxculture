@@ -141,10 +141,9 @@ const description = 'Get in touch for agricultural technology consulting and cus
                 </div>
               </div>
 
-              <!-- reCAPTCHA placeholder -->
-              <div class="recaptcha-container">
-                <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
-                <div id="recaptcha-error" class="error-message" role="alert"></div>
+              <!-- Spam protection notice -->
+              <div class="spam-protection-notice">
+                <p><small>This form is protected by spam filtering and honeypot technology. No additional verification required.</small></p>
               </div>
 
               <button type="submit" class="submit-button" id="submit-btn">
@@ -372,6 +371,20 @@ const description = 'Get in touch for agricultural technology consulting and cus
     margin: var(--space-xl) 0;
   }
   
+  .spam-protection-notice {
+    margin: var(--space-md) 0;
+    padding: var(--space-sm);
+    background: var(--color-background-subtle);
+    border-radius: var(--border-radius-sm);
+    text-align: center;
+  }
+  
+  .spam-protection-notice p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+  }
+
   .submit-button {
     width: 100%;
     background: var(--color-primary);

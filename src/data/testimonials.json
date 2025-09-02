@@ -1,14 +1,14 @@
 [
   {
-    "id": "future-testimonial-placeholder",
-    "clientName": "Your Future Successful Client Here",
-    "clientRole": "Client testimonials will appear here",
-    "company": "Client Company Name",
-    "clientIndustry": "agricultural sector",
-    "testimonial": "Your client success stories and testimonials will be showcased in this section once you complete projects and receive feedback.",
+    "id": "coming-soon-testimonial",
+    "clientName": "Coming Soon",
+    "clientRole": "Client testimonials will be featured here",
+    "company": "Agrxculture",
+    "clientIndustry": "agricultural technology",
+    "testimonial": "We're currently working on exciting agricultural technology projects. Client testimonials and case studies will be showcased here as we complete projects and receive feedback from our agricultural partners.",
     "photo": "/images/testimonials/placeholder-client.jpg",
-    "projectId": "future-project-placeholder",
+    "projectId": "coming-soon",
     "rating": 5,
-    "dateGiven": "TBD"
+    "dateGiven": "Coming Soon"
   }
 ]

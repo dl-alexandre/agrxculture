@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dl-alexandre.github.io/agrxculture',
-  base: '/agrxculture',
+  site: 'https://agrxculture.com',
+  base: '/',
   output: 'static',
   trailingSlash: 'never', // Prevent redirects
   build: {

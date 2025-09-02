@@ -13,7 +13,7 @@ import { loadProjects } from '../utils/content-loader.ts';
 const projectsData = loadProjects();
 
 // SEO configuration
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://dl-alexandre.github.io/agrxculture';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://agrxculture.com';
 const { structuredData, breadcrumbs } = generateShowcasePageSEO(siteUrl);
 
 const seoConfig = {
@@ -37,7 +37,7 @@ const seoConfig = {
   title={seoConfig.title}
   description={seoConfig.description}
   image={seoConfig.image}
-  canonical="https://dl-alexandre.github.io/agrxculture/showcase"
+  canonical="https://agrxculture.com/showcase"
   structuredData={structuredData}
   breadcrumbs={breadcrumbs}
 >

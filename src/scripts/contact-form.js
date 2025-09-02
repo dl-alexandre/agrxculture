@@ -18,7 +18,7 @@ class ContactForm {
   init() {
     this.setupEventListeners();
     this.updateCharacterCounter();
-    this.setupRecaptcha();
+    // Spam protection handled by honeypot
     this.setupMobileSupport();
   }
 
@@ -142,24 +142,7 @@ class ContactForm {
       }
     });
 
-    // Check reCAPTCHA if enabled
-    if (window.grecaptcha && typeof grecaptcha.getResponse === 'function') {
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        const recaptchaError = document.getElementById('recaptcha-error');
-        if (recaptchaError) {
-          recaptchaError.textContent = 'Please complete the reCAPTCHA verification.';
-          recaptchaError.style.display = 'block';
-        }
-        isFormValid = false;
-      } else {
-        const recaptchaError = document.getElementById('recaptcha-error');
-        if (recaptchaError) {
-          recaptchaError.textContent = '';
-          recaptchaError.style.display = 'none';
-        }
-      }
-    }
+    // Spam protection is handled by honeypot field
 
     if (!isFormValid) {
       // Focus on first error field with better mobile support
@@ -195,10 +178,7 @@ class ContactForm {
       formData.append('_replyto', formData.get('email'));
       formData.append('_next', window.location.href + '#success');
       
-      // Add reCAPTCHA response if available
-      if (window.grecaptcha && typeof grecaptcha.getResponse === 'function') {
-        formData.append('g-recaptcha-response', grecaptcha.getResponse());
-      }
+      // Spam protection handled by honeypot field
       
       const response = await fetch(this.form.action, {
         method: 'POST',
@@ -242,10 +222,7 @@ class ContactForm {
     this.form.reset();
     this.updateCharacterCounter();
     
-    // Reset reCAPTCHA if available
-    if (window.grecaptcha && typeof grecaptcha.reset === 'function') {
-      grecaptcha.reset();
-    }
+    // Form reset complete
     
     // Clear any error states
     const errorFields = this.form.querySelectorAll('.error');
@@ -293,32 +270,7 @@ class ContactForm {
     });
   }
 
-  setupRecaptcha() {
-    // Hide reCAPTCHA container initially since it needs proper setup
-    const recaptchaContainer = document.querySelector('.recaptcha-container');
-    if (recaptchaContainer) {
-      // Check if reCAPTCHA site key is configured
-      const siteKey = recaptchaContainer.querySelector('.g-recaptcha')?.getAttribute('data-sitekey');
-      if (!siteKey || siteKey === 'YOUR_RECAPTCHA_SITE_KEY') {
-        recaptchaContainer.style.display = 'none';
-      } else {
-        // Load reCAPTCHA script if site key is configured
-        this.loadRecaptchaScript();
-      }
-    }
-  }
-
-  loadRecaptchaScript() {
-    if (document.querySelector('script[src*="recaptcha"]')) {
-      return; // Already loaded
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js';
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  }
+  // reCAPTCHA functionality removed - using honeypot spam protection instead
 
   setupMobileSupport() {
     // Add mobile-specific event listeners

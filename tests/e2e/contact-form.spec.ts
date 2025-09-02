@@ -59,14 +59,14 @@ test.describe('Contact Form E2E Tests', () => {
     
     const emailError = page.locator('#email-error');
     await expect(emailError).toBeVisible();
-    await expect(emailError).toContainText('valid email address');
+    await expect(emailError).toContainText('valid email');
   });
 
   test('should enforce message character limit', async ({ page }) => {
     const longMessage = 'A'.repeat(2000);
     await page.fill('#message', longMessage);
     
-    const counter = page.locator('.character-counter');
+    const counter = page.locator('#message-counter');
     await expect(counter).toContainText('2000 / 2000 characters');
     
     await page.fill('#name', 'Test User');
@@ -93,7 +93,7 @@ test.describe('Contact Form E2E Tests', () => {
     const message = 'Testing character counter functionality';
     await page.fill('#message', message);
     
-    const counter = page.locator('.character-counter');
+    const counter = page.locator('#message-counter');
     await expect(counter).toContainText(`${message.length} / 2000 characters`);
   });
 

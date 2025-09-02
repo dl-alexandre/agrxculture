@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 
 // Get site URL from Astro config
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://dl-alexandre.github.io/agrxculture';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://agrxculture.com';
 
 // Generate SEO data
 const { metaTags, structuredData, canonical: generatedCanonical } = generatePageSEO(pageType, customSEOConfig, siteUrl);

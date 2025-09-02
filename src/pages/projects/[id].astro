@@ -18,7 +18,7 @@ const projectId = project.id;
 const projectsData = loadProjects();
 
 // Generate comprehensive SEO data
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://dl-alexandre.github.io/agrxculture';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://agrxculture.com';
 const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projectId, siteUrl);
 ---
 

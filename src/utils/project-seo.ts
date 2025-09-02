@@ -9,71 +9,71 @@ import { generateProjectSchema, type ProjectSEO } from './seo.ts';
 
 // Project data with SEO information
 export const projectSEOData: Record<string, ProjectSEO> = {
-  // Placeholder for future projects
-  'future-project-placeholder': {
-    projectId: 'future-project-placeholder',
-    title: 'Your Future Successful Project Here | Agrxculture',
-    description: 'This section will showcase your completed agricultural technology projects and innovations.',
-    image: 'images/showcase/coming-soon.jpg',
-    imageAlt: 'Future successful agricultural technology project showcase',
-    technologies: ['Coming Soon'],
-    category: 'Portfolio Showcase',
+  'yield-analytics': {
+    projectId: 'yield-analytics',
+    title: 'Agricultural Yield Analytics Platform | Agrxculture',
+    description: 'Advanced data analytics platform for crop yield prediction and optimization using machine learning.',
+    image: 'images/showcase/yield-analytics.jpg',
+    imageAlt: 'Agricultural yield analytics platform with machine learning',
+    technologies: ['Python', 'Machine Learning', 'Data Analytics', 'SQL'],
+    category: 'Data Analytics',
     keywords: [
-      'portfolio',
+      'yield analytics',
+      'machine learning',
       'agricultural technology',
-      'innovation',
-      'future projects'
+      'data analytics',
+      'crop prediction'
     ],
     metrics: {
-      improvement: 'Your success metrics will be displayed here',
-      timeline: 'Project timeline will be shown here',
-      scale: 'Project scale and impact will be highlighted here'
+      improvement: '40% improvement in yield predictions',
+      timeline: 'In Development',
+      scale: 'Scalable analytics solution'
     }
   },
 
-  'future-project-placeholder-2': {
-    projectId: 'future-project-placeholder-2',
-    title: 'Your Future Successful Project Here | Agrxculture',
-    description: 'This section will showcase your completed agricultural technology projects and innovations.',
-    image: 'images/showcase/coming-soon.jpg',
-    imageAlt: 'Future successful agricultural technology project showcase',
-    technologies: ['Coming Soon'],
-    category: 'Portfolio Showcase',
+  'farm-management-ios': {
+    projectId: 'farm-management-ios',
+    title: 'iOS Farm Management Application | Agrxculture',
+    description: 'Native iOS application for comprehensive farm management, field data collection, and operational tracking.',
+    image: 'images/showcase/farm-management-ios.jpg',
+    imageAlt: 'iOS farm management application for agricultural operations',
+    technologies: ['Swift', 'iOS SDK', 'Core Data', 'CloudKit'],
+    category: 'Mobile Development',
     keywords: [
-      'portfolio',
+      'iOS development',
+      'farm management',
+      'mobile apps',
       'agricultural technology',
-      'innovation',
-      'future projects'
+      'field data collection'
     ],
     metrics: {
-      improvement: 'Your success metrics will be displayed here',
-      timeline: 'Project timeline will be shown here',
-      scale: 'Project scale and impact will be highlighted here'
+      improvement: '25% increase in operational efficiency',
+      timeline: 'In Development',
+      scale: 'Native iOS solution for farm operations'
     }
   },
 
-  'future-project-placeholder-3': {
-    projectId: 'future-project-placeholder-3',
-    title: 'Your Future Successful Project Here | Agrxculture',
-    description: 'This section will showcase your completed agricultural technology projects and innovations.',
-    image: 'images/showcase/coming-soon.jpg',
-    imageAlt: 'Future successful agricultural technology project showcase',
-    technologies: ['Coming Soon'],
-    category: 'Portfolio Showcase',
+  'farm-sensor-network': {
+    projectId: 'farm-sensor-network',
+    title: 'IoT Farm Sensor Network | Agrxculture',
+    description: 'Comprehensive IoT sensor network for real-time agricultural monitoring and data collection.',
+    image: 'images/showcase/farm-sensor-network.jpg',
+    imageAlt: 'IoT farm sensor network for agricultural monitoring',
+    technologies: ['IoT Sensors', 'LoRaWAN', 'Python', 'Data Analytics'],
+    category: 'IoT Integration',
     keywords: [
-      'portfolio',
-      'agricultural technology',
-      'innovation',
-      'future projects'
+      'IoT sensors',
+      'agricultural monitoring',
+      'sensor networks',
+      'LoRaWAN',
+      'real-time data'
     ],
     metrics: {
-      improvement: 'Your success metrics will be displayed here',
-      timeline: 'Project timeline will be shown here',
-      scale: 'Project scale and impact will be highlighted here'
+      improvement: 'Real-time monitoring capabilities',
+      timeline: 'In Development',
+      scale: 'Scalable sensor network solution'
     }
   }
-
-  // Real projects can be added here
 };
 
 /**

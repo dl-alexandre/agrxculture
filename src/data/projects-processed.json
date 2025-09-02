@@ -1,110 +1,125 @@
 [
   {
-    "id": "future-project-placeholder-2",
-    "title": "Your Future Successful Project Here",
-    "description": "This section will showcase your completed agricultural technology projects and innovations.",
+    "id": "farm-management-ios",
+    "title": "iOS Farm Management Application",
+    "description": "Native iOS application for comprehensive farm management, field data collection, and operational tracking.",
     "image": "images/showcase/farm-management-ios.jpg",
     "technologies": [
-      "Coming Soon"
+      "Swift",
+      "iOS SDK",
+      "Core Data",
+      "CloudKit"
     ],
-    "category": "Portfolio Showcase",
+    "category": "Mobile Development",
     "tags": [
-      "Portfolio"
+      "iOS",
+      "Mobile Apps",
+      "Agriculture"
     ],
-    "dateCompleted": "2024-10-30",
-    "featured": false,
-    "metrics": {
-      "improvement": "Your success metrics will be displayed here",
-      "timeline": "Project timeline will be shown here",
-      "scale": "Project scale and impact will be highlighted here"
-    },
-    "links": {
-      "demo": "#",
-      "github": "#"
-    },
-    "pdfDownload": "#",
-    "schema": {
-      "type": "CreativeWork",
-      "name": "Your Future Successful Project Here",
-      "description": "Portfolio showcase for upcoming agricultural technology projects",
-      "creator": {
-        "type": "Organization",
-        "name": "Agrxculture"
-      },
-      "dateCreated": "TBD",
-      "keywords": "Portfolio, Agricultural Technology, Innovation"
-    }
-  },
-  {
-    "id": "future-project-placeholder-3",
-    "title": "Your Future Successful Project Here",
-    "description": "This section will showcase your completed agricultural technology projects and innovations.",
-    "image": "images/showcase/farm-sensor-network.jpg",
-    "technologies": [
-      "Coming Soon"
-    ],
-    "category": "Portfolio Showcase",
-    "tags": [
-      "Portfolio"
-    ],
-    "dateCompleted": "2024-10-30",
-    "featured": false,
-    "metrics": {
-      "improvement": "Your success metrics will be displayed here",
-      "timeline": "Project timeline will be shown here",
-      "scale": "Project scale and impact will be highlighted here"
-    },
-    "links": {
-      "demo": "#",
-      "github": "#"
-    },
-    "pdfDownload": "#",
-    "schema": {
-      "type": "CreativeWork",
-      "name": "Your Future Successful Project Here",
-      "description": "Portfolio showcase for upcoming agricultural technology projects",
-      "creator": {
-        "type": "Organization",
-        "name": "Agrxculture"
-      },
-      "dateCreated": "TBD",
-      "keywords": "Portfolio, Agricultural Technology, Innovation"
-    }
-  },
-  {
-    "id": "future-project-placeholder",
-    "title": "Your Future Successful Project Here",
-    "description": "This section will showcase your completed agricultural technology projects and innovations.",
-    "image": "images/showcase/yield-analytics.jpg",
-    "technologies": [
-      "Coming Soon"
-    ],
-    "category": "Portfolio Showcase",
-    "tags": [
-      "Portfolio"
-    ],
-    "dateCompleted": "2024-12-01",
+    "dateCompleted": "2024-12-31",
     "featured": true,
     "metrics": {
-      "improvement": "Your success metrics will be displayed here",
-      "timeline": "Project timeline will be shown here",
-      "scale": "Project scale and impact will be highlighted here"
+      "improvement": "25% increase in operational efficiency",
+      "timeline": "In Development",
+      "scale": "Native iOS solution for farm operations"
     },
     "links": {
       "demo": "#",
-      "github": "#"
+      "github": "#",
+      "pdfDownload": "#"
     },
-    "pdfDownload": "#",
     "schema": {
       "type": "CreativeWork",
-      "name": "Your Future Successful Project Here",
-      "description": "Portfolio showcase for upcoming agricultural technology projects",
+      "name": "iOS Farm Management Application",
+      "description": "Native iOS application for comprehensive farm management",
       "creator": {
         "type": "Organization",
         "name": "Agrxculture"
       },
-      "dateCreated": "TBD",
-      "keywords": "Portfolio, Agricultural Technology, Innovation"
+      "dateCreated": "2024-01-01",
+      "keywords": "iOS, Mobile Development, Agricultural Technology, Farm Management"
+    }
+  },
+  {
+    "id": "farm-sensor-network",
+    "title": "IoT Farm Sensor Network",
+    "description": "Comprehensive IoT sensor network for real-time agricultural monitoring and data collection.",
+    "image": "images/showcase/farm-sensor-network.jpg",
+    "technologies": [
+      "IoT Sensors",
+      "LoRaWAN",
+      "Python",
+      "Data Analytics"
+    ],
+    "category": "IoT Integration",
+    "tags": [
+      "IoT",
+      "Sensors",
+      "Agriculture"
+    ],
+    "dateCompleted": "2024-12-31",
+    "featured": true,
+    "metrics": {
+      "improvement": "Real-time monitoring capabilities",
+      "timeline": "In Development",
+      "scale": "Scalable sensor network solution"
+    },
+    "links": {
+      "demo": "#",
+      "github": "#",
+      "pdfDownload": "#"
+    },
+    "schema": {
+      "type": "CreativeWork",
+      "name": "IoT Farm Sensor Network",
+      "description": "Comprehensive IoT sensor network for agricultural monitoring",
+      "creator": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "dateCreated": "2024-01-01",
+      "keywords": "IoT, Agricultural Technology, Sensor Networks, Monitoring"
+    }
+  },
+  {
+    "id": "yield-analytics",
+    "title": "Agricultural Yield Analytics Platform",
+    "description": "Advanced data analytics platform for crop yield prediction and optimization using machine learning.",
+    "image": "images/showcase/yield-analytics.jpg",
+    "technologies": [
+      "Python",
+      "Machine Learning",
+      "Data Analytics",
+      "SQL"
+    ],
+    "category": "Data Analytics",
+    "tags": [
+      "Analytics",
+      "Machine Learning",
+      "Agriculture"
+    ],
+    "dateCompleted": "2024-12-31",
+    "featured": true,
+    "metrics": {
+      "improvement": "40% improvement in yield predictions",
+      "timeline": "In Development",
+      "scale": "Scalable analytics solution"
+    },
+    "links": {
+      "demo": "#",
+      "github": "#",
+      "pdfDownload": "#"
+    },
+    "schema": {
+      "type": "CreativeWork",
+      "name": "Agricultural Yield Analytics Platform",
+      "description": "Advanced data analytics platform for crop yield prediction",
+      "creator": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "dateCreated": "2024-01-01",
+      "keywords": "Analytics, Machine Learning, Agricultural Technology, Yield Prediction"
     }
   }
 ]
