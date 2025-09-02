@@ -5,14 +5,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run process-content && astro build && npm run optimize-images",
+    "build": "npm run process-content && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "optimize-images": "node scripts/optimize-images.js",
+
     "optimize-performance": "node scripts/optimize-performance.js",
     "process-content": "node scripts/process-content.cjs",
     "validate-content": "node scripts/process-content.cjs",
