@@ -19,6 +19,7 @@ class ContactForm {
     this.setupEventListeners();
     this.updateCharacterCounter();
     this.setupRecaptcha();
+    this.setupMobileSupport();
   }
 
   setupEventListeners() {
@@ -145,19 +146,40 @@ class ContactForm {
     if (window.grecaptcha && typeof grecaptcha.getResponse === 'function') {
       const recaptchaResponse = grecaptcha.getResponse();
       if (!recaptchaResponse) {
-        document.getElementById('recaptcha-error').textContent = 'Please complete the reCAPTCHA verification.';
+        const recaptchaError = document.getElementById('recaptcha-error');
+        if (recaptchaError) {
+          recaptchaError.textContent = 'Please complete the reCAPTCHA verification.';
+          recaptchaError.style.display = 'block';
+        }
         isFormValid = false;
       } else {
-        document.getElementById('recaptcha-error').textContent = '';
+        const recaptchaError = document.getElementById('recaptcha-error');
+        if (recaptchaError) {
+          recaptchaError.textContent = '';
+          recaptchaError.style.display = 'none';
+        }
       }
     }
 
     if (!isFormValid) {
-      // Focus on first error field
+      // Focus on first error field with better mobile support
       const firstError = this.form.querySelector('.error');
       if (firstError) {
-        firstError.focus();
-        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Use setTimeout to ensure the field is visible before focusing
+        setTimeout(() => {
+          firstError.focus();
+          // Use a more reliable scrolling method for mobile
+          if ('scrollIntoView' in firstError) {
+            firstError.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center',
+              inline: 'nearest'
+            });
+          } else {
+            // Fallback for older browsers
+            firstError.scrollIntoView();
+          }
+        }, 100);
       }
       return;
     }
@@ -296,6 +318,45 @@ class ContactForm {
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
+  }
+
+  setupMobileSupport() {
+    // Add mobile-specific event listeners
+    if ('ontouchstart' in window) {
+      // Touch device optimizations
+      const formInputs = this.form.querySelectorAll('input, select, textarea');
+      formInputs.forEach(input => {
+        // Prevent zoom on focus for iOS
+        if (input.type === 'text' || input.type === 'email' || input.tagName === 'TEXTAREA') {
+          input.addEventListener('focus', () => {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport) {
+              viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+            }
+          });
+          
+          input.addEventListener('blur', () => {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport) {
+              viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+            }
+          });
+        }
+      });
+    }
+
+    // Handle orientation changes
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        // Re-validate form after orientation change
+        const formFields = this.form.querySelectorAll('input, select, textarea');
+        formFields.forEach(field => {
+          if (field.classList.contains('error')) {
+            this.validateField(field);
+          }
+        });
+      }, 500);
+    });
   }
 }
 

@@ -385,6 +385,8 @@ const description = 'Get in touch for agricultural technology consulting and cus
     transition: all var(--transition-normal);
     position: relative;
     min-height: var(--touch-target-min);
+    z-index: 10;
+    margin-top: var(--space-lg);
   }
   
   .submit-button:hover:not(:disabled) {
@@ -580,6 +582,38 @@ const description = 'Get in touch for agricultural technology consulting and cus
       flex-direction: column;
       align-items: flex-start;
       gap: var(--space-xs);
+    }
+    
+    /* Better mobile form input handling */
+    .form-input,
+    .form-select,
+    .form-textarea {
+      font-size: 16px; /* Prevent zoom on iOS */
+      padding: var(--space-md) var(--space-sm);
+    }
+    
+    .submit-button {
+      min-height: 48px;
+      font-size: var(--font-size-base);
+      padding: var(--space-md) var(--space-lg);
+      margin-top: var(--space-xl);
+      position: relative;
+      z-index: 20;
+    }
+    
+    /* Better error message display on mobile */
+    .error-message {
+      font-size: var(--font-size-sm);
+      margin-top: var(--space-xs);
+      padding: var(--space-xs);
+      background: rgba(220, 53, 69, 0.1);
+      border-radius: var(--border-radius-sm);
+    }
+    
+    /* Ensure form has enough bottom spacing */
+    .contact-form {
+      padding-bottom: var(--space-2xl);
+      margin-bottom: var(--space-xl);
     }
   }
   
