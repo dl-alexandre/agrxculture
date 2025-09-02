@@ -42,48 +42,6 @@
       "fileSize": 460,
       "optimized": true
     },
-    "irrigation-automation": {
-      "original": "images/showcase/irrigation-automation.jpg",
-      "basename": "irrigation-automation",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/irrigation-automation-400w.jpg",
-        "800": "images/showcase/irrigation-automation-800w.jpg",
-        "1200": "images/showcase/irrigation-automation-1200w.jpg",
-        "1600": "images/showcase/irrigation-automation-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/irrigation-automation-400w.webp",
-        "800": "images/showcase/irrigation-automation-800w.webp",
-        "1200": "images/showcase/irrigation-automation-1200w.webp",
-        "1600": "images/showcase/irrigation-automation-1600w.webp",
-        "original": "images/showcase/irrigation-automation.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 465,
-      "optimized": true
-    },
-    "livestock-tracker": {
-      "original": "images/showcase/livestock-tracker.jpg",
-      "basename": "livestock-tracker",
-      "extension": ".jpg",
-      "sizes": {
-        "400": "images/showcase/livestock-tracker-400w.jpg",
-        "800": "images/showcase/livestock-tracker-800w.jpg",
-        "1200": "images/showcase/livestock-tracker-1200w.jpg",
-        "1600": "images/showcase/livestock-tracker-1600w.jpg"
-      },
-      "webp": {
-        "400": "images/showcase/livestock-tracker-400w.webp",
-        "800": "images/showcase/livestock-tracker-800w.webp",
-        "1200": "images/showcase/livestock-tracker-1200w.webp",
-        "1600": "images/showcase/livestock-tracker-1600w.webp",
-        "original": "images/showcase/livestock-tracker.webp"
-      },
-      "aspectRatio": 1.6,
-      "fileSize": 464,
-      "optimized": true
-    },
     "yield-analytics": {
       "original": "images/showcase/yield-analytics.jpg",
       "basename": "yield-analytics",
@@ -106,7 +64,7 @@
       "optimized": true
     }
   },
-  "generated": "2025-08-28T14:58:38.668Z",
-  "totalImages": 5,
-  "totalSizes": 25
+  "generated": "2025-09-02T01:02:22.500Z",
+  "totalImages": 3,
+  "totalSizes": 15
 }

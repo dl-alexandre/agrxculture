@@ -1,21 +1,27 @@
 [
   {
     "url": "http://localhost:4321/",
-    "timestamp": "2025-08-28T15:25:44.451Z",
+    "timestamp": "2025-09-02T01:02:48.801Z",
     "scores": {
-      "performance": 100,
+      "performance": 55,
       "accessibility": 96,
       "bestPractices": 96,
       "seo": 86
     },
     "metrics": {
-      "firstContentfulPaint": 1263.9389499999997,
-      "largestContentfulPaint": 1310.1566499999997,
-      "cumulativeLayoutShift": 0.0016908788048348733,
-      "speedIndex": 1263.9389499999997
+      "firstContentfulPaint": 10924.269900000012,
+      "largestContentfulPaint": 17944.574400000027,
+      "cumulativeLayoutShift": 0.0010495268916582636,
+      "speedIndex": 12717.732283000172
     },
     "passed": false,
     "failures": [
+      {
+        "metric": "performance",
+        "expected": 90,
+        "actual": 55,
+        "message": "performance failed: expected 90, got 55"
+      },
       {
         "metric": "seo",
         "expected": 95,
@@ -26,21 +32,27 @@
   },
   {
     "url": "http://localhost:4321/services",
-    "timestamp": "2025-08-28T15:25:51.766Z",
+    "timestamp": "2025-09-02T01:03:15.234Z",
     "scores": {
-      "performance": 99,
+      "performance": 62,
       "accessibility": 98,
       "bestPractices": 96,
       "seo": 87
     },
     "metrics": {
-      "firstContentfulPaint": 1314.2545000000005,
-      "largestContentfulPaint": 1759.859500000001,
+      "firstContentfulPaint": 5874.401399999999,
+      "largestContentfulPaint": 6492.151649999998,
       "cumulativeLayoutShift": 0.04058247542922272,
-      "speedIndex": 1314.2545000000005
+      "speedIndex": 5874.401399999999
     },
     "passed": false,
     "failures": [
+      {
+        "metric": "performance",
+        "expected": 90,
+        "actual": 62,
+        "message": "performance failed: expected 90, got 62"
+      },
       {
         "metric": "seo",
         "expected": 95,
@@ -51,21 +63,27 @@
   },
   {
     "url": "http://localhost:4321/showcase",
-    "timestamp": "2025-08-28T15:25:59.029Z",
+    "timestamp": "2025-09-02T01:03:22.456Z",
     "scores": {
-      "performance": 100,
+      "performance": 60,
       "accessibility": 95,
       "bestPractices": 96,
       "seo": 88
     },
     "metrics": {
-      "firstContentfulPaint": 1360.4422499999998,
-      "largestContentfulPaint": 1610.574925,
+      "firstContentfulPaint": 6166.399875000002,
+      "largestContentfulPaint": 8147.7369750000025,
       "cumulativeLayoutShift": 0.02017478765858246,
-      "speedIndex": 1360.4422499999998
+      "speedIndex": 6166.399875000002
     },
     "passed": false,
     "failures": [
+      {
+        "metric": "performance",
+        "expected": 90,
+        "actual": 60,
+        "message": "performance failed: expected 90, got 60"
+      },
       {
         "metric": "seo",
         "expected": 95,
@@ -76,21 +94,27 @@
   },
   {
     "url": "http://localhost:4321/contact",
-    "timestamp": "2025-08-28T15:26:06.077Z",
+    "timestamp": "2025-09-02T01:03:29.789Z",
     "scores": {
-      "performance": 100,
+      "performance": 57,
       "accessibility": 100,
       "bestPractices": 96,
       "seo": 87
     },
     "metrics": {
-      "firstContentfulPaint": 1130.4118749999998,
-      "largestContentfulPaint": 1395.7601499999996,
+      "firstContentfulPaint": 8460.967499999997,
+      "largestContentfulPaint": 13541.891624999995,
       "cumulativeLayoutShift": 0.02029123771461136,
-      "speedIndex": 1130.4118749999998
+      "speedIndex": 8460.967499999997
     },
     "passed": false,
     "failures": [
+      {
+        "metric": "performance",
+        "expected": 90,
+        "actual": 57,
+        "message": "performance failed: expected 90, got 57"
+      },
       {
         "metric": "seo",
         "expected": 95,

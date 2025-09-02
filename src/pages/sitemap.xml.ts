@@ -68,18 +68,8 @@ ${allPages.map(page => `  <url>
     </image:image>
     <image:image>
       <image:loc>${siteUrl}images/showcase/farm-management-ios.jpg</image:loc>
-      <image:title>FarmTrack iOS App - Mobile Farm Management</image:title>
+      <image:title>Farm Management iOS App - Mobile Farm Operations</image:title>
       <image:caption>iOS mobile application for comprehensive farm management and agricultural operations</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>${siteUrl}images/showcase/irrigation-automation.jpg</image:loc>
-      <image:title>Irrigation Automation System - Smart Water Management</image:title>
-      <image:caption>Automated irrigation system for precision water management and crop optimization</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>${siteUrl}images/showcase/livestock-tracker.jpg</image:loc>
-      <image:title>Livestock Tracking System - Animal Management Technology</image:title>
-      <image:caption>Advanced livestock tracking and management system for modern farming operations</image:caption>
     </image:image>
     <image:image>
       <image:loc>${siteUrl}images/showcase/yield-analytics.jpg</image:loc>
