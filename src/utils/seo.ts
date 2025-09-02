@@ -413,8 +413,8 @@ export function generateFAQSchema(faqs: Array<{question: string, answer: string}
 export const defaultSEOConfigs = {
   home: {
     title: "Agrxculture - Agricultural Technology Company | Precision Agriculture IoT Solutions",
-    description: "Precision agriculture IoT solutions and farm management technology expertise. Custom mobile apps, data analytics, and automation systems for modern farming operations.",
-    keywords: ["agricultural software developer", "precision agriculture", "farm IoT developer", "agricultural technology consultant"]
+    description: "Leading agricultural technology company specializing in precision agriculture IoT solutions, farm management systems, and agricultural software development. Expert in mobile farm apps, data analytics, and automation systems for modern farming operations. Transform your farm with cutting-edge agricultural technology.",
+    keywords: ["agricultural software developer", "precision agriculture", "farm IoT developer", "agricultural technology consultant", "farm management systems", "agricultural data analytics", "mobile farm apps", "farm automation", "agricultural sensor networks", "precision farming solutions", "smart agriculture", "digital farming", "agtech developer", "farm technology integration"]
   },
   
   about: {
@@ -425,20 +425,20 @@ export const defaultSEOConfigs = {
   
   services: {
     title: "Agricultural Technology Services | IoT Integration & Farm Management Solutions",
-    description: "Professional agricultural technology services including IoT integration, mobile farm apps, data analytics, and automation systems for modern farming operations.",
-    keywords: ["agricultural technology services", "farm IoT integration", "agricultural software development", "farm management systems"]
+    description: "Comprehensive agricultural technology services including IoT integration, mobile farm apps, data analytics, and automation systems for modern farming operations. Expert agricultural software development, precision agriculture solutions, and farm management systems. Transform your agricultural operations with cutting-edge technology.",
+    keywords: ["agricultural technology services", "farm IoT integration", "agricultural software development", "farm management systems", "precision agriculture services", "agricultural data analytics", "mobile farm applications", "farm automation systems", "agricultural sensor networks", "smart farming solutions", "digital agriculture", "agtech consulting", "farm technology solutions"]
   },
   
   showcase: {
     title: "Agricultural Technology Projects | Farm Management & IoT Case Studies",
-    description: "Explore successful agricultural technology projects including farm sensor networks, mobile management apps, irrigation automation, and yield analytics systems.",
-    keywords: ["agricultural technology projects", "farm management case studies", "agricultural IoT examples", "precision agriculture portfolio"]
+    description: "Explore successful agricultural technology projects including farm sensor networks, mobile management apps, irrigation automation, and yield analytics systems. Real-world case studies showcasing precision agriculture solutions, farm management systems, and agricultural IoT implementations. See how our agricultural technology expertise transforms farming operations.",
+    keywords: ["agricultural technology projects", "farm management case studies", "agricultural IoT examples", "precision agriculture portfolio", "farm sensor networks", "agricultural mobile apps", "irrigation automation", "yield analytics", "smart farming projects", "agricultural automation systems", "farm technology case studies", "precision agriculture examples", "agricultural software projects", "farm management solutions"]
   },
   
   contact: {
     title: "Contact Agrxculture | Agricultural Technology Consultation",
-    description: "Get in touch for agricultural technology consultation, custom farm management solutions, IoT integration, and precision agriculture development services.",
-    keywords: ["agricultural technology consultation", "farm technology developer contact", "precision agriculture services"]
+    description: "Get in touch for agricultural technology consultation, custom farm management solutions, IoT integration, and precision agriculture development services. Expert agricultural software development, farm automation systems, and agricultural data analytics. Contact our agricultural technology specialists for personalized solutions.",
+    keywords: ["agricultural technology consultation", "farm technology developer contact", "precision agriculture services", "agricultural software development", "farm management consultation", "agricultural IoT integration", "farm automation consultation", "agricultural data analytics", "smart farming solutions", "agricultural technology experts", "farm technology specialists", "precision agriculture consulting"]
   }
 };
 

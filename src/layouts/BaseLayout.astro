@@ -87,6 +87,10 @@ const currentCanonical = canonical || `${Astro.site}${Astro.url.pathname}`;
     <!-- Critical font preload for LCP optimization -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
     
+    <!-- Preload critical CSS to eliminate render-blocking -->
+    <link rel="preload" href="/styles/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/styles/critical.css"></noscript>
+    
     <!-- Performance monitoring meta -->
     <meta name="performance-budget" content="1MB">
     <meta name="lighthouse-target" content="90">
@@ -111,19 +115,19 @@ const currentCanonical = canonical || `${Astro.site}${Astro.url.pathname}`;
           <div class="nav-menu" id="nav-menu">
             <ul class="nav-list" role="list">
               <li class="nav-item">
-                <a href={createUrl('/')} class="nav-link" aria-current="page">Home</a>
+                <a href={createUrl('/')} class="nav-link" aria-current="page" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Home</a>
               </li>
               <li class="nav-item">
-                <a href={createUrl('/about')} class="nav-link">About Us</a>
+                <a href={createUrl('/about')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">About Us</a>
               </li>
               <li class="nav-item">
-                <a href={createUrl('/services')} class="nav-link">Services</a>
+                <a href={createUrl('/services')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Services</a>
               </li>
               <li class="nav-item">
-                <a href={createUrl('/showcase')} class="nav-link">Projects</a>
+                <a href={createUrl('/showcase')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Projects</a>
               </li>
               <li class="nav-item">
-                <a href={createUrl('/contact')} class="nav-link">Contact</a>
+                <a href={createUrl('/contact')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Contact</a>
               </li>
             </ul>
             
@@ -135,6 +139,7 @@ const currentCanonical = canonical || `${Astro.site}${Astro.url.pathname}`;
                 aria-label="Search projects"
                 aria-expanded="false"
                 aria-controls="search-form"
+                style="min-height: 48px; min-width: 48px; display: flex; align-items: center; justify-content: center; padding: 12px;"
               >
                 <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="11" cy="11" r="8"></circle>
@@ -171,6 +176,7 @@ const currentCanonical = canonical || `${Astro.site}${Astro.url.pathname}`;
             aria-label="Toggle navigation menu"
             aria-expanded="false"
             aria-controls="nav-menu"
+            style="min-height: 48px; min-width: 48px; display: flex; align-items: center; justify-content: center; padding: 12px;"
           >
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
