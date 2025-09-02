@@ -13,30 +13,13 @@ const {
 } = Astro.props;
 
 // Default non-critical CSS files for each page type
+// Note: Only include CSS files that actually exist in the Public directory
 const defaultNonCriticalCSS = {
-  home: [
-    '/styles/images.css',
-    '/styles/performance.css'
-  ],
-  about: [
-    '/styles/images.css',
-    '/styles/performance.css'
-  ],
-  services: [
-    '/styles/images.css',
-    '/styles/performance.css',
-    '/styles/showcase.css'
-  ],
-  showcase: [
-    '/styles/images.css',
-    '/styles/performance.css',
-    '/styles/showcase.css'
-  ],
-  contact: [
-    '/styles/images.css',
-    '/styles/performance.css',
-    '/styles/contact.css'
-  ]
+  home: [],
+  about: [],
+  services: [],
+  showcase: [],
+  contact: []
 };
 
 const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS];
