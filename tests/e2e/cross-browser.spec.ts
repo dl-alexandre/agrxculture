@@ -73,7 +73,7 @@ test.describe('Cross-Browser Compatibility', () => {
       
       // Core content should still be accessible
       await expect(page.locator('#hero-title')).toBeVisible();
-      await expect(page.locator('nav')).toBeVisible();
+      await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
       
       // Navigation should work (basic HTML links)
       // On mobile, we need to open the hamburger menu first
@@ -134,7 +134,7 @@ test.describe('Cross-Browser Compatibility', () => {
       
       // Content should be visible and properly laid out - use specific hero title selector
       await expect(page.locator('#hero-title')).toBeVisible();
-      await expect(page.locator('nav')).toBeVisible();
+      await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
       
       // Navigation should be accessible
       if (viewport.width < 768) {
@@ -151,7 +151,7 @@ test.describe('Cross-Browser Compatibility', () => {
         await expect(navLinks.first()).toBeVisible();
       } else {
         // Desktop: full navigation should be visible
-        const navLinks = page.locator('nav a');
+        const navLinks = page.locator('nav.main-nav a');
         await expect(navLinks.first()).toBeVisible();
       }
     }

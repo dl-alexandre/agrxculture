@@ -112,7 +112,7 @@ const { project } = Astro.props;
             aria-label={`View live demo of ${project.title}`}
           >
             <span class="link-icon">🔗</span>
-            Demo
+            View demo: {project.title}
           </a>
         )}
         {project.links.github && (
@@ -124,7 +124,7 @@ const { project } = Astro.props;
             aria-label={`View source code for ${project.title} on GitHub`}
           >
             <span class="link-icon">📁</span>
-            Code
+            View code: {project.title}
           </a>
         )}
       </div>

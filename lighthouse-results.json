@@ -1,7 +1,7 @@
 [
   {
     "url": "http://localhost:4321/",
-    "timestamp": "2025-08-28T14:12:10.684Z",
+    "timestamp": "2025-08-28T15:25:44.451Z",
     "scores": {
       "performance": 100,
       "accessibility": 96,
@@ -9,10 +9,10 @@
       "seo": 86
     },
     "metrics": {
-      "firstContentfulPaint": 820.2874999999998,
-      "largestContentfulPaint": 848.0812499999998,
+      "firstContentfulPaint": 1263.9389499999997,
+      "largestContentfulPaint": 1310.1566499999997,
       "cumulativeLayoutShift": 0.0016908788048348733,
-      "speedIndex": 870.2019406663501
+      "speedIndex": 1263.9389499999997
     },
     "passed": false,
     "failures": [
@@ -26,18 +26,18 @@
   },
   {
     "url": "http://localhost:4321/services",
-    "timestamp": "2025-08-28T14:12:17.794Z",
+    "timestamp": "2025-08-28T15:25:51.766Z",
     "scores": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 98,
       "bestPractices": 96,
       "seo": 87
     },
     "metrics": {
-      "firstContentfulPaint": 1262.6247999999996,
-      "largestContentfulPaint": 1391.5711999999994,
+      "firstContentfulPaint": 1314.2545000000005,
+      "largestContentfulPaint": 1759.859500000001,
       "cumulativeLayoutShift": 0.04058247542922272,
-      "speedIndex": 1262.6247999999996
+      "speedIndex": 1314.2545000000005
     },
     "passed": false,
     "failures": [
@@ -51,18 +51,18 @@
   },
   {
     "url": "http://localhost:4321/showcase",
-    "timestamp": "2025-08-28T14:12:24.739Z",
+    "timestamp": "2025-08-28T15:25:59.029Z",
     "scores": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 95,
-      "bestPractices": 93,
+      "bestPractices": 96,
       "seo": 88
     },
     "metrics": {
-      "firstContentfulPaint": 1238.5662250000005,
-      "largestContentfulPaint": 1898.956725,
+      "firstContentfulPaint": 1360.4422499999998,
+      "largestContentfulPaint": 1610.574925,
       "cumulativeLayoutShift": 0.02017478765858246,
-      "speedIndex": 1238.5662250000005
+      "speedIndex": 1360.4422499999998
     },
     "passed": false,
     "failures": [
@@ -76,7 +76,7 @@
   },
   {
     "url": "http://localhost:4321/contact",
-    "timestamp": "2025-08-28T14:12:33.039Z",
+    "timestamp": "2025-08-28T15:26:06.077Z",
     "scores": {
       "performance": 100,
       "accessibility": 100,
@@ -84,10 +84,10 @@
       "seo": 87
     },
     "metrics": {
-      "firstContentfulPaint": 1109.7974000000004,
-      "largestContentfulPaint": 1224.3385250000006,
+      "firstContentfulPaint": 1130.4118749999998,
+      "largestContentfulPaint": 1395.7601499999996,
       "cumulativeLayoutShift": 0.02029123771461136,
-      "speedIndex": 1109.7974000000004
+      "speedIndex": 1130.4118749999998
     },
     "passed": false,
     "failures": [
