@@ -158,10 +158,18 @@
   - Ensure all CTAs and messaging reflect Agrxculture positioning
   - _Requirements: 3.1, 3.2, 3.3, 4.1, 4.2_
 
-- [ ] 19. Final content validation and production deployment
-  - Review all content to ensure no PII or inaccurate information remains
-  - Validate that all branding consistently represents Agrxculture
-  - Test all forms and contact methods with Agrxculture information
+- [ ] 19. Clean up remaining personal domain references and placeholder content
+  - Update astro.config.mjs site URL from personal GitHub to Agrxculture domain
+  - Replace all hardcoded "dl-alexandre.github.io" references with proper site configuration
+  - Remove placeholder project content and replace with professional "Coming Soon" messaging
+  - Clean up testimonials.json to remove placeholder testimonial content
+  - Update reCAPTCHA placeholder in contact form with proper implementation or removal
+  - _Requirements: 1.1, 1.3, 2.1, 2.2, 4.1, 6.1, 6.4_
+
+- [ ] 20. Final production deployment and validation
   - Configure production deployment with Agrxculture domain and branding
-  - Run final accessibility and performance audits
+  - Test all forms and contact methods with Agrxculture information
+  - Run final accessibility and performance audits (target: 90+ Lighthouse scores)
+  - Validate that all branding consistently represents Agrxculture
+  - Verify no PII or inaccurate information remains in the codebase
   - _Requirements: 4.3, 4.4, 5.1, 5.2, 5.4, 6.4_

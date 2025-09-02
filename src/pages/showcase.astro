@@ -41,7 +41,7 @@ const seoConfig = {
   structuredData={structuredData}
   breadcrumbs={breadcrumbs}
 >
-  <link rel="preload" as="image" href="/images/showcase/farm-sensor-network-800w.jpg" imagesrcset="/images/showcase/farm-sensor-network-400w.jpg 400w, /images/showcase/farm-sensor-network-800w.jpg 800w, /images/showcase/farm-sensor-network-1200w.jpg 1200w" imagesizes="(max-width: 480px) 400px, (max-width: 768px) 800px, 1200px">
+  <link rel="preload" as="image" href={`${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-800w.jpg`} imagesrcset={`${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-400w.jpg 400w, ${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-800w.jpg 800w, ${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-1200w.jpg 1200w`} imagesizes="(max-width: 480px) 400px, (max-width: 768px) 800px, 1200px">
   
   <div class="page-container">
     <section class="page-header">

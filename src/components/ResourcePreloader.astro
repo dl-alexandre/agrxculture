@@ -153,9 +153,9 @@ const resources = defaultResources[pageType] || defaultResources.home;
 ))}
 
 <!-- Prefetch non-critical resources -->
-<link rel="prefetch" href="/images/showcase/farm-sensor-network.jpg" />
-<link rel="prefetch" href="/images/showcase/yield-analytics.jpg" />
-<link rel="prefetch" href="/images/showcase/farm-management-ios.jpg" />
+<link rel="prefetch" href={`${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network.jpg`} />
+<link rel="prefetch" href={`${import.meta.env.BASE_URL}/images/showcase/yield-analytics.jpg`} />
+<link rel="prefetch" href={`${import.meta.env.BASE_URL}/images/showcase/farm-management-ios.jpg`} />
 
 <!-- Prefetch service pages -->
 <link rel="prefetch" href="/services/api-development" />
