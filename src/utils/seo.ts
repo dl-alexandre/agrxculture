@@ -91,6 +91,52 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
     <meta name="robots" content="${robotsContent}" />
     <link rel="canonical" href="${canonicalUrl}" />
     
+    <!-- Performance and Technical SEO -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2E7D32" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Agrxculture" />
+    <meta name="application-name" content="Agrxculture - Agricultural Technology" />
+    <meta name="msapplication-TileColor" content="#2E7D32" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="viewport-fit" content="cover" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    
+    <!-- Agricultural Industry Specific Meta Tags -->
+    <meta name="industry" content="Agriculture" />
+    <meta name="category" content="Agricultural Technology" />
+    <meta name="target-audience" content="Farmers, Agricultural Operations, Farm Managers" />
+    <meta name="geo.region" content="US" />
+    <meta name="geo.placename" content="United States" />
+    <meta name="ICBM" content="39.8283, -98.5795" />
+    <meta name="agricultural-focus" content="Precision Agriculture, IoT Integration, Farm Management" />
+    <meta name="technology-stack" content="Swift, Python, JavaScript, IoT, Mobile Development" />
+    <meta name="service-area" content="United States" />
+    <meta name="specialization" content="Small to Medium Agricultural Operations" />
+    
+    <!-- Performance Monitoring Meta Tags -->
+    <meta name="performance-budget" content="1MB" />
+    <meta name="lighthouse-target" content="95" />
+    <meta name="core-web-vitals" content="optimized" />
+    <meta name="page-speed" content="optimized" />
+    <meta name="mobile-friendly" content="yes" />
+    <meta name="responsive-design" content="yes" />
+    <meta name="accessibility" content="WCAG 2.1 AA compliant" />
+    
+    <!-- Agricultural Industry Classification -->
+    <meta name="industry-code" content="NAICS-541511" />
+    <meta name="industry-focus" content="Agricultural Technology Solutions" />
+    <meta name="service-classification" content="B2B Agricultural Technology Services" />
+    
+    <!-- Agricultural Technology Expertise Indicators -->
+    <meta name="expertise-areas" content="IoT Integration, Mobile Development, Data Analytics, Farm Automation, Precision Agriculture" />
+    <meta name="technology-specialization" content="Swift, Python, JavaScript, SQL, REST APIs, IoT Protocols" />
+    <meta name="agricultural-sectors" content="Crop Production, Livestock Management, Precision Agriculture, Farm Operations" />
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="${type}" />
     <meta property="og:url" content="${canonicalUrl}" />

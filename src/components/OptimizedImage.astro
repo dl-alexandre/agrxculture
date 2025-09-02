@@ -99,6 +99,7 @@ const lqipSrc = generateLQIP(src);
       data-lazy-sizes={critical ? undefined : sizes}
       data-aspect-ratio={aspectRatio}
       data-placeholder={placeholder || lqipSrc}
+      fetchpriority={critical ? 'high' : 'auto'}
     />
   </picture>
 ) : (
@@ -113,6 +114,7 @@ const lqipSrc = generateLQIP(src);
     data-lazy-src={critical ? undefined : src}
     data-aspect-ratio={aspectRatio}
     data-placeholder={placeholder}
+    fetchpriority={critical ? 'high' : 'auto'}
   />
 )}
 

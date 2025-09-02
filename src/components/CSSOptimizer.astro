@@ -42,13 +42,13 @@ const defaultNonCriticalCSS = {
 const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS];
 ---
 
-<!-- Non-critical CSS loader with media="print" for better performance -->
+<!-- Non-critical CSS loader with optimized loading strategy -->
 {cssFiles.map(cssFile => (
   <link 
-    rel="stylesheet" 
+    rel="preload" 
     href={cssFile} 
-    media="print" 
-    onload="this.media='all'" 
+    as="style" 
+    onload="this.onload=null;this.rel='stylesheet'" 
   />
 ))}
 
