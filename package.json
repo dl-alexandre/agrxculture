@@ -3,10 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "astro dev --port 4321 --host",
+    "start": "astro dev --port 4321 --host",
     "build": "npm run process-content && astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --port 4321 --host",
     "astro": "astro",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",

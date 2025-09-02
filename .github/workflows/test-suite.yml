@@ -106,7 +106,7 @@ jobs:
     - name: Build project
       run: npm run build
     
-    - name: Run E2E tests
+    - name: Run E2E tests (preview server)
       run: npm run test:e2e
     
     - name: Upload Playwright report
@@ -136,8 +136,8 @@ jobs:
     - name: Build project
       run: npm run build
     
-    - name: Start dev server
-      run: npm run dev &
+    - name: Start preview server
+      run: npm run preview &
       
     - name: Wait for server
       run: npx wait-on http://localhost:4321
