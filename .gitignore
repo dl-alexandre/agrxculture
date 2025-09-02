@@ -31,3 +31,15 @@ logs
 
 # Build artifacts
 .build/
+
+# Temporary files and test results
+temp-files/
+test-results-backup/
+lighthouse-results/
+playwright-report/
+
+# Performance and test reports
+*.json
+!package*.json
+!tsconfig.json
+!lighthouserc.js
