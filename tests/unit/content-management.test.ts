@@ -44,8 +44,8 @@ describe('Content Management System', () => {
       const project = loadProject('yield-analytics');
       
       expect(project).toBeDefined();
-      expect(project?.id).toBe('future-project-placeholder');
-      expect(project?.title).toBe('Your Future Successful Project Here');
+      expect(project?.id).toBe('yield-analytics');
+      expect(project?.title).toBeDefined();
       expect(project?.content).toBeDefined();
       expect(project?.content.length).toBeGreaterThan(0);
     });

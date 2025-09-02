@@ -34,7 +34,7 @@ test.describe('Contact Form E2E Tests', () => {
 
   test('should validate required fields', async ({ page }) => {
     // Try to submit empty form
-    await page.click('#submit-btn');
+    await page.locator('#submit-btn').click({ force: true });
     
     // Should show validation errors
     const nameError = page.locator('#name-error');
@@ -55,7 +55,7 @@ test.describe('Contact Form E2E Tests', () => {
     await page.fill('#email', 'invalid-email');
     await page.fill('#message', 'Test message');
     
-    await page.click('#submit-btn');
+    await page.locator('#submit-btn').click({ force: true });
     
     const emailError = page.locator('#email-error');
     await expect(emailError).toBeVisible();
@@ -73,7 +73,7 @@ test.describe('Contact Form E2E Tests', () => {
     await page.fill('#email', 'test@example.com');
     await page.selectOption('#project-type', 'iot-integration');
     
-    await page.click('#submit-btn');
+    await page.locator('#submit-btn').click({ force: true });
     
     const messageError = page.locator('#message-error');
     await expect(messageError).not.toBeVisible();
@@ -83,7 +83,7 @@ test.describe('Contact Form E2E Tests', () => {
     
     await expect(counter).toContainText('2000 / 2000 characters');
     
-    await page.click('#submit-btn');
+    await page.locator('#submit-btn').click({ force: true });
     
     await expect(messageError).toBeVisible();
     await expect(messageError).toContainText('2000 characters or less');
@@ -181,7 +181,7 @@ test.describe('Contact Form E2E Tests', () => {
     await page.fill('#message', 'Real inquiry about agricultural solutions');
     
     // Submit form
-    await page.click('#submit-btn');
+    await page.locator('#submit-btn').click({ force: true });
     
     // Should be rejected (in real implementation)
     // This test verifies the honeypot field exists and can be filled

@@ -41,8 +41,8 @@ const createContactForm = () => {
       
       <div class="form-group">
         <label for="message">Message *</label>
-        <textarea id="message" name="message" required maxlength="1000"></textarea>
-        <span class="character-counter">0/1000</span>
+        <textarea id="message" name="message" required maxlength="2000"></textarea>
+        <span class="character-counter" id="message-counter">0/2000</span>
         <span class="error-message" id="message-error"></span>
       </div>
       
@@ -75,7 +75,7 @@ const validateRequired = (value: string): boolean => {
 };
 
 const validateMessageLength = (message: string): boolean => {
-  return message.length <= 1000;
+  return message.length <= 2000;
 };
 
 const showError = (document: Document, fieldId: string, message: string): void => {
@@ -134,11 +134,11 @@ describe('Contact Form Validation', () => {
   describe('Message Length Validation', () => {
     it('should accept messages within character limit', () => {
       expect(validateMessageLength('Short message')).toBe(true);
-      expect(validateMessageLength('A'.repeat(1000))).toBe(true);
+      expect(validateMessageLength('A'.repeat(2000))).toBe(true);
     });
 
     it('should reject messages exceeding character limit', () => {
-      expect(validateMessageLength('A'.repeat(1001))).toBe(false);
+      expect(validateMessageLength('A'.repeat(2001))).toBe(false);
     });
   });
 
@@ -182,7 +182,7 @@ describe('Contact Form Validation', () => {
       expect(emailInput?.getAttribute('type')).toBe('email');
       expect(emailInput?.getAttribute('required')).toBe('');
       expect(messageInput?.getAttribute('required')).toBe('');
-      expect(messageInput?.getAttribute('maxlength')).toBe('1000');
+      expect(messageInput?.getAttribute('maxlength')).toBe('2000');
     });
 
     it('should have honeypot field for spam protection', () => {

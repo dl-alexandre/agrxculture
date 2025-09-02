@@ -43,3 +43,4 @@ playwright-report/
 !package*.json
 !tsconfig.json
 !lighthouserc.js
+test-results/*
