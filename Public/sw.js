@@ -186,7 +186,7 @@ async function networkFirstWithFallback(request) {
     }
     
     // Return offline fallback page
-    const fallbackResponse = await caches.match('/');
+    const fallbackResponse = await caches.match(`${BASE_URL}/`);
     if (fallbackResponse) {
       return fallbackResponse;
     }
@@ -248,7 +248,7 @@ async function syncContactForm() {
     
     for (const submission of submissions) {
       try {
-        const response = await fetch('/contact', {
+        const response = await fetch(`${BASE_URL}/contact`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
