@@ -24,65 +24,67 @@ const defaultResources = {
       '/images/hero/agricultural-background-mobile.webp'
     ],
     fonts: [
-      '/fonts/inter-var.woff2'
+      withBase('/fonts/inter-var.woff2')
     ],
     scripts: [
-      '/scripts/performance-monitor.js',
-      '/scripts/lazy-loading.js'
+      withBase('/scripts/performance-monitor.js'),
+      withBase('/scripts/lazy-loading.js')
     ]
   },
   about: {
     images: [
-      '/images/hero/agrxculture-logo.webp'
+      withBase('/images/hero/agrxculture-logo.webp')
     ],
     fonts: [
-      '/fonts/inter-var.woff2'
+      withBase('/fonts/inter-var.woff2')
     ],
     scripts: [
-      '/scripts/performance-monitor.js'
+      withBase('/scripts/performance-monitor.js')
     ]
   },
   services: {
     images: [
-      '/images/hero/agrxculture-logo.webp'
+      withBase('/images/hero/agrxculture-logo.webp')
     ],
     fonts: [
-      '/fonts/inter-var.woff2'
+      withBase('/fonts/inter-var.woff2')
     ],
     scripts: [
-      '/scripts/performance-monitor.js',
-      '/scripts/showcase.js'
+      withBase('/scripts/performance-monitor.js'),
+      withBase('/scripts/showcase.js')
     ]
   },
   showcase: {
     images: [
-      '/images/hero/agrxculture-logo.webp',
-      '/images/showcase/livestock-tracker.webp',
-      '/images/showcase/yield-analytics.webp'
+      withBase('/images/hero/agrxculture-logo.webp'),
+      withBase('/images/showcase/livestock-tracker.webp'),
+      withBase('/images/showcase/yield-analytics.webp')
     ],
     fonts: [
-      '/fonts/inter-var.woff2'
+      withBase('/fonts/inter-var.woff2')
     ],
     scripts: [
-      '/scripts/performance-monitor.js',
-      '/scripts/showcase.js'
+      withBase('/scripts/performance-monitor.js'),
+      withBase('/scripts/showcase.js')
     ]
   },
   contact: {
     images: [
-      '/images/hero/agrxculture-logo.webp'
+      withBase('/images/hero/agrxculture-logo.webp')
     ],
     fonts: [
-      '/fonts/inter-var.woff2'
+      withBase('/fonts/inter-var.woff2')
     ],
     scripts: [
-      '/scripts/performance-monitor.js',
-      '/scripts/contact-form.js'
+      withBase('/scripts/performance-monitor.js'),
+      withBase('/scripts/contact-form.js')
     ]
   }
 };
 
-const resources = defaultResources[pageType] || defaultResources.home;
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (p: string) => `${baseUrl}${p.replace(/^\//, '')}`;
+const resources = (defaultResources[pageType] || defaultResources.home);
 ---
 
 <!-- DNS Prefetch for external domains -->
@@ -158,32 +160,32 @@ const resources = defaultResources[pageType] || defaultResources.home;
 <link rel="prefetch" href={`${import.meta.env.BASE_URL}/images/showcase/farm-management-ios.jpg`} />
 
 <!-- Prefetch service pages -->
-<link rel="prefetch" href="/services/api-development" />
-<link rel="prefetch" href="/services/automation-systems" />
-<link rel="prefetch" href="/services/data-analytics" />
-<link rel="prefetch" href="/services/iot-integration" />
-<link rel="prefetch" href="/services/mobile-apps" />
+<link rel="prefetch" href={withBase('/services/api-development')} />
+<link rel="prefetch" href={withBase('/services/automation-systems')} />
+<link rel="prefetch" href={withBase('/services/data-analytics')} />
+<link rel="prefetch" href={withBase('/services/iot-integration')} />
+<link rel="prefetch" href={withBase('/services/mobile-apps')} />
 
 <!-- Prefetch project pages -->
-<link rel="prefetch" href="/projects/farm-sensor-network" />
-<link rel="prefetch" href="/projects/yield-analytics" />
-<link rel="prefetch" href="/projects/farm-management-ios" />
+<link rel="prefetch" href={withBase('/projects/farm-sensor-network')} />
+<link rel="prefetch" href={withBase('/projects/yield-analytics')} />
+<link rel="prefetch" href={withBase('/projects/farm-management-ios')} />
 
 <!-- Module preload for ES modules -->
-<link rel="modulepreload" href="/scripts/performance-monitor.js" />
-<link rel="modulepreload" href="/scripts/lazy-loading.js" />
-<link rel="modulepreload" href="/scripts/sw-register.js" />
+<link rel="modulepreload" href={withBase('/scripts/performance-monitor.js')} />
+<link rel="modulepreload" href={withBase('/scripts/lazy-loading.js')} />
+<link rel="modulepreload" href={withBase('/scripts/sw-register.js')} />
 
 <!-- Preload CSS for non-critical styles -->
-<link rel="preload" href="/styles/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="/styles/layout.css" /></noscript>
+<link rel="preload" href={withBase('/styles/layout.css')} as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href={withBase('/styles/layout.css')} /></noscript>
 
 <!-- Preload CSS for images and performance -->
-<link rel="preload" href="/styles/images.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="/styles/images.css" /></noscript>
+<link rel="preload" href={withBase('/styles/images.css')} as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href={withBase('/styles/images.css')} /></noscript>
 
-<link rel="preload" href="/styles/performance.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="/styles/performance.css" /></noscript>
+<link rel="preload" href={withBase('/styles/performance.css')} as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href={withBase('/styles/performance.css')} /></noscript>
 
 <script>
   // Resource loading optimization

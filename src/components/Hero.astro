@@ -16,8 +16,8 @@ const {
   subtitle = "Building data-driven farms for a more productive tomorrow",
   ctaText = "Explore Our Agricultural Solutions",
   ctaLink = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/services`,
-  backgroundImage = `${import.meta.env.BASE_URL}/images/hero/agricultural-background-desktop.svg`,
-  headshot = `${import.meta.env.BASE_URL}/images/hero/agrxculture-logo.svg`
+  backgroundImage = `${import.meta.env.BASE_URL}images/hero/agricultural-background-desktop.svg`,
+  headshot = `${import.meta.env.BASE_URL}images/hero/agrxculture-logo.svg`
 } = Astro.props;
 ---
 
@@ -29,27 +29,27 @@ const {
       <source 
         media="(max-width: 479px)"
         type="image/webp"
-        srcset={`${import.meta.env.BASE_URL}/images/hero/agricultural-background-mobile.webp`}
+        srcset={`${import.meta.env.BASE_URL}images/hero/agricultural-background-mobile.webp`}
       />
       <source 
         media="(min-width: 480px) and (max-width: 767px)"
         type="image/webp"
-        srcset={`${import.meta.env.BASE_URL}/images/hero/agricultural-background-tablet.webp`}
+        srcset={`${import.meta.env.BASE_URL}images/hero/agricultural-background-tablet.webp`}
       />
       <source 
         media="(min-width: 768px)"
         type="image/webp"
-        srcset={`${import.meta.env.BASE_URL}/images/hero/agricultural-background-desktop.webp`}
+        srcset={`${import.meta.env.BASE_URL}images/hero/agricultural-background-desktop.webp`}
       />
       
       <!-- SVG fallbacks for different screen sizes -->
       <source 
         media="(max-width: 479px)"
-        srcset={`${import.meta.env.BASE_URL}/images/hero/agricultural-background-mobile.svg`}
+        srcset={`${import.meta.env.BASE_URL}images/hero/agricultural-background-mobile.svg`}
       />
       <source 
         media="(min-width: 480px) and (max-width: 767px)"
-        srcset={`${import.meta.env.BASE_URL}/images/hero/agricultural-background-tablet.svg`}
+        srcset={`${import.meta.env.BASE_URL}images/hero/agricultural-background-tablet.svg`}
       />
       <img 
         src={backgroundImage}
@@ -76,7 +76,7 @@ const {
           <!-- WebP format -->
           <source 
             type="image/webp"
-            srcset={`${import.meta.env.BASE_URL}/images/hero/agrxculture-logo.webp`}
+            srcset={`${import.meta.env.BASE_URL}images/hero/agrxculture-logo.webp`}
           />
           <!-- SVG fallback -->
           <img 

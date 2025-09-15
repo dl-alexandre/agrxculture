@@ -77,15 +77,16 @@ export function getImageData(basename) {
 export function getResponsiveImage(basename, alt = '', className = '', loading = 'lazy') {
   const imageData = getImageData(basename);
   if (!imageData) return '';
+  const baseUrl = (typeof window !== 'undefined' && window.BASE_URL) ? window.BASE_URL : '/';
   
   return `<picture class="responsive-image {{className}}">
   <source 
-    srcset="/images/showcase/farm-management-ios-400w.webp 400w, /images/showcase/farm-management-ios-800w.webp 800w, /images/showcase/farm-management-ios-1200w.webp 1200w, /images/showcase/farm-management-ios-1600w.webp 1600w" 
+    srcset="${baseUrl}images/showcase/farm-management-ios-400w.webp 400w, ${baseUrl}images/showcase/farm-management-ios-800w.webp 800w, ${baseUrl}images/showcase/farm-management-ios-1200w.webp 1200w, ${baseUrl}images/showcase/farm-management-ios-1600w.webp 1600w" 
     sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     type="image/webp">
   <img 
-    src="/images/showcase/farm-management-ios-800w.jpg" 
-    srcset="/images/showcase/farm-management-ios-400w.jpg 400w, /images/showcase/farm-management-ios-800w.jpg 800w, /images/showcase/farm-management-ios-1200w.jpg 1200w, /images/showcase/farm-management-ios-1600w.jpg 1600w"
+    src="${baseUrl}images/showcase/farm-management-ios-800w.jpg" 
+    srcset="${baseUrl}images/showcase/farm-management-ios-400w.jpg 400w, ${baseUrl}images/showcase/farm-management-ios-800w.jpg 800w, ${baseUrl}images/showcase/farm-management-ios-1200w.jpg 1200w, ${baseUrl}images/showcase/farm-management-ios-1600w.jpg 1600w"
     sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     alt="{{alt}}"
     loading="{{loading}}"
@@ -100,15 +101,16 @@ export function getResponsiveImage(basename, alt = '', className = '', loading =
 export function getLazyImage(basename, alt = '', className = '', critical = false) {
   const imageData = getImageData(basename);
   if (!imageData) return '';
+  const baseUrl = (typeof window !== 'undefined' && window.BASE_URL) ? window.BASE_URL : '/';
   
   return `<picture class="responsive-image {{className}}">
   <source 
-    data-lazy-srcset="/images/showcase/farm-management-ios-400w.webp 400w, /images/showcase/farm-management-ios-800w.webp 800w, /images/showcase/farm-management-ios-1200w.webp 1200w, /images/showcase/farm-management-ios-1600w.webp 1600w" 
+    data-lazy-srcset="${baseUrl}images/showcase/farm-management-ios-400w.webp 400w, ${baseUrl}images/showcase/farm-management-ios-800w.webp 800w, ${baseUrl}images/showcase/farm-management-ios-1200w.webp 1200w, ${baseUrl}images/showcase/farm-management-ios-1600w.webp 1600w" 
     data-lazy-sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     type="image/webp">
   <img 
-    data-lazy-src="/images/showcase/farm-management-ios-800w.jpg" 
-    data-lazy-srcset="/images/showcase/farm-management-ios-400w.jpg 400w, /images/showcase/farm-management-ios-800w.jpg 800w, /images/showcase/farm-management-ios-1200w.jpg 1200w, /images/showcase/farm-management-ios-1600w.jpg 1600w"
+    data-lazy-src="${baseUrl}images/showcase/farm-management-ios-800w.jpg" 
+    data-lazy-srcset="${baseUrl}images/showcase/farm-management-ios-400w.jpg 400w, ${baseUrl}images/showcase/farm-management-ios-800w.jpg 800w, ${baseUrl}images/showcase/farm-management-ios-1200w.jpg 1200w, ${baseUrl}images/showcase/farm-management-ios-1600w.jpg 1600w"
     data-lazy-sizes="(max-width: 480px) 400px, (max-width: 768px) 800px, (max-width: 1024px) 1200px, 1600px"
     data-aspect-ratio="1.6"
     data-critical="true"

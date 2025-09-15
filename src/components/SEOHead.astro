@@ -88,7 +88,7 @@ const robotsContent = shouldNoindex || shouldNofollow
 <meta name="apple-mobile-web-app-title" content="Agrxculture" />
 <meta name="application-name" content="Agrxculture - Agricultural Technology" />
 <meta name="msapplication-TileColor" content="#2E7D32" />
-<meta name="msapplication-config" content="/browserconfig.xml" />
+<meta name="msapplication-config" content={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/browserconfig.xml`} />
 <meta name="viewport-fit" content="cover" />
 <meta name="apple-touch-fullscreen" content="yes" />
 
@@ -157,11 +157,11 @@ const robotsContent = shouldNoindex || shouldNofollow
 <link rel="mask-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} color="#2E7D32" />
 
 <!-- Microsoft Tiles -->
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
-<meta name="msapplication-square70x70logo" content="/icons/icon-72x72.png" />
-<meta name="msapplication-square150x150logo" content="/icons/icon-152x152.png" />
-<meta name="msapplication-wide310x150logo" content="/icons/icon-384x384.png" />
-<meta name="msapplication-square310x310logo" content="/icons/icon-512x512.png" />
+<meta name="msapplication-TileImage" content={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/icon-144x144.png`} />
+<meta name="msapplication-square70x70logo" content={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/icon-72x72.png`} />
+<meta name="msapplication-square150x150logo" content={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/icon-152x152.png`} />
+<meta name="msapplication-wide310x150logo" content={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/icon-384x384.png`} />
+<meta name="msapplication-square310x310logo" content={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/icons/icon-512x512.png`} />
 
 <!-- Security Headers -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff" />

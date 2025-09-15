@@ -88,8 +88,8 @@ const currentCanonical = canonical || `${Astro.site}${Astro.url.pathname}`;
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- Preload critical CSS to eliminate render-blocking -->
-    <link rel="preload" href="/styles/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/styles/critical.css"></noscript>
+    <link rel="preload" href={`${import.meta.env.BASE_URL}styles/critical.css`} as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href={`${import.meta.env.BASE_URL}styles/critical.css`}></noscript>
     
     <!-- Performance monitoring meta -->
     <meta name="performance-budget" content="1MB">
