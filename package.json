@@ -29,8 +29,8 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "ci:start-preview": "astro preview --port 4321 --host",
-    "ci:wait-preview": "wait-on http://localhost:4321",
-    "test:e2e:ci": "npm run ci:start-preview & sleep 1 && npm run ci:wait-preview && playwright test --reporter=html",
+    "ci:wait-preview": "wait-on -t 60000 http://localhost:4321",
+    "test:e2e:ci": "astro build && (npm run ci:start-preview & sleep 1 && npm run ci:wait-preview) && playwright test --reporter=html",
     "test:performance:ci": "astro build && (npm run ci:start-preview & sleep 1 && npm run ci:wait-preview) && node tests/performance/lighthouse-test.js",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -43,6 +43,7 @@
     "gray-matter": "^4.0.3"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^1.0.0",
     "@axe-core/playwright": "^4.8.0",
     "@playwright/test": "^1.40.0",
     "@testing-library/dom": "^9.3.0",
