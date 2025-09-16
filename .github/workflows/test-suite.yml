@@ -48,6 +48,8 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps
       - run: npm run test:e2e:ci
+        env:
+          BASE_PATH: /agrxculture/
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -67,6 +69,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:performance:ci
+        env:
+          BASE_PATH: /agrxculture/
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -93,8 +97,10 @@ jobs:
       - run: npx playwright install --with-deps
       - run: npm run build
       - run: npm run ci:start-preview &
-      - run: npx wait-on -t 60000 http://localhost:4321
+      - run: npx wait-on -t 60000 http://localhost:4321/agrxculture/
       - run: npx playwright test --project=${{ matrix.browser }} --reporter=html
+        env:
+          BASE_PATH: /agrxculture/
       - uses: actions/upload-artifact@v4
         if: always()
         with:

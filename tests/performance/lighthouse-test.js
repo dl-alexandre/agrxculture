@@ -16,11 +16,13 @@ const PERFORMANCE_THRESHOLDS = {
 };
 
 // Test URLs (adjust based on your deployment)
+const BASE = process.env.BASE_PATH || '/';
+const url = (p) => `http://localhost:4321${BASE}${p.replace(/^\//,'')}`;
 const TEST_URLS = [
-  'http://localhost:4321/',
-  'http://localhost:4321/services',
-  'http://localhost:4321/showcase',
-  'http://localhost:4321/contact',
+  url('/'),
+  url('/services'),
+  url('/showcase'),
+  url('/contact'),
 ];
 
 async function runLighthouseTest(url) {

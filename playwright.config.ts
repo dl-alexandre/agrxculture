@@ -10,7 +10,7 @@ export default defineConfig({
   timeout: 30000,
   
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: `http://localhost:4321${process.env.BASE_PATH ?? '/'}`,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     actionTimeout: 10000,
@@ -54,7 +54,7 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run preview -- --port 4321 --host',
-    url: 'http://localhost:4321',
+    url: `http://localhost:4321${process.env.BASE_PATH ?? '/'}`,
     reuseExistingServer: !process.env.CI,
     timeout: 180000,
   },
