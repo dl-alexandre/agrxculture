@@ -16,6 +16,9 @@ const {
   preloadScripts = []
 } = Astro.props;
 
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (p: string) => `${baseUrl}${p.replace(/^\//, '')}`;
+
 // Default critical resources for each page type
 const defaultResources = {
   home: {
@@ -82,8 +85,6 @@ const defaultResources = {
   }
 };
 
-const baseUrl = import.meta.env.BASE_URL;
-const withBase = (p: string) => `${baseUrl}${p.replace(/^\//, '')}`;
 const resources = (defaultResources[pageType] || defaultResources.home);
 ---
 
