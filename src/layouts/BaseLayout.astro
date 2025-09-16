@@ -29,10 +29,11 @@ const {
   nofollow = false
 } = Astro.props;
 
-// Helper function to create proper URLs
+// Helper function to create proper URLs with GitHub Pages base
 function createUrl(path: string): string {
-  if (path === '/' || path === '') return '/';
-  return `/${path.replace(/^\//, '')}`;
+  const base = import.meta.env.BASE_URL;
+  if (path === '/' || path === '') return base;
+  return `${base}${path.replace(/^\//, '')}`;
 }
 
 // Generate canonical URL for current page
