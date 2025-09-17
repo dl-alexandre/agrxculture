@@ -10,9 +10,9 @@
  * - Cache versioning and cleanup
  */
 
-const CACHE_NAME = 'agricultural-portfolio-v1.0.1';
-const STATIC_CACHE = 'static-assets-v1.0.1';
-const DYNAMIC_CACHE = 'dynamic-content-v1.0.1';
+const CACHE_NAME = 'agricultural-portfolio-v1.0.2';
+const STATIC_CACHE = 'static-assets-v1.0.2';
+const DYNAMIC_CACHE = 'dynamic-content-v1.0.2';
 
 // Get base URL for proper path handling
 const BASE_URL = self.location.pathname.includes('/agrxculture/')

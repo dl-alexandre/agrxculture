@@ -17,7 +17,10 @@ const {
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (p: string) => `${baseUrl}${p.replace(/^\//, '')}`;
+const withBase = (p: string) => {
+  const cleanPath = p.replace(/^\//, '');
+  return `${baseUrl}${baseUrl.endsWith('/') ? '' : '/'}${cleanPath}`;
+};
 
 // Default critical resources for each page type
 const defaultResources = {

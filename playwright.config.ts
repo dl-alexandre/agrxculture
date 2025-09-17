@@ -11,6 +11,7 @@ export default defineConfig({
   
   use: {
     baseURL: `http://localhost:4321${process.env.BASE_PATH ?? '/'}`,
+    serviceWorkers: 'block',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     actionTimeout: 10000,
