@@ -38,8 +38,8 @@ function createUrl(path: string): string {
   return `${base}${base.endsWith('/') ? '' : '/'}${cleanPath}`;
 }
 
-// Generate canonical URL for current page
-const currentCanonical = canonical || `${Astro.site}${Astro.url.pathname}`;
+// Generate canonical URL for current page (avoid double slashes)
+const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!DOCTYPE html>

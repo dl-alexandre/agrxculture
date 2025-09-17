@@ -53,7 +53,7 @@ export default defineConfig({
     },
   ],
 
-  webServer: process.env.CI && process.env.BASE_PATH ? undefined : {
+  webServer: {
     command: 'npm run preview -- --port 4321 --host',
     url: `http://localhost:4321${process.env.BASE_PATH ?? '/'}`,
     reuseExistingServer: !process.env.CI,
