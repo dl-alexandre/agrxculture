@@ -1,0 +1,219 @@
+/* Design Tokens - Agricultural Portfolio Website */
+
+:root {
+  /* Colors - Agricultural Theme */
+  --color-primary: #2e7d32; /* Agricultural Green */
+  --color-primary-light: #4caf50;
+  --color-primary-dark: #1b5e20;
+
+  --color-secondary: #8b4513; /* Earth Brown */
+  --color-secondary-light: #a0522d;
+  --color-secondary-dark: #654321;
+
+  --color-accent: #ff8f00; /* Harvest Orange */
+  --color-accent-light: #ffb74d;
+  --color-accent-dark: #e65100;
+  --color-accent-darker: #bf360c; /* Even darker for better contrast */
+
+  /* Status Colors */
+  --color-success: #4caf50;
+  --color-error: #d32f2f;
+  --color-warning: #ff9800;
+  --color-info: #2196f3;
+
+  /* Neutral Colors */
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-variant: #f5f5f5;
+
+  --color-text-primary: #212121;
+  --color-text-secondary: #757575;
+  --color-text-disabled: #bdbdbd;
+  --color-text-on-primary: #ffffff;
+  --color-text-on-secondary: #ffffff;
+
+  /* Border Colors */
+  --color-border: #e0e0e0;
+  --color-border-focus: var(--color-primary);
+  --color-border-error: var(--color-error);
+
+  /* Breakpoints - Task 8 Responsive Design */
+  --breakpoint-xs: 480px; /* Low-end mobile devices common in rural areas */
+  --breakpoint-sm: 768px; /* Tablet */
+  --breakpoint-md: 1024px; /* Desktop */
+  --breakpoint-lg: 1200px; /* Large desktop */
+  --breakpoint-xl: 1440px; /* Extra large desktop */
+  
+  /* Container Responsive Widths */
+  --container-xs: 100%;
+  --container-sm: 100%;
+  --container-md: 100%;
+  --container-lg: var(--container-xl);
+  --container-responsive: min(100% - 2rem, var(--container-xl));
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 3rem; /* 48px */
+  --space-3xl: 4rem; /* 64px */
+  --space-4xl: 6rem; /* 96px */
+
+  /* Typography Scale */
+  --font-family-primary:
+    'Inter', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  --font-family-mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border Radius */
+  --border-radius-sm: 0.25rem; /* 4px */
+  --border-radius-md: 0.5rem; /* 8px */
+  --border-radius-lg: 0.75rem; /* 12px */
+  --border-radius-xl: 1rem; /* 16px */
+  --border-radius-full: 9999px;
+  
+  /* Legacy border radius (for compatibility) */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.3s ease-out;
+  --transition-slow: 0.5s ease-out;
+
+  /* Z-Index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+
+  /* Touch Targets - Enhanced for Task 8 */
+  --touch-target-min: 44px; /* Minimum touch target size for mobile */
+  --touch-target-comfortable: 48px; /* Comfortable touch target size */
+  --touch-spacing-min: 8px; /* Minimum spacing between touch targets */
+
+  /* Focus Ring */
+  --focus-ring: 0 0 0 2px var(--color-primary);
+  --focus-ring-offset: 2px;
+}
+
+/* Media Query Mixins as CSS Custom Properties - Task 8 Responsive Breakpoints */
+@media (max-width: 479px) {
+  :root {
+    --current-breakpoint: 'xs';
+    /* Low-end mobile adjustments */
+    --space-container: var(--space-sm);
+    --font-size-responsive-base: 0.875rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  :root {
+    --current-breakpoint: 'sm';
+    /* Standard mobile adjustments */
+    --space-container: var(--space-md);
+    --font-size-responsive-base: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --current-breakpoint: 'md';
+    /* Tablet adjustments */
+    --space-container: var(--space-lg);
+    --font-size-responsive-base: 1rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  :root {
+    --current-breakpoint: 'lg';
+    /* Desktop adjustments */
+    --space-container: var(--space-xl);
+    --font-size-responsive-base: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --current-breakpoint: 'xl';
+    /* Large desktop adjustments */
+    --space-container: var(--space-xl);
+    --font-size-responsive-base: 1rem;
+  }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0s;
+    --transition-normal: 0s;
+    --transition-slow: 0s;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #000000;
+    --color-text-secondary: var(--color-text-primary);
+  }
+}
+
+/* Dark Mode Support (Future Enhancement) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #121212;
+    --color-surface: #1e1e1e;
+    --color-surface-variant: #2d2d2d;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #b3b3b3;
+    --color-border: #404040;
+  }
+}

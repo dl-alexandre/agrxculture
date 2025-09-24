@@ -322,26 +322,18 @@ const services = maxServices ? (servicesData || []).slice(0, maxServices) : (ser
   }
   
   .applications-content ul {
-    list-style: none;
+    list-style: disc;
     padding: 0;
     margin: var(--space-md) 0 0 0;
+    margin-left: var(--space-lg);
   }
   
   .applications-content li {
     padding: var(--space-xs) 0;
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
-    position: relative;
-    padding-left: var(--space-lg);
   }
   
-  .applications-content li::before {
-    content: '•';
-    color: var(--color-primary);
-    position: absolute;
-    left: 0;
-    font-weight: var(--font-weight-bold);
-  }
   
   .service-actions {
     margin-top: var(--space-xl);

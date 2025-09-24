@@ -217,7 +217,7 @@ const description = 'Get in touch for agricultural technology consulting and cus
   </div>
 </BaseLayout>
 
-<script src="../scripts/contact-form.js"></script>
+<script src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/scripts/contact-form.js`} defer></script>
 
 <style>
   .page-container {

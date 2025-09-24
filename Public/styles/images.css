@@ -1,0 +1,285 @@
+/* Image Optimization and Responsive Images - Task 8 */
+
+/* Base responsive image styles */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive image container */
+.responsive-image {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-surface-variant);
+}
+
+.responsive-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform var(--transition-normal);
+}
+
+/* WebP support with fallbacks */
+.webp-image {
+  position: relative;
+}
+
+.webp-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.webp-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Lazy loading placeholder */
+.image-placeholder {
+  background: linear-gradient(90deg, var(--color-surface-variant) 25%, transparent 50%, var(--color-surface-variant) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Hero image responsive system */
+.hero-image-responsive {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-responsive picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image-responsive img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Project showcase images */
+.project-image-responsive {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  background-color: var(--color-surface-variant);
+}
+
+.project-image-responsive picture {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.project-image-responsive img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform var(--transition-normal);
+}
+
+.project-image-responsive:hover img {
+  transform: scale(1.05);
+}
+
+/* Profile/headshot images */
+.profile-image-responsive {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--color-surface-variant);
+}
+
+.profile-image-responsive picture {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.profile-image-responsive img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Service/feature icons */
+.icon-image-responsive {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-image-responsive img,
+.icon-image-responsive svg {
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-on-primary);
+  fill: currentColor;
+}
+
+/* Responsive breakpoint adjustments */
+
+/* Low-end mobile (480px and below) */
+@media (max-width: 479px) {
+  .hero-image-responsive {
+    height: 80vh; /* Reduce height for small screens */
+  }
+  
+  .project-image-responsive {
+    aspect-ratio: 4 / 3; /* More square for mobile */
+  }
+  
+  .profile-image-responsive {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .icon-image-responsive {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .icon-image-responsive img,
+  .icon-image-responsive svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Standard mobile (480px to 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .hero-image-responsive {
+    height: 90vh;
+  }
+  
+  .project-image-responsive {
+    aspect-ratio: 3 / 2;
+  }
+  
+  .profile-image-responsive {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Tablet (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-image-responsive {
+    height: 100vh;
+  }
+  
+  .project-image-responsive {
+    aspect-ratio: 16 / 10;
+  }
+  
+  .profile-image-responsive {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* Desktop (1024px and above) */
+@media (min-width: 1024px) {
+  .hero-image-responsive {
+    height: 100vh;
+  }
+  
+  .project-image-responsive {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .profile-image-responsive {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Ensure high-quality images on retina displays */
+  .responsive-image img,
+  .webp-image img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .responsive-image img,
+  .project-image-responsive img,
+  .image-placeholder {
+    transition: none;
+    animation: none;
+  }
+  
+  .project-image-responsive:hover img {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .responsive-image,
+  .webp-image,
+  .project-image-responsive,
+  .profile-image-responsive {
+    break-inside: avoid;
+  }
+  
+  .hero-image-responsive {
+    height: auto;
+    max-height: 300px;
+  }
+  
+  .image-placeholder {
+    display: none;
+  }
+}
+
+/* Prefers reduced data (for rural/low bandwidth users) */
+@media (prefers-reduced-data: reduce) {
+  .hero-image-responsive {
+    background: var(--color-primary-dark);
+  }
+  
+  .hero-image-responsive img {
+    display: none;
+  }
+  
+  .project-image-responsive {
+    background: var(--color-surface-variant);
+  }
+  
+  .image-placeholder {
+    animation: none;
+  }
+}

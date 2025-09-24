@@ -45,8 +45,8 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
     title,
     description,
     canonical,
-    image = '/images/og-default.jpg',
-    imageAlt = 'Agrxculture - Agricultural Technology Company',
+    image,
+    imageAlt,
     type = 'website',
     publishedTime,
     modifiedTime,
@@ -57,7 +57,7 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
   } = config;
 
   const canonicalUrl = canonical || siteUrl;
-  const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+  const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : '';
   
   // Base agricultural technology keywords
   const baseKeywords = [
@@ -77,7 +77,7 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
     noindex ? 'noindex' : 'index',
     nofollow ? 'nofollow' : 'follow',
     'max-snippet:-1',
-    'max-image-preview:large',
+    'max-image-preview:none',
     'max-video-preview:-1'
   ].join(', ');
 
@@ -142,10 +142,6 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
-    <meta property="og:image" content="${fullImageUrl}" />
-    <meta property="og:image:alt" content="${imageAlt}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Agrxculture - Agricultural Technology" />
     ${publishedTime ? `<meta property="article:published_time" content="${publishedTime}" />` : ''}
@@ -153,12 +149,10 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
     ${author ? `<meta property="article:author" content="${author}" />` : ''}
     
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:url" content="${canonicalUrl}" />
     <meta name="twitter:title" content="${title}" />
     <meta name="twitter:description" content="${description}" />
-    <meta name="twitter:image" content="${fullImageUrl}" />
-    <meta name="twitter:image:alt" content="${imageAlt}" />
     <meta name="twitter:creator" content="@agrxculture" />
     <meta name="twitter:site" content="@agrxculture" />
   `.trim();
@@ -174,7 +168,6 @@ export function generateOrganizationSchema(siteUrl: string): object {
     "name": "Agrxculture",
     "description": "Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology",
     "url": siteUrl,
-    "image": `${siteUrl}/images/hero/agrxculture-logo.webp`,
     "sameAs": [
       "https://linkedin.com/company/agrxculture",
       "https://github.com/agrxculture"
@@ -238,7 +231,6 @@ export function generateProjectSchema(project: ProjectSEO, siteUrl: string): obj
     "name": project.title,
     "description": project.description,
     "url": `${siteUrl}/projects/${project.projectId}`,
-    "image": project.image ? `${siteUrl}${import.meta.env.BASE_URL}${project.image.startsWith('/') ? project.image.slice(1) : project.image}` : `${siteUrl}${import.meta.env.BASE_URL}images/showcase/${project.projectId}.jpg`,
     "creator": {
       "@type": "Organization",
       "name": "Agrxculture",

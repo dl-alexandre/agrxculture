@@ -19,8 +19,7 @@ const { structuredData, breadcrumbs } = generateShowcasePageSEO(siteUrl);
 const seoConfig = {
   title: 'Project Showcase | Agricultural IoT & Farm Apps',
   description: 'Explore agricultural tech case studies: IoT sensor networks, mobile farm apps, irrigation automation, and yield analytics delivering measurable results.',
-  image: 'images/showcase/farm-sensor-network.jpg',
-  imageAlt: 'Agricultural technology project showcase featuring IoT sensors, mobile apps, and farm automation systems',
+  
   keywords: [
     'agricultural technology projects',
     'farm management case studies', 
@@ -36,12 +35,12 @@ const seoConfig = {
   pageType="showcase"
   title={seoConfig.title}
   description={seoConfig.description}
-  image={seoConfig.image}
+  
   canonical="https://agrxculture.com/showcase"
   structuredData={structuredData}
   breadcrumbs={breadcrumbs}
 >
-  <link rel="preload" as="image" href={`${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-800w.jpg`} imagesrcset={`${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-400w.jpg 400w, ${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-800w.jpg 800w, ${import.meta.env.BASE_URL}/images/showcase/farm-sensor-network-1200w.jpg 1200w`} imagesizes="(max-width: 480px) 400px, (max-width: 768px) 800px, 1200px">
+  
   
   <div class="page-container">
     <section class="page-header">
@@ -124,7 +123,7 @@ const seoConfig = {
             Let's discuss how Agrxculture can help you develop custom technology solutions 
             that address your specific farming challenges and goals.
           </p>
-          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact`} class="btn btn-primary btn-lg">
+          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`} class="btn btn-primary btn-lg">
             Start Your Project
           </a>
         </div>

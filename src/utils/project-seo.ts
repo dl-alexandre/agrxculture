@@ -13,8 +13,7 @@ export const projectSEOData: Record<string, ProjectSEO> = {
     projectId: 'yield-analytics',
     title: 'Agricultural Yield Analytics Platform | Agrxculture',
     description: 'Advanced data analytics platform for crop yield prediction and optimization using machine learning.',
-    image: 'images/showcase/yield-analytics.jpg',
-    imageAlt: 'Agricultural yield analytics platform with machine learning',
+    
     technologies: ['Python', 'Machine Learning', 'Data Analytics', 'SQL'],
     category: 'Data Analytics',
     keywords: [
@@ -35,8 +34,7 @@ export const projectSEOData: Record<string, ProjectSEO> = {
     projectId: 'farm-management-ios',
     title: 'iOS Farm Management Application | Agrxculture',
     description: 'Native iOS application for comprehensive farm management, field data collection, and operational tracking.',
-    image: 'images/showcase/farm-management-ios.jpg',
-    imageAlt: 'iOS farm management application for agricultural operations',
+    
     technologies: ['Swift', 'iOS SDK', 'Core Data', 'CloudKit'],
     category: 'Mobile Development',
     keywords: [
@@ -57,8 +55,7 @@ export const projectSEOData: Record<string, ProjectSEO> = {
     projectId: 'farm-sensor-network',
     title: 'IoT Farm Sensor Network | Agrxculture',
     description: 'Comprehensive IoT sensor network for real-time agricultural monitoring and data collection.',
-    image: 'images/showcase/farm-sensor-network.jpg',
-    imageAlt: 'IoT farm sensor network for agricultural monitoring',
+    
     technologies: ['IoT Sensors', 'LoRaWAN', 'Python', 'Data Analytics'],
     category: 'IoT Integration',
     keywords: [
@@ -95,7 +92,7 @@ export function generateProjectPageSEO(projectId: string, siteUrl: string) {
     "@type": "HowTo",
     "name": `How to Implement ${project.title.split(' - ')[0]}`,
     "description": `Step-by-step approach to implementing ${project.category.toLowerCase()} solutions for agricultural operations`,
-    "image": `${siteUrl}${project.image}`,
+    
     "totalTime": project.metrics?.timeline || "3-6 months",
     "estimatedCost": {
       "@type": "MonetaryAmount",

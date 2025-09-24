@@ -27,14 +27,11 @@ const STATIC_ASSETS = [
   `${BASE_URL}/styles/images.css`,
   `${BASE_URL}/scripts/lazy-loading.js`,
   `${BASE_URL}/scripts/performance-monitor.js`,
-  `${BASE_URL}/favicon.svg`,
-  `${BASE_URL}/images/hero/agrxculture-logo.webp`,
-  `${BASE_URL}/images/hero/agricultural-background-mobile.webp`
+  `${BASE_URL}/favicon.svg`
 ];
 
 // Assets to cache on first request
 const CACHE_ON_REQUEST = [
-  '/images/',
   '/assets/',
   '/scripts/',
   '/styles/'
@@ -218,9 +215,6 @@ function isStaticAsset(url) {
   return CACHE_ON_REQUEST.some(pattern => url.includes(pattern)) ||
          url.includes('.css') ||
          url.includes('.js') ||
-         url.includes('.webp') ||
-         url.includes('.jpg') ||
-         url.includes('.png') ||
          url.includes('.svg') ||
          url.includes('.woff') ||
          url.includes('.woff2');

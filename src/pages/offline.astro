@@ -142,7 +142,7 @@
         🔄 Try Again
       </button>
       
-      <a href={`${import.meta.env.BASE_URL}`} class="offline-button">
+      <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/`} class="offline-button">
         🏠 Go Home
       </a>
       
@@ -227,8 +227,8 @@
     
     // Register service worker if not already registered
     if ('serviceWorker' in navigator) {
-      const baseUrl = (window.BASE_URL || '/');
-      navigator.serviceWorker.register(`${baseUrl}sw-performance.js`)
+      const baseUrl = (window.BASE_URL || '/').replace(/\/$/, '');
+      navigator.serviceWorker.register(`${baseUrl}/sw-performance.js`)
         .then(registration => {
           console.log('Service Worker registered:', registration);
         })

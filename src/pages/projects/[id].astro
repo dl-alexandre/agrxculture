@@ -25,7 +25,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
 <BaseLayout 
   title={seoConfig.title}
   description={seoConfig.description}
-  image={seoConfig.image}
+  
   structuredData={structuredData}
   breadcrumbs={[
     { name: 'Home', url: '/' },
@@ -83,15 +83,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
           </div>
         </div>
         
-        <div class="project-image-container">
-          <img 
-            src={project.image} 
-            alt={`Screenshot of ${project.title}`}
-            class="project-image"
-            width="600"
-            height="400"
-          />
-        </div>
+        
       </div>
     </section>
     
@@ -152,31 +144,31 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
               <h3>Related Services</h3>
               <div class="related-services">
                 {project.tags.includes('IoT') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/iot-integration`} class="service-link">
+                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/iot-integration/`} class="service-link">
                     <span class="service-icon">🌾</span>
                     IoT Integration
                   </a>
                 )}
                 {project.tags.includes('Mobile') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/mobile-apps`} class="service-link">
+                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/mobile-apps/`} class="service-link">
                     <span class="service-icon">📱</span>
                     Mobile Apps
                   </a>
                 )}
                 {project.tags.includes('Analytics') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/data-analytics`} class="service-link">
+                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/data-analytics/`} class="service-link">
                     <span class="service-icon">📊</span>
                     Data Analytics
                   </a>
                 )}
                 {project.tags.includes('API') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/api-development`} class="service-link">
+                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/api-development/`} class="service-link">
                     <span class="service-icon">🔗</span>
                     API Development
                   </a>
                 )}
                 {(project.tags.includes('Automation') || project.category === 'Farm Management') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/automation-systems`} class="service-link">
+                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/automation-systems/`} class="service-link">
                     <span class="service-icon">⚙️</span>
                     Automation Systems
                   </a>
@@ -205,13 +197,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
             .map(relatedProject => (
               <article class="related-project-card">
                 <a href={`/projects/${relatedProject.id}`} class="related-project-link">
-                  <img 
-                    src={relatedProject.image} 
-                    alt={`Screenshot of ${relatedProject.title}`}
-                    class="related-project-image"
-                    width="300"
-                    height="200"
-                  />
+                  <div class="related-project-image related-project-initials" aria-hidden="true">{relatedProject.title.split(' ').map(w => w[0]).slice(0,3).join('').toUpperCase()}</div>
                   <div class="related-project-content">
                     <h3>{relatedProject.title}</h3>
                     <p>{relatedProject.description}</p>
@@ -224,7 +210,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
         </div>
         
         <div class="view-all-projects">
-          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase`} class="btn btn-outline">View All Projects</a>
+          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase/`} class="btn btn-outline">View All Projects</a>
         </div>
       </div>
     </section>
@@ -238,7 +224,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
             Let's discuss how Agrxculture can help you develop custom agricultural technology 
             that addresses your specific farming challenges and goals.
           </p>
-          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact`} class="btn btn-primary btn-lg">
+          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`} class="btn btn-primary btn-lg">
             Start Your Project
           </a>
         </div>
@@ -380,12 +366,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     position: relative;
   }
   
-  .project-image {
-    width: 100%;
-    height: auto;
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-lg);
-  }
+  
   
   /* Case Study Content */
   .case-study-content {
@@ -594,11 +575,8 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     color: inherit;
   }
   
-  .related-project-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
+  .related-project-image { display: flex; align-items: center; justify-content: center; height: 200px; background: var(--color-primary); color: white; font-weight: 800; }
+  .related-project-initials { font-size: 1.5rem; }
   
   .related-project-content {
     padding: var(--space-lg);

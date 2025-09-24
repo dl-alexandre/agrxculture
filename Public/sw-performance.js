@@ -16,7 +16,7 @@ const CRITICAL_RESOURCES = [
 const STATIC_RESOURCES = [
   '/agrxculture/styles/',
   '/agrxculture/scripts/',
-  '/agrxculture/icons/',
+  
   '/agrxculture/manifest.json'
 ];
 
@@ -80,9 +80,7 @@ self.addEventListener('fetch', (event) => {
   }
   
   // Handle different resource types
-  if (request.destination === 'image') {
-    event.respondWith(handleImageRequest(request));
-  } else if (request.destination === 'style' || request.destination === 'script') {
+  if (request.destination === 'style' || request.destination === 'script') {
     event.respondWith(handleStaticRequest(request));
   } else if (request.destination === 'document') {
     event.respondWith(handleDocumentRequest(request));
@@ -91,36 +89,7 @@ self.addEventListener('fetch', (event) => {
   }
 });
 
-// Handle image requests with optimization
-async function handleImageRequest(request) {
-  const cache = await caches.open(IMAGE_CACHE);
-  const cachedResponse = await cache.match(request);
-  
-  if (cachedResponse) {
-    return cachedResponse;
-  }
-  
-  try {
-    const response = await fetch(request);
-    
-    if (response.ok) {
-      // Cache the image for future use
-      cache.put(request, response.clone());
-    }
-    
-    return response;
-  } catch (error) {
-    console.error('Image fetch failed:', error);
-    
-    // Return a placeholder image if available
-    const placeholderResponse = await cache.match('/agrxculture/icons/placeholder.svg');
-    if (placeholderResponse) {
-      return placeholderResponse;
-    }
-    
-    throw error;
-  }
-}
+ 
 
 // Handle static resource requests
 async function handleStaticRequest(request) {
@@ -244,8 +213,7 @@ self.addEventListener('push', (event) => {
     
     const options = {
       body: data.body,
-      icon: '/agrxculture/icons/icon-192x192.png',
-      badge: '/agrxculture/icons/icon-72x72.png',
+      
       data: data.data,
       actions: data.actions || [],
       requireInteraction: true

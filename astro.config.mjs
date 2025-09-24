@@ -5,7 +5,7 @@ export default defineConfig({
   site: 'https://dl-alexandre.github.io/agrxculture/',
   base: '/agrxculture/',
   output: 'static',
-  trailingSlash: 'never', // Prevent redirects
+  trailingSlash: 'always',
   build: {
     assets: 'assets',
     inlineStylesheets: 'auto', // Inline small CSS files

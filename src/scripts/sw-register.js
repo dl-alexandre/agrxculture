@@ -269,8 +269,6 @@ class ServiceWorkerManager {
 
     const baseUrl = window.BASE_URL || '/';
     const criticalResources = [
-      `${baseUrl}images/hero/agrxculture-logo.webp`,
-      `${baseUrl}images/hero/agricultural-background-mobile.webp`,
       `${baseUrl}styles/layout.css`
     ];
 

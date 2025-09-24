@@ -39,15 +39,7 @@ const { testimonial, showPhoto = true } = Astro.props;
     </blockquote>
     
     <div class="testimonial-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
-      {showPhoto && testimonial.photo && (
-        <img 
-          src={testimonial.photo.startsWith('/') ? testimonial.photo : '/' + testimonial.photo} 
-          alt={`${testimonial.clientName}, ${testimonial.clientRole}`}
-          class="author-photo"
-          itemprop="image"
-          loading="lazy"
-        />
-      )}
+      
       <div class="author-info">
         <cite class="author-name" itemprop="name">{testimonial.clientName}</cite>
         <div class="author-details">
@@ -122,13 +114,7 @@ const { testimonial, showPhoto = true } = Astro.props;
     margin-top: auto;
   }
 
-  .author-photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #2e7d32;
-  }
+  
 
   .author-info {
     flex: 1;

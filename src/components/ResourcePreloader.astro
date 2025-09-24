@@ -25,62 +25,39 @@ const withBase = (p: string) => {
 // Default critical resources for each page type
 const defaultResources = {
   home: {
-    images: [
-      '/images/hero/agrxculture-logo.webp',
-      '/images/hero/agricultural-background-mobile.webp'
-    ],
-    fonts: [
-      withBase('/fonts/inter-var.woff2')
-    ],
+    images: [],
+    fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
       withBase('/scripts/lazy-loading.js')
     ]
   },
   about: {
-    images: [
-      withBase('/images/hero/agrxculture-logo.webp')
-    ],
-    fonts: [
-      withBase('/fonts/inter-var.woff2')
-    ],
+    images: [],
+    fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js')
     ]
   },
   services: {
-    images: [
-      withBase('/images/hero/agrxculture-logo.webp')
-    ],
-    fonts: [
-      withBase('/fonts/inter-var.woff2')
-    ],
+    images: [],
+    fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
       withBase('/scripts/showcase.js')
     ]
   },
   showcase: {
-    images: [
-      withBase('/images/hero/agrxculture-logo.webp'),
-      withBase('/images/showcase/livestock-tracker.webp'),
-      withBase('/images/showcase/yield-analytics.webp')
-    ],
-    fonts: [
-      withBase('/fonts/inter-var.woff2')
-    ],
+    images: [],
+    fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
       withBase('/scripts/showcase.js')
     ]
   },
   contact: {
-    images: [
-      withBase('/images/hero/agrxculture-logo.webp')
-    ],
-    fonts: [
-      withBase('/fonts/inter-var.woff2')
-    ],
+    images: [],
+    fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
       withBase('/scripts/contact-form.js')
@@ -113,15 +90,7 @@ const resources = (defaultResources[pageType] || defaultResources.home);
   />
 ))}
 
-<!-- Preload critical images -->
-{resources.images.map(image => (
-  <link 
-    rel="preload" 
-    href={image} 
-    as="image" 
-    type="image/webp" 
-  />
-))}
+<!-- Preload critical images removed for text-only mode -->
 
 <!-- Preload critical scripts -->
 {resources.scripts.map(script => (
@@ -132,14 +101,7 @@ const resources = (defaultResources[pageType] || defaultResources.home);
   />
 ))}
 
-<!-- Preload custom critical resources -->
-{criticalImages.map(image => (
-  <link 
-    rel="preload" 
-    href={image} 
-    as="image" 
-  />
-))}
+<!-- Custom image preloads disabled -->
 
 {criticalFonts.map(font => (
   <link 
@@ -158,10 +120,7 @@ const resources = (defaultResources[pageType] || defaultResources.home);
   />
 ))}
 
-<!-- Prefetch non-critical resources -->
-<link rel="prefetch" href={withBase('/images/showcase/farm-sensor-network.jpg')} />
-<link rel="prefetch" href={withBase('/images/showcase/yield-analytics.jpg')} />
-<link rel="prefetch" href={withBase('/images/showcase/farm-management-ios.jpg')} />
+<!-- Image prefetch disabled in text-only mode -->
 
 <!-- Prefetch service pages -->
 <link rel="prefetch" href={withBase('/services/api-development')} />
