@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dl-alexandre.github.io/agrxculture/',
-  base: '/agrxculture/',
+  base: process.env.NODE_ENV === 'development' ? '/' : '/agrxculture/',
   output: 'static',
   trailingSlash: 'always',
   build: {
