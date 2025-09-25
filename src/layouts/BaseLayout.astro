@@ -5,6 +5,12 @@ import CriticalCSS from '../components/CriticalCSS.astro';
 import ResourcePreloader from '../components/ResourcePreloader.astro';
 import CSSOptimizer from '../components/CSSOptimizer.astro';
 
+// Import CSS files
+import '../styles/layout.css';
+import '../styles/images.css';
+import '../styles/performance.css';
+import '../styles/critical.css';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -69,10 +75,7 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
     <!-- CSS optimizer for non-critical styles -->
     <CSSOptimizer pageType={pageType} />
     
-    <!-- Core stylesheets -->
-    <link rel="stylesheet" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/styles/layout.css`} />
-    <link rel="stylesheet" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/styles/images.css`} />
-    <link rel="stylesheet" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/styles/performance.css`} />
+    <!-- Core stylesheets are now imported as modules -->
     
     <!-- Preconnect for fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,9 +91,7 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
     <!-- Critical font preload for LCP optimization -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
     
-    <!-- Preload critical CSS to eliminate render-blocking -->
-    <link rel="preload" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/styles/critical.css`} as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/styles/critical.css`}></noscript>
+    <!-- Critical CSS is now imported as a module -->
     
     <!-- Performance monitoring meta -->
     <meta name="performance-budget" content="1MB">
@@ -170,7 +171,18 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
             </div>
           </div>
           
-          
+          <!-- Mobile Menu Toggle -->
+          <button 
+            type="button" 
+            class="mobile-menu-toggle" 
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
         </div>
       </nav>
     </header>
@@ -405,11 +417,77 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
         });
       }
       
+      // Mobile menu toggle functionality
+      function initMobileMenu() {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const body = document.body;
+        
+        if (mobileToggle && navMenu) {
+          mobileToggle.addEventListener('click', () => {
+            const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            
+            mobileToggle.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('nav-menu--open');
+            body.classList.toggle('nav-open');
+          });
+          
+          // Close menu when clicking outside
+          document.addEventListener('click', (e) => {
+            if (!mobileToggle.contains(e.target) && !navMenu.contains(e.target)) {
+              mobileToggle.setAttribute('aria-expanded', 'false');
+              navMenu.classList.remove('nav-menu--open');
+              body.classList.remove('nav-open');
+            }
+          });
+          
+          // Close menu on escape key
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+              mobileToggle.setAttribute('aria-expanded', 'false');
+              navMenu.classList.remove('nav-menu--open');
+              body.classList.remove('nav-open');
+            }
+          });
+        }
+      }
+      
+      // Search toggle functionality
+      function initSearchToggle() {
+        const searchToggle = document.querySelector('.search-toggle');
+        const searchForm = document.querySelector('.search-form-container');
+        
+        if (searchToggle && searchForm) {
+          searchToggle.addEventListener('click', () => {
+            const isExpanded = searchToggle.getAttribute('aria-expanded') === 'true';
+            searchToggle.setAttribute('aria-expanded', !isExpanded);
+            searchForm.hidden = !isExpanded;
+            
+            if (!isExpanded) {
+              const searchInput = searchForm.querySelector('.search-input');
+              if (searchInput) {
+                setTimeout(() => searchInput.focus(), 100);
+              }
+            }
+          });
+        }
+      }
+      
+      // Initialize all functionality
+      function initNavigation() {
+        initMobileMenu();
+        initSearchToggle();
+      }
+      
       // Add resource hints after page load
       if (document.readyState === 'complete') {
         addResourceHints();
+        initNavigation();
       } else {
-        window.addEventListener('load', addResourceHints);
+        window.addEventListener('load', () => {
+          addResourceHints();
+          initNavigation();
+        });
       }
     </script>
   </body>

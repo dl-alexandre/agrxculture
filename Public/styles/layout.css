@@ -175,6 +175,7 @@ body {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
 }
 
 .brand-subtitle {

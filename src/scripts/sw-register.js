@@ -269,7 +269,7 @@ class ServiceWorkerManager {
 
     const baseUrl = window.BASE_URL || '/';
     const criticalResources = [
-      `${baseUrl}styles/layout.css`
+      // CSS files are now bundled and don't need separate caching
     ];
 
     // Request service worker to cache critical resources

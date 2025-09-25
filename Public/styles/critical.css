@@ -37,7 +37,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
   z-index: 100;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -66,7 +66,7 @@ body {
 .brand-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2E7D32;
+  color: #212121;
 }
 
 .brand-subtitle {

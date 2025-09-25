@@ -5,7 +5,7 @@ export default defineConfig({
   site: 'https://dl-alexandre.github.io/agrxculture/',
   base: process.env.NODE_ENV === 'development' ? '/' : '/agrxculture/',
   output: 'static',
-  trailingSlash: 'always',
+  trailingSlash: 'never', // Prevent redirects
   build: {
     assets: 'assets',
     inlineStylesheets: 'auto', // Inline small CSS files

@@ -139,16 +139,7 @@ const resources = (defaultResources[pageType] || defaultResources.home);
 <link rel="modulepreload" href={withBase('/scripts/lazy-loading.js')} />
 <link rel="modulepreload" href={withBase('/scripts/sw-register.js')} />
 
-<!-- Preload CSS for non-critical styles -->
-<link rel="preload" href={withBase('/styles/layout.css')} as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href={withBase('/styles/layout.css')} /></noscript>
-
-<!-- Preload CSS for images and performance -->
-<link rel="preload" href={withBase('/styles/images.css')} as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href={withBase('/styles/images.css')} /></noscript>
-
-<link rel="preload" href={withBase('/styles/performance.css')} as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href={withBase('/styles/performance.css')} /></noscript>
+<!-- CSS files are now imported as modules in BaseLayout -->
 
 <script>
   // Resource loading optimization

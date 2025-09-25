@@ -190,6 +190,8 @@ body {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  text-shadow: none;
 }
 
 .brand-subtitle {
@@ -222,7 +224,7 @@ body {
   padding: var(--space-sm) var(--space-md);
   text-decoration: none;
   color: var(--color-text-primary);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   position: relative;
