@@ -28,7 +28,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "ci:start-preview": "astro preview --port 4321 --host",
-    "ci:wait-preview": "wait-on -t 60000 http://localhost:4321/agrxculture/",
+    "ci:wait-preview": "wait-on -t 60000 http://localhost:4321/",
     "test:e2e:ci": "astro build && (npm run ci:start-preview & sleep 1 && npm run ci:wait-preview) && playwright test --reporter=html",
     "test:performance:ci": "astro build && (npm run ci:start-preview & sleep 1 && npm run ci:wait-preview) && node tests/performance/lighthouse-test.js",
     "test:e2e": "playwright test",
