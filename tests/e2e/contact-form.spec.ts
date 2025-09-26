@@ -20,7 +20,7 @@ test.describe('Contact Form E2E Tests', () => {
     const loadingSpinner = page.locator('.loading-spinner');
     await expect(loadingSpinner).toBeVisible();
     
-    // In test environment, the form won't actually submit to Formspree
+    // In test environment, the form won't actually submit to the SMTP server
     // So we verify the form was filled and submitted correctly
     await expect(page.locator('#name')).toHaveValue('John Farmer');
     await expect(page.locator('#email')).toHaveValue('john@greenvalleyfarms.com');

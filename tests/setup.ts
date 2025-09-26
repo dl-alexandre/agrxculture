@@ -33,8 +33,8 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock fetch for form submission tests
 global.fetch = vi.fn().mockImplementation((url, options) => {
-  // Mock successful form submission for Formspree
-  if (url.includes('formspree.io')) {
+  // Mock successful form submission for SMTP API
+  if (url.includes('/api/contact')) {
     return Promise.resolve({
       ok: true,
       status: 200,

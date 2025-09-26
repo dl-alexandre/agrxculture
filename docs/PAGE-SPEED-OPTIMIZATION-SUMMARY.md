@@ -64,7 +64,7 @@ This document summarizes the comprehensive page speed optimizations implemented 
 
 ### 2. **Resource Loading Optimization**
 - **Critical Resources**: Fonts, images, and scripts preloaded
-- **External Domains**: Google Fonts, reCAPTCHA, Formspree optimized
+- **External Domains**: Google Fonts, reCAPTCHA optimized
 - **Connection Awareness**: Adjusts strategy based on network type
 - **Save Data Mode**: Respects user's data saving preferences
 
@@ -84,7 +84,7 @@ This document summarizes the comprehensive page speed optimizations implemented 
 
 <!-- Preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-<link rel="preconnect" href="https://formspree.io" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 ```
 
 ### 2. **Resource Preloading Strategy**

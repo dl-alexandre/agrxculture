@@ -1,11 +1,11 @@
-# Agricultural Portfolio Website
+# Agrxculture - Agricultural Technology Portfolio
 
 ## Deployment Status
 
-[![Deploy to GitHub Pages](https://github.com/agrxculture/agricultural-portfolio-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/agrxculture/agricultural-portfolio-website/actions/workflows/deploy.yml)
-[![Staging Environment](https://github.com/agrxculture/agricultural-portfolio-website/actions/workflows/staging.yml/badge.svg)](https://github.com/agrxculture/agricultural-portfolio-website/actions/workflows/staging.yml)
-[![Lighthouse Performance](https://img.shields.io/badge/lighthouse-90%2B-brightgreen)](https://github.com/agrxculture/agricultural-portfolio-website/actions)
-[![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fagrxculture.github.io%2Fagricultural-portfolio-website)](https://agrxculture.github.io/agricultural-portfolio-website)
+[![Deploy to GitHub Pages](https://github.com/dl-alexandre/agrxculture/actions/workflows/deploy.yml/badge.svg)](https://github.com/dl-alexandre/agrxculture/actions/workflows/deploy.yml)
+[![Staging Environment](https://github.com/dl-alexandre/agrxculture/actions/workflows/staging.yml/badge.svg)](https://github.com/dl-alexandre/agrxculture/actions/workflows/staging.yml)
+[![Lighthouse Performance](https://img.shields.io/badge/lighthouse-90%2B-brightgreen)](https://github.com/dl-alexandre/agrxculture/actions)
+[![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fdl-alexandre.github.io%2Fagrxculture)](https://dl-alexandre.github.io/agrxculture)
 
 
 
@@ -48,6 +48,9 @@ All commands are run from the root of the project, from a terminal:
 | `npm run lint:fix`        | Run ESLint and automatically fix issues          |
 | `npm run format`          | Format code with Prettier                        |
 | `npm run format:check`    | Check if code is properly formatted              |
+| `npm run test`            | Run unit tests with Vitest                       |
+| `npm run test:e2e`        | Run end-to-end tests with Playwright            |
+| `npm run test:performance`| Run Lighthouse performance tests                  |
 
 ## 🎯 Features
 
@@ -58,7 +61,9 @@ All commands are run from the root of the project, from a terminal:
 - **Accessibility**: WCAG AA compliant with keyboard navigation
 - **Performance**: Optimized images, lazy loading, and minimal JavaScript
 - **Design Tokens**: Consistent spacing, colors, and typography
-- **Form Handling**: Contact form with validation and spam protection
+- **Contact Form**: SMTP-powered contact form with validation and spam protection
+- **Testing Suite**: Unit tests (Vitest), E2E tests (Playwright), and performance tests (Lighthouse)
+- **CI/CD Pipeline**: Automated deployment with GitHub Actions
 
 ## 🌱 Agricultural Focus
 
@@ -72,17 +77,108 @@ This portfolio specifically targets:
 
 ## 📝 Environment Setup
 
-1. Copy `.env.example` to `.env`
-2. Update environment variables for your deployment
-3. Configure form endpoints and analytics as needed
+### 1. Install Dependencies
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env with your actual values
+```
+
+### 3. Required Environment Variables
+```env
+# SMTP Configuration for Contact Form
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+SMTP_FROM_ADDRESS=noreply@agrxculture.com
+
+# Base URL for email links
+BASE_URL=https://dl-alexandre.github.io/agrxculture/
+
+# Optional: reCAPTCHA for additional spam protection
+PUBLIC_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+```
+
+### 4. GitHub Repository Secrets (for deployment)
+Set these in your GitHub repository settings (Settings → Secrets and variables → Actions):
+- `SMTP_USERNAME`
+- `SMTP_PASSWORD`
+- `SMTP_FROM_ADDRESS`
 
 ## 🚀 Deployment
 
-The site is configured for deployment to GitHub Pages:
+### GitHub Pages (Automatic)
+The site is configured for automatic deployment to GitHub Pages:
 
-- Build artifacts are generated in `./dist/`
-- GitHub Actions workflow handles automated deployment
-- Custom domain and SSL certificate supported
+1. **Enable GitHub Pages**: Go to repository Settings → Pages → Source: "GitHub Actions"
+2. **Push to main branch**: Automatic deployment via GitHub Actions workflow
+3. **Live URL**: https://dl-alexandre.github.io/agrxculture
+
+### Manual Deployment
+```bash
+# Build the site
+npm run build
+
+# Preview locally
+npm run preview
+
+# Deploy (if using other platforms)
+npm run deploy:production
+```
+
+### Deployment Features
+- ✅ **Automated builds** on push to main branch
+- ✅ **Performance testing** with Lighthouse CI
+- ✅ **Broken link detection** 
+- ✅ **Automatic rollback** on deployment failure
+- ✅ **Custom domain support**
+- ✅ **SSL certificate** (automatic with GitHub Pages)
+
+## 🧪 Testing
+
+### Run Tests
+```bash
+# Run all tests
+npm run test:all
+
+# Unit tests only
+npm run test
+
+# End-to-end tests
+npm run test:e2e
+
+# Performance tests
+npm run test:performance
+
+# Accessibility tests
+npm run test:accessibility
+```
+
+### Test Coverage
+- **Unit Tests**: Component logic and utilities (Vitest)
+- **E2E Tests**: Full user workflows (Playwright)
+- **Performance Tests**: Lighthouse CI integration
+- **Accessibility Tests**: WCAG compliance testing
+
+## 🔧 Development
+
+### Code Quality
+- **ESLint**: Code linting with TypeScript support
+- **Prettier**: Code formatting
+- **TypeScript**: Strict type checking
+- **Husky**: Pre-commit hooks (if configured)
+
+### Performance Monitoring
+- **Lighthouse CI**: Automated performance testing
+- **Bundle Analysis**: `npm run analyze-bundle`
+- **Performance Reports**: Generated in `lighthouse-results/`
 
 ## 👀 Want to learn more?
 
