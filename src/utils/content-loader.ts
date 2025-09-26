@@ -71,31 +71,34 @@ export interface TestimonialData {
   projectId?: string;
   rating: number;
   dateGiven: string;
-}/**
+} /**
 
  * Load all project content from Markdown files
  */
 export function loadProjects(): ProjectData[] {
   const projectsDir = join(process.cwd(), 'src/content/projects');
   const filenames = readdirSync(projectsDir);
-  
+
   return filenames
     .filter(name => name.endsWith('.md'))
     .map(filename => {
       const filePath = join(projectsDir, filename);
       const fileContents = readFileSync(filePath, 'utf8');
       const { data, content } = matter(fileContents);
-      
+
       return {
         ...data,
-        content
+        content,
       } as ProjectData;
     })
     .sort((a, b) => {
       // Sort by featured first, then by date
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
-      return new Date(b.dateCompleted).getTime() - new Date(a.dateCompleted).getTime();
+      return (
+        new Date(b.dateCompleted).getTime() -
+        new Date(a.dateCompleted).getTime()
+      );
     });
 }
 
@@ -107,10 +110,10 @@ export function loadProject(id: string): ProjectData | null {
     const filePath = join(process.cwd(), 'src/content/projects', `${id}.md`);
     const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
-    
+
     return {
       ...data,
-      content
+      content,
     } as ProjectData;
   } catch (error) {
     return null;
@@ -123,21 +126,21 @@ export function loadProject(id: string): ProjectData | null {
 export function loadServices(): ServiceData[] {
   const servicesDir = join(process.cwd(), 'src/content/services');
   const filenames = readdirSync(servicesDir);
-  
+
   return filenames
     .filter(name => name.endsWith('.md'))
     .map(filename => {
       const filePath = join(servicesDir, filename);
       const fileContents = readFileSync(filePath, 'utf8');
       const { data, content } = matter(fileContents);
-      
+
       // Extract applications from markdown content
       const applications = extractApplicationsFromContent(content);
-      
+
       return {
         ...data,
         applications,
-        content
+        content,
       } as ServiceData;
     });
 }
@@ -146,10 +149,12 @@ export function loadServices(): ServiceData[] {
  * Extract applications list from markdown content
  */
 function extractApplicationsFromContent(content: string): string[] {
-  const applicationsMatch = content.match(/## Applications\s*\n\n((?:- \*\*[^*]+\*\* - [^\n]+\n?)+)/);
+  const applicationsMatch = content.match(
+    /## Applications\s*\n\n((?:- \*\*[^*]+\*\* - [^\n]+\n?)+)/
+  );
   if (!applicationsMatch) return [];
-  
-  const applicationsText = applicationsMatch[1];
+
+  const applicationsText = applicationsMatch[1] || '';
   const applications = applicationsText
     .split('\n')
     .filter(line => line.trim().startsWith('- **'))
@@ -158,8 +163,8 @@ function extractApplicationsFromContent(content: string): string[] {
       const match = line.match(/- \*\*([^*]+)\*\*/);
       return match ? match[1] : '';
     })
-    .filter(Boolean);
-  
+    .filter((app): app is string => Boolean(app));
+
   return applications;
 }
 
@@ -171,14 +176,14 @@ export function loadService(id: string): ServiceData | null {
     const filePath = join(process.cwd(), 'src/content/services', `${id}.md`);
     const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
-    
+
     // Extract applications from markdown content
     const applications = extractApplicationsFromContent(content);
-    
+
     return {
       ...data,
       applications,
-      content
+      content,
     } as ServiceData;
   } catch (error) {
     return null;
@@ -193,7 +198,7 @@ export function loadTestimonials(): TestimonialData[] {
     const filePath = join(process.cwd(), 'src/data/testimonials.json');
     const fileContents = readFileSync(filePath, 'utf8');
     const testimonials = JSON.parse(fileContents) as TestimonialData[];
-    
+
     return testimonials.sort((a, b) => {
       // Sort by date (most recent first)
       return new Date(b.dateGiven).getTime() - new Date(a.dateGiven).getTime();
@@ -207,7 +212,11 @@ export function loadTestimonials(): TestimonialData[] {
 /**
  * Load testimonials for a specific project
  */
-export function loadTestimonialsForProject(projectId: string): TestimonialData[] {
+export function loadTestimonialsForProject(
+  projectId: string
+): TestimonialData[] {
   const allTestimonials = loadTestimonials();
-  return allTestimonials.filter(testimonial => testimonial.projectId === projectId);
+  return allTestimonials.filter(
+    testimonial => testimonial.projectId === projectId
+  );
 }

@@ -41,7 +41,12 @@ img {
 
 /* Lazy loading placeholder */
 .image-placeholder {
-  background: linear-gradient(90deg, var(--color-surface-variant) 25%, transparent 50%, var(--color-surface-variant) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-variant) 25%,
+    transparent 50%,
+    var(--color-surface-variant) 75%
+  );
   background-size: 200% 100%;
   animation: loading 1.5s infinite;
 }
@@ -131,7 +136,11 @@ img {
   height: 64px;
   border-radius: var(--border-radius-lg);
   overflow: hidden;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -152,21 +161,21 @@ img {
   .hero-image-responsive {
     height: 80vh; /* Reduce height for small screens */
   }
-  
+
   .project-image-responsive {
     aspect-ratio: 4 / 3; /* More square for mobile */
   }
-  
+
   .profile-image-responsive {
     width: 100px;
     height: 100px;
   }
-  
+
   .icon-image-responsive {
     width: 48px;
     height: 48px;
   }
-  
+
   .icon-image-responsive img,
   .icon-image-responsive svg {
     width: 24px;
@@ -179,11 +188,11 @@ img {
   .hero-image-responsive {
     height: 90vh;
   }
-  
+
   .project-image-responsive {
     aspect-ratio: 3 / 2;
   }
-  
+
   .profile-image-responsive {
     width: 120px;
     height: 120px;
@@ -195,11 +204,11 @@ img {
   .hero-image-responsive {
     height: 100vh;
   }
-  
+
   .project-image-responsive {
     aspect-ratio: 16 / 10;
   }
-  
+
   .profile-image-responsive {
     width: 160px;
     height: 160px;
@@ -211,11 +220,11 @@ img {
   .hero-image-responsive {
     height: 100vh;
   }
-  
+
   .project-image-responsive {
     aspect-ratio: 16 / 9;
   }
-  
+
   .profile-image-responsive {
     width: 200px;
     height: 200px;
@@ -240,7 +249,7 @@ img {
     transition: none;
     animation: none;
   }
-  
+
   .project-image-responsive:hover img {
     transform: none;
   }
@@ -254,12 +263,12 @@ img {
   .profile-image-responsive {
     break-inside: avoid;
   }
-  
+
   .hero-image-responsive {
     height: auto;
     max-height: 300px;
   }
-  
+
   .image-placeholder {
     display: none;
   }
@@ -270,15 +279,15 @@ img {
   .hero-image-responsive {
     background: var(--color-primary-dark);
   }
-  
+
   .hero-image-responsive img {
     display: none;
   }
-  
+
   .project-image-responsive {
     background: var(--color-surface-variant);
   }
-  
+
   .image-placeholder {
     animation: none;
   }

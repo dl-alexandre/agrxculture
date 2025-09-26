@@ -2,7 +2,7 @@ name: Staging Environment
 
 on:
   push:
-    branches: [ develop, staging ]
+    branches: [develop, staging]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "staging-${{ github.ref }}"
+  group: 'staging-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
@@ -69,7 +69,7 @@ jobs:
         run: |
           npx serve dist -l 3000 &
           sleep 5
-        
+
       - name: Run Lighthouse on staging
         run: |
           npm install -g @lhci/cli@0.12.x

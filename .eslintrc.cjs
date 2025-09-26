@@ -2,19 +2,19 @@ module.exports = {
   extends: [
     'eslint:recommended',
     '@typescript-eslint/recommended',
-    'plugin:astro/recommended'
+    'plugin:astro/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
   rules: {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'warn',
     'no-console': 'warn',
-    'prefer-const': 'error'
+    'prefer-const': 'error',
   },
   overrides: [
     {
@@ -22,17 +22,17 @@ module.exports = {
       parser: 'astro-eslint-parser',
       parserOptions: {
         parser: '@typescript-eslint/parser',
-        extraFileExtensions: ['.astro']
+        extraFileExtensions: ['.astro'],
       },
       rules: {
         'astro/no-conflict-set-directives': 'error',
-        'astro/no-unused-define-vars-in-style': 'error'
-      }
-    }
+        'astro/no-unused-define-vars-in-style': 'error',
+      },
+    },
   ],
   env: {
     browser: true,
     es2022: true,
-    node: true
-  }
+    node: true,
+  },
 };

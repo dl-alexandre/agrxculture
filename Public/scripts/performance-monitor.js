@@ -1,7 +1,7 @@
 /**
  * Performance Monitoring Script
  * Task 9: Performance optimizations and accessibility features
- * 
+ *
  * Features:
  * - Core Web Vitals monitoring (CLS, LCP, FID, FCP)
  * - Lighthouse score validation
@@ -19,18 +19,18 @@ class PerformanceMonitor {
       fcp: 0,
       ttfb: 0,
       loadTime: 0,
-      domContentLoaded: 0
+      domContentLoaded: 0,
     };
-    
+
     this.thresholds = {
-      cls: 0.1,      // Good: < 0.1
-      lcp: 2500,     // Good: < 2.5s
-      fid: 100,      // Good: < 100ms
-      fcp: 1800,     // Good: < 1.8s
-      ttfb: 800,     // Good: < 0.8s
-      loadTime: 3000 // Target: < 3s
+      cls: 0.1, // Good: < 0.1
+      lcp: 2500, // Good: < 2.5s
+      fid: 100, // Good: < 100ms
+      fcp: 1800, // Good: < 1.8s
+      ttfb: 800, // Good: < 0.8s
+      loadTime: 3000, // Target: < 3s
     };
-    
+
     this.init();
   }
 
@@ -49,7 +49,7 @@ class PerformanceMonitor {
     this.monitorLayoutShifts();
     this.trackImageLoading();
     this.setupPerformanceObserver();
-    
+
     // Report metrics after a delay to capture all measurements
     setTimeout(() => this.reportMetrics(), 5000);
   }
@@ -70,19 +70,21 @@ class PerformanceMonitor {
   measureBasicMetrics() {
     // Basic performance measurements without web-vitals library
     const navigation = performance.getEntriesByType('navigation')[0];
-    
+
     if (navigation) {
       this.metrics.ttfb = navigation.responseStart - navigation.requestStart;
-      this.metrics.domContentLoaded = navigation.domContentLoadedEventEnd - navigation.navigationStart;
-      this.metrics.loadTime = navigation.loadEventEnd - navigation.navigationStart;
+      this.metrics.domContentLoaded =
+        navigation.domContentLoadedEventEnd - navigation.navigationStart;
+      this.metrics.loadTime =
+        navigation.loadEventEnd - navigation.navigationStart;
     }
 
     // Measure FCP using PerformanceObserver
     if ('PerformanceObserver' in window) {
       try {
-        const observer = new PerformanceObserver((list) => {
+        const observer = new PerformanceObserver(list => {
           const entries = list.getEntries();
-          entries.forEach((entry) => {
+          entries.forEach(entry => {
             if (entry.name === 'first-contentful-paint') {
               this.metrics.fcp = entry.startTime;
             }
@@ -99,15 +101,15 @@ class PerformanceMonitor {
     if (!('PerformanceObserver' in window)) return;
 
     try {
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         const entries = list.getEntries();
-        entries.forEach((entry) => {
+        entries.forEach(entry => {
           if (!entry.hadRecentInput) {
             this.metrics.cls += entry.value;
           }
         });
       });
-      
+
       observer.observe({ entryTypes: ['layout-shift'] });
     } catch (e) {
       console.warn('Layout shift monitoring not supported');
@@ -118,12 +120,12 @@ class PerformanceMonitor {
     const images = document.querySelectorAll('img');
     let loadedImages = 0;
     let totalImages = images.length;
-    
+
     if (totalImages === 0) return;
 
     const imageLoadStart = performance.now();
-    
-    images.forEach((img) => {
+
+    images.forEach(img => {
       const trackLoad = () => {
         loadedImages++;
         if (loadedImages === totalImages) {
@@ -146,25 +148,25 @@ class PerformanceMonitor {
 
     try {
       // Monitor resource loading
-      const resourceObserver = new PerformanceObserver((list) => {
+      const resourceObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
-        entries.forEach((entry) => {
+        entries.forEach(entry => {
           this.analyzeResourceTiming(entry);
         });
       });
-      
+
       resourceObserver.observe({ entryTypes: ['resource'] });
 
       // Monitor long tasks
-      const longTaskObserver = new PerformanceObserver((list) => {
+      const longTaskObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
-        entries.forEach((entry) => {
+        entries.forEach(entry => {
           if (entry.duration > 50) {
             console.warn(`Long task detected: ${entry.duration}ms`);
           }
         });
       });
-      
+
       longTaskObserver.observe({ entryTypes: ['longtask'] });
     } catch (e) {
       console.warn('Advanced performance monitoring not supported');
@@ -173,17 +175,20 @@ class PerformanceMonitor {
 
   analyzeResourceTiming(entry) {
     const { name, duration, transferSize } = entry;
-    
+
     // Check for slow resources
     if (duration > 1000) {
       console.warn(`Slow resource: ${name} took ${duration}ms`);
     }
-    
+
     // Check for large resources
-    if (transferSize > 500000) { // 500KB
-      console.warn(`Large resource: ${name} is ${Math.round(transferSize / 1024)}KB`);
+    if (transferSize > 500000) {
+      // 500KB
+      console.warn(
+        `Large resource: ${name} is ${Math.round(transferSize / 1024)}KB`
+      );
     }
-    
+
     // Track critical resources
     if (name.includes('.css') || name.includes('.js')) {
       this.metrics.criticalResourceTime = Math.max(
@@ -218,17 +223,19 @@ class PerformanceMonitor {
     const results = {
       passed: 0,
       failed: 0,
-      warnings: []
+      warnings: [],
     };
 
     Object.entries(this.thresholds).forEach(([metric, threshold]) => {
       const value = this.metrics[metric];
-      
+
       if (value <= threshold) {
         results.passed++;
       } else {
         results.failed++;
-        results.warnings.push(`${metric.toUpperCase()}: ${value} exceeds threshold of ${threshold}`);
+        results.warnings.push(
+          `${metric.toUpperCase()}: ${value} exceeds threshold of ${threshold}`
+        );
       }
     });
 
@@ -237,28 +244,30 @@ class PerformanceMonitor {
 
   reportMetrics() {
     const validation = this.validateMetrics();
-    
+
     console.group('🚀 Performance Metrics Report');
     console.log('Core Web Vitals:', this.metrics);
     console.log('Validation Results:', validation);
-    
+
     if (validation.warnings.length > 0) {
       console.warn('Performance Issues:');
       validation.warnings.forEach(warning => console.warn(`⚠️ ${warning}`));
     } else {
       console.log('✅ All performance metrics within acceptable thresholds');
     }
-    
+
     console.groupEnd();
 
     // Dispatch custom event for external monitoring
-    document.dispatchEvent(new CustomEvent('performanceReport', {
-      detail: {
-        metrics: this.metrics,
-        validation: validation,
-        timestamp: Date.now()
-      }
-    }));
+    document.dispatchEvent(
+      new CustomEvent('performanceReport', {
+        detail: {
+          metrics: this.metrics,
+          validation: validation,
+          timestamp: Date.now(),
+        },
+      })
+    );
 
     // Send to analytics if configured
     this.sendToAnalytics();
@@ -272,25 +281,27 @@ class PerformanceMonitor {
         cls: this.metrics.cls,
         lcp: this.metrics.lcp,
         fid: this.metrics.fid,
-        fcp: this.metrics.fcp
+        fcp: this.metrics.fcp,
       });
     }
 
     // Custom analytics endpoint (if configured)
-    const analyticsEndpoint = document.querySelector('meta[name="analytics-endpoint"]')?.content;
+    const analyticsEndpoint = document.querySelector(
+      'meta[name="analytics-endpoint"]'
+    )?.content;
     if (analyticsEndpoint) {
       fetch(analyticsEndpoint, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           type: 'performance',
           metrics: this.metrics,
           url: window.location.href,
           userAgent: navigator.userAgent,
-          timestamp: Date.now()
-        })
+          timestamp: Date.now(),
+        }),
       }).catch(err => console.warn('Analytics reporting failed:', err));
     }
   }
@@ -299,7 +310,7 @@ class PerformanceMonitor {
   measureCustomMetric(name, startTime, endTime) {
     const duration = endTime - startTime;
     this.metrics[name] = duration;
-    
+
     console.log(`Custom metric ${name}: ${duration}ms`);
     return duration;
   }
@@ -329,7 +340,7 @@ class PerformanceBudget {
       cssSize: 50 * 1024, // 50KB
       jsSize: 100 * 1024, // 100KB
       imageSize: 500 * 1024, // 500KB
-      fontSize: 100 * 1024 // 100KB
+      fontSize: 100 * 1024, // 100KB
     };
   }
 
@@ -343,8 +354,8 @@ class PerformanceBudget {
         js: { size: 0, count: 0 },
         image: { size: 0, count: 0 },
         font: { size: 0, count: 0 },
-        other: { size: 0, count: 0 }
-      }
+        other: { size: 0, count: 0 },
+      },
     };
 
     resources.forEach(resource => {
@@ -371,24 +382,30 @@ class PerformanceBudget {
     const violations = [];
 
     if (analysis.totalSize > this.budgets.totalPageSize) {
-      violations.push(`Total page size (${Math.round(analysis.totalSize / 1024)}KB) exceeds budget (${Math.round(this.budgets.totalPageSize / 1024)}KB)`);
+      violations.push(
+        `Total page size (${Math.round(analysis.totalSize / 1024)}KB) exceeds budget (${Math.round(this.budgets.totalPageSize / 1024)}KB)`
+      );
     }
 
     if (analysis.totalRequests > this.budgets.totalRequests) {
-      violations.push(`Total requests (${analysis.totalRequests}) exceeds budget (${this.budgets.totalRequests})`);
+      violations.push(
+        `Total requests (${analysis.totalRequests}) exceeds budget (${this.budgets.totalRequests})`
+      );
     }
 
     Object.entries(analysis.byType).forEach(([type, data]) => {
       const budget = this.budgets[`${type}Size`];
       if (budget && data.size > budget) {
-        violations.push(`${type.toUpperCase()} size (${Math.round(data.size / 1024)}KB) exceeds budget (${Math.round(budget / 1024)}KB)`);
+        violations.push(
+          `${type.toUpperCase()} size (${Math.round(data.size / 1024)}KB) exceeds budget (${Math.round(budget / 1024)}KB)`
+        );
       }
     });
 
     return {
       analysis,
       violations,
-      passed: violations.length === 0
+      passed: violations.length === 0,
     };
   }
 }
@@ -401,7 +418,7 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     performanceMonitor = new PerformanceMonitor();
     performanceBudget = new PerformanceBudget();
-    
+
     // Check performance budget after load
     window.addEventListener('load', () => {
       setTimeout(() => {

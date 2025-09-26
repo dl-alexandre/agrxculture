@@ -12,32 +12,34 @@ import path from 'path';
 const config = {
   // Set your custom domain here
   customDomain: process.env.CUSTOM_DOMAIN || '', // e.g., 'agrxculture.com'
-  
+
   // GitHub Pages settings
   githubPages: {
     repository: 'agrxculture/agricultural-portfolio-website',
-    branch: 'gh-pages'
-  }
+    branch: 'gh-pages',
+  },
 };
 
 function generateCNAME() {
   if (!config.customDomain) {
-    console.log('⚠️  No custom domain configured. Using GitHub Pages default domain.');
+    console.log(
+      '⚠️  No custom domain configured. Using GitHub Pages default domain.'
+    );
     return false;
   }
-  
+
   const cnameContent = config.customDomain.trim();
-  
+
   // Create public directory if it doesn't exist
   const publicDir = 'public';
   if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir, { recursive: true });
   }
-  
+
   // Write CNAME file
   fs.writeFileSync(path.join(publicDir, 'CNAME'), cnameContent);
   console.log(`✅ Generated CNAME file for domain: ${cnameContent}`);
-  
+
   return true;
 }
 
@@ -177,29 +179,28 @@ Branch: ${config.githubPages.branch}
 
 function main() {
   console.log('🌐 Setting up custom domain configuration...');
-  
+
   try {
     // Generate CNAME file if domain is configured
     const cnameGenerated = generateCNAME();
-    
+
     // Generate setup instructions
     const instructions = generateDomainSetupInstructions();
     fs.writeFileSync('CUSTOM-DOMAIN-SETUP.md', instructions);
     console.log('✅ Generated CUSTOM-DOMAIN-SETUP.md with setup instructions');
-    
+
     // Update Astro config if custom domain is set
     if (config.customDomain) {
       console.log('⚠️  Remember to update astro.config.mjs:');
       console.log(`   site: 'https://${config.customDomain}'`);
       console.log(`   base: '/'`);
     }
-    
+
     console.log('\n📋 Next steps:');
     console.log('1. Set CUSTOM_DOMAIN environment variable if needed');
     console.log('2. Follow instructions in CUSTOM-DOMAIN-SETUP.md');
     console.log('3. Update repository settings on GitHub');
     console.log('4. Configure DNS records with your domain registrar');
-    
   } catch (error) {
     console.error('❌ Error setting up custom domain:', error);
     process.exit(1);

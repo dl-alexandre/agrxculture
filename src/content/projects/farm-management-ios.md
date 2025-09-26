@@ -13,16 +13,16 @@ tags:
   - iOS
   - Mobile Apps
   - Agriculture
-dateCompleted: "2024-12-31"
+dateCompleted: '2024-12-31'
 featured: true
 metrics:
   improvement: 25% increase in operational efficiency
   timeline: In Development
   scale: Native iOS solution for farm operations
 links:
-  demo: "#"
-  github: "#"
-  pdfDownload: "#"
+  demo: '#'
+  github: '#'
+  pdfDownload: '#'
 schema:
   type: CreativeWork
   name: iOS Farm Management Application
@@ -30,7 +30,7 @@ schema:
   creator:
     type: Organization
     name: Agrxculture
-  dateCreated: "2024-01-01"
+  dateCreated: '2024-01-01'
   keywords: iOS, Mobile Development, Agricultural Technology, Farm Management
 ---
 
@@ -52,4 +52,4 @@ We're developing a comprehensive native iOS application for farm management that
 - Intuitive user interface designed for field conditions
 - Seamless integration with existing farm management systems
 
-*This project is currently in development. App Store listing and detailed case study will be available upon completion.*
+_This project is currently in development. App Store listing and detailed case study will be available upon completion._

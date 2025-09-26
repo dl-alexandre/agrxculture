@@ -1,14 +1,12 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
 
 // https://astro.build/config
+const isDev = process.env.NODE_ENV === 'development' || process.env.ASTRO_DEV === 'true';
+
 export default defineConfig({
-  site: 'https://dl-alexandre.github.io/agrxculture/',
-  base: '/',
-  output: 'server',
-  adapter: node({
-    mode: 'standalone'
-  }),
+  site: isDev ? 'http://localhost:4321' : 'https://dl-alexandre.github.io/agrxculture/',
+  base: isDev ? '/' : '/agrxculture/',
+  output: 'static',
   trailingSlash: 'never', // Prevent redirects
   build: {
     assets: 'assets',
@@ -28,7 +26,7 @@ export default defineConfig({
       rollupOptions: {
         output: {
           // Optimize asset naming for caching
-          assetFileNames: (assetInfo) => {
+          assetFileNames: assetInfo => {
             const info = assetInfo.name.split('.');
             const ext = info[info.length - 1];
             const name = info.slice(0, -1).join('.');

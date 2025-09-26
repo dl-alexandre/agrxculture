@@ -11,7 +11,7 @@ const REGRESSION_CONFIG = {
     'project-showcase',
     'responsive-design',
   ],
-  
+
   // Performance benchmarks to maintain
   performanceBenchmarks: {
     lighthouse: {
@@ -25,7 +25,7 @@ const REGRESSION_CONFIG = {
       js: 100 * 1024, // 100KB
     },
   },
-  
+
   // Visual regression testing (basic)
   visualTests: [
     { page: '/', name: 'homepage' },
@@ -47,31 +47,32 @@ class RegressionTester {
 
   log(message, type = 'info') {
     const timestamp = new Date().toLocaleTimeString();
-    const prefix = {
-      info: '📋',
-      success: '✅',
-      error: '❌',
-      warning: '⚠️',
-    }[type] || '📋';
-    
+    const prefix =
+      {
+        info: '📋',
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+      }[type] || '📋';
+
     console.log(`${prefix} [${timestamp}] ${message}`);
   }
 
   async runTest(testName, testFunction) {
     this.log(`Running ${testName}...`);
-    
+
     try {
       const startTime = Date.now();
       await testFunction();
       const duration = Date.now() - startTime;
-      
+
       this.results.passed++;
       this.results.tests.push({
         name: testName,
         status: 'passed',
         duration,
       });
-      
+
       this.log(`${testName} passed (${duration}ms)`, 'success');
     } catch (error) {
       this.results.failed++;
@@ -80,22 +81,23 @@ class RegressionTester {
         status: 'failed',
         error: error.message,
       });
-      
+
       this.log(`${testName} failed: ${error.message}`, 'error');
     }
   }
 
   async testBundleSize() {
     const distPath = path.join(process.cwd(), 'dist');
-    
+
     if (!fs.existsSync(distPath)) {
       throw new Error('Build directory not found. Run npm run build first.');
     }
 
     // Check CSS bundle size
-    const cssFiles = fs.readdirSync(path.join(distPath, 'assets'))
+    const cssFiles = fs
+      .readdirSync(path.join(distPath, 'assets'))
       .filter(file => file.endsWith('.css'));
-    
+
     let totalCssSize = 0;
     cssFiles.forEach(file => {
       const filePath = path.join(distPath, 'assets', file);
@@ -103,13 +105,16 @@ class RegressionTester {
     });
 
     if (totalCssSize > REGRESSION_CONFIG.performanceBenchmarks.bundleSize.css) {
-      throw new Error(`CSS bundle too large: ${totalCssSize} bytes (max: ${REGRESSION_CONFIG.performanceBenchmarks.bundleSize.css})`);
+      throw new Error(
+        `CSS bundle too large: ${totalCssSize} bytes (max: ${REGRESSION_CONFIG.performanceBenchmarks.bundleSize.css})`
+      );
     }
 
     // Check JS bundle size
-    const jsFiles = fs.readdirSync(path.join(distPath, 'assets'))
+    const jsFiles = fs
+      .readdirSync(path.join(distPath, 'assets'))
       .filter(file => file.endsWith('.js'));
-    
+
     let totalJsSize = 0;
     jsFiles.forEach(file => {
       const filePath = path.join(distPath, 'assets', file);
@@ -117,7 +122,9 @@ class RegressionTester {
     });
 
     if (totalJsSize > REGRESSION_CONFIG.performanceBenchmarks.bundleSize.js) {
-      throw new Error(`JS bundle too large: ${totalJsSize} bytes (max: ${REGRESSION_CONFIG.performanceBenchmarks.bundleSize.js})`);
+      throw new Error(
+        `JS bundle too large: ${totalJsSize} bytes (max: ${REGRESSION_CONFIG.performanceBenchmarks.bundleSize.js})`
+      );
     }
 
     this.log(`Bundle sizes OK - CSS: ${totalCssSize}B, JS: ${totalJsSize}B`);
@@ -126,16 +133,21 @@ class RegressionTester {
   async testCriticalFlows() {
     // Run Playwright tests for critical flows
     try {
-      execSync('npx playwright test --reporter=json > playwright-results.json', {
-        stdio: 'pipe',
-      });
-      
-      const results = JSON.parse(fs.readFileSync('playwright-results.json', 'utf8'));
-      
+      execSync(
+        'npx playwright test --reporter=json > playwright-results.json',
+        {
+          stdio: 'pipe',
+        }
+      );
+
+      const results = JSON.parse(
+        fs.readFileSync('playwright-results.json', 'utf8')
+      );
+
       if (results.stats.failed > 0) {
         throw new Error(`${results.stats.failed} critical flow tests failed`);
       }
-      
+
       this.log(`All ${results.stats.passed} critical flow tests passed`);
     } catch (error) {
       if (error.stdout) {
@@ -151,7 +163,7 @@ class RegressionTester {
       execSync('node tests/performance/lighthouse-test.js', {
         stdio: 'pipe',
       });
-      
+
       this.log('Performance benchmarks met');
     } catch (error) {
       throw new Error('Performance benchmarks not met');
@@ -164,7 +176,7 @@ class RegressionTester {
       execSync('npm run test:accessibility', {
         stdio: 'pipe',
       });
-      
+
       this.log('Accessibility tests passed');
     } catch (error) {
       throw new Error('Accessibility tests failed');
@@ -179,26 +191,33 @@ class RegressionTester {
 
     try {
       for (const test of REGRESSION_CONFIG.visualTests) {
-        await page.goto(`http://localhost:4321${test.page}`);
-        
+        const baseUrl = process.env.CI ? 'http://localhost:4321/agrxculture' : 'http://localhost:4321';
+        await page.goto(`${baseUrl}${test.page}`);
+
         // Wait for page to load
         await page.waitForLoadState('networkidle');
-        
+
         // Check for JavaScript errors
         const errors = await page.evaluate(() => {
           return window.errors || [];
         });
-        
+
         if (errors.length > 0) {
-          throw new Error(`JavaScript errors on ${test.page}: ${errors.join(', ')}`);
+          throw new Error(
+            `JavaScript errors on ${test.page}: ${errors.join(', ')}`
+          );
         }
-        
+
         // Take screenshot for manual review (optional)
-        const screenshotPath = path.join(process.cwd(), 'regression-screenshots', `${test.name}.png`);
+        const screenshotPath = path.join(
+          process.cwd(),
+          'regression-screenshots',
+          `${test.name}.png`
+        );
         fs.mkdirSync(path.dirname(screenshotPath), { recursive: true });
         await page.screenshot({ path: screenshotPath });
       }
-      
+
       this.log('Visual regression tests completed');
     } finally {
       await browser.close();
@@ -213,7 +232,9 @@ class RegressionTester {
     await this.runTest('Bundle Size Check', () => this.testBundleSize());
     await this.runTest('Critical User Flows', () => this.testCriticalFlows());
     await this.runTest('Performance Benchmarks', () => this.testPerformance());
-    await this.runTest('Accessibility Standards', () => this.testAccessibility());
+    await this.runTest('Accessibility Standards', () =>
+      this.testAccessibility()
+    );
     await this.runTest('Visual Regression', () => this.testVisualRegression());
 
     // Generate report
@@ -228,10 +249,16 @@ class RegressionTester {
     this.log(`   Report: ${reportPath}`);
 
     if (this.results.failed > 0) {
-      this.log('\n❌ Regression tests failed. Check the report for details.', 'error');
+      this.log(
+        '\n❌ Regression tests failed. Check the report for details.',
+        'error'
+      );
       process.exit(1);
     } else {
-      this.log('\n✅ All regression tests passed! Deployment is safe.', 'success');
+      this.log(
+        '\n✅ All regression tests passed! Deployment is safe.',
+        'success'
+      );
     }
   }
 }

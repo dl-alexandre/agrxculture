@@ -18,7 +18,7 @@ export interface Props {
   canonical?: string;
   pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
   structuredData?: object[];
-  breadcrumbs?: Array<{name: string, url: string}>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
   noindex?: boolean;
   nofollow?: boolean;
 }
@@ -32,29 +32,35 @@ const {
   structuredData = [],
   breadcrumbs = [],
   noindex = false,
-  nofollow = false
+  nofollow = false,
 } = Astro.props;
 
 // Helper function to create proper URLs with GitHub Pages base
 function createUrl(path: string): string {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-  if (path === '/' || path === '') return `${base}/`;
+  // Always use /agrxculture as base path to match production setup
+  const baseUrl = '/agrxculture';
+  
+  if (path === '/' || path === '') {
+    return baseUrl + '/';
+  }
+  
   const cleanPath = path.replace(/^\//, '').replace(/\/$/, '');
-  return `${base}/${cleanPath}/`;
+  return `${baseUrl}/${cleanPath}`;
 }
 
 // Generate canonical URL for current page (avoid double slashes)
-const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+const currentCanonical =
+  canonical || new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- Comprehensive SEO Head Component -->
-    <SEOHead 
+    <SEOHead
       pageType={pageType}
       title={title}
       description={description}
@@ -65,103 +71,181 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
       noindex={noindex}
       nofollow={nofollow}
     />
-    
+
     <!-- Critical CSS inlined for performance -->
     <CriticalCSS pageType={pageType} />
-    
+
     <!-- Resource preloader for performance optimization -->
     <ResourcePreloader pageType={pageType} />
-    
+
     <!-- CSS optimizer for non-critical styles -->
     <CSSOptimizer pageType={pageType} />
-    
+
     <!-- Core stylesheets are now imported as modules -->
-    
+
     <!-- Preconnect for fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <!-- Optimized font loading with font-display: swap -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"></noscript>
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+        rel="stylesheet"
+      /></noscript
+    >
     <!-- Load non-critical font weights asynchronously -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet"></noscript>
-    
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap"
+        rel="stylesheet"
+      /></noscript
+    >
+
     <!-- Critical font preload for LCP optimization -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
-    
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <!-- Critical CSS is now imported as a module -->
-    
+
     <!-- Performance monitoring meta -->
-    <meta name="performance-budget" content="1MB">
-    <meta name="lighthouse-target" content="90">
+    <meta name="performance-budget" content="1MB" />
+    <meta name="lighthouse-target" content="90" />
   </head>
   <body>
     <!-- Skip to content link for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
+
     <!-- Header with navigation -->
     <header class="site-header" role="banner">
       <nav class="main-nav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
           <!-- Logo/Brand -->
           <div class="nav-brand">
-            <a href={createUrl('/')} class="brand-link" aria-label="Agrxculture - Home">
+            <a
+              href={createUrl('/')}
+              class="brand-link"
+              aria-label="Agrxculture - Home"
+            >
               <span class="brand-text">Agrxculture</span>
               <span class="brand-subtitle">Agricultural Technology</span>
             </a>
           </div>
-          
+
           <!-- Desktop Navigation -->
           <div class="nav-menu" id="nav-menu">
             <ul class="nav-list" role="list">
               <li class="nav-item">
-                <a href={createUrl('/')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Home</a>
+                <a
+                  href={createUrl('/')}
+                  class="nav-link"
+                  style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;"
+                  >Home</a
+                >
               </li>
               <li class="nav-item">
-                <a href={createUrl('/about')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">About Us</a>
+                <a
+                  href={createUrl('/about')}
+                  class="nav-link"
+                  style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;"
+                  >About Us</a
+                >
               </li>
               <li class="nav-item">
-                <a href={createUrl('/services')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Services</a>
+                <a
+                  href={createUrl('/services')}
+                  class="nav-link"
+                  style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;"
+                  >Services</a
+                >
               </li>
               <li class="nav-item">
-                <a href={createUrl('/showcase')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Projects</a>
+                <a
+                  href={createUrl('/showcase')}
+                  class="nav-link"
+                  style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;"
+                  >Projects</a
+                >
               </li>
               <li class="nav-item">
-                <a href={createUrl('/contact')} class="nav-link" style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;">Contact</a>
+                <a
+                  href={createUrl('/contact')}
+                  class="nav-link"
+                  style="min-height: 48px; min-width: 48px; display: flex; align-items: center; padding: 12px 16px;"
+                  >Contact</a
+                >
               </li>
             </ul>
-            
+
             <!-- Search functionality -->
             <div class="nav-search">
-              <button 
-                type="button" 
-                class="search-toggle" 
+              <button
+                type="button"
+                class="search-toggle"
                 aria-label="Search projects"
                 aria-expanded="false"
                 aria-controls="search-form"
                 style="min-height: 48px; min-width: 48px; display: flex; align-items: center; justify-content: center; padding: 12px;"
               >
-                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  class="search-icon"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.35-4.35"></path>
                 </svg>
               </button>
-              
+
               <div class="search-form-container" id="search-form" hidden>
                 <form class="search-form" role="search">
-                  <label for="project-search" class="sr-only">Search projects</label>
-                  <input 
-                    type="search" 
-                    id="project-search" 
-                    name="q" 
+                  <label for="project-search" class="sr-only"
+                    >Search projects</label
+                  >
+                  <input
+                    type="search"
+                    id="project-search"
+                    name="q"
                     placeholder="Search projects..."
                     class="search-input"
                     autocomplete="off"
                   />
-                  <button type="submit" class="search-submit" aria-label="Submit search">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <button
+                    type="submit"
+                    class="search-submit"
+                    aria-label="Submit search"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
                       <circle cx="11" cy="11" r="8"></circle>
                       <path d="m21 21-4.35-4.35"></path>
                     </svg>
@@ -170,11 +254,11 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
               </div>
             </div>
           </div>
-          
+
           <!-- Mobile Menu Toggle -->
-          <button 
-            type="button" 
-            class="mobile-menu-toggle" 
+          <button
+            type="button"
+            class="mobile-menu-toggle"
             aria-label="Toggle navigation menu"
             aria-expanded="false"
             aria-controls="nav-menu"
@@ -186,44 +270,84 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
         </div>
       </nav>
     </header>
-    
+
     <!-- Main content area -->
     <main id="main-content" class="main-content" role="main">
       <slot />
     </main>
-    
+
     <!-- Footer -->
     <footer class="site-footer" role="contentinfo">
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-brand">
             <h3 class="footer-title">Agrxculture</h3>
-            <p class="footer-subtitle">Building data-driven farms for a more productive tomorrow</p>
+            <p class="footer-subtitle">
+              Building data-driven farms for a more productive tomorrow
+            </p>
           </div>
-          
+
           <div class="footer-links">
             <div class="footer-section">
               <h4 class="footer-section-title">Navigation</h4>
               <ul class="footer-nav" role="list">
                 <li><a href={createUrl('/')} class="footer-link">Home</a></li>
-                <li><a href={createUrl('/about')} class="footer-link">About Us</a></li>
-                <li><a href={createUrl('/services')} class="footer-link">Services</a></li>
-                <li><a href={createUrl('/showcase')} class="footer-link">Projects</a></li>
-                <li><a href={createUrl('/contact')} class="footer-link">Contact</a></li>
+                <li>
+                  <a href={createUrl('/about')} class="footer-link">About Us</a>
+                </li>
+                <li>
+                  <a href={createUrl('/services')} class="footer-link"
+                    >Services</a
+                  >
+                </li>
+                <li>
+                  <a href={createUrl('/showcase')} class="footer-link"
+                    >Projects</a
+                  >
+                </li>
+                <li>
+                  <a href={createUrl('/contact')} class="footer-link">Contact</a
+                  >
+                </li>
               </ul>
             </div>
-            
+
             <div class="footer-section">
               <h4 class="footer-section-title">Services</h4>
               <ul class="footer-nav" role="list">
-                <li><a href={createUrl('/services/iot-integration')} class="footer-link">IoT Integration</a></li>
-                <li><a href={createUrl('/services/mobile-apps')} class="footer-link">Mobile Apps</a></li>
-                <li><a href={createUrl('/services/data-analytics')} class="footer-link">Data Analytics</a></li>
-                <li><a href={createUrl('/services/api-development')} class="footer-link">API Development</a></li>
-                <li><a href={createUrl('/services/automation-systems')} class="footer-link">Automation Systems</a></li>
+                <li>
+                  <a
+                    href={createUrl('/services/iot-integration')}
+                    class="footer-link">IoT Integration</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href={createUrl('/services/mobile-apps')}
+                    class="footer-link">Mobile Apps</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href={createUrl('/services/data-analytics')}
+                    class="footer-link">Data Analytics</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href={createUrl('/services/api-development')}
+                    class="footer-link">API Development</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href={createUrl('/services/automation-systems')}
+                    class="footer-link">Automation Systems</a
+                  >
+                </li>
               </ul>
             </div>
-            
+
             <div class="footer-section">
               <h4 class="footer-section-title">Connect</h4>
               <ul class="footer-nav" role="list">
@@ -233,12 +357,22 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
                   </a>
                 </li>
                 <li>
-                  <a href="https://linkedin.com/company/agrxculture" class="footer-link" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://linkedin.com/company/agrxculture"
+                    class="footer-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     LinkedIn
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/agrxculture" class="footer-link" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/agrxculture"
+                    class="footer-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub
                   </a>
                 </li>
@@ -246,61 +380,55 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
             </div>
           </div>
         </div>
-        
+
         <div class="footer-bottom">
           <p class="footer-copyright">
             &copy; {new Date().getFullYear()} Agrxculture. All rights reserved.
           </p>
           <p class="footer-tagline">
-            Specializing in precision agriculture and agricultural business management technology
+            Specializing in precision agriculture and agricultural business
+            management technology
           </p>
         </div>
       </div>
     </footer>
-    
+
     <!-- Navigation JavaScript -->
     <script>
-      // Search toggle functionality
-      const searchToggle = document.querySelector('.search-toggle');
-      const searchForm = document.querySelector('.search-form-container');
-      const searchInput = document.querySelector('.search-input');
-      
-      if (searchToggle && searchForm && searchInput) {
-        searchToggle.addEventListener('click', () => {
-          const isExpanded = searchToggle.getAttribute('aria-expanded') === 'true';
-          
-          searchToggle.setAttribute('aria-expanded', (!isExpanded).toString());
-          searchForm.hidden = isExpanded;
-          
-          if (!isExpanded) {
-            searchInput.focus();
-          }
-        });
+      // Fix navigation URLs for development
+      function fixNavigationUrls() {
+        const navLinks = document.querySelectorAll('.nav-link, .footer-link');
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         
-        // Close search on escape
-        searchInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            searchToggle.setAttribute('aria-expanded', 'false');
-            searchForm.hidden = true;
-            searchToggle.focus();
-          }
-        });
+        if (isLocalhost) {
+          navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href.includes('dl-alexandre.github.io')) {
+              // Convert production URLs to relative URLs for local development
+              const relativePath = href.replace('https://dl-alexandre.github.io/agrxculture', '');
+              link.setAttribute('href', relativePath || '/');
+            }
+          });
+        }
       }
-      
-      
-      
+
       // Set active navigation link
       const currentPath = window.location.pathname;
       const baseUrl = (window.BASE_URL || '/').replace(/\/$/, '');
       const navLinks = document.querySelectorAll('.nav-link');
-      
+
       navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
         // Handle both absolute and relative paths
         const cleanHref = linkHref.replace(/\/$/, '');
-        const normalizedHref = cleanHref.startsWith(baseUrl) ? cleanHref : baseUrl + cleanHref.replace(/^\//, '');
-        
-        if (normalizedHref === currentPath || (currentPath === baseUrl && linkHref === baseUrl)) {
+        const normalizedHref = cleanHref.startsWith(baseUrl)
+          ? cleanHref
+          : baseUrl + cleanHref.replace(/^\//, '');
+
+        if (
+          normalizedHref === currentPath ||
+          (currentPath === baseUrl && linkHref === baseUrl)
+        ) {
           link.setAttribute('aria-current', 'page');
           link.classList.add('nav-link--active');
         } else {
@@ -308,37 +436,50 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
           link.classList.remove('nav-link--active');
         }
       });
+
+      // Fix URLs after DOM is loaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixNavigationUrls);
+      } else {
+        fixNavigationUrls();
+      }
     </script>
-    
+
     <!-- Performance Monitoring and Optimization Scripts -->
     <script type="module" define:vars={{ baseUrl: import.meta.env.BASE_URL }}>
       // Set global base URL for scripts
       window.BASE_URL = baseUrl;
-      
+
       // Defer non-critical script loading to improve FCP
       const loadScripts = () => {
         // Load performance monitoring
-        import(`${baseUrl}scripts/performance-monitor.js`).then(module => {
-          console.log('Performance monitoring initialized');
-        }).catch(err => {
-          console.warn('Performance monitoring failed to load:', err);
-        });
-        
+        import(`${baseUrl}scripts/performance-monitor.js`)
+          .then(module => {
+            console.log('Performance monitoring initialized');
+          })
+          .catch(err => {
+            console.warn('Performance monitoring failed to load:', err);
+          });
+
         // Load lazy loading system
-        import(`${baseUrl}scripts/lazy-loading.js`).then(module => {
-          console.log('Lazy loading system initialized');
-        }).catch(err => {
-          console.warn('Lazy loading failed to load:', err);
-        });
-        
+        import(`${baseUrl}scripts/lazy-loading.js`)
+          .then(module => {
+            console.log('Lazy loading system initialized');
+          })
+          .catch(err => {
+            console.warn('Lazy loading failed to load:', err);
+          });
+
         // Load service worker registration
-        import(`${baseUrl}scripts/sw-register.js`).then(module => {
-          console.log('Service worker registration initialized');
-        }).catch(err => {
-          console.warn('Service worker registration failed:', err);
-        });
+        import(`${baseUrl}scripts/sw-register.js`)
+          .then(module => {
+            console.log('Service worker registration initialized');
+          })
+          .catch(err => {
+            console.warn('Service worker registration failed:', err);
+          });
       };
-      
+
       // Use requestIdleCallback if available, otherwise setTimeout
       if ('requestIdleCallback' in window) {
         requestIdleCallback(loadScripts);
@@ -346,14 +487,14 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
         setTimeout(loadScripts, 100);
       }
     </script>
-    
+
     <!-- Fallback for browsers without module support -->
     <script nomodule define:vars={{ baseUrl: import.meta.env.BASE_URL }}>
       console.warn('Module scripts not supported, loading fallback scripts');
-      
+
       // Set global base URL for scripts
       window.BASE_URL = baseUrl;
-      
+
       // Load scripts sequentially for older browsers
       function loadScript(src, callback) {
         const script = document.createElement('script');
@@ -362,26 +503,24 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
         script.onerror = () => console.warn('Failed to load:', src);
         document.head.appendChild(script);
       }
-      
+
       loadScript(`${baseUrl}scripts/lazy-loading.js`, () => {
         loadScript(`${baseUrl}scripts/performance-monitor.js`, () => {
           loadScript(`${baseUrl}scripts/sw-register.js`);
         });
       });
     </script>
-    
+
     <!-- Critical performance optimizations -->
     <script>
       // Optimize FCP by reducing initial script execution
-      (function() {
-      
-      })();
-      
+      (function () {})();
+
       // Performance observer for CLS monitoring
       if ('PerformanceObserver' in window) {
         try {
           let clsValue = 0;
-          const clsObserver = new PerformanceObserver((list) => {
+          const clsObserver = new PerformanceObserver(list => {
             for (const entry of list.getEntries()) {
               if (!entry.hadRecentInput) {
                 clsValue += entry.value;
@@ -396,53 +535,61 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
           console.warn('CLS monitoring not supported');
         }
       }
-      
+
       // Resource hints for next page navigation
       function addResourceHints() {
         const links = document.querySelectorAll('a[href^="/"]');
         const hintedPages = new Set();
-        
+
         links.forEach(link => {
-          link.addEventListener('mouseenter', () => {
-            const href = link.getAttribute('href');
-            if (href && !hintedPages.has(href)) {
-              hintedPages.add(href);
-              
-              const prefetchLink = document.createElement('link');
-              prefetchLink.rel = 'prefetch';
-              prefetchLink.href = href;
-              document.head.appendChild(prefetchLink);
-            }
-          }, { passive: true });
+          link.addEventListener(
+            'mouseenter',
+            () => {
+              const href = link.getAttribute('href');
+              if (href && !hintedPages.has(href)) {
+                hintedPages.add(href);
+
+                const prefetchLink = document.createElement('link');
+                prefetchLink.rel = 'prefetch';
+                prefetchLink.href = href;
+                document.head.appendChild(prefetchLink);
+              }
+            },
+            { passive: true }
+          );
         });
       }
-      
+
       // Mobile menu toggle functionality
       function initMobileMenu() {
         const mobileToggle = document.querySelector('.mobile-menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
         const body = document.body;
-        
+
         if (mobileToggle && navMenu) {
           mobileToggle.addEventListener('click', () => {
-            const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-            
+            const isExpanded =
+              mobileToggle.getAttribute('aria-expanded') === 'true';
+
             mobileToggle.setAttribute('aria-expanded', !isExpanded);
             navMenu.classList.toggle('nav-menu--open');
             body.classList.toggle('nav-open');
           });
-          
+
           // Close menu when clicking outside
-          document.addEventListener('click', (e) => {
-            if (!mobileToggle.contains(e.target) && !navMenu.contains(e.target)) {
+          document.addEventListener('click', e => {
+            if (
+              !mobileToggle.contains(e.target) &&
+              !navMenu.contains(e.target)
+            ) {
               mobileToggle.setAttribute('aria-expanded', 'false');
               navMenu.classList.remove('nav-menu--open');
               body.classList.remove('nav-open');
             }
           });
-          
+
           // Close menu on escape key
-          document.addEventListener('keydown', (e) => {
+          document.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
               mobileToggle.setAttribute('aria-expanded', 'false');
               navMenu.classList.remove('nav-menu--open');
@@ -451,34 +598,43 @@ const currentCanonical = canonical || new URL(Astro.url.pathname, Astro.site).to
           });
         }
       }
-      
+
       // Search toggle functionality
       function initSearchToggle() {
         const searchToggle = document.querySelector('.search-toggle');
         const searchForm = document.querySelector('.search-form-container');
-        
-        if (searchToggle && searchForm) {
+        const searchInput = document.querySelector('.search-input');
+
+        if (searchToggle && searchForm && searchInput) {
           searchToggle.addEventListener('click', () => {
-            const isExpanded = searchToggle.getAttribute('aria-expanded') === 'true';
-            searchToggle.setAttribute('aria-expanded', !isExpanded);
-            searchForm.hidden = !isExpanded;
-            
+            const isExpanded =
+              searchToggle.getAttribute('aria-expanded') === 'true';
+
+            searchToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+            searchForm.hidden = isExpanded;
+
             if (!isExpanded) {
-              const searchInput = searchForm.querySelector('.search-input');
-              if (searchInput) {
-                setTimeout(() => searchInput.focus(), 100);
-              }
+              setTimeout(() => searchInput.focus(), 100);
+            }
+          });
+
+          // Close search on escape
+          searchInput.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+              searchToggle.setAttribute('aria-expanded', 'false');
+              searchForm.hidden = true;
+              searchToggle.focus();
             }
           });
         }
       }
-      
+
       // Initialize all functionality
       function initNavigation() {
         initMobileMenu();
         initSearchToggle();
       }
-      
+
       // Add resource hints after page load
       if (document.readyState === 'complete') {
         addResourceHints();

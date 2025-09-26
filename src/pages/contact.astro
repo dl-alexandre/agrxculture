@@ -3,32 +3,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const title = 'Contact - Agrxculture';
-const description = 'Get in touch for agricultural technology consulting and custom development services. Specializing in IoT farm solutions, mobile apps, and precision agriculture systems.';
+const description =
+  'Get in touch for agricultural technology consulting and custom development services. Specializing in IoT farm solutions, mobile apps, and precision agriculture systems.';
 
-// SMTP Email configuration
-const emailEndpoint = '/api/contact';
+// Formspree configuration for reliable form handling
+const formEndpoint = 'https://formspree.io/f/mblzdjog';
+const formKey = 'mblzdjog';
 ---
 
-<BaseLayout 
-  title={title} 
+<BaseLayout
+  title={title}
   description={description}
   breadcrumbs={[
-    { name: 'Home', url: '/' },
-    { name: 'Contact', url: '/contact' }
+    { name: 'Home', url: '/agrxculture/' },
+    { name: 'Contact', url: '/agrxculture/contact' },
   ]}
 >
   <div class="page-container">
     <section class="contact-header">
       <div class="container">
-        <Breadcrumbs items={[
-          { label: 'Home', url: '/' },
-          { label: 'Contact', url: '/contact', current: true }
-        ]} />
-        
+        <Breadcrumbs
+          items={[
+            { label: 'Home', url: '/agrxculture/' },
+            { label: 'Contact', url: '/agrxculture/contact', current: true },
+          ]}
+        />
+
         <h1>Let Agrxculture Build Your Agricultural Solution</h1>
         <p class="header-subtitle">
-          Ready to transform your farming operation with custom technology? 
-          Let Agrxculture discuss how IoT, mobile apps, and data analytics can boost your productivity.
+          Ready to transform your farming operation with custom technology? Let
+          Agrxculture discuss how IoT, mobile apps, and data analytics can boost
+          your productivity.
         </p>
       </div>
     </section>
@@ -40,51 +45,74 @@ const emailEndpoint = '/api/contact';
           <div class="contact-form-section">
             <h2>Start Your Project with Agrxculture</h2>
             <p class="form-description">
-              Tell Agrxculture about your agricultural technology needs. We typically respond within 24-48 hours.
+              Tell Agrxculture about your agricultural technology needs. We
+              typically respond within 24-48 hours.
             </p>
 
-            <form 
-              id="contact-form" 
+            <form
+              id="contact-form"
               class="contact-form"
-              action={emailEndpoint}
+              action={formEndpoint}
               method="POST"
               novalidate
             >
+              <!-- Formspree configuration -->
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Agrxculture Technology Inquiry"
+              />
+              <input type="hidden" name="_replyto" value="" />
+              <input
+                type="hidden"
+                name="_next"
+                value={`${import.meta.env.SITE}/contact#success`}
+              />
+
               <!-- Honeypot field for spam protection -->
-              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-              
+              <input
+                type="text"
+                name="_gotcha"
+                style="display:none"
+                tabindex="-1"
+                autocomplete="off"
+              />
+
               <!-- Form fields -->
               <div class="form-group">
                 <label for="name" class="form-label">
-                  Full Name <span class="required" aria-label="required">*</span>
+                  Full Name <span class="required" aria-label="required">*</span
+                  >
                 </label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
                   class="form-input"
                   required
                   maxlength="100"
                   autocomplete="name"
                   aria-describedby="name-error"
-                >
+                />
                 <div id="name-error" class="error-message" role="alert"></div>
               </div>
 
               <div class="form-group">
                 <label for="email" class="form-label">
-                  Email Address <span class="required" aria-label="required">*</span>
+                  Email Address <span class="required" aria-label="required"
+                    >*</span
+                  >
                 </label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
                   class="form-input"
                   required
                   maxlength="254"
                   autocomplete="email"
                   aria-describedby="email-error"
-                >
+                />
                 <div id="email-error" class="error-message" role="alert"></div>
               </div>
 
@@ -92,61 +120,79 @@ const emailEndpoint = '/api/contact';
                 <label for="company" class="form-label">
                   Company/Farm Name
                 </label>
-                <input 
-                  type="text" 
-                  id="company" 
-                  name="company" 
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
                   class="form-input"
                   maxlength="100"
                   autocomplete="organization"
-                >
+                />
               </div>
 
               <div class="form-group">
                 <label for="project-type" class="form-label">
-                  Project Type <span class="required" aria-label="required">*</span>
+                  Project Type <span class="required" aria-label="required"
+                    >*</span
+                  >
                 </label>
-                <select 
-                  id="project-type" 
-                  name="project-type" 
+                <select
+                  id="project-type"
+                  name="project-type"
                   class="form-select"
                   required
                   aria-describedby="project-type-error"
                 >
                   <option value="">Select a project type</option>
-                  <option value="iot-integration">IoT Integration & Sensors</option>
+                  <option value="iot-integration"
+                    >IoT Integration & Sensors</option
+                  >
                   <option value="mobile-app">Mobile Farm Management App</option>
-                  <option value="data-analytics">Agricultural Data Analytics</option>
-                  <option value="api-development">API Development & Integration</option>
+                  <option value="data-analytics"
+                    >Agricultural Data Analytics</option
+                  >
+                  <option value="api-development"
+                    >API Development & Integration</option
+                  >
                   <option value="automation">Farm Automation Systems</option>
                   <option value="custom-solution">Custom Solution</option>
                   <option value="consultation">Technology Consultation</option>
                 </select>
-                <div id="project-type-error" class="error-message" role="alert"></div>
+                <div id="project-type-error" class="error-message" role="alert">
+                </div>
               </div>
 
               <div class="form-group">
                 <label for="message" class="form-label">
-                  Project Details <span class="required" aria-label="required">*</span>
+                  Project Details <span class="required" aria-label="required"
+                    >*</span
+                  >
                 </label>
-                <textarea 
-                  id="message" 
-                  name="message" 
+                <textarea
+                  id="message"
+                  name="message"
                   class="form-textarea"
                   required
                   rows="6"
                   placeholder="Describe your agricultural technology needs, current challenges, and project goals..."
-                  aria-describedby="message-error message-counter"
-                ></textarea>
+                  aria-describedby="message-error message-counter"></textarea>
                 <div class="form-footer">
-                  <div id="message-counter" class="character-counter">0 / 2000 characters</div>
-                  <div id="message-error" class="error-message" role="alert"></div>
+                  <div id="message-counter" class="character-counter">
+                    0 / 2000 characters
+                  </div>
+                  <div id="message-error" class="error-message" role="alert">
+                  </div>
                 </div>
               </div>
 
               <!-- Spam protection notice -->
               <div class="spam-protection-notice">
-                <p><small>This form is protected by spam filtering and honeypot technology. No additional verification required.</small></p>
+                <p>
+                  <small
+                    >This form is protected by spam filtering and honeypot
+                    technology. No additional verification required.</small
+                  >
+                </p>
               </div>
 
               <button type="submit" class="submit-button" id="submit-btn">
@@ -155,14 +201,33 @@ const emailEndpoint = '/api/contact';
               </button>
 
               <!-- Form status messages -->
-              <div id="form-success" class="success-message" role="alert" style="display: none;">
+              <div
+                id="form-success"
+                class="success-message"
+                role="alert"
+                style="display: none;"
+              >
                 <h3>Message Sent Successfully!</h3>
-                <p>Thank you for reaching out to Agrxculture. We'll review your project details and respond within 24-48 hours.</p>
+                <p>
+                  Thank you for reaching out to Agrxculture. We'll review your
+                  project details and respond within 24-48 hours.
+                </p>
               </div>
 
-              <div id="form-error" class="error-message-global" role="alert" style="display: none;">
+              <div
+                id="form-error"
+                class="error-message-global"
+                role="alert"
+                style="display: none;"
+              >
                 <h3>Submission Failed</h3>
-                <p>There was an issue sending your message. Please try again or contact Agrxculture directly at <a href="mailto:contact@agrxculture.com">contact@agrxculture.com</a></p>
+                <p>
+                  There was an issue sending your message. Please try again or
+                  contact Agrxculture directly at <a
+                    href="mailto:contact@agrxculture.com"
+                    >contact@agrxculture.com</a
+                  >
+                </p>
               </div>
             </form>
           </div>
@@ -170,12 +235,14 @@ const emailEndpoint = '/api/contact';
           <!-- Contact Information -->
           <div class="contact-info-section">
             <h2>Get In Touch</h2>
-            
+
             <div class="contact-methods">
               <div class="contact-method">
                 <h3>Response Time</h3>
                 <p class="response-time">24-48 hours</p>
-                <p class="contact-note">Agrxculture prioritizes agricultural technology inquiries</p>
+                <p class="contact-note">
+                  Agrxculture prioritizes agricultural technology inquiries
+                </p>
               </div>
             </div>
 
@@ -195,27 +262,33 @@ const emailEndpoint = '/api/contact';
   </div>
 </BaseLayout>
 
-<script src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/scripts/contact-form.js`} defer></script>
+<script
+  src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/scripts/contact-form.js`}
+  defer></script>
 
 <style>
   .page-container {
     min-height: 100vh;
   }
-  
+
   .contact-header {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 100%
+    );
     color: var(--color-text-on-primary);
     padding: var(--space-4xl) 0 var(--space-3xl);
     text-align: center;
   }
-  
+
   .contact-header h1 {
     font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-lg);
     line-height: var(--line-height-tight);
   }
-  
+
   .header-subtitle {
     font-size: var(--font-size-lg);
     line-height: var(--line-height-relaxed);
@@ -223,31 +296,31 @@ const emailEndpoint = '/api/contact';
     margin: 0 auto;
     opacity: 0.95;
   }
-  
+
   .container {
     max-width: var(--container-xl);
     margin: 0 auto;
     padding: 0 var(--space-md);
   }
-  
+
   .contact-content {
     padding: var(--space-4xl) 0;
     background: var(--color-background);
   }
-  
+
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-4xl);
   }
-  
+
   @media (min-width: 1024px) {
     .contact-grid {
       grid-template-columns: 2fr 1fr;
       gap: var(--space-4xl);
     }
   }
-  
+
   /* Form Styles */
   .contact-form-section h2,
   .contact-info-section h2 {
@@ -256,25 +329,25 @@ const emailEndpoint = '/api/contact';
     color: var(--color-text-primary);
     margin-bottom: var(--space-lg);
   }
-  
+
   .form-description {
     font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
     margin-bottom: var(--space-2xl);
     line-height: var(--line-height-relaxed);
   }
-  
+
   .contact-form {
     background: var(--color-surface);
     padding: var(--space-2xl);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-lg);
   }
-  
+
   .form-group {
     margin-bottom: var(--space-xl);
   }
-  
+
   .form-label {
     display: block;
     font-weight: var(--font-weight-medium);
@@ -282,12 +355,12 @@ const emailEndpoint = '/api/contact';
     margin-bottom: var(--space-sm);
     font-size: var(--font-size-base);
   }
-  
+
   .required {
     color: var(--color-error);
     font-weight: var(--font-weight-bold);
   }
-  
+
   .form-input,
   .form-select,
   .form-textarea {
@@ -299,9 +372,11 @@ const emailEndpoint = '/api/contact';
     font-family: var(--font-family-primary);
     background: var(--color-surface);
     color: var(--color-text-primary);
-    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+    transition:
+      border-color var(--transition-normal),
+      box-shadow var(--transition-normal);
   }
-  
+
   .form-input:focus,
   .form-select:focus,
   .form-textarea:focus {
@@ -309,46 +384,46 @@ const emailEndpoint = '/api/contact';
     border-color: var(--color-border-focus);
     box-shadow: var(--focus-ring);
   }
-  
+
   .form-input.error,
   .form-select.error,
   .form-textarea.error {
     border-color: var(--color-border-error);
   }
-  
+
   .form-textarea {
     resize: vertical;
     min-height: 120px;
   }
-  
+
   .form-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: var(--space-sm);
   }
-  
+
   .character-counter {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
   }
-  
+
   .character-counter.warning {
     color: var(--color-warning);
     font-weight: var(--font-weight-medium);
   }
-  
+
   .error-message {
     color: var(--color-error);
     font-size: var(--font-size-sm);
     margin-top: var(--space-xs);
     font-weight: var(--font-weight-medium);
   }
-  
+
   .recaptcha-container {
     margin: var(--space-xl) 0;
   }
-  
+
   .spam-protection-notice {
     margin: var(--space-md) 0;
     padding: var(--space-sm);
@@ -356,7 +431,7 @@ const emailEndpoint = '/api/contact';
     border-radius: var(--border-radius-sm);
     text-align: center;
   }
-  
+
   .spam-protection-notice p {
     margin: 0;
     color: var(--color-text-secondary);
@@ -379,28 +454,28 @@ const emailEndpoint = '/api/contact';
     z-index: 10;
     margin-top: var(--space-lg);
   }
-  
+
   .submit-button:hover:not(:disabled) {
     background: var(--color-primary-dark);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .submit-button:focus {
     outline: none;
     box-shadow: var(--focus-ring);
   }
-  
+
   .submit-button:disabled {
     opacity: 0.7;
     cursor: not-allowed;
     transform: none;
   }
-  
+
   .submit-button.loading .button-text {
     opacity: 0;
   }
-  
+
   .loading-spinner {
     position: absolute;
     top: 50%;
@@ -414,58 +489,62 @@ const emailEndpoint = '/api/contact';
     animation: spin 1s linear infinite;
     opacity: 0;
   }
-  
+
   .submit-button.loading .loading-spinner {
     opacity: 1;
   }
-  
+
   @keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
   }
-  
+
   .success-message,
   .error-message-global {
     padding: var(--space-lg);
     border-radius: var(--border-radius-md);
     margin-top: var(--space-xl);
   }
-  
+
   .success-message {
     background: #e8f5e8;
     border: 1px solid var(--color-success);
     color: var(--color-success);
   }
-  
+
   .error-message-global {
     background: #fdeaea;
     border: 1px solid var(--color-error);
     color: var(--color-error);
   }
-  
+
   .success-message h3,
   .error-message-global h3 {
     margin: 0 0 var(--space-sm) 0;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
   }
-  
+
   .success-message p,
   .error-message-global p {
     margin: 0;
     line-height: var(--line-height-relaxed);
   }
-  
+
   .error-message-global a {
     color: inherit;
     text-decoration: underline;
   }
-  
+
   /* Contact Info Styles */
   .contact-methods {
     margin-bottom: var(--space-2xl);
   }
-  
+
   .contact-method {
     margin-bottom: var(--space-xl);
     padding: var(--space-lg);
@@ -473,60 +552,60 @@ const emailEndpoint = '/api/contact';
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-sm);
   }
-  
+
   .contact-method h3 {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-primary);
     margin: 0 0 var(--space-sm) 0;
   }
-  
+
   .contact-link {
     color: var(--color-primary);
     text-decoration: none;
     font-weight: var(--font-weight-medium);
     transition: color var(--transition-normal);
   }
-  
+
   .contact-link:hover {
     color: var(--color-primary-dark);
     text-decoration: underline;
   }
-  
+
   .contact-note {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     margin: var(--space-xs) 0 0 0;
     font-style: italic;
   }
-  
+
   .response-time {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--color-primary);
     margin: 0;
   }
-  
+
   .expertise-highlight {
     background: var(--color-surface);
     padding: var(--space-lg);
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-sm);
   }
-  
+
   .expertise-highlight h3 {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-primary);
     margin: 0 0 var(--space-md) 0;
   }
-  
+
   .expertise-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
+
   .expertise-list li {
     padding: var(--space-sm) 0;
     border-bottom: 1px solid var(--color-border);
@@ -534,11 +613,11 @@ const emailEndpoint = '/api/contact';
     position: relative;
     padding-left: var(--space-lg);
   }
-  
+
   .expertise-list li:last-child {
     border-bottom: none;
   }
-  
+
   .expertise-list li::before {
     content: '✓';
     position: absolute;
@@ -546,35 +625,35 @@ const emailEndpoint = '/api/contact';
     color: var(--color-success);
     font-weight: var(--font-weight-bold);
   }
-  
+
   /* Mobile Responsive */
   @media (max-width: 767px) {
     .contact-header {
       padding: var(--space-3xl) 0 var(--space-2xl);
     }
-    
+
     .contact-header h1 {
       font-size: var(--font-size-3xl);
     }
-    
+
     .header-subtitle {
       font-size: var(--font-size-base);
     }
-    
+
     .contact-content {
       padding: var(--space-3xl) 0;
     }
-    
+
     .contact-form {
       padding: var(--space-lg);
     }
-    
+
     .form-footer {
       flex-direction: column;
       align-items: flex-start;
       gap: var(--space-xs);
     }
-    
+
     /* Better mobile form input handling */
     .form-input,
     .form-select,
@@ -582,7 +661,7 @@ const emailEndpoint = '/api/contact';
       font-size: 16px; /* Prevent zoom on iOS */
       padding: var(--space-md) var(--space-sm);
     }
-    
+
     .submit-button {
       min-height: 48px;
       font-size: var(--font-size-base);
@@ -591,7 +670,7 @@ const emailEndpoint = '/api/contact';
       position: relative;
       z-index: 20;
     }
-    
+
     /* Better error message display on mobile */
     .error-message {
       font-size: var(--font-size-sm);
@@ -600,14 +679,14 @@ const emailEndpoint = '/api/contact';
       background: rgba(220, 53, 69, 0.1);
       border-radius: var(--border-radius-sm);
     }
-    
+
     /* Ensure form has enough bottom spacing */
     .contact-form {
       padding-bottom: var(--space-2xl);
       margin-bottom: var(--space-xl);
     }
   }
-  
+
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .form-input,
@@ -615,22 +694,22 @@ const emailEndpoint = '/api/contact';
     .form-textarea {
       border-width: 3px;
     }
-    
+
     .submit-button {
       border: 2px solid var(--color-text-primary);
     }
   }
-  
+
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     .submit-button {
       transition: none;
     }
-    
+
     .submit-button:hover:not(:disabled) {
       transform: none;
     }
-    
+
     .loading-spinner {
       animation: none;
     }

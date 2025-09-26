@@ -2,7 +2,7 @@
 /**
  * Skeleton Screen Component for Loading States
  * Task 9: Performance optimizations and accessibility features
- * 
+ *
  * Features:
  * - Prevents Cumulative Layout Shift (CLS)
  * - Improves perceived performance
@@ -29,7 +29,7 @@ const {
   lines = 3,
   className = '',
   animate = true,
-  ariaLabel = 'Loading content...'
+  ariaLabel = 'Loading content...',
 } = Astro.props;
 
 // Generate skeleton elements based on type
@@ -39,69 +39,79 @@ const generateSkeletonElements = () => {
       return Array.from({ length: lines }, (_, i) => ({
         width: i === lines - 1 ? '60%' : '100%',
         height: '1rem',
-        marginBottom: '0.5rem'
+        marginBottom: '0.5rem',
       }));
-    
+
     case 'image':
-      return [{
-        width: width,
-        height: height || '200px',
-        aspectRatio: aspectRatio
-      }];
-    
+      return [
+        {
+          width: width,
+          height: height || '200px',
+          aspectRatio: aspectRatio,
+        },
+      ];
+
     case 'card':
       return [
         { width: '100%', height: '200px', marginBottom: '1rem' }, // Image
         { width: '80%', height: '1.5rem', marginBottom: '0.5rem' }, // Title
         { width: '100%', height: '1rem', marginBottom: '0.25rem' }, // Line 1
         { width: '90%', height: '1rem', marginBottom: '0.25rem' }, // Line 2
-        { width: '60%', height: '1rem' } // Line 3
+        { width: '60%', height: '1rem' }, // Line 3
       ];
-    
+
     case 'avatar':
-      return [{
-        width: '64px',
-        height: '64px',
-        borderRadius: '50%'
-      }];
-    
+      return [
+        {
+          width: '64px',
+          height: '64px',
+          borderRadius: '50%',
+        },
+      ];
+
     case 'button':
-      return [{
-        width: width || '120px',
-        height: height || '40px',
-        borderRadius: '6px'
-      }];
-    
+      return [
+        {
+          width: width || '120px',
+          height: height || '40px',
+          borderRadius: '6px',
+        },
+      ];
+
     default:
-      return [{
-        width: width,
-        height: height || '1rem'
-      }];
+      return [
+        {
+          width: width,
+          height: height || '1rem',
+        },
+      ];
   }
 };
 
 const skeletonElements = generateSkeletonElements();
 ---
 
-<div 
+<div
   class={`skeleton-container ${className} ${animate ? 'animate' : ''}`}
   role="status"
   aria-label={ariaLabel}
   aria-live="polite"
 >
-  {skeletonElements.map((element, index) => (
-    <div 
-      class="skeleton-element"
-      style={{
-        width: element.width,
-        height: element.height,
-        aspectRatio: element.aspectRatio,
-        marginBottom: element.marginBottom,
-        borderRadius: element.borderRadius
-      }}
-      key={index}
-    />
-  ))}
+  {
+    skeletonElements.map((element, index) => (
+      <div
+        class="skeleton-element"
+        style={{
+          width: element.width,
+          height: element.height,
+          aspectRatio: element.aspectRatio,
+          marginBottom: element.marginBottom,
+          borderRadius: element.borderRadius,
+        }}
+        key={index}
+      />
+    ))
+  }
   <span class="sr-only">{ariaLabel}</span>
 </div>
 
@@ -214,11 +224,11 @@ const skeletonElements = generateSkeletonElements();
     .skeleton-container.hero {
       min-height: 300px;
     }
-    
+
     .skeleton-container.project-card {
       padding: 0.75rem;
     }
-    
+
     .skeleton-container.service-card {
       padding: 1rem;
     }
@@ -236,20 +246,20 @@ const skeletonElements = generateSkeletonElements();
     init() {
       // Track skeleton screens for performance monitoring
       this.observeSkeletons();
-      
+
       // Auto-hide skeletons after timeout (fallback)
       this.setupTimeouts();
     }
 
     observeSkeletons() {
       const skeletons = document.querySelectorAll('.skeleton-container');
-      
+
       skeletons.forEach((skeleton, index) => {
         const id = skeleton.id || `skeleton-${index}`;
         this.skeletons.set(id, {
           element: skeleton,
           startTime: performance.now(),
-          visible: true
+          visible: true,
         });
       });
     }
@@ -270,14 +280,16 @@ const skeletonElements = generateSkeletonElements();
       if (skeleton && skeleton.visible) {
         skeleton.element.style.display = 'none';
         skeleton.visible = false;
-        
+
         // Dispatch event for analytics
-        skeleton.element.dispatchEvent(new CustomEvent('skeletonHidden', {
-          detail: {
-            id,
-            duration: performance.now() - skeleton.startTime
-          }
-        }));
+        skeleton.element.dispatchEvent(
+          new CustomEvent('skeletonHidden', {
+            detail: {
+              id,
+              duration: performance.now() - skeleton.startTime,
+            },
+          })
+        );
       }
     }
 

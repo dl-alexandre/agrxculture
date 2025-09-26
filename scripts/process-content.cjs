@@ -48,7 +48,7 @@ function processMarkdownFiles(directory, type) {
       ...data,
       content: content.trim(),
       _filename: filename,
-      _type: type
+      _type: type,
     };
 
     processed.push(processedItem);
@@ -62,8 +62,17 @@ function processMarkdownFiles(directory, type) {
  */
 function validateProject(project) {
   const errors = [];
-  const required = ['id', 'title', 'description', 'image', 'technologies', 'category', 'tags', 'dateCompleted'];
-  
+  const required = [
+    'id',
+    'title',
+    'description',
+    'image',
+    'technologies',
+    'category',
+    'tags',
+    'dateCompleted',
+  ];
+
   required.forEach(field => {
     if (!project[field]) {
       errors.push(`Missing required field: ${field}`);
@@ -83,14 +92,22 @@ function validateProject(project) {
   }
 
   return errors;
-}/**
+} /**
  * V
 alidate required fields for services
  */
 function validateService(service) {
   const errors = [];
-  const required = ['id', 'title', 'description', 'icon', 'technologies', 'benefits', 'ctaLink'];
-  
+  const required = [
+    'id',
+    'title',
+    'description',
+    'icon',
+    'technologies',
+    'benefits',
+    'ctaLink',
+  ];
+
   required.forEach(field => {
     if (!service[field]) {
       errors.push(`Missing required field: ${field}`);
@@ -119,14 +136,14 @@ function generateIndexes(projects, services) {
     categories: [...new Set(projects.map(p => p.category))],
     tags: [...new Set(projects.flatMap(p => p.tags || []))],
     technologies: [...new Set(projects.flatMap(p => p.technologies || []))],
-    lastUpdated: new Date().toISOString()
+    lastUpdated: new Date().toISOString(),
   };
 
   // Generate service index
   const serviceIndex = {
     total: services.length,
     technologies: [...new Set(services.flatMap(s => s.technologies || []))],
-    lastUpdated: new Date().toISOString()
+    lastUpdated: new Date().toISOString(),
   };
 
   return { projectIndex, serviceIndex };
@@ -137,7 +154,7 @@ function generateIndexes(projects, services) {
  */
 function main() {
   console.log('🔄 Processing content...');
-  
+
   ensureOutputDir();
 
   // Process projects
@@ -178,8 +195,12 @@ function main() {
   const { projectIndex, serviceIndex } = generateIndexes(projects, services);
 
   // Write processed content to JSON files (for backward compatibility)
-  const projectsOutput = projects.map(({ _filename, _type, content, ...rest }) => rest);
-  const servicesOutput = services.map(({ _filename, _type, content, ...rest }) => rest);
+  const projectsOutput = projects.map(
+    ({ _filename, _type, content, ...rest }) => rest
+  );
+  const servicesOutput = services.map(
+    ({ _filename, _type, content, ...rest }) => rest
+  );
 
   fs.writeFileSync(
     path.join(OUTPUT_DIR, 'projects-processed.json'),
@@ -198,7 +219,9 @@ function main() {
   );
 
   console.log('✅ Content processing completed successfully');
-  console.log(`📊 Processed ${projects.length} projects and ${services.length} services`);
+  console.log(
+    `📊 Processed ${projects.length} projects and ${services.length} services`
+  );
   console.log(`📈 Generated indexes and validation passed`);
 }
 
@@ -207,4 +230,9 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { main, processMarkdownFiles, validateProject, validateService };
+module.exports = {
+  main,
+  processMarkdownFiles,
+  validateProject,
+  validateService,
+};

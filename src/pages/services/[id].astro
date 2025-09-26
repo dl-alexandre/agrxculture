@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadService, loadServices, loadProjects } from '../../utils/content-loader.ts';
+import {
+  loadService,
+  loadServices,
+  loadProjects,
+} from '../../utils/content-loader.ts';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 // Helper function to create proper URLs with base path
@@ -12,10 +16,10 @@ function createUrl(path: string): string {
 
 export async function getStaticPaths() {
   const services = loadServices();
-  
-  return services.map((service) => ({
+
+  return services.map(service => ({
     params: { id: service.id },
-    props: { service }
+    props: { service },
   }));
 }
 
@@ -35,22 +39,24 @@ const title = `${service.title} - Agricultural Technology Services`;
 const description = service.description;
 ---
 
-<BaseLayout 
-  title={title} 
+<BaseLayout
+  title={title}
   description={description}
   breadcrumbs={[
     { name: 'Home', url: '/' },
     { name: 'Services', url: '/services' },
-    { name: service.title, url: `/services/${service.id}` }
+    { name: service.title, url: `/services/${service.id}` },
   ]}
 >
   <main class="service-detail-page">
     <!-- Breadcrumb Navigation -->
-    <Breadcrumbs items={[
-      { label: 'Home', url: '/' },
-      { label: 'Services', url: '/services' },
-      { label: service.title, url: `/services/${service.id}`, current: true }
-    ]} />
+    <Breadcrumbs
+      items={[
+        { label: 'Home', url: '/' },
+        { label: 'Services', url: '/services' },
+        { label: service.title, url: `/services/${service.id}`, current: true },
+      ]}
+    />
 
     <!-- Service Hero Section -->
     <section class="service-hero">
@@ -61,15 +67,15 @@ const description = service.description;
               <use href={`#icon-${service.icon}`}></use>
             </svg>
           </div>
-          
+
           <div class="service-hero-text">
             <h1 class="service-hero-title">{service.title}</h1>
             <p class="service-hero-description">{service.description}</p>
-            
+
             <div class="service-hero-benefits">
               <span class="benefit-badge-hero">{service.benefits}</span>
             </div>
-            
+
             <div class="service-hero-actions">
               <a href={createUrl(service.ctaLink)} class="primary-cta">
                 Get Started
@@ -77,7 +83,10 @@ const description = service.description;
                   <use href="#icon-arrow-right"></use>
                 </svg>
               </a>
-              <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase/`} class="secondary-cta">
+              <a
+                href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase/`}
+                class="secondary-cta"
+              >
                 View Case Studies
               </a>
             </div>
@@ -93,14 +102,17 @@ const description = service.description;
           <!-- Main Content -->
           <article class="service-main-content">
             <div class="service-content-text" set:html={service.content} />
-            
+
             <!-- Technologies Section -->
             <div class="technologies-section">
               <h2>Technologies & Tools</h2>
               <div class="tech-badges-grid">
-                {service.technologies && service.technologies.map((tech) => (
-                  <span class="tech-badge-detailed">{tech}</span>
-                ))}
+                {
+                  service.technologies &&
+                    service.technologies.map(tech => (
+                      <span class="tech-badge-detailed">{tech}</span>
+                    ))
+                }
               </div>
             </div>
           </article>
@@ -113,17 +125,23 @@ const description = service.description;
               <dl class="service-info-list">
                 <dt>Service Type</dt>
                 <dd>{service.schema.serviceType}</dd>
-                
+
                 <dt>Primary Benefit</dt>
                 <dd>{service.benefits}</dd>
-                
+
                 <dt>Technologies</dt>
-                <dd>{service.technologies ? service.technologies.slice(0, 3).join(', ') : 'N/A'}</dd>
-                
+                <dd>
+                  {
+                    service.technologies
+                      ? service.technologies.slice(0, 3).join(', ')
+                      : 'N/A'
+                  }
+                </dd>
+
                 <dt>Target Audience</dt>
                 <dd>{service.schema.areaServed}</dd>
               </dl>
-              
+
               <a href={createUrl(service.ctaLink)} class="sidebar-cta">
                 Start Your Project
                 <svg class="cta-icon" aria-hidden="true">
@@ -136,22 +154,29 @@ const description = service.description;
             <div class="sidebar-card">
               <h3>Related Services</h3>
               <div class="related-services-list">
-                {(loadServices() || [])
-                  .filter(s => s.id !== service.id)
-                  .slice(0, 3)
-                  .map((relatedService) => (
-                    <a href={`/services/${relatedService.id}`} class="related-service-link">
-                      <div class="related-service-icon">
-                        <svg class={`icon icon-${relatedService.icon}`} aria-hidden="true">
-                          <use href={`#icon-${relatedService.icon}`}></use>
-                        </svg>
-                      </div>
-                      <div class="related-service-content">
-                        <h4>{relatedService.title}</h4>
-                        <p>{relatedService.benefits}</p>
-                      </div>
-                    </a>
-                  ))
+                {
+                  (loadServices() || [])
+                    .filter(s => s.id !== service.id)
+                    .slice(0, 3)
+                    .map(relatedService => (
+                      <a
+                        href={`/services/${relatedService.id}`}
+                        class="related-service-link"
+                      >
+                        <div class="related-service-icon">
+                          <svg
+                            class={`icon icon-${relatedService.icon}`}
+                            aria-hidden="true"
+                          >
+                            <use href={`#icon-${relatedService.icon}`} />
+                          </svg>
+                        </div>
+                        <div class="related-service-content">
+                          <h4>{relatedService.title}</h4>
+                          <p>{relatedService.benefits}</p>
+                        </div>
+                      </a>
+                    ))
                 }
               </div>
             </div>
@@ -161,57 +186,66 @@ const description = service.description;
     </section>
 
     <!-- Related Projects Section -->
-    {relatedProjects.length > 0 && (
-      <section class="related-projects-section">
-        <div class="container">
-          <h2 class="section-title">Related Case Studies</h2>
-          <p class="section-subtitle">
-            See how this service has been applied in real agricultural projects
-          </p>
-          
-          <div class="related-projects-grid">
-            {relatedProjects && relatedProjects.map((project) => (
-              <article class="project-showcase-card">
-                
-                
-                <div class="project-content">
-                  <h3 class="project-title">{project.title}</h3>
-                  <p class="project-description">{project.description}</p>
-                  
-                  <div class="project-metrics">
-                    <div class="metric">
-                      <span class="metric-label">Impact</span>
-                      <span class="metric-value">{project.metrics.improvement}</span>
+    {
+      relatedProjects.length > 0 && (
+        <section class="related-projects-section">
+          <div class="container">
+            <h2 class="section-title">Related Case Studies</h2>
+            <p class="section-subtitle">
+              See how this service has been applied in real agricultural
+              projects
+            </p>
+
+            <div class="related-projects-grid">
+              {relatedProjects &&
+                relatedProjects.map(project => (
+                  <article class="project-showcase-card">
+                    <div class="project-content">
+                      <h3 class="project-title">{project.title}</h3>
+                      <p class="project-description">{project.description}</p>
+
+                      <div class="project-metrics">
+                        <div class="metric">
+                          <span class="metric-label">Impact</span>
+                          <span class="metric-value">
+                            {project.metrics.improvement}
+                          </span>
+                        </div>
+                        <div class="metric">
+                          <span class="metric-label">Timeline</span>
+                          <span class="metric-value">
+                            {project.metrics.timeline}
+                          </span>
+                        </div>
+                        <div class="metric">
+                          <span class="metric-label">Scale</span>
+                          <span class="metric-value">
+                            {project.metrics.scale}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="project-technologies">
+                        {project.technologies &&
+                          project.technologies
+                            .slice(0, 4)
+                            .map(tech => <span class="tech-tag">{tech}</span>)}
+                      </div>
+
+                      <a href={`/projects/${project.id}`} class="project-link">
+                        View Case Study
+                        <svg class="link-icon" aria-hidden="true">
+                          <use href="#icon-arrow-right" />
+                        </svg>
+                      </a>
                     </div>
-                    <div class="metric">
-                      <span class="metric-label">Timeline</span>
-                      <span class="metric-value">{project.metrics.timeline}</span>
-                    </div>
-                    <div class="metric">
-                      <span class="metric-label">Scale</span>
-                      <span class="metric-value">{project.metrics.scale}</span>
-                    </div>
-                  </div>
-                  
-                  <div class="project-technologies">
-                    {project.technologies && project.technologies.slice(0, 4).map((tech) => (
-                      <span class="tech-tag">{tech}</span>
-                    ))}
-                  </div>
-                  
-                  <a href={`/projects/${project.id}`} class="project-link">
-                    View Case Study
-                    <svg class="link-icon" aria-hidden="true">
-                      <use href="#icon-arrow-right"></use>
-                    </svg>
-                  </a>
-                </div>
-              </article>
-            ))}
+                  </article>
+                ))}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
 
     <!-- Contact CTA Section -->
     <section class="contact-cta-section">
@@ -219,8 +253,8 @@ const description = service.description;
         <div class="contact-cta-content">
           <h2>Ready to Get Started with {service.title}?</h2>
           <p>
-            Let's discuss how this service can be tailored to your specific agricultural needs. 
-            Get a free consultation and project estimate.
+            Let's discuss how this service can be tailored to your specific
+            agricultural needs. Get a free consultation and project estimate.
           </p>
           <div class="contact-cta-actions">
             <a href={createUrl(service.ctaLink)} class="primary-cta-large">
@@ -229,7 +263,10 @@ const description = service.description;
                 <use href="#icon-arrow-right"></use>
               </svg>
             </a>
-            <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`} class="secondary-cta-large">
+            <a
+              href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`}
+              class="secondary-cta-large"
+            >
               General Inquiry
             </a>
           </div>
@@ -239,42 +276,45 @@ const description = service.description;
   </main>
 
   <!-- Schema.org structured data -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": service.title,
-    "description": service.description,
-    "provider": {
-      "@type": "Organization",
-      "name": "Agrxculture",
-      "url": "https://agrxculture.com",
-      "sameAs": [
-        "https://linkedin.com/company/agrxculture",
-        "https://github.com/agrxculture"
-      ]
-    },
-    "serviceType": service.schema.serviceType,
-    "areaServed": service.schema.areaServed,
-    "offers": {
-      "@type": "Offer",
-      "description": service.benefits,
-      "url": `https://agrxculture.com${service.ctaLink}`
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Agricultural Technology Services",
-      "itemListElement": (relatedProjects || []).map((project, index) => ({
-        "@type": "Offer",
-        "position": index + 1,
-        "itemOffered": {
-          "@type": "CreativeWork",
-          "name": project.title,
-          "description": project.description,
-          "url": `https://agrxculture.com/projects/${project.id}`
-        }
-      }))
-    }
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: service.title,
+      description: service.description,
+      provider: {
+        '@type': 'Organization',
+        name: 'Agrxculture',
+        url: 'https://agrxculture.com',
+        sameAs: [
+          'https://linkedin.com/company/agrxculture',
+          'https://github.com/agrxculture',
+        ],
+      },
+      serviceType: service.schema.serviceType,
+      areaServed: service.schema.areaServed,
+      offers: {
+        '@type': 'Offer',
+        description: service.benefits,
+        url: `https://agrxculture.com${service.ctaLink}`,
+      },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Agricultural Technology Services',
+        itemListElement: (relatedProjects || []).map((project, index) => ({
+          '@type': 'Offer',
+          position: index + 1,
+          itemOffered: {
+            '@type': 'CreativeWork',
+            name: project.title,
+            description: project.description,
+            url: `https://agrxculture.com/projects/${project.id}`,
+          },
+        })),
+      },
+    })}
+  />
 </BaseLayout>
 
 <!-- SVG Icons (reuse from Services component) -->
@@ -282,37 +322,47 @@ const description = service.description;
   <defs>
     <!-- IoT Sensors Icon -->
     <symbol id="icon-iot-sensors" viewBox="0 0 24 24">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-      <circle cx="8" cy="8" r="2"/>
-      <circle cx="16" cy="8" r="2"/>
-      <circle cx="12" cy="16" r="2"/>
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+      ></path>
+      <circle cx="8" cy="8" r="2"></circle>
+      <circle cx="16" cy="8" r="2"></circle>
+      <circle cx="12" cy="16" r="2"></circle>
     </symbol>
-    
+
     <!-- Mobile App Icon -->
     <symbol id="icon-mobile-app" viewBox="0 0 24 24">
-      <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zM7 4V3h10v1H7zm0 14V6h10v12H7zm0 3v-1h10v1H7z"/>
-      <circle cx="12" cy="19" r="1"/>
+      <path
+        d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zM7 4V3h10v1H7zm0 14V6h10v12H7zm0 3v-1h10v1H7z"
+      ></path>
+      <circle cx="12" cy="19" r="1"></circle>
     </symbol>
-    
+
     <!-- Analytics Icon -->
     <symbol id="icon-analytics" viewBox="0 0 24 24">
-      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+      <path
+        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
+      ></path>
     </symbol>
-    
+
     <!-- API Icon -->
     <symbol id="icon-api" viewBox="0 0 24 24">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-      <path d="M8 12h8M12 8v8"/>
+      <path
+        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+      ></path>
+      <path d="M8 12h8M12 8v8"></path>
     </symbol>
-    
+
     <!-- Automation Icon -->
     <symbol id="icon-automation" viewBox="0 0 24 24">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"
+      ></path>
     </symbol>
-    
+
     <!-- Arrow Right Icon -->
     <symbol id="icon-arrow-right" viewBox="0 0 24 24">
-      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path>
     </symbol>
   </defs>
 </svg>
@@ -360,14 +410,18 @@ const description = service.description;
     text-decoration: underline;
   }
 
-  .breadcrumb-list li[aria-current="page"] {
+  .breadcrumb-list li[aria-current='page'] {
     color: var(--color-text-secondary);
   }
 
   /* Service Hero */
   .service-hero {
     padding: var(--space-4xl) 0;
-    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-variant) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-surface) 0%,
+      var(--color-surface-variant) 100%
+    );
   }
 
   .service-hero-content {
@@ -382,7 +436,11 @@ const description = service.description;
   .service-icon-hero {
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-primary-light)
+    );
     border-radius: var(--border-radius-2xl);
     display: flex;
     align-items: center;
@@ -719,7 +777,10 @@ const description = service.description;
     box-shadow: var(--shadow-xl);
   }
 
-  .project-image { aspect-ratio: 16 / 9; overflow: hidden; }
+  .project-image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
 
   .project-content {
     padding: var(--space-xl);
@@ -809,7 +870,11 @@ const description = service.description;
   /* Contact CTA */
   .contact-cta-section {
     padding: var(--space-4xl) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 100%
+    );
     color: var(--color-text-on-primary);
     text-align: center;
   }

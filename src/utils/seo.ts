@@ -1,6 +1,6 @@
 /**
  * SEO Utilities for Agricultural Portfolio Website
- * 
+ *
  * This module provides utilities for generating SEO metadata, structured data,
  * and social media tags for the agricultural technology portfolio.
  */
@@ -45,20 +45,24 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
     title,
     description,
     canonical,
-    image,
-    imageAlt,
+    image: _image,
+    imageAlt: _imageAlt,
     type = 'website',
     publishedTime,
     modifiedTime,
     author = 'Agrxculture',
     keywords = [],
     noindex = false,
-    nofollow = false
+    nofollow = false,
   } = config;
 
   const canonicalUrl = canonical || siteUrl;
-  const fullImageUrl = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : '';
-  
+  // const _fullImageUrl = image
+  //   ? image.startsWith('http')
+  //     ? image
+  //     : `${siteUrl}${image}`
+  //   : '';
+
   // Base agricultural technology keywords
   const baseKeywords = [
     'agricultural technology',
@@ -68,17 +72,17 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
     'agricultural software developer',
     'farm automation',
     'agricultural data analytics',
-    'mobile farm apps'
+    'mobile farm apps',
   ];
-  
+
   const allKeywords = [...baseKeywords, ...keywords].join(', ');
-  
+
   const robotsContent = [
     noindex ? 'noindex' : 'index',
     nofollow ? 'nofollow' : 'follow',
     'max-snippet:-1',
     'max-image-preview:none',
-    'max-video-preview:-1'
+    'max-video-preview:-1',
   ].join(', ');
 
   return `
@@ -163,140 +167,147 @@ export function generateMetaTags(config: SEOConfig, siteUrl: string): string {
  */
 export function generateOrganizationSchema(siteUrl: string): object {
   return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Agrxculture",
-    "description": "Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology",
-    "url": siteUrl,
-    "sameAs": [
-      "https://linkedin.com/company/agrxculture",
-      "https://github.com/agrxculture"
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Agrxculture',
+    description:
+      'Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology',
+    url: siteUrl,
+    sameAs: [
+      'https://linkedin.com/company/agrxculture',
+      'https://github.com/agrxculture',
     ],
-    "knowsAbout": [
-      "Precision Agriculture",
-      "IoT Development", 
-      "Farm Management Systems",
-      "Agricultural Data Analytics",
-      "Mobile App Development",
-      "Swift Programming",
-      "Python Development",
-      "Agricultural Automation",
-      "Sensor Networks",
-      "Farm Technology Integration"
+    knowsAbout: [
+      'Precision Agriculture',
+      'IoT Development',
+      'Farm Management Systems',
+      'Agricultural Data Analytics',
+      'Mobile App Development',
+      'Swift Programming',
+      'Python Development',
+      'Agricultural Automation',
+      'Sensor Networks',
+      'Farm Technology Integration',
     ],
-    "areaServed": {
-      "@type": "Country",
-      "name": "United States"
+    areaServed: {
+      '@type': 'Country',
+      name: 'United States',
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Agricultural Technology Services",
-      "itemListElement": [
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Agricultural Technology Services',
+      itemListElement: [
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "IoT Integration for Farms",
-            "category": "Agricultural Technology"
-          }
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'IoT Integration for Farms',
+            category: 'Agricultural Technology',
+          },
         },
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Mobile Farm Management Apps",
-            "category": "Mobile Development"
-          }
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Mobile Farm Management Apps',
+            category: 'Mobile Development',
+          },
         },
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Agricultural Data Analytics",
-            "category": "Data Analytics"
-          }
-        }
-      ]
-    }
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Agricultural Data Analytics',
+            category: 'Data Analytics',
+          },
+        },
+      ],
+    },
   };
 }
 
 /**
  * Generate structured data for a project/creative work
  */
-export function generateProjectSchema(project: ProjectSEO, siteUrl: string): object {
+export function generateProjectSchema(
+  project: ProjectSEO,
+  siteUrl: string
+): object {
   return {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": project.title,
-    "description": project.description,
-    "url": `${siteUrl}/projects/${project.projectId}`,
-    "creator": {
-      "@type": "Organization",
-      "name": "Agrxculture",
-      "url": siteUrl
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.description,
+    url: `${siteUrl}/projects/${project.projectId}`,
+    creator: {
+      '@type': 'Organization',
+      name: 'Agrxculture',
+      url: siteUrl,
     },
-    "about": {
-      "@type": "Thing",
-      "name": "Agricultural Technology",
-      "description": project.category
+    about: {
+      '@type': 'Thing',
+      name: 'Agricultural Technology',
+      description: project.category,
     },
-    "keywords": [
+    keywords: [
       ...project.technologies,
       project.category,
-      "agricultural technology",
-      "precision agriculture"
-    ].join(", "),
-    "genre": "Agricultural Technology",
-    "inLanguage": "en-US",
-    "isAccessibleForFree": true,
-    "learningResourceType": "Case Study",
-    "educationalUse": "Professional Development",
-    "audience": {
-      "@type": "Audience", 
-      "audienceType": "Agricultural Professionals"
-    }
+      'agricultural technology',
+      'precision agriculture',
+    ].join(', '),
+    genre: 'Agricultural Technology',
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    learningResourceType: 'Case Study',
+    educationalUse: 'Professional Development',
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Agricultural Professionals',
+    },
   };
 }
 
 /**
  * Generate structured data for a service offering
  */
-export function generateServiceSchema(service: ServiceSEO, siteUrl: string): object {
+export function generateServiceSchema(
+  service: ServiceSEO,
+  siteUrl: string
+): object {
   return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": service.title,
-    "description": service.description,
-    "url": `${siteUrl}/services#${service.serviceId}`,
-    "provider": {
-      "@type": "Organization",
-      "name": "Agrxculture",
-      "url": siteUrl
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.title,
+    description: service.description,
+    url: `${siteUrl}/services#${service.serviceId}`,
+    provider: {
+      '@type': 'Organization',
+      name: 'Agrxculture',
+      url: siteUrl,
     },
-    "serviceType": "Agricultural Technology Development",
-    "category": "Technology Services",
-    "areaServed": {
-      "@type": "Country",
-      "name": "United States"
+    serviceType: 'Agricultural Technology Development',
+    category: 'Technology Services',
+    areaServed: {
+      '@type': 'Country',
+      name: 'United States',
     },
-    "audience": {
-      "@type": "Audience",
-      "audienceType": "Agricultural Operations"
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Agricultural Operations',
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Agricultural Technology Services",
-      "itemListElement": service.applications.map((app, index) => ({
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": app,
-          "category": "Agricultural Technology"
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Agricultural Technology Services',
+      itemListElement: service.applications.map((app, index) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: app,
+          category: 'Agricultural Technology',
         },
-        "position": index + 1
-      }))
-    }
+        position: index + 1,
+      })),
+    },
   };
 }
 
@@ -305,97 +316,103 @@ export function generateServiceSchema(service: ServiceSEO, siteUrl: string): obj
  */
 export function generateWebsiteSchema(siteUrl: string): object {
   return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Agrxculture - Agricultural Technology",
-    "description": "Precision agriculture IoT solutions and farm management technology expertise",
-    "url": siteUrl,
-    "author": {
-      "@type": "Organization",
-      "name": "Agrxculture"
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Agrxculture - Agricultural Technology',
+    description:
+      'Precision agriculture IoT solutions and farm management technology expertise',
+    url: siteUrl,
+    author: {
+      '@type': 'Organization',
+      name: 'Agrxculture',
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Agrxculture"
+    publisher: {
+      '@type': 'Organization',
+      name: 'Agrxculture',
     },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": `${siteUrl}/showcase?q={search_term_string}`
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${siteUrl}/showcase?q={search_term_string}`,
       },
-      "query-input": "required name=search_term_string"
+      'query-input': 'required name=search_term_string',
     },
-    "mainEntity": {
-      "@type": "ItemList",
-      "name": "Agricultural Technology Services",
-      "itemListElement": [
+    mainEntity: {
+      '@type': 'ItemList',
+      name: 'Agricultural Technology Services',
+      itemListElement: [
         {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "IoT Integration",
-          "url": `${siteUrl}/services#iot`
+          '@type': 'ListItem',
+          position: 1,
+          name: 'IoT Integration',
+          url: `${siteUrl}/services#iot`,
         },
         {
-          "@type": "ListItem", 
-          "position": 2,
-          "name": "Mobile Farm Apps",
-          "url": `${siteUrl}/services#mobile`
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Mobile Farm Apps',
+          url: `${siteUrl}/services#mobile`,
         },
         {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Data Analytics",
-          "url": `${siteUrl}/services#analytics`
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Data Analytics',
+          url: `${siteUrl}/services#analytics`,
         },
         {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "API Development", 
-          "url": `${siteUrl}/services#apis`
+          '@type': 'ListItem',
+          position: 4,
+          name: 'API Development',
+          url: `${siteUrl}/services#apis`,
         },
         {
-          "@type": "ListItem",
-          "position": 5,
-          "name": "Farm Automation",
-          "url": `${siteUrl}/services#automation`
-        }
-      ]
-    }
+          '@type': 'ListItem',
+          position: 5,
+          name: 'Farm Automation',
+          url: `${siteUrl}/services#automation`,
+        },
+      ],
+    },
   };
 }
 
 /**
  * Generate breadcrumb structured data
  */
-export function generateBreadcrumbSchema(breadcrumbs: Array<{name: string, url: string}>, siteUrl: string): object {
+export function generateBreadcrumbSchema(
+  breadcrumbs: Array<{ name: string; url: string }>,
+  siteUrl: string
+): object {
   return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": breadcrumbs.map((crumb, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": crumb.name,
-      "item": crumb.url.startsWith('http') ? crumb.url : `${siteUrl}${crumb.url}`
-    }))
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url.startsWith('http') ? crumb.url : `${siteUrl}${crumb.url}`,
+    })),
   };
 }
 
 /**
  * Generate FAQ structured data for services
  */
-export function generateFAQSchema(faqs: Array<{question: string, answer: string}>): object {
+export function generateFAQSchema(
+  faqs: Array<{ question: string; answer: string }>
+): object {
   return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
   };
 }
 
@@ -404,34 +421,104 @@ export function generateFAQSchema(faqs: Array<{question: string, answer: string}
  */
 export const defaultSEOConfigs = {
   home: {
-    title: "Agrxculture - Agricultural Technology Company | Precision Agriculture IoT Solutions",
-    description: "Leading agricultural technology company specializing in precision agriculture IoT solutions, farm management systems, and agricultural software development. Expert in mobile farm apps, data analytics, and automation systems for modern farming operations. Transform your farm with cutting-edge agricultural technology.",
-    keywords: ["agricultural software developer", "precision agriculture", "farm IoT developer", "agricultural technology consultant", "farm management systems", "agricultural data analytics", "mobile farm apps", "farm automation", "agricultural sensor networks", "precision farming solutions", "smart agriculture", "digital farming", "agtech developer", "farm technology integration"]
+    title:
+      'Agrxculture - Agricultural Technology Company | Precision Agriculture IoT Solutions',
+    description:
+      'Leading agricultural technology company specializing in precision agriculture IoT solutions, farm management systems, and agricultural software development. Expert in mobile farm apps, data analytics, and automation systems for modern farming operations. Transform your farm with cutting-edge agricultural technology.',
+    keywords: [
+      'agricultural software developer',
+      'precision agriculture',
+      'farm IoT developer',
+      'agricultural technology consultant',
+      'farm management systems',
+      'agricultural data analytics',
+      'mobile farm apps',
+      'farm automation',
+      'agricultural sensor networks',
+      'precision farming solutions',
+      'smart agriculture',
+      'digital farming',
+      'agtech developer',
+      'farm technology integration',
+    ],
   },
-  
+
   about: {
-    title: "About Agrxculture - Agricultural Technology Company | Farm Innovation Specialists", 
-    description: "Learn about Agrxculture's expertise in agricultural technology, precision farming solutions, and farm management systems. Specializing in IoT integration and mobile development.",
-    keywords: ["agricultural technology expert", "farm technology specialist", "precision agriculture developer"]
+    title:
+      'About Agrxculture - Agricultural Technology Company | Farm Innovation Specialists',
+    description:
+      "Learn about Agrxculture's expertise in agricultural technology, precision farming solutions, and farm management systems. Specializing in IoT integration and mobile development.",
+    keywords: [
+      'agricultural technology expert',
+      'farm technology specialist',
+      'precision agriculture developer',
+    ],
   },
-  
+
   services: {
-    title: "Agricultural Technology Services | IoT Integration & Farm Management Solutions",
-    description: "Comprehensive agricultural technology services including IoT integration, mobile farm apps, data analytics, and automation systems for modern farming operations. Expert agricultural software development, precision agriculture solutions, and farm management systems. Transform your agricultural operations with cutting-edge technology.",
-    keywords: ["agricultural technology services", "farm IoT integration", "agricultural software development", "farm management systems", "precision agriculture services", "agricultural data analytics", "mobile farm applications", "farm automation systems", "agricultural sensor networks", "smart farming solutions", "digital agriculture", "agtech consulting", "farm technology solutions"]
+    title:
+      'Agricultural Technology Services | IoT Integration & Farm Management Solutions',
+    description:
+      'Comprehensive agricultural technology services including IoT integration, mobile farm apps, data analytics, and automation systems for modern farming operations. Expert agricultural software development, precision agriculture solutions, and farm management systems. Transform your agricultural operations with cutting-edge technology.',
+    keywords: [
+      'agricultural technology services',
+      'farm IoT integration',
+      'agricultural software development',
+      'farm management systems',
+      'precision agriculture services',
+      'agricultural data analytics',
+      'mobile farm applications',
+      'farm automation systems',
+      'agricultural sensor networks',
+      'smart farming solutions',
+      'digital agriculture',
+      'agtech consulting',
+      'farm technology solutions',
+    ],
   },
-  
+
   showcase: {
-    title: "Agricultural Technology Projects | Farm Management & IoT Case Studies",
-    description: "Explore successful agricultural technology projects including farm sensor networks, mobile management apps, irrigation automation, and yield analytics systems. Real-world case studies showcasing precision agriculture solutions, farm management systems, and agricultural IoT implementations. See how our agricultural technology expertise transforms farming operations.",
-    keywords: ["agricultural technology projects", "farm management case studies", "agricultural IoT examples", "precision agriculture portfolio", "farm sensor networks", "agricultural mobile apps", "irrigation automation", "yield analytics", "smart farming projects", "agricultural automation systems", "farm technology case studies", "precision agriculture examples", "agricultural software projects", "farm management solutions"]
+    title:
+      'Agricultural Technology Projects | Farm Management & IoT Case Studies',
+    description:
+      'Explore successful agricultural technology projects including farm sensor networks, mobile management apps, irrigation automation, and yield analytics systems. Real-world case studies showcasing precision agriculture solutions, farm management systems, and agricultural IoT implementations. See how our agricultural technology expertise transforms farming operations.',
+    keywords: [
+      'agricultural technology projects',
+      'farm management case studies',
+      'agricultural IoT examples',
+      'precision agriculture portfolio',
+      'farm sensor networks',
+      'agricultural mobile apps',
+      'irrigation automation',
+      'yield analytics',
+      'smart farming projects',
+      'agricultural automation systems',
+      'farm technology case studies',
+      'precision agriculture examples',
+      'agricultural software projects',
+      'farm management solutions',
+    ],
   },
-  
+
   contact: {
-    title: "Contact Agrxculture | Agricultural Technology Consultation",
-    description: "Get in touch for agricultural technology consultation, custom farm management solutions, IoT integration, and precision agriculture development services. Expert agricultural software development, farm automation systems, and agricultural data analytics. Contact our agricultural technology specialists for personalized solutions.",
-    keywords: ["agricultural technology consultation", "farm technology developer contact", "precision agriculture services", "agricultural software development", "farm management consultation", "agricultural IoT integration", "farm automation consultation", "agricultural data analytics", "smart farming solutions", "agricultural technology experts", "farm technology specialists", "precision agriculture consulting"]
-  }
+    title: 'Contact Agrxculture | Agricultural Technology Consultation',
+    description:
+      'Get in touch for agricultural technology consultation, custom farm management solutions, IoT integration, and precision agriculture development services. Expert agricultural software development, farm automation systems, and agricultural data analytics. Contact our agricultural technology specialists for personalized solutions.',
+    keywords: [
+      'agricultural technology consultation',
+      'farm technology developer contact',
+      'precision agriculture services',
+      'agricultural software development',
+      'farm management consultation',
+      'agricultural IoT integration',
+      'farm automation consultation',
+      'agricultural data analytics',
+      'smart farming solutions',
+      'agricultural technology experts',
+      'farm technology specialists',
+      'precision agriculture consulting',
+    ],
+  },
 };
 
 /**
@@ -448,14 +535,18 @@ export function generatePageSEO(
 } {
   const baseConfig = defaultSEOConfigs[pageType];
   const config = { ...baseConfig, ...customConfig };
-  
+
   const metaTags = generateMetaTags(config, siteUrl);
   const structuredData = [
     generateOrganizationSchema(siteUrl),
-    generateWebsiteSchema(siteUrl)
+    generateWebsiteSchema(siteUrl),
   ];
-  
-  const result: { metaTags: string; structuredData: object[]; canonical?: string } = { metaTags, structuredData };
+
+  const result: {
+    metaTags: string;
+    structuredData: object[];
+    canonical?: string;
+  } = { metaTags, structuredData };
   if (config.canonical) {
     result.canonical = config.canonical;
   }

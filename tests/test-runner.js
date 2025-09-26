@@ -17,27 +17,27 @@ class TestRunner {
 
   log(message, type = 'info') {
     const colors = {
-      info: '\x1b[36m',    // Cyan
+      info: '\x1b[36m', // Cyan
       success: '\x1b[32m', // Green
-      error: '\x1b[31m',   // Red
+      error: '\x1b[31m', // Red
       warning: '\x1b[33m', // Yellow
-      reset: '\x1b[0m',    // Reset
+      reset: '\x1b[0m', // Reset
     };
-    
+
     const color = colors[type] || colors.info;
     console.log(`${color}${message}${colors.reset}`);
   }
 
   async runCommand(command, description) {
     this.log(`\n🔄 ${description}...`);
-    
+
     try {
-      const output = execSync(command, { 
+      const output = execSync(command, {
         encoding: 'utf8',
         stdio: 'pipe',
         timeout: 300000, // 5 minutes timeout
       });
-      
+
       this.log(`✅ ${description} completed successfully`, 'success');
       return { passed: true, output };
     } catch (error) {
@@ -49,19 +49,23 @@ class TestRunner {
 
   async checkPrerequisites() {
     this.log('🔍 Checking prerequisites...');
-    
+
     // Check if build exists
     if (!fs.existsSync('dist')) {
       this.log('Building project first...', 'warning');
       await this.runCommand('npm run build', 'Building project');
     }
-    
+
     // Check if dev server is running (for E2E tests)
     try {
-      const response = await fetch('http://localhost:4321');
+      const baseUrl = process.env.CI ? 'http://localhost:4321/agrxculture/' : 'http://localhost:4321/';
+      const response = await fetch(baseUrl);
       this.log('✅ Dev server is running', 'success');
     } catch (error) {
-      this.log('⚠️  Dev server not running. E2E tests will start their own server.', 'warning');
+      this.log(
+        '⚠️  Dev server not running. E2E tests will start their own server.',
+        'warning'
+      );
     }
   }
 
@@ -90,14 +94,15 @@ class TestRunner {
     // Start dev server if not running
     let devServer;
     try {
-      await fetch('http://localhost:4321');
+      const baseUrl = process.env.CI ? 'http://localhost:4321/agrxculture/' : 'http://localhost:4321/';
+      await fetch(baseUrl);
     } catch (error) {
       this.log('Starting dev server for performance tests...', 'warning');
-      devServer = spawn('npm', ['run', 'dev'], { 
+      devServer = spawn('npm', ['run', 'dev'], {
         stdio: 'pipe',
         detached: true,
       });
-      
+
       // Wait for server to start
       await new Promise(resolve => setTimeout(resolve, 5000));
     }
@@ -131,10 +136,10 @@ class TestRunner {
       },
       results: this.results,
       requirements: {
-        '4.2': 'Form validation testing',
-        '4.3': 'Contact form functionality and spam protection',
-        '5.1': 'Performance optimization and loading times',
-        '5.4': 'Accessibility compliance and keyboard navigation',
+        4.2: 'Form validation testing',
+        4.3: 'Contact form functionality and spam protection',
+        5.1: 'Performance optimization and loading times',
+        5.4: 'Accessibility compliance and keyboard navigation',
       },
     };
 
@@ -162,8 +167,14 @@ class TestRunner {
 
     this.log('\n📊 Test Suite Summary:');
     this.log(`   Total Suites: ${report.summary.total}`);
-    this.log(`   Passed: ${report.summary.passed}`, report.summary.passed > 0 ? 'success' : 'info');
-    this.log(`   Failed: ${report.summary.failed}`, report.summary.failed > 0 ? 'error' : 'info');
+    this.log(
+      `   Passed: ${report.summary.passed}`,
+      report.summary.passed > 0 ? 'success' : 'info'
+    );
+    this.log(
+      `   Failed: ${report.summary.failed}`,
+      report.summary.failed > 0 ? 'error' : 'info'
+    );
     this.log(`   Report: ${reportPath}`);
 
     // Detailed results
@@ -181,10 +192,16 @@ class TestRunner {
     });
 
     if (report.summary.failed > 0) {
-      this.log('\n❌ Some tests failed. Review the detailed report above.', 'error');
+      this.log(
+        '\n❌ Some tests failed. Review the detailed report above.',
+        'error'
+      );
       process.exit(1);
     } else {
-      this.log('\n🎉 All tests passed! The agricultural portfolio website is ready for production.', 'success');
+      this.log(
+        '\n🎉 All tests passed! The agricultural portfolio website is ready for production.',
+        'success'
+      );
     }
   }
 }
@@ -219,15 +236,15 @@ Examples:
 if (args.length > 0) {
   (async () => {
     await runner.checkPrerequisites();
-    
+
     if (args.includes('--unit')) await runner.runUnitTests();
     if (args.includes('--accessibility')) await runner.runAccessibilityTests();
     if (args.includes('--e2e')) await runner.runE2ETests();
     if (args.includes('--performance')) await runner.runPerformanceTests();
     if (args.includes('--regression')) await runner.runRegressionTests();
-    
+
     const { report } = runner.generateReport();
-    
+
     if (report.summary.failed > 0) {
       process.exit(1);
     }

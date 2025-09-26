@@ -13,16 +13,16 @@ tags:
   - Analytics
   - Machine Learning
   - Agriculture
-dateCompleted: "2024-12-31"
+dateCompleted: '2024-12-31'
 featured: true
 metrics:
   improvement: 40% improvement in yield predictions
   timeline: In Development
   scale: Scalable analytics solution
 links:
-  demo: "#"
-  github: "#"
-  pdfDownload: "#"
+  demo: '#'
+  github: '#'
+  pdfDownload: '#'
 schema:
   type: CreativeWork
   name: Agricultural Yield Analytics Platform
@@ -30,7 +30,7 @@ schema:
   creator:
     type: Organization
     name: Agrxculture
-  dateCreated: "2024-01-01"
+  dateCreated: '2024-01-01'
   keywords: Analytics, Machine Learning, Agricultural Technology, Yield Prediction
 ---
 
@@ -52,4 +52,4 @@ We're developing an advanced agricultural yield analytics platform that leverage
 - Real-time analytics dashboard for farm managers
 - Integration with existing farm management systems
 
-*This project is currently in development. Detailed case study and performance metrics will be available upon completion.*
+_This project is currently in development. Detailed case study and performance metrics will be available upon completion._

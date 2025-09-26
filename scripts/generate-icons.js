@@ -2,10 +2,10 @@
 
 /**
  * Icon Generation Script for Agricultural Portfolio Website
- * 
+ *
  * This script generates all required favicon and app icons from the base SVG favicon.
  * It creates PNG icons in various sizes for different platforms and use cases.
- * 
+ *
  * Requirements: sharp (npm install sharp)
  * Usage: node scripts/generate-icons.js
  */
@@ -24,7 +24,7 @@ const iconSizes = [
   { size: 16, name: 'favicon-16x16.png' },
   { size: 32, name: 'favicon-32x32.png' },
   { size: 48, name: 'favicon-48x48.png' },
-  
+
   // Apple touch icons
   { size: 180, name: 'apple-touch-icon.png' },
   { size: 152, name: 'apple-touch-icon-152x152.png' },
@@ -35,7 +35,7 @@ const iconSizes = [
   { size: 72, name: 'apple-touch-icon-72x72.png' },
   { size: 60, name: 'apple-touch-icon-60x60.png' },
   { size: 57, name: 'apple-touch-icon-57x57.png' },
-  
+
   // Android/Chrome icons (for manifest.json)
   { size: 72, name: 'icon-72x72.png' },
   { size: 96, name: 'icon-96x96.png' },
@@ -45,17 +45,17 @@ const iconSizes = [
   { size: 192, name: 'icon-192x192.png' },
   { size: 384, name: 'icon-384x384.png' },
   { size: 512, name: 'icon-512x512.png' },
-  
+
   // Windows tile icons
   { size: 70, name: 'mstile-70x70.png' },
   { size: 144, name: 'mstile-144x144.png' },
   { size: 150, name: 'mstile-150x150.png' },
   { size: 310, name: 'mstile-310x310.png' },
-  
+
   // Shortcut icons for PWA
   { size: 96, name: 'shortcut-projects.png' },
   { size: 96, name: 'shortcut-contact.png' },
-  { size: 96, name: 'shortcut-services.png' }
+  { size: 96, name: 'shortcut-services.png' },
 ];
 
 // Agricultural-themed SVG icon
@@ -134,43 +134,46 @@ const agriculturalSVG = `
 async function generateIcons() {
   try {
     console.log('🌱 Generating agricultural technology favicon package...');
-    
+
     // Ensure icons directory exists
     const iconsDir = join(__dirname, '..', 'Public', 'icons');
     mkdirSync(iconsDir, { recursive: true });
-    
+
     // Convert SVG to buffer for sharp processing
     const svgBuffer = Buffer.from(agriculturalSVG);
-    
+
     // Generate all icon sizes
     for (const { size, name } of iconSizes) {
       console.log(`  📱 Generating ${name} (${size}x${size})`);
-      
+
       await sharp(svgBuffer)
         .resize(size, size, {
           kernel: sharp.kernel.lanczos3,
           fit: 'contain',
-          background: { r: 0, g: 0, b: 0, alpha: 0 }
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
         })
         .png({
           quality: 95,
           compressionLevel: 9,
-          adaptiveFiltering: true
+          adaptiveFiltering: true,
         })
         .toFile(join(iconsDir, name));
     }
-    
+
     // Generate ICO file for legacy browser support
     console.log('  🖥️  Generating favicon.ico');
     await sharp(svgBuffer)
       .resize(32, 32)
       .png()
       .toFile(join(__dirname, '..', 'Public', 'favicon.png'));
-    
+
     // Update the SVG favicon with the agricultural design
     console.log('  🎨 Updating SVG favicon');
-    writeFileSync(join(__dirname, '..', 'Public', 'favicon.svg'), agriculturalSVG);
-    
+    writeFileSync(
+      join(__dirname, '..', 'Public', 'favicon.svg'),
+      agriculturalSVG
+    );
+
     console.log('✅ Icon generation complete!');
     console.log('📋 Generated icons:');
     console.log('   • Standard favicons (16x16, 32x32, 48x48)');
@@ -179,7 +182,6 @@ async function generateIcons() {
     console.log('   • Windows tile icons (70x70 to 310x310)');
     console.log('   • PWA shortcut icons (96x96)');
     console.log('   • Updated SVG favicon with agricultural theme');
-    
   } catch (error) {
     console.error('❌ Error generating icons:', error);
     process.exit(1);

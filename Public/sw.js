@@ -1,7 +1,7 @@
 /**
  * Service Worker for Static Asset Caching
  * Task 9: Performance optimizations and accessibility features
- * 
+ *
  * Features:
  * - Basic static asset caching (no full PWA for MVP)
  * - Cache-first strategy for assets
@@ -27,33 +27,26 @@ const STATIC_ASSETS = [
   `${BASE_URL}/styles/images.css`,
   `${BASE_URL}/scripts/lazy-loading.js`,
   `${BASE_URL}/scripts/performance-monitor.js`,
-  `${BASE_URL}/favicon.svg`
+  `${BASE_URL}/favicon.svg`,
 ];
 
 // Assets to cache on first request
-const CACHE_ON_REQUEST = [
-  '/assets/',
-  '/scripts/',
-  '/styles/'
-];
+const CACHE_ON_REQUEST = ['/assets/', '/scripts/', '/styles/'];
 
 // Network-first resources (always try network first)
-const NETWORK_FIRST = [
-  '/api/',
-  '/contact',
-  '/_astro/'
-];
+const NETWORK_FIRST = ['/api/', '/contact', '/_astro/'];
 
 // Install event - cache static assets
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
   console.log('Service Worker: Installing v1.0.1 - Force cache clear');
-  
+
   event.waitUntil(
     // Clear all existing caches first
-    caches.keys()
-      .then((cacheNames) => {
+    caches
+      .keys()
+      .then(cacheNames => {
         return Promise.all(
-          cacheNames.map((cacheName) => {
+          cacheNames.map(cacheName => {
             console.log('Service Worker: Clearing old cache', cacheName);
             return caches.delete(cacheName);
           })
@@ -62,7 +55,7 @@ self.addEventListener('install', (event) => {
       .then(() => {
         return caches.open(STATIC_CACHE);
       })
-      .then((cache) => {
+      .then(cache => {
         console.log('Service Worker: Caching static assets with new paths');
         return cache.addAll(STATIC_ASSETS);
       })
@@ -70,24 +63,27 @@ self.addEventListener('install', (event) => {
         console.log('Service Worker: Static assets cached');
         return self.skipWaiting();
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Service Worker: Failed to cache static assets', error);
       })
   );
 });
 
 // Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
   console.log('Service Worker: Activating...');
-  
+
   event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => {
+    caches
+      .keys()
+      .then(cacheNames => {
         return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME && 
-                cacheName !== STATIC_CACHE && 
-                cacheName !== DYNAMIC_CACHE) {
+          cacheNames.map(cacheName => {
+            if (
+              cacheName !== CACHE_NAME &&
+              cacheName !== STATIC_CACHE &&
+              cacheName !== DYNAMIC_CACHE
+            ) {
               console.log('Service Worker: Deleting old cache', cacheName);
               return caches.delete(cacheName);
             }
@@ -102,15 +98,15 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch event - handle requests with caching strategies
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
-  
+
   // Skip non-GET requests
   if (request.method !== 'GET') {
     return;
   }
-  
+
   // Skip external requests
   if (url.origin !== location.origin) {
     return;
@@ -141,7 +137,7 @@ async function cacheFirstStrategy(request) {
       const cache = await caches.open(STATIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
     console.error('Cache-first strategy failed:', error);
@@ -181,16 +177,16 @@ async function networkFirstWithFallback(request) {
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     // Return offline fallback page
     const fallbackResponse = await caches.match(`${BASE_URL}/`);
     if (fallbackResponse) {
       return fallbackResponse;
     }
-    
-    return new Response('Page not available offline', { 
+
+    return new Response('Page not available offline', {
       status: 503,
-      headers: { 'Content-Type': 'text/html' }
+      headers: { 'Content-Type': 'text/html' },
     });
   }
 }
@@ -199,25 +195,29 @@ async function networkFirstWithFallback(request) {
 async function staleWhileRevalidate(request) {
   const cache = await caches.open(DYNAMIC_CACHE);
   const cachedResponse = await cache.match(request);
-  
-  const fetchPromise = fetch(request).then((networkResponse) => {
-    if (networkResponse.ok) {
-      cache.put(request, networkResponse.clone());
-    }
-    return networkResponse;
-  }).catch(() => cachedResponse);
+
+  const fetchPromise = fetch(request)
+    .then(networkResponse => {
+      if (networkResponse.ok) {
+        cache.put(request, networkResponse.clone());
+      }
+      return networkResponse;
+    })
+    .catch(() => cachedResponse);
 
   return cachedResponse || fetchPromise;
 }
 
 // Helper functions
 function isStaticAsset(url) {
-  return CACHE_ON_REQUEST.some(pattern => url.includes(pattern)) ||
-         url.includes('.css') ||
-         url.includes('.js') ||
-         url.includes('.svg') ||
-         url.includes('.woff') ||
-         url.includes('.woff2');
+  return (
+    CACHE_ON_REQUEST.some(pattern => url.includes(pattern)) ||
+    url.includes('.css') ||
+    url.includes('.js') ||
+    url.includes('.svg') ||
+    url.includes('.woff') ||
+    url.includes('.woff2')
+  );
 }
 
 function isNetworkFirst(url) {
@@ -229,7 +229,7 @@ function isHTML(request) {
 }
 
 // Background sync for form submissions (basic implementation)
-self.addEventListener('sync', (event) => {
+self.addEventListener('sync', event => {
   if (event.tag === 'contact-form') {
     event.waitUntil(syncContactForm());
   }
@@ -239,17 +239,17 @@ async function syncContactForm() {
   try {
     // Get pending form submissions from IndexedDB
     const submissions = await getPendingSubmissions();
-    
+
     for (const submission of submissions) {
       try {
         const response = await fetch(`${BASE_URL}/contact`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(submission.data)
+          body: JSON.stringify(submission.data),
         });
-        
+
         if (response.ok) {
           await removePendingSubmission(submission.id);
           console.log('Form submission synced successfully');
@@ -278,16 +278,18 @@ async function removePendingSubmission(id) {
 async function manageCacheSize() {
   const cacheNames = [STATIC_CACHE, DYNAMIC_CACHE];
   const maxEntries = 50;
-  
+
   for (const cacheName of cacheNames) {
     const cache = await caches.open(cacheName);
     const keys = await cache.keys();
-    
+
     if (keys.length > maxEntries) {
       // Remove oldest entries
       const entriesToDelete = keys.slice(0, keys.length - maxEntries);
       await Promise.all(entriesToDelete.map(key => cache.delete(key)));
-      console.log(`Cleaned up ${entriesToDelete.length} entries from ${cacheName}`);
+      console.log(
+        `Cleaned up ${entriesToDelete.length} entries from ${cacheName}`
+      );
     }
   }
 }

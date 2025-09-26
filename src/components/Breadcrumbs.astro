@@ -14,24 +14,37 @@ const { items } = Astro.props;
 
 <nav class="breadcrumbs" aria-label="Breadcrumb navigation">
   <ol class="breadcrumb-list">
-    {items.map((item, index) => (
-      <li class="breadcrumb-item">
-        {item.current ? (
-          <span class="breadcrumb-current" aria-current="page">
-            {item.label}
-          </span>
-        ) : (
-          <a href={item.url} class="breadcrumb-link">
-            {item.label}
-          </a>
-        )}
-        {index < items.length - 1 && (
-          <svg class="breadcrumb-separator" aria-hidden="true" viewBox="0 0 24 24">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        )}
-      </li>
-    ))}
+    {
+      items.map((item, index) => (
+        <li class="breadcrumb-item">
+          {item.current ? (
+            <span class="breadcrumb-current" aria-current="page">
+              {item.label}
+            </span>
+          ) : (
+            <a href={item.url} class="breadcrumb-link">
+              {item.label}
+            </a>
+          )}
+          {index < items.length - 1 && (
+            <svg
+              class="breadcrumb-separator"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M9 18l6-6-6-6"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          )}
+        </li>
+      ))
+    }
   </ol>
 </nav>
 
@@ -57,14 +70,14 @@ const { items } = Astro.props;
   }
 
   .breadcrumb-link {
-    color: #2E7D32;
+    color: #2e7d32;
     text-decoration: none;
     font-size: 0.875rem;
     transition: color 0.2s ease;
   }
 
   .breadcrumb-link:hover {
-    color: #1B5E20;
+    color: #1b5e20;
     text-decoration: underline;
   }
 
@@ -84,12 +97,12 @@ const { items } = Astro.props;
     .breadcrumbs {
       margin: 0.5rem 0;
     }
-    
+
     .breadcrumb-list {
       flex-wrap: wrap;
       gap: 0.25rem;
     }
-    
+
     .breadcrumb-link,
     .breadcrumb-current {
       font-size: 0.8rem;

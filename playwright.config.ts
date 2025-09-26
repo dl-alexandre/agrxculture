@@ -3,12 +3,12 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 3 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  forbidOnly: !!process.env['CI'],
+  retries: process.env['CI'] ? 3 : 0,
+  workers: process.env['CI'] ? 1 : 1,
   reporter: 'html',
   timeout: 30000,
-  
+
   use: {
     baseURL: 'http://localhost:4321/',
     serviceWorkers: 'block',
@@ -47,16 +47,16 @@ export default defineConfig({
         ...devices['Galaxy S5'],
         // Simulate slower network conditions
         launchOptions: {
-          args: ['--simulate-outdated-no-au-prompt-on-older-versions']
-        }
+          args: ['--simulate-outdated-no-au-prompt-on-older-versions'],
+        },
       },
     },
   ],
 
   webServer: {
-    command: 'npm run preview -- --port 4321 --host',
-    url: 'http://localhost:4321/',
-    reuseExistingServer: !process.env.CI,
+    command: 'npm run build && npm run preview -- --port 4321 --host',
+    url: process.env['CI'] ? 'http://localhost:4321/agrxculture/' : 'http://localhost:4321/',
+    reuseExistingServer: !process.env['CI'],
     timeout: 180000,
   },
 });

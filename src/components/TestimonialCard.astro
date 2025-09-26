@@ -18,33 +18,54 @@ export interface Props {
 const { testimonial, showPhoto = true } = Astro.props;
 ---
 
-<article 
+<article
   class="testimonial-card"
-  itemscope 
+  itemscope
   itemtype="https://schema.org/Review"
 >
   <div class="testimonial-content">
-    <div class="testimonial-rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+    <div
+      class="testimonial-rating"
+      itemprop="reviewRating"
+      itemscope
+      itemtype="https://schema.org/Rating"
+    >
       <meta itemprop="ratingValue" content={testimonial.rating.toString()} />
       <meta itemprop="bestRating" content="5" />
       <div class="stars" aria-label={`${testimonial.rating} out of 5 stars`}>
-        {Array.from({ length: 5 }, (_, i) => (
-          <span class={`star ${i < testimonial.rating ? 'filled' : 'empty'}`}>★</span>
-        ))}
+        {
+          Array.from({ length: 5 }, (_, i) => (
+            <span class={`star ${i < testimonial.rating ? 'filled' : 'empty'}`}>
+              ★
+            </span>
+          ))
+        }
       </div>
     </div>
-    
+
     <blockquote class="testimonial-text" itemprop="reviewBody">
       "{testimonial.testimonial}"
     </blockquote>
-    
-    <div class="testimonial-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
-      
+
+    <div
+      class="testimonial-author"
+      itemprop="author"
+      itemscope
+      itemtype="https://schema.org/Person"
+    >
       <div class="author-info">
-        <cite class="author-name" itemprop="name">{testimonial.clientName}</cite>
+        <cite class="author-name" itemprop="name">{testimonial.clientName}</cite
+        >
         <div class="author-details">
-          <span class="author-role" itemprop="jobTitle">{testimonial.clientRole}</span>
-          <span class="company" itemprop="worksFor" itemscope itemtype="https://schema.org/Organization">
+          <span class="author-role" itemprop="jobTitle"
+            >{testimonial.clientRole}</span
+          >
+          <span
+            class="company"
+            itemprop="worksFor"
+            itemscope
+            itemtype="https://schema.org/Organization"
+          >
             <span itemprop="name">{testimonial.company}</span>
           </span>
         </div>
@@ -52,7 +73,7 @@ const { testimonial, showPhoto = true } = Astro.props;
       </div>
     </div>
   </div>
-  
+
   <meta itemprop="datePublished" content={testimonial.dateGiven} />
 </article>
 
@@ -63,7 +84,9 @@ const { testimonial, showPhoto = true } = Astro.props;
     padding: 2rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.2s ease-out;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -114,8 +137,6 @@ const { testimonial, showPhoto = true } = Astro.props;
     margin-top: auto;
   }
 
-  
-
   .author-info {
     flex: 1;
   }
@@ -135,7 +156,7 @@ const { testimonial, showPhoto = true } = Astro.props;
   }
 
   .author-role::after {
-    content: " at ";
+    content: ' at ';
   }
 
   .industry-tag {
@@ -153,13 +174,13 @@ const { testimonial, showPhoto = true } = Astro.props;
     .testimonial-card {
       padding: 1.5rem;
     }
-    
+
     .testimonial-author {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.75rem;
     }
-    
+
     .author-photo {
       width: 50px;
       height: 50px;

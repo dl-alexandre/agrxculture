@@ -14,7 +14,7 @@ const cacheConfig = {
   staticAssets: {
     patterns: [
       '*.js',
-      '*.css', 
+      '*.css',
       '*.png',
       '*.jpg',
       '*.jpeg',
@@ -25,36 +25,36 @@ const cacheConfig = {
       '*.woff2',
       '*.ttf',
       '*.eot',
-      '*.ico'
+      '*.ico',
     ],
     headers: {
       'Cache-Control': 'public, max-age=31536000, immutable',
-      'Expires': new Date(Date.now() + 31536000 * 1000).toUTCString()
-    }
+      Expires: new Date(Date.now() + 31536000 * 1000).toUTCString(),
+    },
   },
-  
+
   // HTML files - 1 hour cache
   htmlFiles: {
     patterns: ['*.html'],
     headers: {
       'Cache-Control': 'public, max-age=3600, must-revalidate',
-      'Expires': new Date(Date.now() + 3600 * 1000).toUTCString()
-    }
+      Expires: new Date(Date.now() + 3600 * 1000).toUTCString(),
+    },
   },
-  
+
   // API and dynamic content - no cache
   dynamicContent: {
     patterns: ['*.json', '*.xml'],
     headers: {
-      'Cache-Control': 'public, max-age=300, must-revalidate'
-    }
-  }
+      'Cache-Control': 'public, max-age=300, must-revalidate',
+    },
+  },
 };
 
 // Generate Netlify _headers file
 function generateNetlifyHeaders() {
   let content = '# Cache headers for optimal performance\n\n';
-  
+
   // Static assets
   cacheConfig.staticAssets.patterns.forEach(pattern => {
     content += `/${pattern}\n`;
@@ -63,7 +63,7 @@ function generateNetlifyHeaders() {
     });
     content += '\n';
   });
-  
+
   // HTML files
   cacheConfig.htmlFiles.patterns.forEach(pattern => {
     content += `/${pattern}\n`;
@@ -72,16 +72,18 @@ function generateNetlifyHeaders() {
     });
     content += '\n';
   });
-  
+
   // Dynamic content
   cacheConfig.dynamicContent.patterns.forEach(pattern => {
     content += `/${pattern}\n`;
-    Object.entries(cacheConfig.dynamicContent.headers).forEach(([key, value]) => {
-      content += `  ${key}: ${value}\n`;
-    });
+    Object.entries(cacheConfig.dynamicContent.headers).forEach(
+      ([key, value]) => {
+        content += `  ${key}: ${value}\n`;
+      }
+    );
     content += '\n';
   });
-  
+
   return content;
 }
 
@@ -136,17 +138,19 @@ function main() {
     if (!fs.existsSync(publicDir)) {
       fs.mkdirSync(publicDir, { recursive: true });
     }
-    
+
     // Generate Netlify headers file
     const netlifyHeaders = generateNetlifyHeaders();
     fs.writeFileSync(path.join(publicDir, '_headers'), netlifyHeaders);
     console.log('✅ Generated public/_headers for Netlify');
-    
+
     // Generate GitHub Pages instructions
     const githubInstructions = generateGitHubPagesInstructions();
     fs.writeFileSync('CACHE-HEADERS-SETUP.md', githubInstructions);
-    console.log('✅ Generated CACHE-HEADERS-SETUP.md with GitHub Pages instructions');
-    
+    console.log(
+      '✅ Generated CACHE-HEADERS-SETUP.md with GitHub Pages instructions'
+    );
+
     // Generate cache configuration for service worker
     const swCacheConfig = {
       staticAssets: cacheConfig.staticAssets.patterns,
@@ -154,16 +158,15 @@ function main() {
       dynamicContent: cacheConfig.dynamicContent.patterns,
       cacheNames: {
         static: 'agricultural-portfolio-static-v1',
-        dynamic: 'agricultural-portfolio-dynamic-v1'
-      }
+        dynamic: 'agricultural-portfolio-dynamic-v1',
+      },
     };
-    
+
     fs.writeFileSync(
-      path.join(publicDir, 'cache-config.json'), 
+      path.join(publicDir, 'cache-config.json'),
       JSON.stringify(swCacheConfig, null, 2)
     );
     console.log('✅ Generated public/cache-config.json for service worker');
-    
   } catch (error) {
     console.error('❌ Error generating cache headers:', error);
     process.exit(1);

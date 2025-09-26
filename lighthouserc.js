@@ -10,11 +10,11 @@ module.exports = {
         'http://localhost:3000/about',
         'http://localhost:3000/services',
         'http://localhost:3000/showcase',
-        'http://localhost:3000/contact'
+        'http://localhost:3000/contact',
       ],
       settings: {
-        chromeFlags: '--no-sandbox --headless --disable-gpu'
-      }
+        chromeFlags: '--no-sandbox --headless --disable-gpu',
+      },
     },
     assert: {
       assertions: {
@@ -25,11 +25,11 @@ module.exports = {
         'first-contentful-paint': ['error', { maxNumericValue: 1800 }],
         'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
         'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
-        'total-blocking-time': ['error', { maxNumericValue: 200 }]
-      }
+        'total-blocking-time': ['error', { maxNumericValue: 200 }],
+      },
     },
     upload: {
-      target: 'temporary-public-storage'
-    }
-  }
+      target: 'temporary-public-storage',
+    },
+  },
 };

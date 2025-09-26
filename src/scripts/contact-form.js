@@ -9,9 +9,9 @@ class ContactForm {
     this.submitBtn = document.getElementById('submit-btn');
     this.messageTextarea = document.getElementById('message');
     this.messageCounter = document.getElementById('message-counter');
-    
+
     if (!this.form) return;
-    
+
     this.init();
   }
 
@@ -24,8 +24,10 @@ class ContactForm {
 
   setupEventListeners() {
     // Character counter for message field
-    this.messageTextarea.addEventListener('input', () => this.updateCharacterCounter());
-    
+    this.messageTextarea.addEventListener('input', () =>
+      this.updateCharacterCounter()
+    );
+
     // Real-time validation
     const formFields = this.form.querySelectorAll('input, select, textarea');
     formFields.forEach(field => {
@@ -38,20 +40,20 @@ class ContactForm {
     });
 
     // Form submission
-    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    this.form.addEventListener('submit', e => this.handleSubmit(e));
   }
 
   updateCharacterCounter() {
     const currentLength = this.messageTextarea.value.length;
     const maxLength = 2000;
-    
+
     if (currentLength > maxLength) {
       this.messageCounter.textContent = `${maxLength} / ${maxLength} characters`;
       this.messageCounter.classList.add('error');
       this.messageCounter.classList.remove('warning');
     } else {
       this.messageCounter.textContent = `${currentLength} / ${maxLength} characters`;
-      
+
       if (currentLength > maxLength * 0.9) {
         this.messageCounter.classList.add('warning');
         this.messageCounter.classList.remove('error');
@@ -89,7 +91,11 @@ class ContactForm {
       }
     }
     // Select validation
-    else if (field.tagName === 'SELECT' && field.hasAttribute('required') && !value) {
+    else if (
+      field.tagName === 'SELECT' &&
+      field.hasAttribute('required') &&
+      !value
+    ) {
       errorMessage = 'Please select a project type.';
       isValid = false;
     }
@@ -120,11 +126,11 @@ class ContactForm {
 
   getFieldLabel(fieldName) {
     const labels = {
-      'name': 'Full Name',
-      'email': 'Email Address',
-      'company': 'Company/Farm Name',
+      name: 'Full Name',
+      email: 'Email Address',
+      company: 'Company/Farm Name',
       'project-type': 'Project Type',
-      'message': 'Project Details'
+      message: 'Project Details',
     };
     return labels[fieldName] || fieldName;
   }
@@ -142,7 +148,7 @@ class ContactForm {
     // Validate all fields
     const formFields = this.form.querySelectorAll('input, select, textarea');
     let isFormValid = true;
-    
+
     formFields.forEach(field => {
       if (!this.validateField(field)) {
         isFormValid = false;
@@ -163,10 +169,10 @@ class ContactForm {
           firstError.focus();
           // Use a more reliable scrolling method for mobile
           if ('scrollIntoView' in firstError) {
-            firstError.scrollIntoView({ 
-              behavior: 'smooth', 
+            firstError.scrollIntoView({
+              behavior: 'smooth',
               block: 'center',
-              inline: 'nearest'
+              inline: 'nearest',
             });
           } else {
             // Fallback for older browsers
@@ -182,7 +188,7 @@ class ContactForm {
 
     try {
       const formData = new FormData(this.form);
-      
+
       // Debug: Log form data
       if (debugMode) {
         console.log('Form data being sent:');
@@ -190,20 +196,23 @@ class ContactForm {
           console.log(`${key}: ${value}`);
         }
       }
-      
+
       // Spam protection handled by honeypot field
-      
+
       const response = await fetch(this.form.action, {
         method: 'POST',
         body: formData,
         headers: {
-          'Accept': 'application/json'
-        }
+          Accept: 'application/json',
+        },
       });
 
       if (debugMode) {
         console.log('Response status:', response.status);
-        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+        console.log(
+          'Response headers:',
+          Object.fromEntries(response.headers.entries())
+        );
       }
 
       if (response.ok) {
@@ -251,35 +260,35 @@ class ContactForm {
   showSuccess() {
     document.getElementById('form-success').style.display = 'block';
     document.getElementById('form-error').style.display = 'none';
-    
+
     // Reset form
     this.form.reset();
     this.updateCharacterCounter();
-    
+
     // Form reset complete
-    
+
     // Clear any error states
     const errorFields = this.form.querySelectorAll('.error');
     errorFields.forEach(field => {
       field.classList.remove('error');
       field.setAttribute('aria-invalid', 'false');
     });
-    
+
     // Clear error messages
     const errorMessages = this.form.querySelectorAll('.error-message');
-    errorMessages.forEach(msg => msg.textContent = '');
-    
+    errorMessages.forEach(msg => (msg.textContent = ''));
+
     // Scroll to success message
-    document.getElementById('form-success').scrollIntoView({ 
-      behavior: 'smooth', 
-      block: 'center' 
+    document.getElementById('form-success').scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
     });
 
     // Analytics tracking (if available)
     if (typeof gtag === 'function') {
       gtag('event', 'form_submit', {
         event_category: 'Contact',
-        event_label: 'Agrxculture Technology Inquiry'
+        event_label: 'Agrxculture Technology Inquiry',
       });
     }
   }
@@ -288,7 +297,7 @@ class ContactForm {
     const errorElement = document.getElementById('form-error');
     document.getElementById('form-error').style.display = 'block';
     document.getElementById('form-success').style.display = 'none';
-    
+
     // Update error message if provided
     if (errorMessage) {
       const errorText = errorElement.querySelector('p');
@@ -296,11 +305,11 @@ class ContactForm {
         errorText.innerHTML = `There was an issue sending your message: ${errorMessage}. Please try again or contact us directly at <a href="mailto:contact@agrxculture.com">contact@agrxculture.com</a>`;
       }
     }
-    
+
     // Scroll to error message
-    errorElement.scrollIntoView({ 
-      behavior: 'smooth', 
-      block: 'center' 
+    errorElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
     });
   }
 
@@ -313,18 +322,28 @@ class ContactForm {
       const formInputs = this.form.querySelectorAll('input, select, textarea');
       formInputs.forEach(input => {
         // Prevent zoom on focus for iOS
-        if (input.type === 'text' || input.type === 'email' || input.tagName === 'TEXTAREA') {
+        if (
+          input.type === 'text' ||
+          input.type === 'email' ||
+          input.tagName === 'TEXTAREA'
+        ) {
           input.addEventListener('focus', () => {
             const viewport = document.querySelector('meta[name="viewport"]');
             if (viewport) {
-              viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+              viewport.setAttribute(
+                'content',
+                'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+              );
             }
           });
-          
+
           input.addEventListener('blur', () => {
             const viewport = document.querySelector('meta[name="viewport"]');
             if (viewport) {
-              viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+              viewport.setAttribute(
+                'content',
+                'width=device-width, initial-scale=1.0'
+              );
             }
           });
         }
@@ -335,7 +354,9 @@ class ContactForm {
     window.addEventListener('orientationchange', () => {
       setTimeout(() => {
         // Re-validate form after orientation change
-        const formFields = this.form.querySelectorAll('input, select, textarea');
+        const formFields = this.form.querySelectorAll(
+          'input, select, textarea'
+        );
         formFields.forEach(field => {
           if (field.classList.contains('error')) {
             this.validateField(field);

@@ -8,31 +8,41 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     <div class="filter-title" id="filter-heading">Filter Projects</div>
     <span id="project-count" class="project-count" aria-live="polite"></span>
   </div>
-  
+
   <div class="filter-controls">
     <div class="filter-group">
-      <label class="filter-label" for="technology-filters">By Technology:</label>
-      <div class="filter-buttons" role="group" aria-labelledby="technology-filters" id="technology-filters">
-        {allTags.map(tag => (
-          <button 
-            class={`filter-btn ${tag === 'All' ? 'active' : ''}`}
-            data-filter={tag.toLowerCase()}
-            type="button"
-            aria-pressed={tag === 'All' ? 'true' : 'false'}
-            aria-label={`Filter by ${tag} technology`}
-          >
-            {tag}
-          </button>
-        ))}
+      <label class="filter-label" for="technology-filters">By Technology:</label
+      >
+      <div
+        class="filter-buttons"
+        role="group"
+        aria-labelledby="technology-filters"
+        id="technology-filters"
+      >
+        {
+          allTags.map(tag => (
+            <button
+              class={`filter-btn ${tag === 'All' ? 'active' : ''}`}
+              data-filter={tag.toLowerCase()}
+              type="button"
+              aria-pressed={tag === 'All' ? 'true' : 'false'}
+              aria-label={`Filter by ${tag} technology`}
+            >
+              {tag}
+            </button>
+          ))
+        }
       </div>
     </div>
-    
+
     <div class="filter-group">
-      <label class="filter-label" for="featured-toggle">Show Featured Only:</label>
+      <label class="filter-label" for="featured-toggle"
+        >Show Featured Only:</label
+      >
       <div class="toggle-container">
-        <input 
-          type="checkbox" 
-          id="featured-toggle" 
+        <input
+          type="checkbox"
+          id="featured-toggle"
           class="toggle-input"
           aria-describedby="featured-help"
           aria-label="Show only featured projects"
@@ -40,13 +50,19 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
         <label for="featured-toggle" class="toggle-label">
           <span class="toggle-slider" aria-hidden="true"></span>
         </label>
-        <span id="featured-help" class="toggle-help">Show only featured projects</span>
+        <span id="featured-help" class="toggle-help"
+          >Show only featured projects</span
+        >
       </div>
     </div>
-    
+
     <div class="filter-group">
       <label for="sort-select" class="filter-label">Sort By:</label>
-      <select id="sort-select" class="sort-select" aria-label="Sort projects by">
+      <select
+        id="sort-select"
+        class="sort-select"
+        aria-label="Sort projects by"
+      >
         <option value="date-desc">Newest First</option>
         <option value="date-asc">Oldest First</option>
         <option value="title-asc">Title A-Z</option>
@@ -54,15 +70,15 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
       </select>
     </div>
   </div>
-  
+
   <div class="active-filters" role="region" aria-label="Active filters">
     <span class="active-filters-label">Active filters:</span>
     <div id="active-filter-tags" class="active-filter-tags" aria-live="polite">
       <span class="active-filter-tag">All Projects</span>
     </div>
-    <button 
-      id="clear-filters" 
-      class="clear-filters-btn" 
+    <button
+      id="clear-filters"
+      class="clear-filters-btn"
       style="display: none;"
       aria-label="Clear all active filters"
     >
@@ -79,21 +95,21 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     margin-bottom: var(--space-xl);
     box-shadow: var(--shadow-sm);
   }
-  
+
   .filter-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--space-lg);
   }
-  
+
   .filter-title {
     font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--color-text-primary);
     margin: 0;
   }
-  
+
   .project-count {
     background: var(--color-primary-dark);
     color: white;
@@ -102,30 +118,30 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     font-size: var(--font-size-sm);
     font-weight: 600;
   }
-  
+
   .filter-controls {
     display: grid;
     gap: var(--space-lg);
   }
-  
+
   .filter-group {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
   }
-  
+
   .filter-label {
     font-size: var(--font-size-sm);
     font-weight: 600;
     color: var(--color-text-primary);
   }
-  
+
   .filter-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
   }
-  
+
   .filter-btn {
     background: var(--color-background);
     border: 2px solid var(--color-border);
@@ -139,48 +155,48 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     min-width: 80px;
     position: relative;
   }
-  
+
   .filter-btn:hover {
     border-color: var(--color-primary-light);
     background: var(--color-primary-light);
     color: var(--color-primary);
   }
-  
+
   .filter-btn.active {
     background: var(--color-primary);
     border-color: var(--color-primary);
     color: white;
   }
-  
+
   /* Enhanced focus states for better accessibility */
   .filter-btn:focus {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
     border-color: var(--color-primary);
   }
-  
+
   .filter-btn:focus:not(:focus-visible) {
     outline: none;
   }
-  
+
   .filter-btn:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
-  
+
   .toggle-container {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
   }
-  
+
   .toggle-input {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   .toggle-label {
     position: relative;
     display: inline-block;
@@ -188,7 +204,7 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     height: 24px;
     cursor: pointer;
   }
-  
+
   .toggle-slider {
     position: absolute;
     top: 0;
@@ -199,10 +215,10 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     border-radius: 24px;
     transition: background-color 0.2s ease-out;
   }
-  
+
   .toggle-slider:before {
     position: absolute;
-    content: "";
+    content: '';
     height: 18px;
     width: 18px;
     left: 3px;
@@ -211,25 +227,25 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     border-radius: 50%;
     transition: transform 0.2s ease-out;
   }
-  
+
   .toggle-input:checked + .toggle-label .toggle-slider {
     background: var(--color-primary);
   }
-  
+
   .toggle-input:checked + .toggle-label .toggle-slider:before {
     transform: translateX(26px);
   }
-  
+
   .toggle-input:focus + .toggle-label .toggle-slider {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
-  
+
   .toggle-help {
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
   }
-  
+
   .sort-select {
     background: var(--color-background);
     border: 2px solid var(--color-border);
@@ -241,12 +257,12 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     transition: border-color 0.2s ease-out;
     max-width: 200px;
   }
-  
+
   .sort-select:focus {
     outline: none;
     border-color: var(--color-primary);
   }
-  
+
   .active-filters {
     margin-top: var(--space-lg);
     padding-top: var(--space-lg);
@@ -256,19 +272,19 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     align-items: center;
     gap: var(--space-sm);
   }
-  
+
   .active-filters-label {
     font-size: var(--font-size-sm);
     font-weight: 600;
     color: var(--color-text-secondary);
   }
-  
+
   .active-filter-tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
   }
-  
+
   .active-filter-tag {
     background: var(--color-primary-dark);
     color: white;
@@ -277,7 +293,7 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     font-size: var(--font-size-xs);
     font-weight: 500;
   }
-  
+
   .clear-filters-btn {
     background: none;
     border: 1px solid var(--color-border);
@@ -288,34 +304,34 @@ const allTags = ['All', 'IoT', 'Mobile', 'Analytics', 'API'];
     cursor: pointer;
     transition: all 0.2s ease-out;
   }
-  
+
   .clear-filters-btn:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
   }
-  
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .project-filters {
       padding: var(--space-md);
     }
-    
+
     .filter-header {
       flex-direction: column;
       align-items: flex-start;
       gap: var(--space-sm);
     }
-    
+
     .filter-buttons {
       justify-content: flex-start;
     }
-    
+
     .filter-btn {
       min-width: auto;
       flex: 1;
       text-align: center;
     }
-    
+
     .active-filters {
       flex-direction: column;
       align-items: flex-start;

@@ -4,15 +4,16 @@ import About from '../components/About.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const title = 'About - Agrxculture | Agricultural Technology Company';
-const description = 'Learn about Agrxculture\'s expertise in agricultural technology, precision farming solutions, IoT development, and farm management systems. Specializing in data-driven agriculture.';
+const description =
+  "Learn about Agrxculture's expertise in agricultural technology, precision farming solutions, IoT development, and farm management systems. Specializing in data-driven agriculture.";
 ---
 
-<BaseLayout 
-  title={title} 
+<BaseLayout
+  title={title}
   description={description}
   breadcrumbs={[
     { name: 'Home', url: '/' },
-    { name: 'About', url: '/about' }
+    { name: 'About', url: '/about' },
   ]}
 >
   <About />

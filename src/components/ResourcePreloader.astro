@@ -9,11 +9,11 @@ interface Props {
   preloadScripts?: string[];
 }
 
-const { 
+const {
   pageType = 'home',
   criticalImages = [],
   criticalFonts = [],
-  preloadScripts = []
+  preloadScripts = [],
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -29,43 +29,41 @@ const defaultResources = {
     fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
-      withBase('/scripts/lazy-loading.js')
-    ]
+      withBase('/scripts/lazy-loading.js'),
+    ],
   },
   about: {
     images: [],
     fonts: [],
-    scripts: [
-      withBase('/scripts/performance-monitor.js')
-    ]
+    scripts: [withBase('/scripts/performance-monitor.js')],
   },
   services: {
     images: [],
     fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
-      withBase('/scripts/showcase.js')
-    ]
+      withBase('/scripts/showcase.js'),
+    ],
   },
   showcase: {
     images: [],
     fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
-      withBase('/scripts/showcase.js')
-    ]
+      withBase('/scripts/showcase.js'),
+    ],
   },
   contact: {
     images: [],
     fonts: [],
     scripts: [
       withBase('/scripts/performance-monitor.js'),
-      withBase('/scripts/contact-form.js')
-    ]
-  }
+      withBase('/scripts/contact-form.js'),
+    ],
+  },
 };
 
-const resources = (defaultResources[pageType] || defaultResources.home);
+const resources = defaultResources[pageType] || defaultResources.home;
 ---
 
 <!-- DNS Prefetch for external domains -->
@@ -78,45 +76,30 @@ const resources = (defaultResources[pageType] || defaultResources.home);
 <link rel="preconnect" href="https://www.google.com" crossorigin />
 
 <!-- Preload critical fonts -->
-{resources.fonts.map(font => (
-  <link 
-    rel="preload" 
-    href={font} 
-    as="font" 
-    type="font/woff2" 
-    crossorigin 
-  />
-))}
+{
+  resources.fonts.map(font => (
+    <link rel="preload" href={font} as="font" type="font/woff2" crossorigin />
+  ))
+}
 
 <!-- Preload critical images removed for text-only mode -->
 
 <!-- Preload critical scripts -->
-{resources.scripts.map(script => (
-  <link 
-    rel="preload" 
-    href={script} 
-    as="script" 
-  />
-))}
+{
+  resources.scripts.map(script => (
+    <link rel="preload" href={script} as="script" />
+  ))
+}
 
 <!-- Custom image preloads disabled -->
 
-{criticalFonts.map(font => (
-  <link 
-    rel="preload" 
-    href={font} 
-    as="font" 
-    crossorigin 
-  />
-))}
+{
+  criticalFonts.map(font => (
+    <link rel="preload" href={font} as="font" crossorigin />
+  ))
+}
 
-{preloadScripts.map(script => (
-  <link 
-    rel="preload" 
-    href={script} 
-    as="script" 
-  />
-))}
+{preloadScripts.map(script => <link rel="preload" href={script} as="script" />)}
 
 <!-- Image prefetch disabled in text-only mode -->
 
@@ -143,8 +126,10 @@ const resources = (defaultResources[pageType] || defaultResources.home);
   // Resource loading optimization
   if ('connection' in navigator) {
     // Slow connection - reduce preloading
-    if (navigator.connection.effectiveType === 'slow-2g' || 
-        navigator.connection.effectiveType === '2g') {
+    if (
+      navigator.connection.effectiveType === 'slow-2g' ||
+      navigator.connection.effectiveType === '2g'
+    ) {
       const preloadLinks = document.querySelectorAll('link[rel="preload"]');
       preloadLinks.forEach(link => {
         if (link.getAttribute('as') !== 'font') {
@@ -152,7 +137,7 @@ const resources = (defaultResources[pageType] || defaultResources.home);
         }
       });
     }
-    
+
     // Save data mode - disable preloading
     if (navigator.connection.saveData) {
       const preloadLinks = document.querySelectorAll('link[rel="preload"]');
@@ -161,21 +146,24 @@ const resources = (defaultResources[pageType] || defaultResources.home);
       });
     }
   }
-  
+
   // Intersection Observer for viewport-based preloading
   if ('IntersectionObserver' in window) {
-    const preloadObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const link = entry.target;
-          if (link.rel === 'prefetch') {
-            link.rel = 'preload';
+    const preloadObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const link = entry.target;
+            if (link.rel === 'prefetch') {
+              link.rel = 'preload';
+            }
+            preloadObserver.unobserve(link);
           }
-          preloadObserver.unobserve(link);
-        }
-      });
-    }, { rootMargin: '50px' });
-    
+        });
+      },
+      { rootMargin: '50px' }
+    );
+
     // Observe prefetch links for viewport-based loading
     const prefetchLinks = document.querySelectorAll('link[rel="prefetch"]');
     prefetchLinks.forEach(link => preloadObserver.observe(link));

@@ -10,133 +10,145 @@ export interface Props {
 
 const {
   title,
-  description = "Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology",
+  description = 'Agricultural technology company specializing in precision agriculture IoT solutions and farm management technology',
   canonical,
   preloadImages = [],
   preloadFonts = [],
-  criticalCSS = ""
+  criticalCSS = '',
 } = Astro.props;
 
 const canonicalUrl = canonical || Astro.url.href;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href={canonicalUrl} />
-  
-  <!-- Resource Hints for Performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-  
-  <!-- Preload Critical Resources -->
-  {preloadImages.map(image => (
-    <link rel="preload" href={image} as="image" type="image/webp" />
-  ))}
-  
-  {preloadFonts.map(font => (
-    <link rel="preload" href={font} as="font" type="font/woff2" crossorigin />
-  ))}
-  
-  <!-- Critical CSS Inline -->
-  {criticalCSS && (
-    <style set:html={criticalCSS} />
-  )}
-  
-  <!-- Non-critical CSS -->
-  <!-- CSS is now handled by the main layout -->
-  
-  <!-- Font Loading Optimization -->
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  />
-  
-  <!-- Performance Meta Tags -->
-  <meta name="performance-budget" content="1MB" />
-  <meta name="lighthouse-target" content="90" />
-  
-  <!-- Security Headers -->
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="DENY" />
-  <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-  
-  <!-- Theme and Color -->
-  <meta name="theme-color" content="#2E7D32" />
-  <meta name="color-scheme" content="light dark" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
 
-<body>
-  <!-- Skip to content link for accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  <!-- Main content -->
-  <main id="main-content">
-    <slot />
-  </main>
-  
-  <!-- Performance Monitoring Script -->
-  <script>
-    // Performance monitoring
-    if ('performance' in window) {
-      window.addEventListener('load', () => {
-        const perfData = performance.getEntriesByType('navigation')[0];
-        const fcp = performance.getEntriesByName('first-contentful-paint')[0];
-        
-        if (fcp) {
-          console.log(`First Contentful Paint: ${fcp.startTime}ms`);
-        }
-        
-        if (perfData) {
-          console.log(`Page Load Time: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
-          console.log(`DOM Content Loaded: ${perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart}ms`);
-        }
-      });
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+    <!-- Preload Critical Resources -->
+    {
+      preloadImages.map(image => (
+        <link rel="preload" href={image} as="image" type="image/webp" />
+      ))
     }
-    
-    // Resource loading optimization
-    function optimizeResourceLoading() {
-      // Defer non-critical JavaScript
-      const scripts = document.querySelectorAll('script[data-defer]');
-      scripts.forEach(script => {
-        script.setAttribute('defer', '');
-      });
-      
-      // Lazy load images that are not in viewport
-      const images = document.querySelectorAll('img[data-lazy]');
-      if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              img.src = img.dataset.src;
-              img.classList.remove('lazy');
-              imageObserver.unobserve(img);
-            }
-          });
+
+    {
+      preloadFonts.map(font => (
+        <link
+          rel="preload"
+          href={font}
+          as="font"
+          type="font/woff2"
+          crossorigin
+        />
+      ))
+    }
+
+    <!-- Critical CSS Inline -->
+    {criticalCSS && <style set:html={criticalCSS} />}
+
+    <!-- Non-critical CSS -->
+    <!-- CSS is now handled by the main layout -->
+
+    <!-- Font Loading Optimization -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <!-- Performance Meta Tags -->
+    <meta name="performance-budget" content="1MB" />
+    <meta name="lighthouse-target" content="90" />
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+
+    <!-- Theme and Color -->
+    <meta name="theme-color" content="#2E7D32" />
+    <meta name="color-scheme" content="light dark" />
+  </head>
+
+  <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Main content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Performance Monitoring Script -->
+    <script>
+      // Performance monitoring
+      if ('performance' in window) {
+        window.addEventListener('load', () => {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          const fcp = performance.getEntriesByName('first-contentful-paint')[0];
+
+          if (fcp) {
+            console.log(`First Contentful Paint: ${fcp.startTime}ms`);
+          }
+
+          if (perfData) {
+            console.log(
+              `Page Load Time: ${perfData.loadEventEnd - perfData.loadEventStart}ms`
+            );
+            console.log(
+              `DOM Content Loaded: ${perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart}ms`
+            );
+          }
         });
-        
-        images.forEach(img => imageObserver.observe(img));
       }
-    }
-    
-    // Initialize optimizations
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', optimizeResourceLoading);
-    } else {
-      optimizeResourceLoading();
-    }
-  </script>
-</body>
+
+      // Resource loading optimization
+      function optimizeResourceLoading() {
+        // Defer non-critical JavaScript
+        const scripts = document.querySelectorAll('script[data-defer]');
+        scripts.forEach(script => {
+          script.setAttribute('defer', '');
+        });
+
+        // Lazy load images that are not in viewport
+        const images = document.querySelectorAll('img[data-lazy]');
+        if ('IntersectionObserver' in window) {
+          const imageObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+              }
+            });
+          });
+
+          images.forEach(img => imageObserver.observe(img));
+        }
+      }
+
+      // Initialize optimizations
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', optimizeResourceLoading);
+      } else {
+        optimizeResourceLoading();
+      }
+    </script>
+  </body>
 </html>
 
 <style>
@@ -145,7 +157,7 @@ const canonicalUrl = canonical || Astro.url.href;
     position: absolute;
     top: -40px;
     left: 6px;
-    background: #2E7D32;
+    background: #2e7d32;
     color: white;
     padding: 8px;
     text-decoration: none;
@@ -153,30 +165,38 @@ const canonicalUrl = canonical || Astro.url.href;
     z-index: 1000;
     transition: top 0.3s;
   }
-  
+
   .skip-link:focus {
     top: 6px;
   }
-  
+
   /* Performance optimizations */
   * {
     box-sizing: border-box;
   }
-  
+
   body {
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family:
+      'Inter',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
     line-height: 1.6;
     color: #333;
   }
-  
+
   main {
     min-height: 100vh;
   }
-  
+
   /* Optimize animations */
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;

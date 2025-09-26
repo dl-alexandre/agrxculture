@@ -32,7 +32,7 @@ const iconFiles = [
   'icon-512x512.png',
   'shortcut-projects.png',
   'shortcut-contact.png',
-  'shortcut-services.png'
+  'shortcut-services.png',
 ];
 
 // Create placeholder files with agricultural theme description
@@ -65,5 +65,9 @@ iconFiles.forEach(filename => {
 });
 
 console.log('✅ Basic icon placeholders created!');
-console.log('⚠️  Remember to replace these with actual PNG icons before deployment');
-console.log('💡 Use the SVG favicon at Public/favicon.svg as the source for generation');
+console.log(
+  '⚠️  Remember to replace these with actual PNG icons before deployment'
+);
+console.log(
+  '💡 Use the SVG favicon at Public/favicon.svg as the source for generation'
+);

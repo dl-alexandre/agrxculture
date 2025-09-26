@@ -18,7 +18,7 @@ const {
   class: className = '',
   loading = 'lazy',
   sizes,
-  srcset
+  srcset,
 } = Astro.props;
 
 // Generate WebP and fallback versions
@@ -27,31 +27,34 @@ const baseName = src.split('/').pop()?.split('.')[0] || '';
 const extension = src.split('.').pop() || 'jpg';
 
 // Generate responsive srcset if not provided
-const responsiveSrcset = srcset || [
-  `${src.replace(`.${extension}`, '')}-400w.${extension} 400w`,
-  `${src.replace(`.${extension}`, '')}-800w.${extension} 800w`,
-  `${src.replace(`.${extension}`, '')}-1200w.${extension} 1200w`,
-  `${src.replace(`.${extension}`, '')}-1600w.${extension} 1600w`
-].join(', ');
+const responsiveSrcset =
+  srcset ||
+  [
+    `${src.replace(`.${extension}`, '')}-400w.${extension} 400w`,
+    `${src.replace(`.${extension}`, '')}-800w.${extension} 800w`,
+    `${src.replace(`.${extension}`, '')}-1200w.${extension} 1200w`,
+    `${src.replace(`.${extension}`, '')}-1600w.${extension} 1600w`,
+  ].join(', ');
 
 const responsiveWebpSrcset = [
   `${webpSrc.replace(`.${extension}`, '')}-400w.webp 400w`,
   `${webpSrc.replace(`.${extension}`, '')}-800w.webp 800w`,
   `${webpSrc.replace(`.${extension}`, '')}-1200w.webp 1200w`,
-  `${webpSrc.replace(`.${extension}`, '')}-1600w.webp 1600w`
+  `${webpSrc.replace(`.${extension}`, '')}-1600w.webp 1600w`,
 ].join(', ');
 
-const defaultSizes = sizes || '(max-width: 480px) 100vw, (max-width: 768px) 80vw, 60vw';
+const defaultSizes =
+  sizes || '(max-width: 480px) 100vw, (max-width: 768px) 80vw, 60vw';
 ---
 
 <picture class={`lazy-image ${className}`}>
   <!-- WebP format for modern browsers -->
-  <source 
-    type="image/webp" 
+  <source
+    type="image/webp"
     srcset={responsiveWebpSrcset}
     sizes={defaultSizes}
   />
-  
+
   <!-- Fallback format -->
   <img
     src={src}
@@ -72,22 +75,22 @@ const defaultSizes = sizes || '(max-width: 480px) 100vw, (max-width: 768px) 80vw
     position: relative;
     overflow: hidden;
   }
-  
+
   .lazy-image__img {
     width: 100%;
     height: auto;
     display: block;
     transition: opacity 0.3s ease-in-out;
   }
-  
-  .lazy-image__img[loading="lazy"] {
+
+  .lazy-image__img[loading='lazy'] {
     opacity: 0;
   }
-  
+
   .lazy-image__img.loaded {
     opacity: 1;
   }
-  
+
   /* Loading placeholder */
   .lazy-image::before {
     content: '';
@@ -100,39 +103,45 @@ const defaultSizes = sizes || '(max-width: 480px) 100vw, (max-width: 768px) 80vw
     background-size: 200% 100%;
     animation: loading 1.5s infinite;
   }
-  
+
   .lazy-image__img.loaded + .lazy-image::before {
     display: none;
   }
-  
+
   @keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 </style>
 
 <script>
   // Lazy loading implementation
   function initLazyLoading() {
-    const lazyImages = document.querySelectorAll('.lazy-image__img[loading="lazy"]');
-    
+    const lazyImages = document.querySelectorAll(
+      '.lazy-image__img[loading="lazy"]'
+    );
+
     if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
             img.classList.add('loaded');
-            
+
             // Preload the image
             if (img.dataset.src) {
               img.src = img.dataset.src;
             }
-            
+
             observer.unobserve(img);
           }
         });
       });
-      
+
       lazyImages.forEach(img => imageObserver.observe(img));
     } else {
       // Fallback for older browsers
@@ -144,7 +153,7 @@ const defaultSizes = sizes || '(max-width: 480px) 100vw, (max-width: 768px) 80vw
       });
     }
   }
-  
+
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initLazyLoading);

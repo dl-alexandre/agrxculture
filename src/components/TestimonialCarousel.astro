@@ -18,65 +18,93 @@ export interface Props {
   showNavigation?: boolean;
 }
 
-const { testimonials, title = "What Our Clients Say", showNavigation = true } = Astro.props;
+const {
+  testimonials,
+  title = 'What Our Clients Say',
+  showNavigation = true,
+} = Astro.props;
 ---
 
 <section class="testimonial-carousel-section" aria-label="Client testimonials">
   <div class="container">
     <h2 class="section-title">{title}</h2>
-    
+
     <div class="carousel-container">
       <div class="carousel-wrapper" id="testimonial-carousel">
         <div class="carousel-track" id="carousel-track">
-          {testimonials && testimonials.map((testimonial) => (
-            <div class="carousel-slide">
-              <TestimonialCard testimonial={testimonial} />
-            </div>
-          ))}
+          {
+            testimonials &&
+              testimonials.map(testimonial => (
+                <div class="carousel-slide">
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
+              ))
+          }
         </div>
       </div>
-      
-      {showNavigation && testimonials && testimonials.length > 1 && (
-        <div class="carousel-controls">
-          <button 
-            class="carousel-btn prev-btn" 
-            id="prev-btn"
-            aria-label="Previous testimonial"
-            type="button"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="15,18 9,12 15,6"></polyline>
-            </svg>
-          </button>
-          
-          <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Testimonial navigation">
-            {testimonials && testimonials.map((_, index) => (
-              <button 
-                class={`dot ${index === 0 ? 'active' : ''}`}
-                data-slide={index}
-                role="tab"
-                aria-label={`Go to testimonial ${index + 1}`}
-                type="button"
-              ></button>
-            ))}
+
+      {
+        showNavigation && testimonials && testimonials.length > 1 && (
+          <div class="carousel-controls">
+            <button
+              class="carousel-btn prev-btn"
+              id="prev-btn"
+              aria-label="Previous testimonial"
+              type="button"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="15,18 9,12 15,6" />
+              </svg>
+            </button>
+
+            <div
+              class="carousel-dots"
+              id="carousel-dots"
+              role="tablist"
+              aria-label="Testimonial navigation"
+            >
+              {testimonials &&
+                testimonials.map((_, index) => (
+                  <button
+                    class={`dot ${index === 0 ? 'active' : ''}`}
+                    data-slide={index}
+                    role="tab"
+                    aria-label={`Go to testimonial ${index + 1}`}
+                    type="button"
+                  />
+                ))}
+            </div>
+
+            <button
+              class="carousel-btn next-btn"
+              id="next-btn"
+              aria-label="Next testimonial"
+              type="button"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="9,18 15,12 9,6" />
+              </svg>
+            </button>
           </div>
-          
-          <button 
-            class="carousel-btn next-btn" 
-            id="next-btn"
-            aria-label="Next testimonial"
-            type="button"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9,18 15,12 9,6"></polyline>
-            </svg>
-          </button>
-        </div>
-      )}
+        )
+      }
     </div>
   </div>
 </section><style>
-
   .testimonial-carousel-section {
     padding: 4rem 0;
     background: #f9fafb;
@@ -187,11 +215,11 @@ const { testimonials, title = "What Our Clients Say", showNavigation = true } = 
       font-size: 2rem;
       margin-bottom: 2rem;
     }
-    
+
     .carousel-controls {
       gap: 1rem;
     }
-    
+
     .carousel-btn {
       width: 40px;
       height: 40px;
@@ -203,11 +231,11 @@ const { testimonials, title = "What Our Clients Say", showNavigation = true } = 
     .testimonial-carousel-section {
       padding: 2rem 0;
     }
-    
+
     .section-title {
       font-size: 1.75rem;
     }
-    
+
     .carousel-slide {
       padding: 0 0.5rem;
     }
@@ -218,7 +246,7 @@ const { testimonials, title = "What Our Clients Say", showNavigation = true } = 
     .carousel-track {
       transition: none;
     }
-    
+
     .carousel-btn,
     .dot {
       transition: none;

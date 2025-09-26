@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   const projects = loadProjects();
   return projects.map(project => ({
     params: { id: project.id },
-    props: { project }
+    props: { project },
   }));
 }
 
@@ -18,42 +18,50 @@ const projectId = project.id;
 const projectsData = loadProjects();
 
 // Generate comprehensive SEO data
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://agrxculture.com';
-const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projectId, siteUrl);
+const siteUrl =
+  Astro.site?.toString().replace(/\/$/, '') || 'https://agrxculture.com';
+const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(
+  projectId,
+  siteUrl
+);
 ---
 
-<BaseLayout 
+<BaseLayout
   title={seoConfig.title}
   description={seoConfig.description}
-  
   structuredData={structuredData}
   breadcrumbs={[
     { name: 'Home', url: '/' },
     { name: 'Showcase', url: '/showcase' },
-    { name: project.title, url: `/projects/${project.id}` }
+    { name: project.title, url: `/projects/${project.id}` },
   ]}
 >
-  
   <div class="project-page">
     <!-- Breadcrumb Navigation -->
-    <Breadcrumbs items={[
-      { label: 'Home', url: '/' },
-      { label: 'Showcase', url: '/showcase' },
-      { label: project.title, url: `/projects/${project.id}`, current: true }
-    ]} />
-    
+    <Breadcrumbs
+      items={[
+        { label: 'Home', url: '/' },
+        { label: 'Showcase', url: '/showcase' },
+        { label: project.title, url: `/projects/${project.id}`, current: true },
+      ]}
+    />
+
     <!-- Project Header -->
     <section class="project-header">
       <div class="container">
         <div class="project-header-content">
           <div class="project-meta">
-            {project.featured && <span class="featured-badge">Featured Project</span>}
+            {
+              project.featured && (
+                <span class="featured-badge">Featured Project</span>
+              )
+            }
             <span class="project-category">{project.category}</span>
           </div>
-          
+
           <h1 class="project-title">{project.title}</h1>
           <p class="project-description">{project.description}</p>
-          
+
           <div class="project-metrics-header">
             <div class="metric">
               <span class="metric-label">Impact</span>
@@ -68,25 +76,37 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
               <span class="metric-value">{project.metrics.scale}</span>
             </div>
           </div>
-          
+
           <div class="project-actions">
-            {project.links.demo && (
-              <a href={project.links.demo} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                View Live Demo
-              </a>
-            )}
-            {project.links.github && (
-              <a href={project.links.github} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
-                View Source Code
-              </a>
-            )}
+            {
+              project.links.demo && (
+                <a
+                  href={project.links.demo}
+                  class="btn btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Live Demo
+                </a>
+              )
+            }
+            {
+              project.links.github && (
+                <a
+                  href={project.links.github}
+                  class="btn btn-secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Source Code
+                </a>
+              )
+            }
           </div>
         </div>
-        
-        
       </div>
     </section>
-    
+
     <!-- Case Study Content -->
     <section class="case-study-content">
       <div class="container">
@@ -95,136 +115,199 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
             <div class="case-study-section">
               <div class="case-study-content" set:html={project.content} />
             </div>
-            
-            {project.pdfDownload && (
-              <div class="case-study-section">
-                <h2>Download Full Case Study</h2>
-                <a href={project.pdfDownload} class="download-link" target="_blank" rel="noopener noreferrer">
-                  <span class="download-icon">📄</span>
-                  Download PDF Case Study
-                </a>
-              </div>
-            )}
+
+            {
+              project.pdfDownload && (
+                <div class="case-study-section">
+                  <h2>Download Full Case Study</h2>
+                  <a
+                    href={project.pdfDownload}
+                    class="download-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span class="download-icon">📄</span>
+                    Download PDF Case Study
+                  </a>
+                </div>
+              )
+            }
           </div>
-          
+
           <aside class="case-study-sidebar">
             <div class="sidebar-section">
               <h3>Technologies Used</h3>
               <div class="tech-list">
-                {project.technologies.map(tech => (
-                  <span class="tech-badge">{tech}</span>
-                ))}
+                {
+                  project.technologies.map(tech => (
+                    <span class="tech-badge">{tech}</span>
+                  ))
+                }
               </div>
             </div>
-            
+
             <div class="sidebar-section">
               <h3>Project Tags</h3>
               <div class="tag-list">
-                {project.tags.map(tag => (
-                  <span class="tag-badge">{tag}</span>
-                ))}
+                {project.tags.map(tag => <span class="tag-badge">{tag}</span>)}
               </div>
             </div>
-            
+
             <div class="sidebar-section">
               <h3>Project Details</h3>
               <dl class="project-details">
                 <dt>Completed</dt>
-                <dd>{new Date(project.dateCompleted).toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}</dd>
+                <dd>
+                  {
+                    new Date(project.dateCompleted).toLocaleDateString(
+                      'en-US',
+                      {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      }
+                    )
+                  }
+                </dd>
                 <dt>Category</dt>
                 <dd>{project.category}</dd>
               </dl>
             </div>
-            
+
             <div class="sidebar-section">
               <h3>Related Services</h3>
               <div class="related-services">
-                {project.tags.includes('IoT') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/iot-integration/`} class="service-link">
-                    <span class="service-icon">🌾</span>
-                    IoT Integration
-                  </a>
-                )}
-                {project.tags.includes('Mobile') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/mobile-apps/`} class="service-link">
-                    <span class="service-icon">📱</span>
-                    Mobile Apps
-                  </a>
-                )}
-                {project.tags.includes('Analytics') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/data-analytics/`} class="service-link">
-                    <span class="service-icon">📊</span>
-                    Data Analytics
-                  </a>
-                )}
-                {project.tags.includes('API') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/api-development/`} class="service-link">
-                    <span class="service-icon">🔗</span>
-                    API Development
-                  </a>
-                )}
-                {(project.tags.includes('Automation') || project.category === 'Farm Management') && (
-                  <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/automation-systems/`} class="service-link">
-                    <span class="service-icon">⚙️</span>
-                    Automation Systems
-                  </a>
-                )}
+                {
+                  project.tags.includes('IoT') && (
+                    <a
+                      href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/iot-integration/`}
+                      class="service-link"
+                    >
+                      <span class="service-icon">🌾</span>
+                      IoT Integration
+                    </a>
+                  )
+                }
+                {
+                  project.tags.includes('Mobile') && (
+                    <a
+                      href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/mobile-apps/`}
+                      class="service-link"
+                    >
+                      <span class="service-icon">📱</span>
+                      Mobile Apps
+                    </a>
+                  )
+                }
+                {
+                  project.tags.includes('Analytics') && (
+                    <a
+                      href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/data-analytics/`}
+                      class="service-link"
+                    >
+                      <span class="service-icon">📊</span>
+                      Data Analytics
+                    </a>
+                  )
+                }
+                {
+                  project.tags.includes('API') && (
+                    <a
+                      href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/api-development/`}
+                      class="service-link"
+                    >
+                      <span class="service-icon">🔗</span>
+                      API Development
+                    </a>
+                  )
+                }
+                {
+                  (project.tags.includes('Automation') ||
+                    project.category === 'Farm Management') && (
+                    <a
+                      href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/services/automation-systems/`}
+                      class="service-link"
+                    >
+                      <span class="service-icon">⚙️</span>
+                      Automation Systems
+                    </a>
+                  )
+                }
               </div>
             </div>
           </aside>
         </div>
       </div>
     </section>
-    
+
     <!-- Client Testimonials -->
-    <TestimonialsSection 
+    <TestimonialsSection
       projectId={project.id}
       title="What Clients Say About This Project"
     />
-    
+
     <!-- Related Projects -->
     <section class="related-projects">
       <div class="container">
         <h2>More Projects</h2>
         <div class="related-grid">
-          {projectsData
-            .filter(p => p.id !== project.id)
-            .slice(0, 3)
-            .map(relatedProject => (
-              <article class="related-project-card">
-                <a href={`/projects/${relatedProject.id}`} class="related-project-link">
-                  <div class="related-project-image related-project-initials" aria-hidden="true">{relatedProject.title.split(' ').map(w => w[0]).slice(0,3).join('').toUpperCase()}</div>
-                  <div class="related-project-content">
-                    <h3>{relatedProject.title}</h3>
-                    <p>{relatedProject.description}</p>
-                    <span class="related-project-category">{relatedProject.category}</span>
-                  </div>
-                </a>
-              </article>
-            ))
+          {
+            projectsData
+              .filter(p => p.id !== project.id)
+              .slice(0, 3)
+              .map(relatedProject => (
+                <article class="related-project-card">
+                  <a
+                    href={`/projects/${relatedProject.id}`}
+                    class="related-project-link"
+                  >
+                    <div
+                      class="related-project-image related-project-initials"
+                      aria-hidden="true"
+                    >
+                      {relatedProject.title
+                        .split(' ')
+                        .map(w => w[0])
+                        .slice(0, 3)
+                        .join('')
+                        .toUpperCase()}
+                    </div>
+                    <div class="related-project-content">
+                      <h3>{relatedProject.title}</h3>
+                      <p>{relatedProject.description}</p>
+                      <span class="related-project-category">
+                        {relatedProject.category}
+                      </span>
+                    </div>
+                  </a>
+                </article>
+              ))
           }
         </div>
-        
+
         <div class="view-all-projects">
-          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase/`} class="btn btn-outline">View All Projects</a>
+          <a
+            href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase/`}
+            class="btn btn-outline">View All Projects</a
+          >
         </div>
       </div>
     </section>
-    
+
     <!-- Call to Action -->
     <section class="project-cta">
       <div class="container">
         <div class="cta-content">
           <h2>Interested in a Similar Solution?</h2>
           <p>
-            Let's discuss how Agrxculture can help you develop custom agricultural technology 
-            that addresses your specific farming challenges and goals.
+            Let's discuss how Agrxculture can help you develop custom
+            agricultural technology that addresses your specific farming
+            challenges and goals.
           </p>
-          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`} class="btn btn-primary btn-lg">
+          <a
+            href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`}
+            class="btn btn-primary btn-lg"
+          >
             Start Your Project
           </a>
         </div>
@@ -237,19 +320,19 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
   .project-page {
     min-height: 100vh;
   }
-  
+
   .container {
     max-width: var(--container-lg);
     margin: 0 auto;
     padding: 0 var(--space-md);
   }
-  
+
   /* Breadcrumb */
   .breadcrumb {
     background: var(--color-background-alt);
     padding: var(--space-md) 0;
   }
-  
+
   .breadcrumb-list {
     display: flex;
     align-items: center;
@@ -259,42 +342,46 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     padding: 0;
     font-size: var(--font-size-sm);
   }
-  
+
   .breadcrumb-list li:not(:last-child)::after {
     content: '→';
     margin-left: var(--space-sm);
     color: var(--color-text-secondary);
   }
-  
+
   .breadcrumb-list a {
     color: var(--color-primary);
     text-decoration: none;
   }
-  
+
   .breadcrumb-list a:hover {
     text-decoration: underline;
   }
-  
+
   /* Project Header */
   .project-header {
     padding: var(--space-3xl) 0;
-    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-background) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-light) 0%,
+      var(--color-background) 100%
+    );
   }
-  
+
   .project-header .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-3xl);
     align-items: center;
   }
-  
+
   .project-meta {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
     margin-bottom: var(--space-md);
   }
-  
+
   .featured-badge {
     background: var(--color-accent);
     color: white;
@@ -303,7 +390,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     font-size: var(--font-size-xs);
     font-weight: 600;
   }
-  
+
   .project-category {
     background: var(--color-primary-light);
     color: var(--color-primary);
@@ -312,7 +399,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     font-size: var(--font-size-sm);
     font-weight: 500;
   }
-  
+
   .project-title {
     font-size: var(--font-size-4xl);
     font-weight: 700;
@@ -320,14 +407,14 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     margin-bottom: var(--space-md);
     line-height: 1.2;
   }
-  
+
   .project-description {
     font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
     line-height: 1.6;
     margin-bottom: var(--space-xl);
   }
-  
+
   .project-metrics-header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -337,11 +424,11 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     background: var(--color-surface);
     border-radius: var(--border-radius-md);
   }
-  
+
   .metric {
     text-align: center;
   }
-  
+
   .metric-label {
     display: block;
     font-size: var(--font-size-sm);
@@ -349,53 +436,51 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     font-weight: 500;
     margin-bottom: var(--space-xs);
   }
-  
+
   .metric-value {
     display: block;
     font-size: var(--font-size-lg);
     color: var(--color-text-primary);
     font-weight: 600;
   }
-  
+
   .project-actions {
     display: flex;
     gap: var(--space-md);
   }
-  
+
   .project-image-container {
     position: relative;
   }
-  
-  
-  
+
   /* Case Study Content */
   .case-study-content {
     padding: var(--space-3xl) 0;
   }
-  
+
   .case-study-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: var(--space-3xl);
   }
-  
+
   .case-study-section {
     margin-bottom: var(--space-3xl);
   }
-  
+
   .case-study-section h2 {
     font-size: var(--font-size-2xl);
     font-weight: 600;
     color: var(--color-primary);
     margin-bottom: var(--space-lg);
   }
-  
+
   .case-study-section p {
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     line-height: 1.7;
   }
-  
+
   .case-study-content h2 {
     font-size: var(--font-size-2xl);
     font-weight: 600;
@@ -403,18 +488,18 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     margin-bottom: var(--space-lg);
     margin-top: var(--space-2xl);
   }
-  
+
   .case-study-content h2:first-child {
     margin-top: 0;
   }
-  
+
   .case-study-content p {
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     line-height: 1.7;
     margin-bottom: var(--space-lg);
   }
-  
+
   .download-link {
     display: inline-flex;
     align-items: center;
@@ -427,16 +512,16 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     border-radius: var(--border-radius-md);
     transition: all 0.2s ease-out;
   }
-  
+
   .download-link:hover {
     background: var(--color-primary);
     color: white;
   }
-  
+
   .download-icon {
     font-size: var(--font-size-lg);
   }
-  
+
   /* Sidebar */
   .case-study-sidebar {
     background: var(--color-surface);
@@ -446,28 +531,29 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     position: sticky;
     top: var(--space-xl);
   }
-  
+
   .sidebar-section {
     margin-bottom: var(--space-xl);
   }
-  
+
   .sidebar-section:last-child {
     margin-bottom: 0;
   }
-  
+
   .sidebar-section h3 {
     font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--color-text-primary);
     margin-bottom: var(--space-md);
   }
-  
-  .tech-list, .tag-list {
+
+  .tech-list,
+  .tag-list {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
   }
-  
+
   .tech-badge {
     background: var(--color-secondary-light);
     color: var(--color-secondary);
@@ -476,7 +562,7 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     font-size: var(--font-size-sm);
     font-weight: 500;
   }
-  
+
   .tag-badge {
     background: var(--color-primary);
     color: white;
@@ -485,30 +571,30 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     font-size: var(--font-size-sm);
     font-weight: 500;
   }
-  
+
   .project-details {
     margin: 0;
   }
-  
+
   .project-details dt {
     font-weight: 600;
     color: var(--color-text-primary);
     margin-bottom: var(--space-xs);
   }
-  
+
   .project-details dd {
     color: var(--color-text-secondary);
     margin-bottom: var(--space-md);
     margin-left: 0;
   }
-  
+
   /* Related Services */
   .related-services {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
   }
-  
+
   .service-link {
     display: flex;
     align-items: center;
@@ -523,24 +609,24 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     font-weight: 500;
     transition: all 0.2s ease-out;
   }
-  
+
   .service-link:hover {
     background: var(--color-primary);
     color: white;
     border-color: var(--color-primary);
     transform: translateX(2px);
   }
-  
+
   .service-icon {
     font-size: var(--font-size-md);
   }
-  
+
   /* Related Projects */
   .related-projects {
     padding: var(--space-3xl) 0;
     background: var(--color-background-alt);
   }
-  
+
   .related-projects h2 {
     font-size: var(--font-size-3xl);
     font-weight: 600;
@@ -548,54 +634,66 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     text-align: center;
     margin-bottom: var(--space-2xl);
   }
-  
+
   .related-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-xl);
     margin-bottom: var(--space-2xl);
   }
-  
+
   .related-project-card {
     background: var(--color-surface);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.2s ease-out;
   }
-  
+
   .related-project-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
   }
-  
+
   .related-project-link {
     display: block;
     text-decoration: none;
     color: inherit;
   }
-  
-  .related-project-image { display: flex; align-items: center; justify-content: center; height: 200px; background: var(--color-primary); color: white; font-weight: 800; }
-  .related-project-initials { font-size: 1.5rem; }
-  
+
+  .related-project-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background: var(--color-primary);
+    color: white;
+    font-weight: 800;
+  }
+  .related-project-initials {
+    font-size: 1.5rem;
+  }
+
   .related-project-content {
     padding: var(--space-lg);
   }
-  
+
   .related-project-content h3 {
     font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--color-text-primary);
     margin-bottom: var(--space-sm);
   }
-  
+
   .related-project-content p {
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
     line-height: 1.5;
     margin-bottom: var(--space-md);
   }
-  
+
   .related-project-category {
     background: var(--color-primary-light);
     color: var(--color-primary);
@@ -604,11 +702,11 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     font-size: var(--font-size-xs);
     font-weight: 500;
   }
-  
+
   .view-all-projects {
     text-align: center;
   }
-  
+
   /* Call to Action */
   .project-cta {
     background: var(--color-primary);
@@ -616,13 +714,13 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     padding: var(--space-3xl) 0;
     text-align: center;
   }
-  
+
   .cta-content h2 {
     font-size: var(--font-size-3xl);
     font-weight: 600;
     margin-bottom: var(--space-md);
   }
-  
+
   .cta-content p {
     font-size: var(--font-size-lg);
     opacity: 0.9;
@@ -630,47 +728,47 @@ const { seoConfig, structuredData, breadcrumbs } = generateProjectPageSEO(projec
     margin: 0 auto var(--space-xl);
     line-height: 1.6;
   }
-  
+
   .btn-lg {
     padding: var(--space-md) var(--space-xl);
     font-size: var(--font-size-lg);
   }
-  
+
   /* Responsive Design */
   @media (max-width: 1024px) {
     .case-study-grid {
       grid-template-columns: 1fr;
       gap: var(--space-2xl);
     }
-    
+
     .case-study-sidebar {
       position: static;
     }
   }
-  
+
   @media (max-width: 768px) {
     .project-header .container {
       grid-template-columns: 1fr;
       gap: var(--space-2xl);
     }
-    
+
     .project-title {
       font-size: var(--font-size-3xl);
     }
-    
+
     .project-metrics-header {
       grid-template-columns: 1fr;
       gap: var(--space-md);
     }
-    
+
     .project-actions {
       flex-direction: column;
     }
-    
+
     .case-study-sidebar {
       padding: var(--space-lg);
     }
-    
+
     .related-grid {
       grid-template-columns: 1fr;
     }

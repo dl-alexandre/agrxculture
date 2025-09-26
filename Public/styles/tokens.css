@@ -43,7 +43,7 @@
   --breakpoint-md: 1024px; /* Desktop */
   --breakpoint-lg: 1200px; /* Large desktop */
   --breakpoint-xl: 1440px; /* Extra large desktop */
-  
+
   /* Container Responsive Widths */
   --container-xs: 100%;
   --container-sm: 100%;
@@ -95,7 +95,7 @@
   --border-radius-lg: 0.75rem; /* 12px */
   --border-radius-xl: 1rem; /* 16px */
   --border-radius-full: 9999px;
-  
+
   /* Legacy border radius (for compatibility) */
   --radius-sm: 0.25rem; /* 4px */
   --radius-md: 0.5rem; /* 8px */

@@ -9,15 +9,15 @@
  */
 export function getImageUrl(imagePath: string): string {
   const baseUrl = import.meta.env.BASE_URL;
-  
+
   // If path already starts with base URL, return as is
   if (imagePath.startsWith(baseUrl)) {
     return imagePath;
   }
-  
+
   // Remove leading slash if present
   const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
-  
+
   // Combine base URL with clean path
   return `${baseUrl}${cleanPath}`;
 }

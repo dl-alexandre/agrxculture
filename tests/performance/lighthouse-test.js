@@ -16,8 +16,8 @@ const PERFORMANCE_THRESHOLDS = {
 };
 
 // Test URLs (adjust based on your deployment)
-const BASE = process.env.BASE_PATH || '/';
-const url = (p) => `http://localhost:4321${BASE}${p.replace(/^\//,'')}`;
+const BASE = process.env.CI ? '/agrxculture/' : '/';
+const url = p => `http://localhost:4321${BASE}${p.replace(/^\//, '')}`;
 const TEST_URLS = [
   url('/'),
   url('/services'),
@@ -37,10 +37,10 @@ async function runLighthouseTest(url) {
       '--disable-frame-sequence-analysis',
       '--disable-background-timer-throttling',
       '--disable-backgrounding-occluded-windows',
-      '--disable-renderer-backgrounding'
-    ]
+      '--disable-renderer-backgrounding',
+    ],
   });
-  
+
   const options = {
     port: chrome.port,
     output: 'json',
@@ -51,18 +51,18 @@ async function runLighthouseTest(url) {
       cpuSlowdownMultiplier: 1,
       requestLatencyMs: 0,
       downloadThroughputKbps: 0,
-      uploadThroughputKbps: 0
-    }
+      uploadThroughputKbps: 0,
+    },
   };
 
   try {
     const runnerResult = await lighthouse(url, options);
     await chrome.kill();
-    
+
     if (!runnerResult || !runnerResult.lhr) {
       throw new Error('Lighthouse returned no results');
     }
-    
+
     return runnerResult.lhr;
   } catch (error) {
     await chrome.kill();
@@ -77,13 +77,13 @@ function analyzeResults(lhr, url) {
     return {
       url,
       passed: false,
-      error: 'Invalid Lighthouse result'
+      error: 'Invalid Lighthouse result',
     };
   }
 
   const scores = lhr.categories;
   const audits = lhr.audits;
-  
+
   const report = {
     url,
     timestamp: new Date().toISOString(),
@@ -95,8 +95,10 @@ function analyzeResults(lhr, url) {
     },
     metrics: {
       firstContentfulPaint: audits['first-contentful-paint']?.numericValue || 0,
-      largestContentfulPaint: audits['largest-contentful-paint']?.numericValue || 0,
-      cumulativeLayoutShift: audits['cumulative-layout-shift']?.numericValue || 0,
+      largestContentfulPaint:
+        audits['largest-contentful-paint']?.numericValue || 0,
+      cumulativeLayoutShift:
+        audits['cumulative-layout-shift']?.numericValue || 0,
       speedIndex: audits['speed-index']?.numericValue || 0,
     },
     passed: true,
@@ -106,7 +108,7 @@ function analyzeResults(lhr, url) {
   // Check thresholds
   Object.entries(PERFORMANCE_THRESHOLDS).forEach(([metric, threshold]) => {
     let actualValue;
-    
+
     if (metric in report.scores) {
       actualValue = report.scores[metric];
     } else if (metric in report.metrics) {
@@ -115,9 +117,12 @@ function analyzeResults(lhr, url) {
       return;
     }
 
-    const passed = metric.includes('shift') || metric.includes('paint') || metric.includes('index')
-      ? actualValue <= threshold  // Lower is better for timing metrics
-      : actualValue >= threshold; // Higher is better for scores
+    const passed =
+      metric.includes('shift') ||
+      metric.includes('paint') ||
+      metric.includes('index')
+        ? actualValue <= threshold // Lower is better for timing metrics
+        : actualValue >= threshold; // Higher is better for scores
 
     if (!passed) {
       report.passed = false;
@@ -136,31 +141,35 @@ function analyzeResults(lhr, url) {
 async function runAllTests() {
   console.log('🚀 Starting Lighthouse performance tests...');
   console.log('📊 Testing against agricultural portfolio requirements\n');
-  
+
   const allResults = [];
-  
+
   for (const url of TEST_URLS) {
     console.log(`Testing: ${url}`);
-    
+
     try {
       const results = await runLighthouseTest(url);
       const analysis = analyzeResults(results, url);
       allResults.push(analysis);
-      
+
       console.log(`✅ Performance: ${analysis.scores.performance}%`);
       console.log(`♿ Accessibility: ${analysis.scores.accessibility}%`);
       console.log(`🏆 Best Practices: ${analysis.scores.bestPractices}%`);
       console.log(`🔍 SEO: ${analysis.scores.seo}%`);
-      console.log(`⚡ FCP: ${Math.round(analysis.metrics.firstContentfulPaint)}ms`);
-      console.log(`🎯 LCP: ${Math.round(analysis.metrics.largestContentfulPaint)}ms`);
-      
+      console.log(
+        `⚡ FCP: ${Math.round(analysis.metrics.firstContentfulPaint)}ms`
+      );
+      console.log(
+        `🎯 LCP: ${Math.round(analysis.metrics.largestContentfulPaint)}ms`
+      );
+
       if (!analysis.passed) {
         console.log('❌ Failures:');
         analysis.failures.forEach(failure => {
           console.log(`   - ${failure.message}`);
         });
       }
-      
+
       console.log('');
     } catch (error) {
       console.error(`❌ Failed to test ${url}:`, error.message);
@@ -175,14 +184,14 @@ async function runAllTests() {
   // Save detailed results
   const reportPath = path.join(process.cwd(), 'lighthouse-results.json');
   fs.writeFileSync(reportPath, JSON.stringify(allResults, null, 2));
-  
+
   // Summary
   const passedTests = allResults.filter(r => r.passed).length;
   const totalTests = allResults.length;
-  
+
   console.log(`📋 Summary: ${passedTests}/${totalTests} tests passed`);
   console.log(`📄 Detailed results saved to: ${reportPath}`);
-  
+
   if (passedTests < totalTests) {
     console.log('❌ Some performance tests failed. Check the results above.');
     process.exit(1);

@@ -7,16 +7,19 @@ export interface BreadcrumbItem {
 /**
  * Generate breadcrumb structured data for SEO
  */
-export function generateBreadcrumbSchema(items: BreadcrumbItem[], siteUrl: string): object {
+export function generateBreadcrumbSchema(
+  items: BreadcrumbItem[],
+  siteUrl: string
+): object {
   return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.label,
-      "item": item.current ? undefined : `${siteUrl}${item.url}`
-    }))
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.label,
+      item: item.current ? undefined : `${siteUrl}${item.url}`,
+    })),
   };
 }
 
@@ -27,9 +30,7 @@ export function generateBreadcrumbItems(
   currentPage: string,
   additionalItems?: Array<{ label: string; url: string }>
 ): BreadcrumbItem[] {
-  const baseItems: BreadcrumbItem[] = [
-    { label: 'Home', url: '/' }
-  ];
+  const baseItems: BreadcrumbItem[] = [{ label: 'Home', url: '/' }];
 
   if (additionalItems) {
     baseItems.push(...additionalItems);

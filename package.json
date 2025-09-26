@@ -34,15 +34,13 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:accessibility": "vitest --run tests/accessibility",
-    "test:performance": "node tests/performance/lighthouse-test.js",
-    "test:all": "npm run test && npm run test:e2e && npm run test:accessibility && npm run test:performance"
+    "test:performance": "npm run build && npm run preview -- --port 4321 --host & sleep 5 && node tests/performance/lighthouse-test.js && pkill -f 'astro preview'",
+    "test:all": "npm run test && npm run test:e2e && npm run test:accessibility && npm run test:performance",
+    "build-fix-test": "node scripts/build-fix-test.js"
   },
   "dependencies": {
-    "@astrojs/node": "^9.4.4",
-    "@types/nodemailer": "^7.0.1",
     "astro": "^5.13.3",
-    "gray-matter": "^4.0.3",
-    "nodemailer": "^7.0.6"
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.8.0",

@@ -1,7 +1,7 @@
 /**
  * Service Worker Registration
  * Task 9: Performance optimizations and accessibility features
- * 
+ *
  * Features:
  * - Progressive enhancement (works without SW)
  * - Graceful fallback for unsupported browsers
@@ -35,9 +35,12 @@ class ServiceWorkerManager {
   async registerServiceWorker() {
     try {
       const baseUrl = window.BASE_URL || '/';
-      this.swRegistration = await navigator.serviceWorker.register(`${baseUrl}sw.js`, {
-        scope: baseUrl
-      });
+      this.swRegistration = await navigator.serviceWorker.register(
+        `${baseUrl}sw.js`,
+        {
+          scope: baseUrl,
+        }
+      );
 
       console.log('Service Worker registered successfully');
 
@@ -51,7 +54,6 @@ class ServiceWorkerManager {
       } else if (this.swRegistration.active) {
         console.log('Service Worker active');
       }
-
     } catch (error) {
       console.error('Service Worker registration failed:', error);
       throw error;
@@ -64,12 +66,15 @@ class ServiceWorkerManager {
     // Listen for updates
     this.swRegistration.addEventListener('updatefound', () => {
       const newWorker = this.swRegistration.installing;
-      
+
       if (newWorker) {
         this.trackInstallProgress(newWorker);
-        
+
         newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          if (
+            newWorker.state === 'installed' &&
+            navigator.serviceWorker.controller
+          ) {
             this.showUpdateAvailable();
           }
         });
@@ -89,7 +94,7 @@ class ServiceWorkerManager {
   trackInstallProgress(worker) {
     worker.addEventListener('statechange', () => {
       console.log('Service Worker state changed:', worker.state);
-      
+
       switch (worker.state) {
         case 'installed':
           console.log('Service Worker installed');
@@ -108,13 +113,15 @@ class ServiceWorkerManager {
   showUpdateAvailable() {
     this.updateAvailable = true;
     console.log('App update available');
-    
+
     // Dispatch custom event for UI to handle
-    document.dispatchEvent(new CustomEvent('swUpdateAvailable', {
-      detail: {
-        registration: this.swRegistration
-      }
-    }));
+    document.dispatchEvent(
+      new CustomEvent('swUpdateAvailable', {
+        detail: {
+          registration: this.swRegistration,
+        },
+      })
+    );
 
     // Show subtle notification (non-intrusive)
     this.showUpdateNotification();
@@ -227,7 +234,7 @@ class ServiceWorkerManager {
 
     // Tell the waiting service worker to skip waiting
     this.swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
-    
+
     // Remove notification
     const notification = document.querySelector('.sw-update-notification');
     if (notification) {
@@ -237,14 +244,14 @@ class ServiceWorkerManager {
 
   setupPerformanceIntegration() {
     // Integrate with performance monitoring
-    document.addEventListener('performanceReport', (event) => {
+    document.addEventListener('performanceReport', event => {
       const { metrics } = event.detail;
-      
+
       // Send performance data to service worker for caching decisions
       if (this.swRegistration && this.swRegistration.active) {
         this.swRegistration.active.postMessage({
           type: 'PERFORMANCE_DATA',
-          metrics: metrics
+          metrics: metrics,
         });
       }
     });
@@ -252,13 +259,15 @@ class ServiceWorkerManager {
 
   onServiceWorkerReady() {
     console.log('Service Worker ready');
-    
+
     // Dispatch ready event
-    document.dispatchEvent(new CustomEvent('swReady', {
-      detail: {
-        registration: this.swRegistration
-      }
-    }));
+    document.dispatchEvent(
+      new CustomEvent('swReady', {
+        detail: {
+          registration: this.swRegistration,
+        },
+      })
+    );
 
     // Preload critical resources
     this.preloadCriticalResources();
@@ -275,7 +284,7 @@ class ServiceWorkerManager {
     // Request service worker to cache critical resources
     this.swRegistration.active.postMessage({
       type: 'PRELOAD_RESOURCES',
-      resources: criticalResources
+      resources: criticalResources,
     });
   }
 
@@ -317,9 +326,9 @@ if (document.readyState === 'loading') {
 }
 
 // Handle messages from service worker
-navigator.serviceWorker?.addEventListener('message', (event) => {
+navigator.serviceWorker?.addEventListener('message', event => {
   const { type, data } = event.data;
-  
+
   switch (type) {
     case 'CACHE_UPDATED':
       console.log('Cache updated:', data);

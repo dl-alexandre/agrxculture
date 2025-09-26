@@ -8,16 +8,19 @@ const baseUrl = import.meta.env.BASE_URL;
 <section class="about-section" id="about">
   <div class="container">
     <!-- Breadcrumbs -->
-    <Breadcrumbs items={[
-      { label: 'Home', url: '/' },
-      { label: 'About', url: '/about', current: true }
-    ]} />
-    
+    <Breadcrumbs
+      items={[
+        { label: 'Home', url: '/' },
+        { label: 'About', url: '/about', current: true },
+      ]}
+    />
+
     <!-- Section Header -->
     <div class="section-header">
       <h2 class="section-title">About Agrxculture</h2>
       <p class="section-subtitle">
-        Bridging technology and agriculture to create data-driven farming solutions
+        Bridging technology and agriculture to create data-driven farming
+        solutions
       </p>
     </div>
 
@@ -27,19 +30,21 @@ const baseUrl = import.meta.env.BASE_URL;
         <div class="intro-text">
           <h3>Passionate About Agricultural Innovation</h3>
           <p>
-            Agrxculture is a specialized agricultural technology company with a deep passion for transforming agriculture through technology. 
-            Our journey began with a fascination for how data and automation can solve real-world farming challenges, 
-            from optimizing crop yields to reducing resource waste.
+            Agrxculture is a specialized agricultural technology company with a
+            deep passion for transforming agriculture through technology. Our
+            journey began with a fascination for how data and automation can
+            solve real-world farming challenges, from optimizing crop yields to
+            reducing resource waste.
           </p>
           <p>
-            With expertise spanning IoT sensor networks, mobile applications, and data analytics, we specialize 
-            in creating custom solutions that help farmers make informed decisions and improve operational efficiency. 
-            Every project we undertake focuses on delivering measurable results that directly impact farm productivity 
-            and sustainability.
+            With expertise spanning IoT sensor networks, mobile applications,
+            and data analytics, we specialize in creating custom solutions that
+            help farmers make informed decisions and improve operational
+            efficiency. Every project we undertake focuses on delivering
+            measurable results that directly impact farm productivity and
+            sustainability.
           </p>
         </div>
-        
-        
       </div>
 
       <!-- Agricultural Technology Expertise -->
@@ -48,17 +53,25 @@ const baseUrl = import.meta.env.BASE_URL;
         <div class="expertise-grid">
           <div class="expertise-card">
             <div class="expertise-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                <path d="M2 17l10 5 10-5"/>
-                <path d="M2 12l10 5 10-5"/>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
               </svg>
             </div>
             <h4>IoT Sensor Networks</h4>
             <p>
-              Design and implement comprehensive sensor systems for soil moisture monitoring, 
-              weather tracking, and crop health assessment. Expertise in low-power wireless 
-              protocols and edge computing for reliable field data collection.
+              Design and implement comprehensive sensor systems for soil
+              moisture monitoring, weather tracking, and crop health assessment.
+              Expertise in low-power wireless protocols and edge computing for
+              reliable field data collection.
             </p>
             <ul class="expertise-applications">
               <li>Soil moisture and pH monitoring systems</li>
@@ -69,17 +82,25 @@ const baseUrl = import.meta.env.BASE_URL;
 
           <div class="expertise-card">
             <div class="expertise-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
               </svg>
             </div>
             <h4>Precision Agriculture Analytics</h4>
             <p>
-              Develop data-driven insights from farm operations using machine learning and 
-              statistical analysis. Transform raw sensor data into actionable recommendations 
-              for yield optimization and resource management.
+              Develop data-driven insights from farm operations using machine
+              learning and statistical analysis. Transform raw sensor data into
+              actionable recommendations for yield optimization and resource
+              management.
             </p>
             <ul class="expertise-applications">
               <li>Yield prediction and crop modeling algorithms</li>
@@ -90,22 +111,31 @@ const baseUrl = import.meta.env.BASE_URL;
 
           <div class="expertise-card">
             <div class="expertise-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                <line x1="7" y1="2" x2="7" y2="22"/>
-                <line x1="17" y1="2" x2="17" y2="22"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <line x1="2" y1="7" x2="7" y2="7"/>
-                <line x1="2" y1="17" x2="7" y2="17"/>
-                <line x1="17" y1="17" x2="22" y2="17"/>
-                <line x1="17" y1="7" x2="22" y2="7"/>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"
+                ></rect>
+                <line x1="7" y1="2" x2="7" y2="22"></line>
+                <line x1="17" y1="2" x2="17" y2="22"></line>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <line x1="2" y1="7" x2="7" y2="7"></line>
+                <line x1="2" y1="17" x2="7" y2="17"></line>
+                <line x1="17" y1="17" x2="22" y2="17"></line>
+                <line x1="17" y1="7" x2="22" y2="7"></line>
               </svg>
             </div>
             <h4>Farm Management Systems</h4>
             <p>
-              Build comprehensive digital platforms that integrate all aspects of farm operations, 
-              from field planning to harvest tracking. Focus on user-friendly interfaces that 
-              work reliably in challenging field conditions.
+              Build comprehensive digital platforms that integrate all aspects
+              of farm operations, from field planning to harvest tracking. Focus
+              on user-friendly interfaces that work reliably in challenging
+              field conditions.
             </p>
             <ul class="expertise-applications">
               <li>Field mapping and crop rotation planning</li>
@@ -128,8 +158,9 @@ const baseUrl = import.meta.env.BASE_URL;
               <span class="skill-tag">React Native</span>
             </div>
             <p class="skill-application">
-              Field-ready mobile apps for real-time farm monitoring, equipment control, 
-              and data collection that work offline in remote agricultural areas.
+              Field-ready mobile apps for real-time farm monitoring, equipment
+              control, and data collection that work offline in remote
+              agricultural areas.
             </p>
           </div>
 
@@ -142,8 +173,9 @@ const baseUrl = import.meta.env.BASE_URL;
               <span class="skill-tag">REST APIs</span>
             </div>
             <p class="skill-application">
-              Scalable backend systems for processing agricultural data, integrating with 
-              third-party services, and providing reliable APIs for farm management platforms.
+              Scalable backend systems for processing agricultural data,
+              integrating with third-party services, and providing reliable APIs
+              for farm management platforms.
             </p>
           </div>
 
@@ -156,8 +188,9 @@ const baseUrl = import.meta.env.BASE_URL;
               <span class="skill-tag">Data Visualization</span>
             </div>
             <p class="skill-application">
-              Advanced analytics for crop yield prediction, resource optimization, 
-              and agricultural trend analysis using statistical modeling and ML algorithms.
+              Advanced analytics for crop yield prediction, resource
+              optimization, and agricultural trend analysis using statistical
+              modeling and ML algorithms.
             </p>
           </div>
 
@@ -170,8 +203,9 @@ const baseUrl = import.meta.env.BASE_URL;
               <span class="skill-tag">MQTT</span>
             </div>
             <p class="skill-application">
-              End-to-end IoT solutions for agricultural monitoring, from sensor deployment 
-              to cloud integration, designed for harsh outdoor environments.
+              End-to-end IoT solutions for agricultural monitoring, from sensor
+              deployment to cloud integration, designed for harsh outdoor
+              environments.
             </p>
           </div>
         </div>
@@ -183,53 +217,79 @@ const baseUrl = import.meta.env.BASE_URL;
         <div class="values-grid">
           <div class="value-item">
             <div class="value-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                <path d="M2 17l10 5 10-5"/>
-                <path d="M2 12l10 5 10-5"/>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
               </svg>
             </div>
             <div class="value-content">
               <h4>Data-Driven Solutions</h4>
               <p class="value-description">
-                We believe in the power of data to transform agricultural operations. Every solution 
-                we build focuses on collecting, analyzing, and presenting actionable insights that 
-                help farmers make informed decisions.
+                We believe in the power of data to transform agricultural
+                operations. Every solution we build focuses on collecting,
+                analyzing, and presenting actionable insights that help farmers
+                make informed decisions.
               </p>
             </div>
           </div>
 
           <div class="value-item">
             <div class="value-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z"/>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z"
+                ></path>
               </svg>
             </div>
             <div class="value-content">
               <h4>Sustainable Innovation</h4>
               <p class="value-description">
-                Our technology solutions are designed with sustainability at their core, helping 
-                farmers optimize resource usage, reduce waste, and implement environmentally 
-                responsible farming practices.
+                Our technology solutions are designed with sustainability at
+                their core, helping farmers optimize resource usage, reduce
+                waste, and implement environmentally responsible farming
+                practices.
               </p>
             </div>
           </div>
 
           <div class="value-item">
             <div class="value-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg>
             </div>
             <div class="value-content">
               <h4>Farmer-Centric Design</h4>
               <p class="value-description">
-                We design our solutions with real farmers in mind, ensuring that our technology 
-                is practical, reliable, and easy to use in challenging field conditions and 
-                diverse agricultural environments.
+                We design our solutions with real farmers in mind, ensuring that
+                our technology is practical, reliable, and easy to use in
+                challenging field conditions and diverse agricultural
+                environments.
               </p>
             </div>
           </div>
@@ -242,21 +302,29 @@ const baseUrl = import.meta.env.BASE_URL;
           <div class="resume-content">
             <h3>Learn More About Agrxculture</h3>
             <p>
-              Get a comprehensive overview of our agricultural technology expertise, 
-              project outcomes, and technical capabilities in our company information packet.
+              Get a comprehensive overview of our agricultural technology
+              expertise, project outcomes, and technical capabilities in our
+              company information packet.
             </p>
           </div>
           <div class="resume-action">
-            <a 
+            <a
               href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/documents/agrxculture-company-overview.pdf`}
               class="resume-download-btn"
               download="Agrxculture-Company-Overview.pdf"
               aria-label="Download Agrxculture company overview as PDF"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7,10 12,15 17,10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
               Download Company Info
             </a>
@@ -394,8 +462,6 @@ const baseUrl = import.meta.env.BASE_URL;
     justify-content: center;
   }
 
-  
-
   /* Expertise Section */
   .expertise-section h3,
   .skills-section h3,
@@ -418,12 +484,16 @@ const baseUrl = import.meta.env.BASE_URL;
     padding: 2rem;
     border-radius: 0.75rem;
     border: 1px solid #e0e0e0;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .expertise-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .expertise-icon {
@@ -458,7 +528,7 @@ const baseUrl = import.meta.env.BASE_URL;
   }
 
   .expertise-applications li::before {
-    content: "→";
+    content: '→';
     color: #2e7d32;
     font-weight: 600;
     position: absolute;
@@ -579,7 +649,9 @@ const baseUrl = import.meta.env.BASE_URL;
     border-radius: 0.5rem;
     text-decoration: none;
     font-weight: 500;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
     white-space: nowrap;
   }
 
@@ -594,7 +666,7 @@ const baseUrl = import.meta.env.BASE_URL;
   }
 
   /* Task 8 Responsive Design Enhancements */
-  
+
   /* Low-end mobile (max-width: 479px) */
   @media (max-width: 479px) {
     .about-section {
@@ -653,7 +725,7 @@ const baseUrl = import.meta.env.BASE_URL;
       min-height: var(--touch-target-comfortable);
     }
   }
-  
+
   /* Standard mobile (480px to 767px) */
   @media (min-width: 480px) and (max-width: 767px) {
     .about-intro {

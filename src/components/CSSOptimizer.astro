@@ -7,10 +7,7 @@ interface Props {
   nonCriticalCSS?: string[];
 }
 
-const { 
-  pageType = 'home',
-  nonCriticalCSS = []
-} = Astro.props;
+const { pageType = 'home', nonCriticalCSS = [] } = Astro.props;
 
 // Default non-critical CSS files for each page type
 // Note: Only include CSS files that actually exist in the Public directory
@@ -19,28 +16,30 @@ const defaultNonCriticalCSS = {
   about: [],
   services: [],
   showcase: [],
-  contact: []
+  contact: [],
 };
 
-const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS];
+const cssFiles = [
+  ...(defaultNonCriticalCSS[pageType] || []),
+  ...nonCriticalCSS,
+];
 ---
 
-<!-- Non-critical CSS loader with optimized loading strategy -->
-{cssFiles.map(cssFile => (
-  <link 
-    rel="preload" 
-    href={cssFile} 
-    as="style" 
-    onload="this.onload=null;this.rel='stylesheet'" 
-  />
-))}
+<!-- Non-critical CSS loader with optimized loading strategy -->{
+  cssFiles.map(cssFile => (
+    <link
+      rel="preload"
+      href={cssFile}
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+  ))
+}
 
 <!-- Fallback for browsers without JavaScript -->
-<noscript>
-  {cssFiles.map(cssFile => (
-    <link rel="stylesheet" href={cssFile} />
-  ))}
-</noscript>
+<noscript> </noscript>{
+  cssFiles.map(cssFile => <link rel="stylesheet" href={cssFile} />)
+}
 
 <script>
   // CSS loading optimization
@@ -54,10 +53,10 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
     init() {
       // Check connection type and adjust loading strategy
       this.adjustLoadingStrategy();
-      
+
       // Set up CSS loading event listeners
       this.setupCSSListeners();
-      
+
       // Load CSS based on viewport
       this.loadViewportCSS();
     }
@@ -65,14 +64,16 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
     adjustLoadingStrategy() {
       if ('connection' in navigator) {
         const connection = navigator.connection;
-        
+
         // Slow connection - load CSS immediately
-        if (connection.effectiveType === 'slow-2g' || 
-            connection.effectiveType === '2g') {
+        if (
+          connection.effectiveType === 'slow-2g' ||
+          connection.effectiveType === '2g'
+        ) {
           this.loadAllCSS();
           return;
         }
-        
+
         // Save data mode - load CSS immediately
         if (connection.saveData) {
           this.loadAllCSS();
@@ -86,7 +87,7 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
       document.addEventListener('DOMContentLoaded', () => {
         this.loadNonCriticalCSS();
       });
-      
+
       // Load CSS when page becomes visible
       if ('visibilityState' in document) {
         document.addEventListener('visibilitychange', () => {
@@ -100,17 +101,20 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
     loadViewportCSS() {
       // Use Intersection Observer to load CSS when elements come into view
       if ('IntersectionObserver' in window) {
-        const cssObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const cssFile = entry.target.dataset.cssFile;
-              if (cssFile && !this.loadedCSS.has(cssFile)) {
-                this.loadCSSFile(cssFile);
+        const cssObserver = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const cssFile = entry.target.dataset.cssFile;
+                if (cssFile && !this.loadedCSS.has(cssFile)) {
+                  this.loadCSSFile(cssFile);
+                }
+                cssObserver.unobserve(entry.target);
               }
-              cssObserver.unobserve(entry.target);
-            }
-          });
-        }, { rootMargin: '100px' });
+            });
+          },
+          { rootMargin: '100px' }
+        );
 
         // Observe elements that need specific CSS
         const cssElements = document.querySelectorAll('[data-css-file]');
@@ -120,7 +124,9 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
 
     loadNonCriticalCSS() {
       // Load CSS files that are not yet loaded
-      const cssLinks = document.querySelectorAll('link[rel="preload"][as="style"]');
+      const cssLinks = document.querySelectorAll(
+        'link[rel="preload"][as="style"]'
+      );
       cssLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href && !this.loadedCSS.has(href)) {
@@ -139,13 +145,13 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = href;
-      
+
       link.onload = () => {
         this.loadedCSS.add(href);
         this.pendingCSS.delete(href);
         this.dispatchCSSLoadedEvent(href);
       };
-      
+
       link.onerror = () => {
         this.pendingCSS.delete(href);
         console.warn(`Failed to load CSS: ${href}`);
@@ -156,7 +162,9 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
 
     loadAllCSS() {
       // Load all CSS files immediately
-      const cssLinks = document.querySelectorAll('link[rel="preload"][as="style"]');
+      const cssLinks = document.querySelectorAll(
+        'link[rel="preload"][as="style"]'
+      );
       cssLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href) {
@@ -167,9 +175,11 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
 
     dispatchCSSLoadedEvent(href) {
       // Dispatch custom event for analytics/tracking
-      document.dispatchEvent(new CustomEvent('cssLoaded', {
-        detail: { href, loadTime: performance.now() }
-      }));
+      document.dispatchEvent(
+        new CustomEvent('cssLoaded', {
+          detail: { href, loadTime: performance.now() },
+        })
+      );
     }
 
     // Public method to manually load specific CSS
@@ -199,16 +209,16 @@ const cssFiles = [...(defaultNonCriticalCSS[pageType] || []), ...nonCriticalCSS]
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
   }
-  
+
   .css-loaded {
     opacity: 1;
   }
-  
+
   /* Prevent FOUC (Flash of Unstyled Content) */
   .no-fouc {
     visibility: hidden;
   }
-  
+
   .fouc-ready {
     visibility: visible;
   }

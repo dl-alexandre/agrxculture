@@ -8,29 +8,29 @@ import fs from 'fs';
 
 function generateStatusBadges() {
   const repository = 'agrxculture/agricultural-portfolio-website';
-  
+
   const badges = {
     deployment: `[![Deploy to GitHub Pages](https://github.com/${repository}/actions/workflows/deploy.yml/badge.svg)](https://github.com/${repository}/actions/workflows/deploy.yml)`,
     staging: `[![Staging Environment](https://github.com/${repository}/actions/workflows/staging.yml/badge.svg)](https://github.com/${repository}/actions/workflows/staging.yml)`,
     lighthouse: `[![Lighthouse Performance](https://img.shields.io/badge/lighthouse-90%2B-brightgreen)](https://github.com/${repository}/actions)`,
-    uptime: `[![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fagrxculture.github.io%2Fagricultural-portfolio-website)](https://agrxculture.github.io/agricultural-portfolio-website)`
+    uptime: `[![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fagrxculture.github.io%2Fagricultural-portfolio-website)](https://agrxculture.github.io/agricultural-portfolio-website)`,
   };
-  
+
   return badges;
 }
 
 function updateReadme() {
   const readmePath = 'README.md';
-  
+
   if (!fs.existsSync(readmePath)) {
     console.log('⚠️  README.md not found, creating new one...');
     createNewReadme();
     return;
   }
-  
+
   let content = fs.readFileSync(readmePath, 'utf8');
   const badges = generateStatusBadges();
-  
+
   // Create badges section
   const badgeSection = `
 ## Deployment Status
@@ -41,7 +41,7 @@ ${badges.lighthouse}
 ${badges.uptime}
 
 `;
-  
+
   // Check if badges section already exists
   if (content.includes('## Deployment Status')) {
     // Replace existing section
@@ -53,7 +53,7 @@ ${badges.uptime}
     // Add badges section after title
     const lines = content.split('\n');
     const titleIndex = lines.findIndex(line => line.startsWith('# '));
-    
+
     if (titleIndex !== -1) {
       lines.splice(titleIndex + 1, 0, badgeSection);
       content = lines.join('\n');
@@ -61,14 +61,14 @@ ${badges.uptime}
       content = badgeSection + content;
     }
   }
-  
+
   fs.writeFileSync(readmePath, content);
   console.log('✅ Updated README.md with deployment status badges');
 }
 
 function createNewReadme() {
   const badges = generateStatusBadges();
-  
+
   const content = `# Agricultural Portfolio Website
 
 ${badges.deployment}
@@ -165,13 +165,12 @@ MIT License - see LICENSE file for details.
 function main() {
   try {
     updateReadme();
-    
+
     const badges = generateStatusBadges();
     console.log('\n📊 Generated status badges:');
     Object.entries(badges).forEach(([name, badge]) => {
       console.log(`${name}: ${badge}`);
     });
-    
   } catch (error) {
     console.error('❌ Error updating deployment status:', error);
     process.exit(1);

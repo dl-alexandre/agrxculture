@@ -1,34 +1,40 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { JSDOM } from 'jsdom';
 
 // Accessibility validation functions
 const validateHeadingHierarchy = (document: Document): boolean => {
-  const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+  const headings = Array.from(
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6')
+  );
   if (headings.length === 0) return false;
-  
+
   // Should start with h1
   const firstHeading = headings[0];
-  return firstHeading.tagName === 'H1';
+  return firstHeading?.tagName === 'H1';
 };
 
 const validateFormLabels = (document: Document): boolean => {
-  const inputs = Array.from(document.querySelectorAll('input, textarea, select'));
-  
+  const inputs = Array.from(
+    document.querySelectorAll('input, textarea, select')
+  );
+
   return inputs.every(input => {
     const id = input.getAttribute('id');
     if (!id) return false;
-    
+
     const label = document.querySelector(`label[for="${id}"]`);
     return label !== null;
   });
 };
 
 const validateAriaAttributes = (document: Document): boolean => {
-  const elementsWithAriaLive = Array.from(document.querySelectorAll('[aria-live]'));
-  const elementsWithRole = Array.from(document.querySelectorAll('[role]'));
-  
+  const elementsWithAriaLive = Array.from(
+    document.querySelectorAll('[aria-live]')
+  );
+  // const _elementsWithRole = Array.from(document.querySelectorAll('[role]'));
+
   // Check that ARIA attributes are properly used
-  return elementsWithAriaLive.every(el => 
+  return elementsWithAriaLive.every(el =>
     ['polite', 'assertive', 'off'].includes(el.getAttribute('aria-live') || '')
   );
 };
@@ -123,7 +129,7 @@ describe('Accessibility Tests', () => {
     it('should have valid heading hierarchy', () => {
       const dom = createHomePage();
       const isValid = validateHeadingHierarchy(dom.window.document);
-      
+
       expect(isValid).toBe(true);
     });
 
@@ -131,7 +137,7 @@ describe('Accessibility Tests', () => {
       const dom = createHomePage();
       const h1 = dom.window.document.querySelector('h1');
       const h2 = dom.window.document.querySelector('h2');
-      
+
       expect(h1).toBeTruthy();
       expect(h2).toBeTruthy();
       expect(h1?.textContent).toContain('Building data-driven farms');
@@ -140,7 +146,7 @@ describe('Accessibility Tests', () => {
     it('should have skip link for keyboard navigation', () => {
       const dom = createHomePage();
       const skipLink = dom.window.document.querySelector('.skip-link');
-      
+
       expect(skipLink).toBeTruthy();
       expect(skipLink?.getAttribute('href')).toBe('#main-content');
     });
@@ -150,7 +156,7 @@ describe('Accessibility Tests', () => {
     it('should have proper form label associations', () => {
       const dom = createContactForm();
       const isValid = validateFormLabels(dom.window.document);
-      
+
       expect(isValid).toBe(true);
     });
 
@@ -159,21 +165,24 @@ describe('Accessibility Tests', () => {
       const nameInput = dom.window.document.getElementById('name');
       const emailInput = dom.window.document.getElementById('email');
       const messageInput = dom.window.document.getElementById('message');
-      
+
       expect(nameInput?.getAttribute('aria-describedby')).toBe('name-error');
       expect(emailInput?.getAttribute('aria-describedby')).toBe('email-error');
-      expect(messageInput?.getAttribute('aria-describedby')).toBe('message-error message-counter');
+      expect(messageInput?.getAttribute('aria-describedby')).toBe(
+        'message-error message-counter'
+      );
     });
 
     it('should have error messages with proper ARIA attributes', () => {
       const dom = createContactForm();
-      const errorMessages = dom.window.document.querySelectorAll('.error-message');
-      
-      errorMessages.forEach(error => {
+      const errorMessages =
+        dom.window.document.querySelectorAll('.error-message');
+
+      errorMessages.forEach((error: Element) => {
         expect(error.getAttribute('role')).toBe('alert');
         expect(error.getAttribute('aria-live')).toBe('polite');
       });
-      
+
       const isValid = validateAriaAttributes(dom.window.document);
       expect(isValid).toBe(true);
     });

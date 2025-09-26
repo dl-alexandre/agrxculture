@@ -25,36 +25,36 @@ const createProjectShowcase = () => {
       </div>
     </div>
   `);
-  
+
   return dom.window.document;
 };
 
 // Project filtering functions
 const filterProjects = (document: Document, filter: string): void => {
   const cards = document.querySelectorAll('.project-card');
-  
+
   cards.forEach(card => {
-    const tags = (card as HTMLElement).dataset.tags || '';
+    const tags = (card as HTMLElement).dataset['tags'] || '';
     const shouldShow = filter === 'all' || tags.includes(filter);
-    
+
     (card as HTMLElement).style.display = shouldShow ? 'block' : 'none';
   });
 };
 
-const setActiveFilter = (document: Document, activeFilter: string): void => {
-  const buttons = document.querySelectorAll('.filter-btn');
-  
-  buttons.forEach(btn => {
-    btn.classList.remove('active');
-    if ((btn as HTMLElement).dataset.filter === activeFilter) {
-      btn.classList.add('active');
-    }
-  });
-};
+// const _setActiveFilter = (document: Document, activeFilter: string): void => {
+//   const buttons = document.querySelectorAll('.filter-btn');
+
+//   buttons.forEach(btn => {
+//     btn.classList.remove('active');
+//     if ((btn as HTMLElement).dataset['filter'] === activeFilter) {
+//       btn.classList.add('active');
+//     }
+//   });
+// };
 
 describe('Interactive Components', () => {
   let document: Document;
-  
+
   beforeEach(() => {
     document = createProjectShowcase();
     vi.clearAllMocks();
@@ -63,7 +63,7 @@ describe('Interactive Components', () => {
   describe('Project Filtering', () => {
     it('should show all projects when "all" filter is selected', () => {
       filterProjects(document, 'all');
-      
+
       const cards = document.querySelectorAll('.project-card');
       cards.forEach(card => {
         expect((card as HTMLElement).style.display).toBe('block');
@@ -72,10 +72,10 @@ describe('Interactive Components', () => {
 
     it('should filter projects by IoT tag', () => {
       filterProjects(document, 'iot');
-      
+
       const iotCard = document.querySelector('[data-tags*="iot"]');
       const mobileCard = document.querySelector('[data-tags="mobile"]');
-      
+
       expect((iotCard as HTMLElement)?.style.display).toBe('block');
       expect((mobileCard as HTMLElement)?.style.display).toBe('none');
     });

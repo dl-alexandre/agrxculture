@@ -60,7 +60,7 @@ const createContactForm = () => {
       </div>
     </form>
   `);
-  
+
   return dom.window.document;
 };
 
@@ -78,7 +78,11 @@ const validateMessageLength = (message: string): boolean => {
   return message.length <= 2000;
 };
 
-const showError = (document: Document, fieldId: string, message: string): void => {
+const showError = (
+  document: Document,
+  fieldId: string,
+  message: string
+): void => {
   const errorElement = document.getElementById(`${fieldId}-error`);
   if (errorElement) {
     errorElement.textContent = message;
@@ -96,7 +100,7 @@ const clearError = (document: Document, fieldId: string): void => {
 
 describe('Contact Form Validation', () => {
   let document: Document;
-  
+
   beforeEach(() => {
     document = createContactForm();
     vi.clearAllMocks();
@@ -145,7 +149,7 @@ describe('Contact Form Validation', () => {
   describe('Form Error Display', () => {
     it('should show error messages correctly', () => {
       showError(document, 'name', 'Name is required');
-      
+
       const errorElement = document.getElementById('name-error');
       expect(errorElement?.textContent).toBe('Name is required');
       expect(errorElement?.style.display).toBe('block');
@@ -154,10 +158,10 @@ describe('Contact Form Validation', () => {
     it('should clear error messages correctly', () => {
       // First show an error
       showError(document, 'email', 'Invalid email format');
-      
+
       // Then clear it
       clearError(document, 'email');
-      
+
       const errorElement = document.getElementById('email-error');
       expect(errorElement?.textContent).toBe('');
       expect(errorElement?.style.display).toBe('none');
@@ -177,7 +181,7 @@ describe('Contact Form Validation', () => {
       const nameInput = document.getElementById('name');
       const emailInput = document.getElementById('email');
       const messageInput = document.getElementById('message');
-      
+
       expect(nameInput?.getAttribute('required')).toBe('');
       expect(emailInput?.getAttribute('type')).toBe('email');
       expect(emailInput?.getAttribute('required')).toBe('');

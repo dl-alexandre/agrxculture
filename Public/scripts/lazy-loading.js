@@ -1,7 +1,7 @@
 /**
  * Lazy Loading Implementation with IntersectionObserver
  * Task 9: Performance optimizations and accessibility features
- * 
+ *
  * Features:
  * - Reduced JavaScript overhead using IntersectionObserver
  * - Skeleton screens for better perceived performance
@@ -36,10 +36,10 @@ class LazyImageLoader {
     const options = {
       root: null,
       rootMargin: '50px 0px', // Start loading 50px before entering viewport
-      threshold: 0.01
+      threshold: 0.01,
     };
 
-    this.imageObserver = new IntersectionObserver((entries) => {
+    this.imageObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           this.loadImage(entry.target);
@@ -53,10 +53,10 @@ class LazyImageLoader {
     const options = {
       root: null,
       rootMargin: '100px 0px', // Show skeleton 100px before entering viewport
-      threshold: 0.01
+      threshold: 0.01,
     };
 
-    this.skeletonObserver = new IntersectionObserver((entries) => {
+    this.skeletonObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           this.showSkeleton(entry.target);
@@ -85,11 +85,11 @@ class LazyImageLoader {
   setupImageSkeleton(img) {
     // Add skeleton class for CSS animation
     img.classList.add('lazy-skeleton');
-    
+
     // Set ARIA attributes for accessibility
     img.setAttribute('aria-label', 'Loading image...');
     img.setAttribute('role', 'img');
-    
+
     // Prevent layout shift by setting dimensions
     if (!img.style.aspectRatio && img.dataset.aspectRatio) {
       img.style.aspectRatio = img.dataset.aspectRatio;
@@ -111,11 +111,11 @@ class LazyImageLoader {
 
     // Create new image to preload
     const imageLoader = new Image();
-    
+
     imageLoader.onload = () => {
       this.onImageLoad(img, src, srcset, sizes);
     };
-    
+
     imageLoader.onerror = () => {
       this.onImageError(img);
     };
@@ -148,15 +148,17 @@ class LazyImageLoader {
     this.loadedImages.add(src);
 
     // Dispatch custom event for analytics/tracking
-    img.dispatchEvent(new CustomEvent('lazyImageLoaded', {
-      detail: { src, loadTime: performance.now() }
-    }));
+    img.dispatchEvent(
+      new CustomEvent('lazyImageLoaded', {
+        detail: { src, loadTime: performance.now() },
+      })
+    );
   }
 
   onImageError(img) {
     img.classList.remove('lazy-skeleton', 'skeleton-visible');
     img.classList.add('lazy-error');
-    
+
     // Set fallback image or show error state
     const fallback = img.dataset.fallbackSrc;
     if (fallback) {
@@ -167,9 +169,11 @@ class LazyImageLoader {
     }
 
     // Dispatch error event
-    img.dispatchEvent(new CustomEvent('lazyImageError', {
-      detail: { src: img.dataset.lazySrc }
-    }));
+    img.dispatchEvent(
+      new CustomEvent('lazyImageError', {
+        detail: { src: img.dataset.lazySrc },
+      })
+    );
   }
 
   loadAllImages() {
@@ -183,7 +187,7 @@ class LazyImageLoader {
       img.src = src;
       if (srcset) img.srcset = srcset;
       if (sizes) img.sizes = sizes;
-      
+
       img.classList.add('lazy-loaded');
     });
   }
@@ -198,7 +202,9 @@ class LazyImageLoader {
 
   // Public method to preload critical images
   preloadCriticalImages() {
-    const criticalImages = document.querySelectorAll('[data-lazy-src][data-critical="true"]');
+    const criticalImages = document.querySelectorAll(
+      '[data-lazy-src][data-critical="true"]'
+    );
     criticalImages.forEach(img => {
       this.loadImage(img);
     });

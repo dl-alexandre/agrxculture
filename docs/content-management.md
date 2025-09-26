@@ -29,7 +29,7 @@ src/content/
 
 Each project is a Markdown file with the following frontmatter structure:
 
-```yaml
+````yaml
 ---
 id: unique-project-id
 title: Project Title
@@ -122,7 +122,7 @@ Detailed explanation of the service delivery process and technical approach.
 - Benefit 1 with specific metrics
 - Benefit 2 with measurable outcomes
 - Benefit 3 with value proposition
-```
+````
 
 ## Content Validation
 
@@ -131,12 +131,14 @@ The system includes automated validation to ensure content quality:
 ### Required Fields
 
 **Projects:**
+
 - `id`, `title`, `description`, `image`, `category`, `dateCompleted`
 - `technologies` (array), `tags` (array)
 - `metrics` object with `improvement`, `timeline`, `scale`
 - `schema` object with proper structure
 
 **Services:**
+
 - `id`, `title`, `description`, `icon`, `benefits`, `ctaLink`
 - `technologies` (array), `relatedProjects` (array)
 - `schema` object with proper structure
