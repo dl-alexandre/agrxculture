@@ -12,7 +12,6 @@
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-
     "optimize-performance": "node scripts/optimize-performance.js",
     "process-content": "node scripts/process-content.cjs",
     "validate-content": "node scripts/process-content.cjs",
@@ -39,11 +38,13 @@
     "test:all": "npm run test && npm run test:e2e && npm run test:accessibility && npm run test:performance"
   },
   "dependencies": {
+    "@astrojs/node": "^9.4.4",
+    "@types/nodemailer": "^7.0.1",
     "astro": "^5.13.3",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "nodemailer": "^7.0.6"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^1.0.0",
     "@axe-core/playwright": "^4.8.0",
     "@playwright/test": "^1.40.0",
     "@testing-library/dom": "^9.3.0",
@@ -51,6 +52,7 @@
     "@types/node": "^24.3.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
     "autoprefixer": "^10.4.21",
     "axe-core": "^4.8.0",
     "chrome-launcher": "^1.1.0",

@@ -4,6 +4,9 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const title = 'Contact - Agrxculture';
 const description = 'Get in touch for agricultural technology consulting and custom development services. Specializing in IoT farm solutions, mobile apps, and precision agriculture systems.';
+
+// SMTP Email configuration
+const emailEndpoint = '/api/contact';
 ---
 
 <BaseLayout 
@@ -43,7 +46,7 @@ const description = 'Get in touch for agricultural technology consulting and cus
             <form 
               id="contact-form" 
               class="contact-form"
-              action="https://formspree.io/f/xpwzgkqr"
+              action={emailEndpoint}
               method="POST"
               novalidate
             >
@@ -169,31 +172,6 @@ const description = 'Get in touch for agricultural technology consulting and cus
             <h2>Get In Touch</h2>
             
             <div class="contact-methods">
-              <div class="contact-method">
-                <h3>Email</h3>
-                <p>
-                  <a href="mailto:contact@agrxculture.com" class="contact-link">
-                    contact@agrxculture.com
-                  </a>
-                </p>
-                <p class="contact-note">Best for detailed project discussions</p>
-              </div>
-
-              <div class="contact-method">
-                <h3>LinkedIn</h3>
-                <p>
-                  <a 
-                    href="https://linkedin.com/company/agrxculture" 
-                    class="contact-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    linkedin.com/company/agrxculture
-                  </a>
-                </p>
-                <p class="contact-note">Professional networking and updates</p>
-              </div>
-
               <div class="contact-method">
                 <h3>Response Time</h3>
                 <p class="response-time">24-48 hours</p>

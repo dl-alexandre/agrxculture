@@ -1,10 +1,14 @@
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dl-alexandre.github.io/agrxculture/',
-  base: process.env.NODE_ENV === 'development' ? '/' : '/agrxculture/',
-  output: 'static',
+  base: '/',
+  output: 'server',
+  adapter: node({
+    mode: 'standalone'
+  }),
   trailingSlash: 'never', // Prevent redirects
   build: {
     assets: 'assets',

@@ -132,6 +132,13 @@ class ContactForm {
   async handleSubmit(e) {
     e.preventDefault();
 
+    // Debug logging
+    const debugMode = localStorage.getItem('contact-form-debug') === 'true';
+    if (debugMode) {
+      console.log('Form submission started');
+      console.log('Form action:', this.form.action);
+    }
+
     // Validate all fields
     const formFields = this.form.querySelectorAll('input, select, textarea');
     let isFormValid = true;
@@ -145,6 +152,9 @@ class ContactForm {
     // Spam protection is handled by honeypot field
 
     if (!isFormValid) {
+      if (debugMode) {
+        console.log('Form validation failed');
+      }
       // Focus on first error field with better mobile support
       const firstError = this.form.querySelector('.error');
       if (firstError) {
@@ -173,10 +183,13 @@ class ContactForm {
     try {
       const formData = new FormData(this.form);
       
-      // Add additional metadata for Formspree
-      formData.append('_subject', 'New Agrxculture Technology Inquiry');
-      formData.append('_replyto', formData.get('email'));
-      formData.append('_next', window.location.href + '#success');
+      // Debug: Log form data
+      if (debugMode) {
+        console.log('Form data being sent:');
+        for (let [key, value] of formData.entries()) {
+          console.log(`${key}: ${value}`);
+        }
+      }
       
       // Spam protection handled by honeypot field
       
@@ -188,11 +201,32 @@ class ContactForm {
         }
       });
 
+      if (debugMode) {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      }
+
       if (response.ok) {
+        const responseData = await response.json();
+        if (debugMode) {
+          console.log('Success response:', responseData);
+        }
         this.showSuccess();
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Form submission failed');
+        let errorMessage = 'Form submission failed';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+          if (debugMode) {
+            console.log('Error response:', errorData);
+          }
+        } catch (parseError) {
+          if (debugMode) {
+            console.log('Could not parse error response:', parseError);
+          }
+          errorMessage = `Server returned ${response.status}: ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
       }
     } catch (error) {
       console.error('Form submission error:', error);
