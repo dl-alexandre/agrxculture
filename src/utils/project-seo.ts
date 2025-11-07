@@ -6,75 +6,39 @@
  */
 
 import { generateProjectSchema, type ProjectSEO } from './seo.ts';
+import { loadProjects, type ProjectData } from './content-loader.ts';
 
-// Project data with SEO information
-export const projectSEOData: Record<string, ProjectSEO> = {
-  'yield-analytics': {
-    projectId: 'yield-analytics',
-    title: 'Agricultural Yield Analytics Platform | Agrxculture',
-    description:
-      'Advanced data analytics platform for crop yield prediction and optimization using machine learning.',
+/**
+ * Generate project SEO data from actual project content
+ */
+function generateProjectSEOData(): Record<string, ProjectSEO> {
+  const projects = loadProjects();
+  const seoData: Record<string, ProjectSEO> = {};
 
-    technologies: ['Python', 'Machine Learning', 'Data Analytics', 'SQL'],
-    category: 'Data Analytics',
-    keywords: [
-      'yield analytics',
-      'machine learning',
+  projects.forEach(project => {
+    const keywords = [
+      ...project.tags,
+      ...project.technologies,
+      project.category.toLowerCase(),
       'agricultural technology',
-      'data analytics',
-      'crop prediction',
-    ],
-    metrics: {
-      improvement: '40% improvement in yield predictions',
-      timeline: 'In Development',
-      scale: 'Scalable analytics solution',
-    },
-  },
+    ];
 
-  'farm-management-ios': {
-    projectId: 'farm-management-ios',
-    title: 'iOS Farm Management Application | Agrxculture',
-    description:
-      'Native iOS application for comprehensive farm management, field data collection, and operational tracking.',
+    seoData[project.id] = {
+      projectId: project.id,
+      title: `${project.title} | Agrxculture`,
+      description: project.description,
+      technologies: project.technologies,
+      category: project.category,
+      keywords: keywords,
+      metrics: project.metrics,
+    };
+  });
 
-    technologies: ['Swift', 'iOS SDK', 'Core Data', 'CloudKit'],
-    category: 'Mobile Development',
-    keywords: [
-      'iOS development',
-      'farm management',
-      'mobile apps',
-      'agricultural technology',
-      'field data collection',
-    ],
-    metrics: {
-      improvement: '25% increase in operational efficiency',
-      timeline: 'In Development',
-      scale: 'Native iOS solution for farm operations',
-    },
-  },
+  return seoData;
+}
 
-  'farm-sensor-network': {
-    projectId: 'farm-sensor-network',
-    title: 'IoT Farm Sensor Network | Agrxculture',
-    description:
-      'Comprehensive IoT sensor network for real-time agricultural monitoring and data collection.',
-
-    technologies: ['IoT Sensors', 'LoRaWAN', 'Python', 'Data Analytics'],
-    category: 'IoT Integration',
-    keywords: [
-      'IoT sensors',
-      'agricultural monitoring',
-      'sensor networks',
-      'LoRaWAN',
-      'real-time data',
-    ],
-    metrics: {
-      improvement: 'Real-time monitoring capabilities',
-      timeline: 'In Development',
-      scale: 'Scalable sensor network solution',
-    },
-  },
-};
+// Project data with SEO information - dynamically generated from project content
+export const projectSEOData: Record<string, ProjectSEO> = generateProjectSEOData();
 
 /**
  * Generate comprehensive SEO data for a project page
@@ -315,23 +279,31 @@ export function generateShowcasePageSEO(siteUrl: string) {
       name: 'Agricultural Technology Projects',
       numberOfItems: Object.keys(projectSEOData).length,
       itemListElement: Object.entries(projectSEOData).map(
-        ([id, project], index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          item: {
+        ([id, project], index) => {
+          const projectData = loadProjects().find(p => p.id === id);
+          const item: any = {
             '@type': 'CreativeWork',
             name: project.title.split(' - ')[0],
             description: project.description,
             url: `${siteUrl}/projects/${id}`,
-            image: `${siteUrl}${project.image}`,
             creator: {
               '@type': 'Organization',
               name: 'Agrxculture',
             },
             about: project.category,
             keywords: project.technologies.join(', '),
-          },
-        })
+          };
+          
+          if (projectData?.image) {
+            item.image = `${siteUrl}${projectData.image}`;
+          }
+          
+          return {
+            '@type': 'ListItem',
+            position: index + 1,
+            item,
+          };
+        }
       ),
     },
   };

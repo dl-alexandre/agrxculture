@@ -2,6 +2,8 @@
 // Resource Preloader Component for Page Speed Optimization
 // Implements resource hints, preloading, and prefetching strategies
 
+import { loadProjects } from '../utils/content-loader.ts';
+
 interface Props {
   pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
   criticalImages?: string[];
@@ -21,6 +23,8 @@ const withBase = (p: string) => {
   const cleanPath = p.replace(/^\//, '');
   return `${baseUrl}${baseUrl.endsWith('/') ? '' : '/'}${cleanPath}`;
 };
+
+const projects = loadProjects();
 
 // Default critical resources for each page type
 const defaultResources = {
@@ -111,9 +115,11 @@ const resources = defaultResources[pageType] || defaultResources.home;
 <link rel="prefetch" href={withBase('/services/mobile-apps')} />
 
 <!-- Prefetch project pages -->
-<link rel="prefetch" href={withBase('/projects/farm-sensor-network')} />
-<link rel="prefetch" href={withBase('/projects/yield-analytics')} />
-<link rel="prefetch" href={withBase('/projects/farm-management-ios')} />
+{
+  projects.map(project => (
+    <link rel="prefetch" href={withBase(`/projects/${project.id}`)} />
+  ))
+}
 
 <!-- Module preload for ES modules -->
 <link rel="modulepreload" href={withBase('/scripts/performance-monitor.js')} />

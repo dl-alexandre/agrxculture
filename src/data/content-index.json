@@ -1,42 +1,22 @@
 {
   "projects": {
-    "total": 4,
-    "featured": 4,
+    "total": 1,
+    "featured": 1,
     "categories": [
-      "Web Development",
-      "Mobile Development",
-      "IoT Integration",
-      "Data Analytics"
+      "Web Development"
     ],
     "tags": [
       "Web Development",
       "GitHub Pages",
-      "Personal Project",
-      "iOS",
-      "Mobile Apps",
-      "Agriculture",
-      "IoT",
-      "Sensors",
-      "Analytics",
-      "Machine Learning"
+      "Personal Project"
     ],
     "technologies": [
       "HTML",
       "CSS",
       "JavaScript",
-      "GitHub Pages",
-      "Swift",
-      "iOS SDK",
-      "Core Data",
-      "CloudKit",
-      "IoT Sensors",
-      "LoRaWAN",
-      "Python",
-      "Data Analytics",
-      "Machine Learning",
-      "SQL"
+      "GitHub Pages"
     ],
-    "lastUpdated": "2025-11-07T07:14:00.336Z"
+    "lastUpdated": "2025-11-07T07:28:57.188Z"
   },
   "services": {
     "total": 5,
@@ -58,6 +38,6 @@
       "CloudKit",
       "MapKit"
     ],
-    "lastUpdated": "2025-11-07T07:14:00.337Z"
+    "lastUpdated": "2025-11-07T07:28:57.188Z"
   }
 }

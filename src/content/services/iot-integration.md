@@ -11,7 +11,6 @@ technologies:
   - LoRaWAN
 benefits: Reduces crop monitoring costs by 30%
 relatedProjects:
-  - farm-sensor-network
   - irrigation-automation
 ctaLink: /contact?service=iot-integration
 schema:

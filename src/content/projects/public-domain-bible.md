@@ -1,4 +1,4 @@
- ---
+---
 id: bible
 title: Bible GitHub Pages Project
 description: Personal GitHub Pages website project showcasing modern web development practices and responsive design.

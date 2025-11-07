@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { loadProjects } from '../utils/content-loader.ts';
 
 // Static pages configuration
 const staticPages = [
@@ -34,13 +35,9 @@ const staticPages = [
   },
 ];
 
-// Dynamic project pages - these would be generated from your projects data
-const projectPages = [
-  'farm-sensor-network',
-  'yield-analytics',
-  'farm-management-ios',
-].map(id => ({
-  url: `projects/${id}`,
+// Dynamic project pages - generated from projects data
+const projectPages = loadProjects().map(project => ({
+  url: `projects/${project.id}`,
   changefreq: 'monthly',
   priority: '0.8',
   lastmod: new Date().toISOString().split('T')[0],

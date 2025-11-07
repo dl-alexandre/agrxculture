@@ -13,7 +13,6 @@
     ],
     "benefits": "Reduces integration time by 60%",
     "relatedProjects": [
-      "yield-analytics",
       "irrigation-automation"
     ],
     "ctaLink": "/contact?service=api-development",
@@ -43,8 +42,7 @@
     ],
     "benefits": "Reduces manual labor by 50%",
     "relatedProjects": [
-      "irrigation-automation",
-      "farm-sensor-network"
+      "irrigation-automation"
     ],
     "ctaLink": "/contact?service=automation-systems",
     "schema": {
@@ -72,10 +70,7 @@
       "Plotly"
     ],
     "benefits": "Improves yield predictions by 40%",
-    "relatedProjects": [
-      "yield-analytics",
-      "farm-sensor-network"
-    ],
+    "relatedProjects": [],
     "ctaLink": "/contact?service=data-analytics",
     "schema": {
       "type": "Service",
@@ -103,7 +98,6 @@
     ],
     "benefits": "Reduces crop monitoring costs by 30%",
     "relatedProjects": [
-      "farm-sensor-network",
       "irrigation-automation"
     ],
     "ctaLink": "/contact?service=iot-integration",
@@ -133,7 +127,6 @@
     ],
     "benefits": "Increases operational efficiency by 25%",
     "relatedProjects": [
-      "farm-management-ios",
       "livestock-tracker"
     ],
     "ctaLink": "/contact?service=mobile-apps",

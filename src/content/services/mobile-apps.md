@@ -11,7 +11,6 @@ technologies:
   - MapKit
 benefits: Increases operational efficiency by 25%
 relatedProjects:
-  - farm-management-ios
   - livestock-tracker
 ctaLink: /contact?service=mobile-apps
 schema:

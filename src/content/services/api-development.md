@@ -11,7 +11,6 @@ technologies:
   - Docker
 benefits: Reduces integration time by 60%
 relatedProjects:
-  - yield-analytics
   - irrigation-automation
 ctaLink: /contact?service=api-development
 schema:

@@ -10,9 +10,7 @@ technologies:
   - Scikit-learn
   - Plotly
 benefits: Improves yield predictions by 40%
-relatedProjects:
-  - yield-analytics
-  - farm-sensor-network
+relatedProjects: []
 ctaLink: /contact?service=data-analytics
 schema:
   type: Service

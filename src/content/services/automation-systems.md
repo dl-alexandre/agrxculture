@@ -12,7 +12,6 @@ technologies:
 benefits: Reduces manual labor by 50%
 relatedProjects:
   - irrigation-automation
-  - farm-sensor-network
 ctaLink: /contact?service=automation-systems
 schema:
   type: Service
