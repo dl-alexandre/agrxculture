@@ -66,7 +66,6 @@ function validateProject(project) {
     'id',
     'title',
     'description',
-    'image',
     'technologies',
     'category',
     'tags',

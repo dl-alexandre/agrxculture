@@ -1,5 +1,44 @@
 [
   {
+    "id": "bible",
+    "title": "Bible GitHub Pages Project",
+    "description": "Personal GitHub Pages website project showcasing modern web development practices and responsive design.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "GitHub Pages"
+    ],
+    "category": "Web Development",
+    "tags": [
+      "Web Development",
+      "GitHub Pages",
+      "Personal Project"
+    ],
+    "dateCompleted": "2025-11-06",
+    "featured": true,
+    "metrics": {
+      "improvement": "Modern web development showcase",
+      "timeline": "Completed",
+      "scale": "Personal portfolio website"
+    },
+    "links": {
+      "demo": "https://dl-alexandre.github.io/bible",
+      "github": "https://github.com/dl-alexandre/bible"
+    },
+    "schema": {
+      "type": "CreativeWork",
+      "name": "Bible GitHub Pages Project",
+      "description": "Personal GitHub Pages website project",
+      "creator": {
+        "type": "Organization",
+        "name": "Agrxculture"
+      },
+      "dateCreated": "2024-12-31",
+      "keywords": "Web Development, GitHub Pages, HTML, CSS, JavaScript, Personal Project"
+    }
+  },
+  {
     "id": "farm-management-ios",
     "title": "iOS Farm Management Application",
     "description": "Native iOS application for comprehensive farm management, field data collection, and operational tracking.",
