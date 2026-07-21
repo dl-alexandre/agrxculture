@@ -519,6 +519,22 @@ export const defaultSEOConfigs = {
       'precision agriculture consulting',
     ],
   },
+
+  tools: {
+    title: 'CLI Tools | Go Command-Line Utilities | Agrxculture',
+    description:
+      'Open-source Go CLI tools for agricultural data, cloud storage, and app publishing. CIMIS weather data retrieval, Google Drive management, and Google Play Developer utilities.',
+    keywords: [
+      'Go CLI tools',
+      'CIMIS CLI',
+      'Google Drive CLI',
+      'Google Play CLI',
+      'command line tools',
+      'agricultural data tools',
+      'Go programming',
+      'open source tools',
+    ],
+  },
 };
 
 /**

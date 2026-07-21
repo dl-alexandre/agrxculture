@@ -1,0 +1,417 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CLIToolCard from '../components/CLIToolCard.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import cliTools from '../data/cli-tools.json';
+
+// Helper function to create proper URLs with GitHub Pages base
+function createUrl(path: string): string {
+  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+  if (path === '/' || path === '') return import.meta.env.BASE_URL;
+  return `${baseUrl}${path.startsWith('/') ? path : '/' + path}`;
+}
+
+// Structured data for each tool
+const toolSchemas = cliTools.map(tool => ({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: tool.name,
+  description: tool.description,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'macOS, Linux, Windows',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  url: tool.github,
+  author: {
+    '@type': 'Organization',
+    name: 'Agrxculture',
+  },
+}));
+---
+
+<BaseLayout
+  title="CLI Tools | Go Command-Line Utilities"
+  description="Open-source Go CLI tools for agricultural data, cloud storage, and app publishing. CIMIS weather data, Google Drive management, and Google Play Developer tools."
+  pageType="tools"
+  structuredData={toolSchemas}
+  breadcrumbs={[
+    { name: 'Home', url: createUrl('/') },
+    { name: 'Tools', url: createUrl('/tools') },
+  ]}
+>
+  <!-- Tools Hero -->
+  <section class="tools-hero">
+    <div class="tools-hero-container">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', url: createUrl('/') },
+          { label: 'Tools', url: createUrl('/tools'), current: true },
+        ]}
+      />
+
+      <h1 class="tools-title">
+        <span class="title-line">Command-Line</span>
+        <span class="title-line title-accent">Tools</span>
+      </h1>
+
+      <p class="tools-subtitle">
+        Open-source Go CLI utilities for agricultural data, cloud workflows, and app publishing.
+      </p>
+
+      <!-- Decorative terminal prompt -->
+      <div class="hero-terminal" aria-hidden="true">
+        <span class="hero-prompt">$</span>
+        <span class="hero-cmd">agrx tools --list</span>
+        <span class="hero-cursor"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Grid -->
+  <section class="tools-section">
+    <div class="tools-container">
+      <div class="tools-grid reveal-stagger">
+        {cliTools.map((tool) => (
+          <div class="reveal">
+            <CLIToolCard tool={tool} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section - transitions back to warm theme -->
+  <section class="tools-cta-section">
+    <div class="tools-cta-container">
+      <h2 class="cta-title">Interested in custom tooling?</h2>
+      <p class="cta-text">
+        We build bespoke CLI tools and automation pipelines for agricultural operations.
+        From data ingestion to deployment workflows.
+      </p>
+      <div class="cta-actions">
+        <a href={createUrl('/contact')} class="cta-primary">
+          Get in Touch
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href={createUrl('/showcase')} class="cta-secondary-link">
+          View All Projects
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Tools Hero */
+  .tools-hero {
+    padding: 8rem 0 4rem;
+    background: var(--color-terminal-bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tools-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(63, 185, 80, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(88, 166, 255, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .tools-hero-container {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Override breadcrumb colors for dark theme */
+  .tools-hero :global(.breadcrumb-link) {
+    color: var(--color-terminal-green);
+  }
+
+  .tools-hero :global(.breadcrumb-link:hover) {
+    color: var(--color-terminal-text);
+  }
+
+  .tools-hero :global(.breadcrumb-current) {
+    color: var(--color-terminal-text-muted);
+  }
+
+  .tools-hero :global(.breadcrumb-separator) {
+    color: var(--color-terminal-text-muted);
+  }
+
+  .tools-title {
+    font-family: var(--font-family-display);
+    font-size: clamp(var(--font-size-4xl), 7vw, var(--font-size-7xl));
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+    color: var(--color-terminal-text);
+    margin: var(--space-xl) 0 var(--space-lg);
+    letter-spacing: -0.02em;
+  }
+
+  .title-line {
+    display: block;
+  }
+
+  .title-accent {
+    background: linear-gradient(135deg, var(--color-terminal-green), var(--color-terminal-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tools-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-terminal-text-muted);
+    max-width: 560px;
+    line-height: var(--line-height-relaxed);
+    margin: 0 0 var(--space-2xl);
+  }
+
+  /* Decorative terminal prompt */
+  .hero-terminal {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-lg);
+    padding: var(--space-md) var(--space-xl);
+    background: var(--color-terminal-surface);
+    border: 1px solid var(--color-terminal-border);
+    border-radius: var(--border-radius-md);
+  }
+
+  .hero-prompt {
+    color: var(--color-terminal-green);
+    font-weight: 700;
+  }
+
+  .hero-cmd {
+    color: var(--color-terminal-text);
+  }
+
+  .hero-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    background: var(--color-terminal-green);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Tools Section */
+  .tools-section {
+    padding: var(--space-4xl) 0;
+    background: var(--color-terminal-bg);
+  }
+
+  .tools-container {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  /* CTA Section - warm theme transition */
+  .tools-cta-section {
+    padding: var(--space-4xl) 0;
+    background: linear-gradient(180deg, var(--color-terminal-bg) 0%, var(--color-primary-dark) 30%, var(--color-background) 100%);
+  }
+
+  .tools-cta-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    text-align: center;
+  }
+
+  .cta-title {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-on-primary);
+    margin: 0 0 var(--space-lg);
+  }
+
+  .cta-text {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: var(--line-height-relaxed);
+    margin: 0 0 var(--space-2xl);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-normal);
+    min-height: var(--touch-target-min);
+  }
+
+  .cta-primary:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-2px);
+  }
+
+  .cta-secondary-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-normal);
+    min-height: var(--touch-target-min);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .cta-secondary-link:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 479px) {
+    .tools-hero {
+      padding: 6rem 0 3rem;
+    }
+
+    .tools-hero-container,
+    .tools-container,
+    .tools-cta-container {
+      padding: 0 var(--space-md);
+    }
+
+    .tools-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .hero-terminal {
+      font-size: var(--font-size-sm);
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .cta-actions {
+      flex-direction: column;
+    }
+
+    .cta-primary,
+    .cta-secondary-link {
+      width: 100%;
+      justify-content: center;
+      min-height: var(--touch-target-comfortable);
+    }
+  }
+
+  @media (min-width: 480px) and (max-width: 767px) {
+    .tools-hero {
+      padding: 7rem 0 3rem;
+    }
+
+    .tools-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .cta-primary,
+    .cta-secondary-link {
+      min-height: var(--touch-target-comfortable);
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .tools-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-cursor {
+      animation: none;
+      opacity: 1;
+    }
+
+    .cta-primary,
+    .cta-secondary-link {
+      transition: none;
+    }
+
+    .cta-primary:hover {
+      transform: none;
+    }
+  }
+
+  /* Override header styles for dark page */
+  :global(.tools-page .site-header) {
+    background: rgba(13, 17, 23, 0.95);
+    border-bottom-color: var(--color-terminal-border);
+  }
+
+  :global(.tools-page .brand-text) {
+    color: var(--color-terminal-text);
+  }
+
+  :global(.tools-page .brand-subtitle) {
+    color: var(--color-terminal-text-muted);
+  }
+
+  :global(.tools-page .nav-link) {
+    color: var(--color-terminal-text-muted);
+  }
+
+  :global(.tools-page .nav-link:hover),
+  :global(.tools-page .nav-link--active) {
+    color: var(--color-terminal-text);
+  }
+
+  /* Footer on dark page */
+  :global(.tools-page .site-footer) {
+    background: var(--color-background);
+  }
+</style>
+
+<script>
+  // Add tools-page class to body for global style overrides
+  document.body.classList.add('tools-page');
+</script>

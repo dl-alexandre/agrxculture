@@ -21,7 +21,7 @@ const services = maxServices ? (servicesData || []).slice(0, maxServices) : (ser
 <section class="services-section" id="services">
   {showHeader && (
     <div class="container">
-      <header class="services-header">
+      <header class="services-header reveal">
         <h2>Agrxculture Technology Services</h2>
         <p>Specialized solutions for modern farming operations, from IoT integration to mobile applications</p>
       </header>
@@ -29,9 +29,9 @@ const services = maxServices ? (servicesData || []).slice(0, maxServices) : (ser
   )}
   
   <div class="container">
-    <div class="services-grid">
+    <div class="services-grid reveal-stagger">
       {services && services.map((service) => (
-        <article class="service-card" data-service-id={service.id}>
+        <article class="service-card reveal" data-service-id={service.id}>
           <div class="service-icon">
             <svg class={`icon icon-${service.icon}`} aria-hidden="true">
               <use href={`#icon-${service.icon}`}></use>
@@ -160,6 +160,7 @@ const services = maxServices ? (servicesData || []).slice(0, maxServices) : (ser
   }
   
   .services-header h2 {
+    font-family: var(--font-family-display);
     font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
@@ -226,6 +227,7 @@ const services = maxServices ? (servicesData || []).slice(0, maxServices) : (ser
   }
   
   .service-title {
+    font-family: var(--font-family-display);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);

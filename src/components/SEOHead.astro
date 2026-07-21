@@ -9,7 +9,7 @@
 import { generatePageSEO, type SEOConfig } from '../utils/seo.ts';
 
 export interface Props extends Partial<SEOConfig> {
-  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
+  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact' | 'tools';
   structuredData?: object[];
   breadcrumbs?: Array<{ name: string; url: string }>;
 }

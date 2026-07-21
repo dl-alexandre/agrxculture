@@ -8,7 +8,7 @@
 body {
   margin: 0;
   font-family:
-    'Inter',
+    'DM Sans',
     -apple-system,
     BlinkMacSystemFont,
     'Segoe UI',
@@ -24,7 +24,7 @@ body {
   position: absolute;
   top: -40px;
   left: 6px;
-  background: #2e7d32;
+  background: #1a5c2a;
   color: white;
   padding: 8px;
   text-decoration: none;
@@ -160,14 +160,14 @@ body {
 .highlight-icon {
   width: 20px;
   height: 20px;
-  color: #2e7d32;
+  color: #1a5c2a;
 }
 
 .cta-button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: #2e7d32;
+  background: #1a5c2a;
   color: white;
   padding: 1rem 2rem;
   text-decoration: none;
@@ -178,7 +178,7 @@ body {
 }
 
 .cta-button:hover {
-  background: #1b5e20;
+  background: #0f3d1a;
   transform: translateY(-2px);
 }
 
@@ -196,7 +196,7 @@ body {
 
 .cta-secondary:hover {
   background: white;
-  color: #2e7d32;
+  color: #1a5c2a;
 }
 
 /* Responsive design */

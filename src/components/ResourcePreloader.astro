@@ -5,7 +5,7 @@
 import { loadProjects } from '../utils/content-loader.ts';
 
 interface Props {
-  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
+  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact' | 'tools';
   criticalImages?: string[];
   criticalFonts?: string[];
   preloadScripts?: string[];
@@ -65,6 +65,13 @@ const defaultResources = {
       withBase('/scripts/contact-form.js'),
     ],
   },
+  tools: {
+    images: [],
+    fonts: [],
+    scripts: [
+      withBase('/scripts/performance-monitor.js'),
+    ],
+  },
 };
 
 const resources = defaultResources[pageType] || defaultResources.home;
@@ -113,6 +120,9 @@ const resources = defaultResources[pageType] || defaultResources.home;
 <link rel="prefetch" href={withBase('/services/data-analytics')} />
 <link rel="prefetch" href={withBase('/services/iot-integration')} />
 <link rel="prefetch" href={withBase('/services/mobile-apps')} />
+
+<!-- Prefetch tools page -->
+<link rel="prefetch" href={withBase('/tools')} />
 
 <!-- Prefetch project pages -->
 {

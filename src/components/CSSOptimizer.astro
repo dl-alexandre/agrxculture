@@ -3,7 +3,7 @@
 // Handles non-critical CSS loading to prevent render-blocking
 
 interface Props {
-  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
+  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact' | 'tools';
   nonCriticalCSS?: string[];
 }
 
@@ -17,6 +17,7 @@ const defaultNonCriticalCSS = {
   services: [],
   showcase: [],
   contact: [],
+  tools: [],
 };
 
 const cssFiles = [

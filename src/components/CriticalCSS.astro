@@ -3,7 +3,7 @@
 // Inlines critical above-the-fold styles to prevent render-blocking
 
 interface Props {
-  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact';
+  pageType?: 'home' | 'about' | 'services' | 'showcase' | 'contact' | 'tools';
 }
 
 const { pageType = 'home' } = Astro.props;
@@ -14,27 +14,18 @@ const criticalCSS = {
     /* Critical Home Page Styles */
     body { 
       margin: 0; 
-      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #212121;
-      background-color: #fafafa;
+      background-color: #faf7f2;
       font-display: swap;
     }
     
-    /* Critical font loading optimization */
-    @font-face {
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 400;
-      font-display: swap;
-      src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
     .skip-link {
       position: absolute;
       top: -40px;
       left: 6px;
-      background: #2E7D32;
+      background: #1a5c2a;
       color: white;
       padding: 8px;
       text-decoration: none;
@@ -58,7 +49,7 @@ const criticalCSS = {
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+      background: linear-gradient(135deg, #0f3d1a 0%, #1a5c2a 50%, #6b3a1f 100%);
       color: white;
       position: relative;
       overflow: hidden;
@@ -72,7 +63,7 @@ const criticalCSS = {
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+      background: linear-gradient(135deg, #0f3d1a 0%, #1a5c2a 50%, #6b3a1f 100%);
       z-index: -1;
     }
     .hero-title {
@@ -88,7 +79,7 @@ const criticalCSS = {
     .cta-button {
       display: inline-block;
       padding: 1rem 2rem;
-      background: #FFC107;
+      background: #d4820a;
       color: #212121;
       text-decoration: none;
       border-radius: 8px;
@@ -103,16 +94,16 @@ const criticalCSS = {
     /* Critical About Page Styles */
     body { 
       margin: 0; 
-      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #212121;
-      background-color: #fafafa;
+      background-color: #faf7f2;
     }
     .skip-link {
       position: absolute;
       top: -40px;
       left: 6px;
-      background: #2E7D32;
+      background: #1a5c2a;
       color: white;
       padding: 8px;
       text-decoration: none;
@@ -132,7 +123,7 @@ const criticalCSS = {
     }
     .about-hero {
       padding: 4rem 0;
-      background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+      background: linear-gradient(135deg, #0f3d1a 0%, #1a5c2a 50%, #6b3a1f 100%);
       color: white;
       text-align: center;
     }
@@ -151,16 +142,16 @@ const criticalCSS = {
     /* Critical Services Page Styles */
     body { 
       margin: 0; 
-      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #212121;
-      background-color: #fafafa;
+      background-color: #faf7f2;
     }
     .skip-link {
       position: absolute;
       top: -40px;
       left: 6px;
-      background: #2E7D32;
+      background: #1a5c2a;
       color: white;
       padding: 8px;
       text-decoration: none;
@@ -199,16 +190,16 @@ const criticalCSS = {
     /* Critical Showcase Page Styles */
     body { 
       margin: 0; 
-      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #212121;
-      background-color: #fafafa;
+      background-color: #faf7f2;
     }
     .skip-link {
       position: absolute;
       top: -40px;
       left: 6px;
-      background: #2E7D32;
+      background: #1a5c2a;
       color: white;
       padding: 8px;
       text-decoration: none;
@@ -227,7 +218,7 @@ const criticalCSS = {
       z-index: 100;
     }
     .showcase-hero {
-      background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+      background: linear-gradient(135deg, #0f3d1a 0%, #1a5c2a 50%, #6b3a1f 100%);
       color: white;
       padding: 4rem 2rem;
       text-align: center;
@@ -259,7 +250,7 @@ const criticalCSS = {
       color: #212121;
     }
     .project-count {
-      background: #2E7D32;
+      background: #1a5c2a;
       color: white;
       padding: 0.5rem 1rem;
       border-radius: 6px;
@@ -306,16 +297,16 @@ const criticalCSS = {
     /* Critical Contact Page Styles */
     body { 
       margin: 0; 
-      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #212121;
-      background-color: #fafafa;
+      background-color: #faf7f2;
     }
     .skip-link {
       position: absolute;
       top: -40px;
       left: 6px;
-      background: #2E7D32;
+      background: #1a5c2a;
       color: white;
       padding: 8px;
       text-decoration: none;
@@ -360,7 +351,45 @@ const criticalCSS = {
     }
     .form-input:focus {
       outline: none;
-      border-color: #2E7D32;
+      border-color: #1a5c2a;
+    }
+  `,
+  tools: `
+    /* Critical Tools Page Styles */
+    body {
+      margin: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #c9d1d9;
+      background-color: #0d1117;
+    }
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #1a5c2a;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+    .skip-link:focus {
+      top: 6px;
+    }
+    .site-header {
+      background: rgba(13, 17, 23, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #30363d;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .tools-hero {
+      padding: 6rem 2rem 4rem;
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      color: #c9d1d9;
+      text-align: center;
     }
   `,
 };

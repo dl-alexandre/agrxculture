@@ -1,42 +1,54 @@
 /* Design Tokens - Agricultural Portfolio Website */
 
 :root {
-  /* Colors - Agricultural Theme */
-  --color-primary: #2e7d32; /* Agricultural Green */
-  --color-primary-light: #4caf50;
-  --color-primary-dark: #1b5e20;
+  /* Colors - Agricultural Theme (Deepened palette) */
+  --color-primary: #1a5c2a; /* Deep Forest Green */
+  --color-primary-light: #2e7d32;
+  --color-primary-dark: #0f3d1a;
 
-  --color-secondary: #8b4513; /* Earth Brown */
-  --color-secondary-light: #a0522d;
-  --color-secondary-dark: #654321;
+  --color-secondary: #6b3a1f; /* Rich Earth Brown */
+  --color-secondary-light: #8b4513;
+  --color-secondary-dark: #4a2710;
 
-  --color-accent: #ff8f00; /* Harvest Orange */
-  --color-accent-light: #ffb74d;
-  --color-accent-dark: #e65100;
-  --color-accent-darker: #bf360c; /* Even darker for better contrast */
+  --color-accent: #d4820a; /* Warm Amber */
+  --color-accent-light: #f0a030;
+  --color-accent-dark: #b36b00;
+  --color-accent-darker: #8a5200;
 
   /* Status Colors */
-  --color-success: #4caf50;
-  --color-error: #d32f2f;
-  --color-warning: #ff9800;
-  --color-info: #2196f3;
+  --color-success: #2e7d32;
+  --color-error: #c62828;
+  --color-warning: #e65100;
+  --color-info: #1565c0;
 
-  /* Neutral Colors */
-  --color-background: #fafafa;
-  --color-background-subtle: #f0f0f0;
+  /* Neutral Colors (Warm palette) */
+  --color-background: #faf7f2; /* Warm parchment */
+  --color-background-subtle: #f0ebe3;
   --color-surface: #ffffff;
-  --color-surface-variant: #f5f5f5;
+  --color-surface-variant: #f5f1eb;
 
-  --color-text-primary: #212121;
-  --color-text-secondary: #424242;
-  --color-text-disabled: #bdbdbd;
+  --color-text-primary: #1a1a18;
+  --color-text-secondary: #4a4640;
+  --color-text-disabled: #b0a99f;
   --color-text-on-primary: #ffffff;
   --color-text-on-secondary: #ffffff;
 
   /* Border Colors */
-  --color-border: #e0e0e0;
+  --color-border: #d9d3c7;
   --color-border-focus: var(--color-primary);
   --color-border-error: var(--color-error);
+
+  /* Terminal Palette (for CLI tools section) */
+  --color-terminal-bg: #0d1117;
+  --color-terminal-surface: #161b22;
+  --color-terminal-border: #30363d;
+  --color-terminal-text: #c9d1d9;
+  --color-terminal-text-muted: #8b949e;
+  --color-terminal-green: #3fb950;
+  --color-terminal-blue: #58a6ff;
+  --color-terminal-amber: #d29922;
+  --color-terminal-red: #f85149;
+  --color-terminal-purple: #bc8cff;
 
   /* Breakpoints - Task 8 Responsive Design */
   --breakpoint-xs: 480px; /* Low-end mobile devices common in rural areas */
@@ -63,8 +75,10 @@
   --space-4xl: 6rem; /* 96px */
 
   /* Typography Scale */
+  --font-family-display:
+    'Fraunces', Georgia, 'Times New Roman', serif;
   --font-family-primary:
-    'Inter', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     sans-serif;
   --font-family-mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
 
@@ -78,9 +92,12 @@
   --font-size-3xl: 1.875rem; /* 30px */
   --font-size-4xl: 2.25rem; /* 36px */
   --font-size-5xl: 3rem; /* 48px */
+  --font-size-6xl: 3.75rem; /* 60px */
+  --font-size-7xl: 4.5rem; /* 72px */
 
   /* Line Heights */
   --line-height-tight: 1.25;
+  --line-height-snug: 1.15;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
 
@@ -117,6 +134,17 @@
   --transition-fast: 0.15s ease-out;
   --transition-normal: 0.3s ease-out;
   --transition-slow: 0.5s ease-out;
+
+  /* Motion Tokens */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-expo-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+  --motion-duration-enter: 0.5s;
+  --motion-duration-exit: 0.3s;
+  --motion-stagger-delay: 0.08s;
+
+  /* Texture Token - Grain overlay as data URI */
+  --texture-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
 
   /* Z-Index Scale */
   --z-dropdown: 1000;
@@ -196,6 +224,9 @@
     --transition-fast: 0s;
     --transition-normal: 0s;
     --transition-slow: 0s;
+    --motion-duration-enter: 0s;
+    --motion-duration-exit: 0s;
+    --motion-stagger-delay: 0s;
   }
 }
 
