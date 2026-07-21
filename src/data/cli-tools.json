@@ -1,0 +1,71 @@
+[
+  {
+    "id": "cimis-cli",
+    "name": "CIMIS CLI",
+    "tagline": "California weather station data at your fingertips",
+    "description": "A Go command-line tool for querying the California Irrigation Management Information System (CIMIS). Retrieve real-time and historical weather station data for agricultural planning, irrigation scheduling, and climate analysis across California's diverse agricultural regions.",
+    "commands": [
+      "cimis stations --active",
+      "cimis query --station 80 --start 2024-01-01",
+      "cimis data --type daily --items ETo,Precip",
+      "cimis export --format csv"
+    ],
+    "tech": ["Go", "REST API", "JSON", "CSV"],
+    "features": [
+      "Query 200+ CIMIS weather stations",
+      "Daily and hourly data retrieval",
+      "Multiple export formats (JSON, CSV)",
+      "Configurable date ranges and data items",
+      "Offline station metadata caching"
+    ],
+    "github": "https://github.com/dl-alexandre/cimis-cli",
+    "sampleCommand": "$ cimis query --station 80 --items ETo,Precip --days 7",
+    "sampleOutput": "Station: Fresno State (80)\nDate        | ETo (in) | Precip (in)\n2024-12-01  | 0.04     | 0.00\n2024-12-02  | 0.05     | 0.12\n2024-12-03  | 0.03     | 0.45\n--- 7 records retrieved ---"
+  },
+  {
+    "id": "gdrive-cli",
+    "name": "Google Drive CLI",
+    "tagline": "Manage Drive files without leaving the terminal",
+    "description": "A Go CLI tool for managing Google Drive files and folders directly from the terminal. Upload, download, search, and organize files with OAuth2 authentication. Designed for developers and power users who prefer command-line workflows for file management and automation scripts.",
+    "commands": [
+      "gdrive list --query 'type:spreadsheet'",
+      "gdrive upload ./data/harvest-report.csv",
+      "gdrive download --id abc123 --output ./",
+      "gdrive share --email team@farm.com --role writer"
+    ],
+    "tech": ["Go", "Google API", "OAuth2", "gRPC"],
+    "features": [
+      "Full CRUD operations on files and folders",
+      "OAuth2 authentication flow",
+      "Batch upload and download",
+      "Search with Google Drive query syntax",
+      "Permission and sharing management"
+    ],
+    "github": "https://github.com/dl-alexandre/gdrive-cli",
+    "sampleCommand": "$ gdrive list --query 'modifiedTime > 2024-01-01' --limit 5",
+    "sampleOutput": "ID              | Name                  | Type   | Modified\nabc123def456    | Q4-Yield-Report.xlsx  | sheet  | 2024-12-15\nghi789jkl012    | Sensor-Data-Dec.csv   | file   | 2024-12-14\nmno345pqr678    | Field-Maps/            | folder | 2024-12-10\n--- 3 of 42 results ---"
+  },
+  {
+    "id": "gplay-cli",
+    "name": "Google Play Developer CLI",
+    "tagline": "Streamline your Android app publishing workflow",
+    "description": "A Go CLI tool for interacting with the Google Play Developer API. Manage app listings, track reviews, upload builds, and monitor app performance metrics. Built for mobile developers who want to automate their Android app publishing and monitoring workflows.",
+    "commands": [
+      "gplay apps list",
+      "gplay reviews --app com.farm.monitor --days 30",
+      "gplay upload --track internal --aab ./app.aab",
+      "gplay stats --metric installs --period monthly"
+    ],
+    "tech": ["Go", "Google Play API", "OAuth2", "Protobuf"],
+    "features": [
+      "App listing management and updates",
+      "Review monitoring and response",
+      "APK/AAB upload to release tracks",
+      "Install and crash statistics",
+      "Automated release promotion"
+    ],
+    "github": "https://github.com/dl-alexandre/gplay-cli",
+    "sampleCommand": "$ gplay reviews --app com.farm.monitor --rating 4-5 --days 7",
+    "sampleOutput": "App: Farm Monitor (com.farm.monitor)\n★★★★★ \"Perfect for tracking soil moisture!\"\n  - User: CentralValleyFarmer | Dec 14, 2024\n★★★★☆ \"Great app, needs offline mode\"\n  - User: OrchardManager42 | Dec 12, 2024\n--- 8 reviews (avg: 4.6★) ---"
+  }
+]
